@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Git分支管理策略方案分析与总结</title>
+      <link href="2020/11/22/git-branch-manage-summary/"/>
+      <url>2020/11/22/git-branch-manage-summary/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着Git的流行，越来越多的团队在往Git迁移或者转型，在团队建设初期或者中期转型优化，合适的Git分支管理策略方案能够较好的提高团队的效率，节约人员成本，降低代码版本管理带来的风险。笔者曾经历过因为分支管理策略不合适、人员操作不规范引发的代码版本混乱、线上版本与生产版本不一致等问题。本文旨在对几种Git分支管理策略进行梳理总结，对适用场景做探讨分析。同时非常渴望各位提出指正问题，共同沟通探讨更适用的解决方案。</p><h2 id="内容概要"><a href="#内容概要" class="headerlink" title="内容概要"></a>内容概要</h2><p>本文将通过对Git Flow、GitHub Flow、GitLab Flow三种流行的工作流程模型进行分析，总结各模型的优缺点与适用场景</p><h2 id="Git-Flow"><a href="#Git-Flow" class="headerlink" title="Git Flow"></a>Git Flow</h2><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3d29949272d429c9bf2625cb8d55903~tplv-k3u1fbpfcp-watermark.image" alt="img"></p><h3 id="流程分析"><a href="#流程分析" class="headerlink" title="流程分析"></a>流程分析</h3><p>Git Flow模型声明了以下5个分支：</p><ul><li>Master<br> 与生产保持一致，同时也是发布的分支（需要严格控制合并权限）</li><li>Develop<br> 基于Master检出的开发分支，保持最新开发进度的稳定分支（需要控制合并权限）</li><li>Feature Branch<br> 基于Develop检出特性分支，用于功能开发的分支，完成功能开发后合并到Develop分支</li><li>Release Branch<br> 基于Develop分支检出的预发布分支，用与预发布测试，测试完成后合并到Develop，合并到Master发布，合并时需要标记版本Tag，用于区分历史版本，合并完成后删除</li><li>Hotfix Branch<br> 基于Master检出的热点分支，用于修复生产bug，修复完成后合并到Develop，合并到Master发布，标记版本Tag</li></ul><h3 id="开发流程简述"><a href="#开发流程简述" class="headerlink" title="开发流程简述"></a>开发流程简述</h3><p>单个需求开发：</p><ol><li>默认存在Master，Develop分支，在工程初始化阶段基于Master检出Develop（前置工作）</li><li>此时开发人员收到需求需要开发A功能，从Develop检出Feature—A用于A功能的开发</li><li>A功能开发完成，将Feature—A分支合并到Develop分支，并进行初步的测试</li><li>从Develop检出Release-A分支用于测试，用于回归测试，并且修复bug</li><li>将测试好的Release-A分支合并Develop，合并到Master发布，并打上版本标签</li><li>当生产出现bug时，从master检出Hotfix-fixbug分支修复bug，修复后合并到Develop，合并到Master发布，并打上版本标签</li></ol><p>多个需求并行开发：<br> 与单个需求开发的步骤基本一致，但要在合适的时间将Develop再合并到特性分支，避免多个版本交叉影响的风险（比如A功能的修改，对B功能的修改也有影响，此时应在A合并Develop后，主动将Develop合并到Feature—A，如果有问题，提早暴露解决）</p><h3 id="特殊场景分析"><a href="#特殊场景分析" class="headerlink" title="特殊场景分析"></a>特殊场景分析</h3><p>场景1：计划功能A与功能B在某个时间点要同时上线，并且已经合并Feature—A、Feature—B到了Develop，将要检出Release分支进行测试，但此时收到通知，只上功能A不上功能B，此时Develop却包含了Feature—B的代码<br> 解决方案：回滚Develop到上一版本，重新合并Feature—A到Develop</p><h3 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h3><p>优点:</p><ul><li>功能分支独立，互不干扰，可以独立开发、测试</li><li>当Feature分支较长的时候，可以避免提前进Release</li><li>具备多个版本发布的能力</li></ul><p>缺点:</p><ul><li>模型相对复杂,维护了Master，Develop两个基准分支,当回归或者生产出现bug时，合并Master的同时合并回Develop，对开发人员要求较高,开发人员容易搞错导致Develop分支跟Master不一致</li><li>并行的feature分支太多时，代码冲突的可能性增加</li><li>当多个需求并行开发，如上特殊场景1情况，会造成分支污染</li></ul><h2 id="GitHub-Flow"><a href="#GitHub-Flow" class="headerlink" title="GitHub Flow"></a>GitHub Flow</h2><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d31b628131f249c2b593b46f4d5f86c7~tplv-k3u1fbpfcp-watermark.image" alt="img"></p><h3 id="开发流程简述-1"><a href="#开发流程简述-1" class="headerlink" title="开发流程简述"></a>开发流程简述</h3><ol><li>默认存在master分支，与生产保持一致（GitHub Flow模型默认分支的更新与产品的发布是一致）</li><li>开发需求A，基于master检出分支A</li><li>A需求开发完成，提交合并到master的合并请求</li><li>评审合并代码，处理合并请求（未处理前还可以持续提交）</li><li>发布master 多个需求并行开发： 也与单个需求的开发一致，只是需要在master解决冲突，有可能多个需求分支合并到master后需要进行回归测试</li></ol><h3 id="特殊场景分析-1"><a href="#特殊场景分析-1" class="headerlink" title="特殊场景分析"></a>特殊场景分析</h3><p>场景2：当A分支开发完成后，合并到master，但此时由于各种原因未能发布到生产，此时会导致生产环境与master的代码不一致<br> 解决方案：从master创建一个product分支，只有在master代码发布成功后才合并product 场景3：在多个需求并行开发的场景下，需要并行去测试这些功能分支，假设我以功能分支作为测试分支提供给测试团队，那可能需要具备多套测试环境，假设以master作为测试分支，会受到其他合并到master分支的污染</p><p>解决方案：控制质量，提高master准入标准</p><h3 id="优缺点分析-1"><a href="#优缺点分析-1" class="headerlink" title="优缺点分析"></a>优缺点分析</h3><p>优点：操作简单，可以持续发布</p><p>缺点：对于测试来说不那么友好</p><h2 id="GitLab-Flow"><a href="#GitLab-Flow" class="headerlink" title="GitLab Flow"></a>GitLab Flow</h2><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7691aeb52524ae282bb2e0eb1650d01~tplv-k3u1fbpfcp-watermark.image" alt="img"> 图1 ![img](data:image/svg+xml;utf8,<!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) 图2</p><h3 id="开发流程简述-2"><a href="#开发流程简述-2" class="headerlink" title="开发流程简述"></a>开发流程简述</h3><ol><li>GitLab Flow 开发分支是预发分支的”上游”，预发分支又是生产分支的”上游”。代码的变化，必须由”上游”向”下游”发展，如上面第一张图，最上游的MASTER作为开发分支，只有在开发分支完成，达到提交下一阶段的准入条件才能合并到PRE-PRODUCTION</li><li>项目持续发布，假设某一个迭代版本开始，从生产分支检出Dev分支，后续从上游DEV经过测试验收达到准入要求后向下游SIT、UAT、PRE-PRODUCTION合并，最后发布，合并到PRODUCTION</li><li>项目版本发布，如上图2，从master检出版本分支，并更新小版本后，持续维护这些版本分支。</li></ol><h3 id="特殊场景分析-2"><a href="#特殊场景分析-2" class="headerlink" title="特殊场景分析"></a>特殊场景分析</h3><p>场景4 :假设某功能分支流转到中间节点比如说UAT，但此时某些需求代码临时决定不上了，可能会污染UAT的代码</p><p>解决方案：回滚此代码，尽量保持中游分支的整洁</p><h3 id="优缺点分析-2"><a href="#优缺点分析-2" class="headerlink" title="优缺点分析"></a>优缺点分析</h3><p>优点：</p><ul><li>方案同时兼顾了“版本发布”、“持续发布”</li><li>能够对各环境版本有较好的区分，对测试团队支持较好 缺点：存在中游分支被污染的风险</li></ul><h2 id="基于GitLab-Flow的研发工作流程图解"><a href="#基于GitLab-Flow的研发工作流程图解" class="headerlink" title="基于GitLab Flow的研发工作流程图解"></a>基于GitLab Flow的研发工作流程图解</h2><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/25a397b79a4c4f02bf878bdd5b65c652~tplv-k3u1fbpfcp-watermark.image" alt="img"></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Git分支管理策略方案，要根据团队特性尽量选择复杂度低的方案，例如：在并行需求较少，不需要基于版本发布的团队，可以选择GitHub FLow模型；对测试环境要求较强可以选择GitLab Flow模型；在大型团队，开发人员技术水平较高，控制非常严格的情况下，可以参考Git FLow。在方案确定的过程中，不要只是套用模型，而是在模型的基础上，根据团队特性制定更简单、高效、风险系数低的方案。 本文分析与总结了三种Git分支管理策略，希望对大家在选择与指定版本管理方案时有所启发。</p><p>作者：sleeper<br>链接：<a href="https://juejin.cn/post/6897071017919774728">https://juejin.cn/post/6897071017919774728</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> develop </category>
+          
+          <category> tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>git-stash</title>
       <link href="2020/11/22/git-stash/"/>
       <url>2020/11/22/git-stash/</url>
