@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Git分支管理策略方案分析与总结, Cheney 学习日志">
+    <meta name="keywords" content="使用VS Code的REST客户端插件即可进行API调用, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Git分支管理策略方案分析与总结 | Cheney 学习日志</title>
+    <title>使用VS Code的REST客户端插件即可进行API调用 | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Git分支管理策略方案分析与总结</h1>
+                    <h1 class="description center-align post-title">使用VS Code的REST客户端插件即可进行API调用</h1>
                 </div>
             </div>
         </div>
@@ -370,8 +370,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/git/">
-                                <span class="chip bg-color">git</span>
+                            <a href="/tags/restfull/">
+                                <span class="chip bg-color">restfull</span>
                             </a>
                         
                     </div>
@@ -415,68 +415,71 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着Git的流行，越来越多的团队在往Git迁移或者转型，在团队建设初期或者中期转型优化，合适的Git分支管理策略方案能够较好的提高团队的效率，节约人员成本，降低代码版本管理带来的风险。笔者曾经历过因为分支管理策略不合适、人员操作不规范引发的代码版本混乱、线上版本与生产版本不一致等问题。本文旨在对几种Git分支管理策略进行梳理总结，对适用场景做探讨分析。同时非常渴望各位提出指正问题，共同沟通探讨更适用的解决方案。</p>
-<h2 id="内容概要"><a href="#内容概要" class="headerlink" title="内容概要"></a>内容概要</h2><p>本文将通过对Git Flow、GitHub Flow、GitLab Flow三种流行的工作流程模型进行分析，总结各模型的优缺点与适用场景</p>
-<h2 id="Git-Flow"><a href="#Git-Flow" class="headerlink" title="Git Flow"></a>Git Flow</h2><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3d29949272d429c9bf2625cb8d55903~tplv-k3u1fbpfcp-watermark.image" alt="img"></p>
-<h3 id="流程分析"><a href="#流程分析" class="headerlink" title="流程分析"></a>流程分析</h3><p>Git Flow模型声明了以下5个分支：</p>
-<ul>
-<li>Master<br> 与生产保持一致，同时也是发布的分支（需要严格控制合并权限）</li>
-<li>Develop<br> 基于Master检出的开发分支，保持最新开发进度的稳定分支（需要控制合并权限）</li>
-<li>Feature Branch<br> 基于Develop检出特性分支，用于功能开发的分支，完成功能开发后合并到Develop分支</li>
-<li>Release Branch<br> 基于Develop分支检出的预发布分支，用与预发布测试，测试完成后合并到Develop，合并到Master发布，合并时需要标记版本Tag，用于区分历史版本，合并完成后删除</li>
-<li>Hotfix Branch<br> 基于Master检出的热点分支，用于修复生产bug，修复完成后合并到Develop，合并到Master发布，标记版本Tag</li>
-</ul>
-<h3 id="开发流程简述"><a href="#开发流程简述" class="headerlink" title="开发流程简述"></a>开发流程简述</h3><p>单个需求开发：</p>
-<ol>
-<li>默认存在Master，Develop分支，在工程初始化阶段基于Master检出Develop（前置工作）</li>
-<li>此时开发人员收到需求需要开发A功能，从Develop检出Feature—A用于A功能的开发</li>
-<li>A功能开发完成，将Feature—A分支合并到Develop分支，并进行初步的测试</li>
-<li>从Develop检出Release-A分支用于测试，用于回归测试，并且修复bug</li>
-<li>将测试好的Release-A分支合并Develop，合并到Master发布，并打上版本标签</li>
-<li>当生产出现bug时，从master检出Hotfix-fixbug分支修复bug，修复后合并到Develop，合并到Master发布，并打上版本标签</li>
-</ol>
-<p>多个需求并行开发：<br> 与单个需求开发的步骤基本一致，但要在合适的时间将Develop再合并到特性分支，避免多个版本交叉影响的风险（比如A功能的修改，对B功能的修改也有影响，此时应在A合并Develop后，主动将Develop合并到Feature—A，如果有问题，提早暴露解决）</p>
-<h3 id="特殊场景分析"><a href="#特殊场景分析" class="headerlink" title="特殊场景分析"></a>特殊场景分析</h3><p>场景1：计划功能A与功能B在某个时间点要同时上线，并且已经合并Feature—A、Feature—B到了Develop，将要检出Release分支进行测试，但此时收到通知，只上功能A不上功能B，此时Develop却包含了Feature—B的代码<br> 解决方案：回滚Develop到上一版本，重新合并Feature—A到Develop</p>
-<h3 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h3><p>优点:</p>
-<ul>
-<li>功能分支独立，互不干扰，可以独立开发、测试</li>
-<li>当Feature分支较长的时候，可以避免提前进Release</li>
-<li>具备多个版本发布的能力</li>
-</ul>
-<p>缺点:</p>
-<ul>
-<li>模型相对复杂,维护了Master，Develop两个基准分支,当回归或者生产出现bug时，合并Master的同时合并回Develop，对开发人员要求较高,开发人员容易搞错导致Develop分支跟Master不一致</li>
-<li>并行的feature分支太多时，代码冲突的可能性增加</li>
-<li>当多个需求并行开发，如上特殊场景1情况，会造成分支污染</li>
-</ul>
-<h2 id="GitHub-Flow"><a href="#GitHub-Flow" class="headerlink" title="GitHub Flow"></a>GitHub Flow</h2><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d31b628131f249c2b593b46f4d5f86c7~tplv-k3u1fbpfcp-watermark.image" alt="img"></p>
-<h3 id="开发流程简述-1"><a href="#开发流程简述-1" class="headerlink" title="开发流程简述"></a>开发流程简述</h3><ol>
-<li>默认存在master分支，与生产保持一致（GitHub Flow模型默认分支的更新与产品的发布是一致）</li>
-<li>开发需求A，基于master检出分支A</li>
-<li>A需求开发完成，提交合并到master的合并请求</li>
-<li>评审合并代码，处理合并请求（未处理前还可以持续提交）</li>
-<li>发布master 多个需求并行开发： 也与单个需求的开发一致，只是需要在master解决冲突，有可能多个需求分支合并到master后需要进行回归测试</li>
-</ol>
-<h3 id="特殊场景分析-1"><a href="#特殊场景分析-1" class="headerlink" title="特殊场景分析"></a>特殊场景分析</h3><p>场景2：当A分支开发完成后，合并到master，但此时由于各种原因未能发布到生产，此时会导致生产环境与master的代码不一致<br> 解决方案：从master创建一个product分支，只有在master代码发布成功后才合并product 场景3：在多个需求并行开发的场景下，需要并行去测试这些功能分支，假设我以功能分支作为测试分支提供给测试团队，那可能需要具备多套测试环境，假设以master作为测试分支，会受到其他合并到master分支的污染</p>
-<p>解决方案：控制质量，提高master准入标准</p>
-<h3 id="优缺点分析-1"><a href="#优缺点分析-1" class="headerlink" title="优缺点分析"></a>优缺点分析</h3><p>优点：操作简单，可以持续发布</p>
-<p>缺点：对于测试来说不那么友好</p>
-<h2 id="GitLab-Flow"><a href="#GitLab-Flow" class="headerlink" title="GitLab Flow"></a>GitLab Flow</h2><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7691aeb52524ae282bb2e0eb1650d01~tplv-k3u1fbpfcp-watermark.image" alt="img"> 图1 ![img](data:image/svg+xml;utf8,<!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) 图2</p>
-<h3 id="开发流程简述-2"><a href="#开发流程简述-2" class="headerlink" title="开发流程简述"></a>开发流程简述</h3><ol>
-<li>GitLab Flow 开发分支是预发分支的”上游”，预发分支又是生产分支的”上游”。代码的变化，必须由”上游”向”下游”发展，如上面第一张图，最上游的MASTER作为开发分支，只有在开发分支完成，达到提交下一阶段的准入条件才能合并到PRE-PRODUCTION</li>
-<li>项目持续发布，假设某一个迭代版本开始，从生产分支检出Dev分支，后续从上游DEV经过测试验收达到准入要求后向下游SIT、UAT、PRE-PRODUCTION合并，最后发布，合并到PRODUCTION</li>
-<li>项目版本发布，如上图2，从master检出版本分支，并更新小版本后，持续维护这些版本分支。</li>
-</ol>
-<h3 id="特殊场景分析-2"><a href="#特殊场景分析-2" class="headerlink" title="特殊场景分析"></a>特殊场景分析</h3><p>场景4 :假设某功能分支流转到中间节点比如说UAT，但此时某些需求代码临时决定不上了，可能会污染UAT的代码</p>
-<p>解决方案：回滚此代码，尽量保持中游分支的整洁</p>
-<h3 id="优缺点分析-2"><a href="#优缺点分析-2" class="headerlink" title="优缺点分析"></a>优缺点分析</h3><p>优点：</p>
-<ul>
-<li>方案同时兼顾了“版本发布”、“持续发布”</li>
-<li>能够对各环境版本有较好的区分，对测试团队支持较好 缺点：存在中游分支被污染的风险</li>
-</ul>
-<h2 id="基于GitLab-Flow的研发工作流程图解"><a href="#基于GitLab-Flow的研发工作流程图解" class="headerlink" title="基于GitLab Flow的研发工作流程图解"></a>基于GitLab Flow的研发工作流程图解</h2><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/25a397b79a4c4f02bf878bdd5b65c652~tplv-k3u1fbpfcp-watermark.image" alt="img"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Git分支管理策略方案，要根据团队特性尽量选择复杂度低的方案，例如：在并行需求较少，不需要基于版本发布的团队，可以选择GitHub FLow模型；对测试环境要求较强可以选择GitLab Flow模型；在大型团队，开发人员技术水平较高，控制非常严格的情况下，可以参考Git FLow。在方案确定的过程中，不要只是套用模型，而是在模型的基础上，根据团队特性制定更简单、高效、风险系数低的方案。 本文分析与总结了三种Git分支管理策略，希望对大家在选择与指定版本管理方案时有所启发。</p>
-<p>作者：sleeper<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6897071017919774728">https://juejin.cn/post/6897071017919774728</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+                <p><strong>为什么要离开IDE去测试新的API？现在你不必这样做了。</strong></p>
+<h2 id="我们如何获取数据"><a href="#我们如何获取数据" class="headerlink" title="我们如何获取数据"></a>我们如何获取数据</h2><p>如果你已经做了很长时间的Web开发，你可能知道我们的很多工作都是围绕着数据展开的：读取数据、写入数据、操作数据，并以合理的方式在浏览器中显示出来。</p>
+<p>而这些数据绝大部分都是由REST API端点提供的，通俗地说：我们想要的数据存在于其他服务或数据库中，我们的应用程序查询该服务来检索数据，并根据自己的需要使用数据。</p>
+<p>在过去，为了在连接UI以接受数据之前测试REST API，通常必须通过终端的命令行查询API，或者使用像Insomnia或Postman这样的GUI(我在之前的博客中对它们进行了比较)。</p>
+<p>但现在，如果你使用VS Code（为什么不呢，用它写代码多好啊！），生活就变得简单了。我们不再需要退出IDE来测试API，因为现在已经有一个插件可以做到这一点：<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client">REST Client</a>。</p>
+<p>使用REST Client是非常简单的，我将向您展示这个插件是多么简单，而且功能齐全。</p>
+<h2 id="认识VS-Code-REST-Client插件"><a href="#认识VS-Code-REST-Client插件" class="headerlink" title="认识VS Code REST Client插件"></a>认识VS Code REST Client插件</h2><p>我是VS Code这个代码编辑器的粉丝，已经有好几年了，每次得知有人创建了一个新的有用的插件并添加到VS Code市场，我都会无比感激。</p>
+<p>所以当我决定每次需要测试一个新的API路由时，都要启动Postman或Insomnia是一件很痛苦的事情，我发现了REST Client 这个插件，可以让这一切变得不必要。</p>
+<p>REST Client是迄今存在的工具的最明显名称，其VS Code市场描述准确地概括了其功能：“REST Client允许您发送HTTP请求并直接在Visual Studio Code中查看响应。”</p>
+<p>就这么简单。然后，它会提供大量的详细信息以及使用方法的示例，但实际上，它是VS Code中内置的HTTP工具。因此，让我们开始使用它。</p>
+<h3 id="安装REST-Client"><a href="#安装REST-Client" class="headerlink" title="安装REST Client"></a>安装REST Client</h3><p>要找到它，打开VS Code中的市场扩展（左侧面板上的俄罗斯方块小图标），在搜索栏中输入 “rest client”，然后安装列表中的第一个结果（作者应该是Huachao Mao）。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4b33d9065a224205a79e67822e49de5e~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<p>安装完成后，我们可以继续进行设置。</p>
+<h3 id="设置REST-Client脚本"><a href="#设置REST-Client脚本" class="headerlink" title="设置REST Client脚本"></a>设置REST Client脚本</h3><p>只需在项目的根目录下创建一个以 <code>.http</code> 结尾的文件，REST Client可以识别出这一点，并且知道它应该能够运行来自该文件的HTTP请求。</p>
+<p>在测试的时候，我把几年前做的一个docker化的全栈MERN登录应用，把一个我命名为 <code>test.http</code> 的文件丢到项目文件夹的根目录。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b88b62e037544f29bbdb0c17ac74fae3~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<h2 id="测试一下：基本操作"><a href="#测试一下：基本操作" class="headerlink" title="测试一下：基本操作"></a>测试一下：基本操作</h2><p>这是很酷的部分：在我的经验中，这个小小的REST Client插件能够做的事情和Postman等更复杂的API客户端一样多。</p>
+<p>下面，我将向你展示如何进行每一种类型的基本CRUD操作，再加上如何像JWT令牌一样进行需要认证的API调用，使用我在本地运行的MERN用户注册应用来指向调用。</p>
+<h3 id="POST示例"><a href="#POST示例" class="headerlink" title="POST示例"></a>POST示例</h3><p>我将介绍的第一个示例是REST Client的 <code>POST</code>，因为用户在我的应用程序中必须先注册才能进行其他任何操作（毕竟，这只是一个登录服务）。</p>
+<p>因此，该代码将在 <code>test.http</code> 文件中显示。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b5b2eb13d003451aa4e8a0031d636898~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<p>好的，让我们回顾一下上面的代码片段中发生的事情。</p>
+<p>REST Client为了正常工作所需要的第一件事是发出请求的类型及其尝试访问的路由的完整URL路径。在这种情况下，请求是POST，URL是 <code>http://localhost:3003/registerUser</code>。第一行末尾的 <code>HTTP/1.1</code> 与RFC 2616建立的标准有关，但是我不确定是否有必要，因此我将其保留只是为了安全。</p>
+<p>然后，因为这是一个 <code>POST</code>，所以在请求中要包含一个JSON体，注意 <code>Content-Type</code> 和 <code>body</code> 之间有一行空行——这是REST Client有意要求的。所以，我们把所需的字段填好，然后，在 <code>POST</code> 上面应该会出现一个小小的 <code>send Request</code> 选项。把鼠标放在上面，然后点击，看看会有什么结果。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/38251f08b2c64f608da4a69a6547042e~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<p>您最后要注意的是 <code>test.http</code> 文件中请求后的 <code>###</code> ，这是请求之间的分隔符，只要在每个请求之间插入 <code>###</code> 就可以在文件中包含任意数量的请求。</p>
+<p>如果请求成功，您将看到与我上面发布的内容类似的内容。即使请求不成功，你仍然会得到所有这些关于刚才发生的信息，以及（希望）出了什么问题。爽啊</p>
+<h3 id="GET示例"><a href="#GET示例" class="headerlink" title="GET示例"></a>GET示例</h3><p>现在已经创建了一个用户，比方说我们忘记了他们的密码，他们发了一封邮件来找回密码。电子邮件中包含令牌和链接，该链接会将他们带到页面以重置密码。</p>
+<p>一旦他们点击了链接并登陆页面，一个 <code>GET</code> 请求就会被启动，以确保邮件中包含的用于重置密码的令牌是有效的，这就是它可能的样子。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7568ce65c5cb45c9959e27955af2d5a8~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<p>我的 <code>GET</code> 指向了 <code>/reset</code> 端点，并在服务端附加了验证所需的 <code>resetPasswordToken</code> 查询参数。<code>Content-Type</code> 仍为 <code>application/json</code>，底部的 <code>###</code> 将此请求与文件中的任何其他请求分开。</p>
+<p>如果令牌确实有效，则服务器的响应如下所示：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/96614ed1e8d2465caa6c139d2b999e48~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<p>而这就是GET请求所需要的全部内容，他们不用担心请求体的问题。</p>
+<h3 id="Update示例"><a href="#Update示例" class="headerlink" title="Update示例"></a>Update示例</h3><p>接下来是CRUD中的U：更新。假设用户想更新其个人资料信息中的某些内容。使用REST Client也不难。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1e19cfa68a234413b10b0f7dfc1e3b51~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<p>对于这个请求，请求类型更新为 <code>PUT</code>，body包括该对象上需要更新的任何字段。在我的应用程序中，用户可以更新其名字，姓氏或电子邮件。</p>
+<p>因此，在传递正文时，如果REST Client成功击中PUT端点，则这就是VS Code中的Response选项卡的样子。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1edf960fc2ea44c194070d20b1ff8d8c~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<p>到此为止，让我们继续进行身份验证示例。因为据我所知，没有保护路由的应用程序很少，需要某种认证。</p>
+<h3 id="Authentication示例"><a href="#Authentication示例" class="headerlink" title="Authentication示例"></a>Authentication示例</h3><p>REST Client支持的不同身份验证格式的广度再一次让我印象深刻。在撰写本文时，REST Client的文档说它支持六种流行的身份验证类型，包括对JWT身份验证的支持，这是我的应用程序在所有受保护的路由上都依赖的身份验证类型。</p>
+<p>因此，事不宜迟，这里是我需要验证的端点之一：在数据库中查找用户的信息。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4d7928f47cfd4977933702d1df64f77c~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<p>在REST Client请求中添加授权真的很简单：简单地在路由和 content-type 被声明的地方下面添加键 <code>Authorization</code>，然后（至少对我的情况而言）我添加JWT的键和值（因为它们出现在浏览器的本地存储中）作为 <code>Authorization</code> 头的值。</p>
+<p>这样就变成了：</p>
+<pre><code>Authorization: jwt XXXXXXXXXXXXXXXXXX
+复制代码</code></pre>
+<p>然后只需发送请求，看看会发生什么。</p>
+<p>如果您的身份验证配置正确，您将收到来自服务器的某种类型的200响应，对于我的请求，它将返回存储在数据库中的与该用户相关的所有信息，以及一个成功找到该用户的消息。</p>
+<p>这部分可能需要一些尝试和错误，但如果您能够弄清楚一个成功的请求是如何在浏览器的Dev Tools网络调用中发出的，通过现有的Swagger端点，或者通过其他类似的文档，这是非常值得的。</p>
+<h3 id="DELETE示例"><a href="#DELETE示例" class="headerlink" title="DELETE示例"></a>DELETE示例</h3><p>经过我上面提供的其他例子，这个示例应该很简单</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a0df2e36815f412eab2492cacb67458b~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<p>这个 <code>DELETE</code> 需要的查询参数是 <code>username</code>，这样它就知道到底要删除数据库中的哪个用户，而且还需要验证这个用户是否有资格提出这个请求。除此以外，这里就没有什么其他的新东西可以介绍了。</p>
+<p>![img](data:image/svg+xml;utf8,<!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)</p>
+<p>这实际上只是REST Client可以做的冰山一角。我涵盖了REST请求和一种形式的认证，但它也可以支持GraphQL请求、多种其他类型的认证、环境和自定义变量、查看和保存原始响应等等。</p>
+<p>我强烈建议您查阅文档，以了解REST Client的所有功能，它非常强大。</p>
+<blockquote>
+<p>REST Client文档：<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client">https://marketplace.visualstudio.com/items?itemName=humao.rest-client</a></p>
+</blockquote>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>数据驱动着互联网，而随着职业生涯的进一步发展，Web开发人员最终会变得非常善于访问和转换数据以满足自己的需求。</p>
+<p>以前，当获取托管在其他地方的数据时，Web开发人员经常会求助于Postman或Insomnia这样的工具，以拥有比命令行稍微好一点的界面，但现在有一个VS Code插件，它让代码编辑器之外的需求成为了过去，它叫REST Client，非常棒。</p>
+<p>CRUD操作？没问题！支持GraphQL？没问题！认证选项？没问题！REST Client提供了所有这些选项以及更多，而且设置和使用起来非常简单。我肯定会在以后的项目中更多地使用它。</p>
+<p>请过几周再回来看看——我将写更多有关JavaScript，React，ES6或其他与Web开发相关的内容。</p>
+<p>谢谢你的阅读。我希望你能考虑用REST Client来处理你未来可能需要做的任何API查询，我想你会对它能提供的愉快体验感到惊喜，不需要任何API GUI。 🙂</p>
+<p>作者：杭州程序员张张<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6897863358964629511">https://juejin.cn/post/6897863358964629511</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 
             </div>
             <hr/>
@@ -502,7 +505,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2020/11/22/git-branch-manage-summary/">https://chenguoo.github.io/2020/11/22/git-branch-manage-summary/</a>
+                    <a href="https://chenguoo.github.io/2020/11/22/restfull-request-tool-for-vscode/">https://chenguoo.github.io/2020/11/22/restfull-request-tool-for-vscode/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -540,8 +543,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/git/">
-                                    <span class="chip bg-color">git</span>
+                                <a href="/tags/restfull/">
+                                    <span class="chip bg-color">restfull</span>
                                 </a>
                             
                         </div>
@@ -583,9 +586,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/11/22/restfull-request-tool-for-vscode/">
                     <div class="card-image">
@@ -605,9 +609,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -624,6 +628,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -642,21 +647,19 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/22/git-stash/">
+                <a href="/2020/11/22/git-branch-manage-summary/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="git-stash">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Git分支管理策略方案分析与总结">
                         
-                        <span class="card-title">git-stash</span>
+                        <span class="card-title">Git分支管理策略方案分析与总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Git实用技巧：git stash我们经常会遇到这样的情况：
-
-正在dev分支开发新功能，做到一半时有人过来反馈一个bug，让马上解决，但是新功能做到了一半你又不想提交，这时就可以使用git stash命令先把当前进度保存起来。然后切换到另
+                            前言随着Git的流行，越来越多的团队在往Git迁移或者转型，在团队建设初期或者中期转型优化，合适的Git分支管理策略方案能够较好的提高团队的效率，节约人员成本，降低代码版本管理带来的风险。笔者曾经历过因为分支管理策略不合适、人员操作不规范引
                         
                     </div>
                     <div class="publish-info">
@@ -665,8 +668,16 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Cheney
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/develop/" class="post-category">
+                                    develop
+                                </a>
+                            
+                            <a href="/categories/develop/tools/" class="post-category">
+                                    tools
+                                </a>
+                            
                             
                         </span>
                     </div>
