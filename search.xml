@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>排名前 16 的 Java 工具类</title>
+      <link href="2020/11/24/java-tools-class/"/>
+      <url>2020/11/24/java-tools-class/</url>
+      
+        <content type="html"><![CDATA[<p>在Java中，实用程序类是定义一组执行通用功能的方法的类。</p><p>这篇文章展示了最常用的Java实用工具类及其最常用的方法。类列表及其方法列表均按受欢迎程度排序。数据基于从GitHub随机选择的50,000个开源Java项目。</p><p>希望您可以通过浏览列表来了解已经提供和流行的功能的一些想法，以使您知道不需要自己实现。这些方法的名称通常指示它们的作用。如果方法名称不够直观，您还可以查看其他开发人员如何在其开源项目中使用它们。</p><ol><li><code>org.apache.commons.io.IOUtils</code></li></ol><pre><code>closeQuietly()  toString()  copy()  toByteArray()  write()  toInputStream()  readLines()  copyLarge()  lineIterator()  readFully()  </code></pre><ol><li><code>org.apache.commons.io.FileUtils</code></li></ol><pre><code>deleteDirectory()  readFileToString()  deleteQuietly()  copyFile()  writeStringToFile()  forceMkdir()  write()  listFiles()  copyDirectory()  forceDelete()  </code></pre><ol><li><code>org.apache.commons.lang.StringUtils</code></li></ol><pre><code>isBlank()  isNotBlank()  isEmpty()  isNotEmpty()  equals()  join()  split()  EMPTY  trimToNull()  replace()  </code></pre><ol><li><code>org.apache.http.util.EntityUtils</code></li></ol><pre><code>toString()  consume()  toByteArray()  consumeQuietly()  getContentCharSet()  </code></pre><ol><li><code>org.apache.commons.lang3.StringUtils</code></li></ol><pre><code>isBlank()  isNotBlank()  isEmpty()  isNotEmpty()  join()  equals()  split()  EMPTY  replace()  capitalize()  </code></pre><ol><li><code>org.apache.commons.io.FilenameUtils</code></li></ol><pre><code>getExtension()  getBaseName()  getName()  concat()  removeExtension()  normalize()  wildcardMatch()  separatorsToUnix()  getFullPath()  isExtension()  </code></pre><ol><li><code>org.springframework.util.StringUtils</code></li></ol><pre><code>hasText()  hasLength()  isEmpty()  commaDelimitedListToStringArray()  collectionToDelimitedString()  replace()  delimitedListToStringArray()  uncapitalize()  collectionToCommaDelimitedString()  tokenizeToStringArray()  </code></pre><ol><li><code>org.apache.commons.lang.ArrayUtils</code></li></ol><pre><code>contains()  addAll()  clone()  isEmpty()  add()  EMPTY_BYTE_ARRAY  subarray()  indexOf()  isEquals()  toObject()  </code></pre><ol><li><code>org.apache.commons.lang.StringEscapeUtils</code></li></ol><pre><code>escapeHtml()  unescapeHtml()  escapeXml()  escapeSql()  unescapeJava()  escapeJava()  escapeJavaScript()  unescapeXml()  unescapeJavaScript()  </code></pre><ol><li><code>org.apache.http.client.utils.URLEncodedUtils</code></li></ol><pre><code>format()  parse()  </code></pre><ol><li><code>org.apache.commons.codec.digest.DigestUtils</code></li></ol><pre><code>md5Hex()  shaHex()  sha256Hex()  sha1Hex()  sha()  md5()  sha512Hex()  sha1()  </code></pre><ol><li><code>org.apache.commons.collections.CollectionUtils</code></li></ol><pre><code>isEmpty()  isNotEmpty()  select()  transform()  filter()  find()  collect()  forAllDo()  addAll()  isEqualCollection()  </code></pre><ol><li><code>org.apache.commons.lang3.ArrayUtils</code></li></ol><pre><code>contains()  isEmpty()  isNotEmpty()  add()  clone()  addAll()  subarray()  indexOf()  EMPTY_OBJECT_ARRAY  EMPTY_STRING_ARRAY  </code></pre><ol><li><code>org.apache.commons.beanutils.PropertyUtils</code></li></ol><pre><code>getProperty()  setProperty()  getPropertyDescriptors()  isReadable()  copyProperties()  getPropertyDescriptor()  getSimpleProperty()  isWriteable()  setSimpleProperty()  getPropertyType()  </code></pre><ol><li><code>org.apache.commons.lang3.StringEscapeUtils</code></li></ol><pre><code>unescapeHtml4()  escapeHtml4()  escapeXml()  unescapeXml()  escapeJava()  escapeEcmaScript()  unescapeJava()  escapeJson()  escapeXml10()  </code></pre><ol><li><code>org.apache.commons.beanutils.BeanUtils</code></li></ol><pre><code>copyProperties()  getProperty()  setProperty()  describe()  populate()  copyProperty()  cloneBean()  </code></pre><p>来源：<a href="https://www.programcreek.com/">https://www.programcreek.com/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> tools </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>IntelliJ IDEA 超实用技巧</title>
       <link href="2020/11/24/intellij-idea-skills/"/>
       <url>2020/11/24/intellij-idea-skills/</url>
