@@ -1,0 +1,1295 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="IntelliJ IDEA 超实用技巧, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>IntelliJ IDEA 超实用技巧 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">IntelliJ IDEA 超实用技巧</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/idea/">
+                                <span class="chip bg-color">idea</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/develop/" class="post-category">
+                                develop
+                            </a>
+                        
+                            <a href="/categories/develop/tools/" class="post-category">
+                                tools
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-11-24
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>工欲善其事</p>
+<p> 必先利其器</p>
+</blockquote>
+<p>最近受部门的邀请，给入职新人统一培训IDEA，发现有很多新人虽然日常开发使用的是IDEA，但是还是很多好用的技巧没有用到，只是用到一些基本的功能，蛮浪费IDEA这个优秀的IDE。 同时，在这次分享之后，本人自己也学习到了一些新的使用技巧，所以借着这次机会，一起分享出来。希望可以帮到一些人。</p>
+<blockquote>
+<p>基于的 IDEA 版本信息：IntelliJ IDEA 2018.2.2 (Ultimate Edition)</p>
+</blockquote>
+<p>知识点概览：</p>
+<ul>
+<li>高效率配置</li>
+<li>日常使用 必备快捷键（★★）<ul>
+<li>查找</li>
+<li>跳转切换</li>
+<li>编码相关</li>
+<li>代码阅读相关</li>
+<li>版本管理相关</li>
+</ul>
+</li>
+<li>编码效率相关（★★）<ul>
+<li>文件代码模板</li>
+<li>实时代码模板</li>
+<li>其他</li>
+</ul>
+</li>
+<li>代码调试 源码阅读相关（★★★）<ul>
+<li>视图模式</li>
+<li>代码调试</li>
+<li>…</li>
+</ul>
+</li>
+<li>插件方面<ul>
+<li>插件的安装与使用</li>
+<li>插件推荐</li>
+</ul>
+</li>
+<li>参考</li>
+</ul>
+<hr>
+<h4 id="2019-08-09-UPDATE"><a href="#2019-08-09-UPDATE" class="headerlink" title="2019-08-09 UPDATE"></a>2019-08-09 UPDATE</h4><p>[插件推荐]增加图片描述，增加插件内容。阅读更友好。</p>
+<hr>
+<h3 id="高效率配置"><a href="#高效率配置" class="headerlink" title="高效率配置"></a>高效率配置</h3><h4 id="1-代码提示不区分大小写"><a href="#1-代码提示不区分大小写" class="headerlink" title="1. 代码提示不区分大小写"></a>1. 代码提示不区分大小写</h4><pre><code>Settings -&gt; Editor -&gt; General -&gt; Code Completion</code></pre>
+<p><img src="/2020/11/24/intellij-idea-skills/1.jpg" alt="img"></p>
+<p>(低版本 将 Case sensitive completion 设置为 None 就可以了)</p>
+<h4 id="2-自动导包功能及相关优化功能"><a href="#2-自动导包功能及相关优化功能" class="headerlink" title="2. 自动导包功能及相关优化功能"></a>2. 自动导包功能及相关优化功能</h4><pre><code>Settings -&gt; Editor -&gt; General -&gt; Auto Import</code></pre>
+<p><img src="/2020/11/24/intellij-idea-skills/2495526922-5d47f467e4aee_articlex.jfif" alt="img"></p>
+<h4 id="3-CTRL-滑动滚轮-调整窗口显示大小"><a href="#3-CTRL-滑动滚轮-调整窗口显示大小" class="headerlink" title="3. CTRL + 滑动滚轮 调整窗口显示大小"></a>3. CTRL + 滑动滚轮 调整窗口显示大小</h4><pre><code>Settings -&gt; Editor -&gt; General -&gt; Change font size (Zoom) with Ctrl+Mouse wheel</code></pre>
+<p><img src="/2020/11/24/intellij-idea-skills/728192460-5d47f46749132_articlex.jfif" alt="img"></p>
+<p>选择之后，就可以通过CTRL+滑动滚轮的方式，调整编辑器窗口的字体大小</p>
+<h4 id="4-tab-多行显示"><a href="#4-tab-多行显示" class="headerlink" title="4. tab 多行显示"></a>4. tab 多行显示</h4><p>这点因人而异，有些人喜欢直接取消所有tab，改用快捷键的方式，我屏幕比较大，所以喜欢把tab全部显示出来。</p>
+<p><code>Window -&gt; Editor Tabs -&gt; Tabs Placement</code>，取消勾选 <code>Show Tabs In Single Row</code>选项。</p>
+<p><img src="/2020/11/24/intellij-idea-skills/3370201002-5d47f467aac8b_articlex.jfif" alt="img"></p>
+<p>效果如下：</p>
+<p><img src="/2020/11/24/intellij-idea-skills/4172153788-5d47f46522c6c_articlex.jfif" alt="img"></p>
+<h4 id="5-代码编辑区显示行号"><a href="#5-代码编辑区显示行号" class="headerlink" title="5. 代码编辑区显示行号"></a>5. 代码编辑区显示行号</h4><pre><code>Settings -&gt; Editor -&gt; General -&gt; Appearance `勾选 `Show Line Numbers</code></pre>
+<p><img src="/2020/11/24/intellij-idea-skills/3589429929-5d47f5ae548ea_articlex.jfif" alt="img"></p>
+<p><img src="/2020/11/24/intellij-idea-skills/1829319116-5d47f4654e925_articlex.jfif" alt="img"></p>
+<p>6….</p>
+<h3 id="日常使用-必备快捷键（★★）"><a href="#日常使用-必备快捷键（★★）" class="headerlink" title="日常使用 必备快捷键（★★）"></a>日常使用 必备快捷键（★★）</h3><h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl + F</td>
+<td>在当前文件进行文本查找</td>
+</tr>
+<tr>
+<td>Ctrl + R</td>
+<td>在当前文件进行文本替换</td>
+</tr>
+<tr>
+<td>Shift + Ctrl + F</td>
+<td>在项目进行文本查找</td>
+</tr>
+<tr>
+<td>Shift + Ctrl + R</td>
+<td>在项目进行文本替换</td>
+</tr>
+<tr>
+<td>Shift + Shift</td>
+<td>快速搜索</td>
+</tr>
+<tr>
+<td>Ctrl + N</td>
+<td>查找class</td>
+</tr>
+<tr>
+<td>Ctrl + Shift + N</td>
+<td>查找文件</td>
+</tr>
+<tr>
+<td>Ctrl + Shift + Alt + N</td>
+<td>查找symbol（查找某个方法名）</td>
+</tr>
+</tbody></table>
+<h4 id="跳转切换"><a href="#跳转切换" class="headerlink" title="跳转切换"></a>跳转切换</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl + E</td>
+<td>最近文件</td>
+</tr>
+<tr>
+<td>Ctrl + Tab</td>
+<td>切换文件</td>
+</tr>
+<tr>
+<td>Ctrl + Alt + ←/→</td>
+<td>跳转历史光标所在处</td>
+</tr>
+<tr>
+<td>Alt + ←/→ 方向键</td>
+<td>切换子tab</td>
+</tr>
+<tr>
+<td>Ctrl + G</td>
+<td>go to（跳转指定行号）</td>
+</tr>
+</tbody></table>
+<h4 id="编码相关"><a href="#编码相关" class="headerlink" title="编码相关"></a>编码相关</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl + W</td>
+<td>快速选中</td>
+</tr>
+<tr>
+<td>(Shift + Ctrl) + Alt + J</td>
+<td>快速选中同文本</td>
+</tr>
+<tr>
+<td>Ctrl + C/Ctrl + X/Ctrl + D</td>
+<td>快速复制或剪切</td>
+</tr>
+<tr>
+<td>多行选中 Tab / Shift + Tab</td>
+<td>tab</td>
+</tr>
+<tr>
+<td>Ctrl + Y</td>
+<td>删除整行</td>
+</tr>
+<tr>
+<td>滚轮点击变量/方法/类</td>
+<td>快速进入变量/方法/类的定义处</td>
+</tr>
+<tr>
+<td>Shift + 点击Tab</td>
+<td>快速关闭tab</td>
+</tr>
+<tr>
+<td>Ctrl + Z 、Ctrl + Shift + Z</td>
+<td>后悔药，撤销/取消撤销</td>
+</tr>
+<tr>
+<td>Ctrl + Shift + enter</td>
+<td>自动收尾，代码自动补全</td>
+</tr>
+<tr>
+<td>Alt + enter</td>
+<td>IntelliJ IDEA 根据光标所在问题，提供快速修复选择，光标放在的位置不同提示的结果也不同</td>
+</tr>
+<tr>
+<td>Alt + ↑/↓</td>
+<td>方法快速跳转</td>
+</tr>
+<tr>
+<td>F2</td>
+<td>跳转到下一个高亮错误 或 警告位置</td>
+</tr>
+<tr>
+<td>Alt + Insert</td>
+<td>代码自动生成，如生成对象的 set / get 方法，构造函数，toString() 等</td>
+</tr>
+<tr>
+<td>Ctrl + Shift + L</td>
+<td>格式化代码</td>
+</tr>
+<tr>
+<td>Shift + F6</td>
+<td>快速修改方法名、变量名、文件名、类名等</td>
+</tr>
+<tr>
+<td>Ctrl + F6</td>
+<td>快速修改方法签名</td>
+</tr>
+</tbody></table>
+<h4 id="代码阅读相关"><a href="#代码阅读相关" class="headerlink" title="代码阅读相关"></a>代码阅读相关</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl + P</td>
+<td>方法参数提示显示</td>
+</tr>
+<tr>
+<td>Ctrl + Shift + i</td>
+<td>就可以在当前类里再弹出一个窗口出来</td>
+</tr>
+<tr>
+<td>Alt + F7</td>
+<td>可以列出变量在哪些地方被使用了</td>
+</tr>
+<tr>
+<td>光标在子类接口名，Ctrl + u</td>
+<td>跳到父类接口</td>
+</tr>
+<tr>
+<td>Alt + F1 + 1， esc</td>
+<td></td>
+</tr>
+<tr>
+<td>(Shift) + Ctrl + +/-</td>
+<td>代码块折叠</td>
+</tr>
+<tr>
+<td>Ctrl + Shift + ←/→</td>
+<td>移动窗口分割线</td>
+</tr>
+<tr>
+<td>Ctrl + (Alt) + B</td>
+<td>跳转方法定义/实现</td>
+</tr>
+<tr>
+<td>Ctrl + H</td>
+<td>类的层级关系</td>
+</tr>
+<tr>
+<td>Ctrl + F12</td>
+<td>Show Members 类成员快速显示</td>
+</tr>
+</tbody></table>
+<h4 id="版本管理相关"><a href="#版本管理相关" class="headerlink" title="版本管理相关"></a>版本管理相关</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl + D</td>
+<td>Show Diff</td>
+</tr>
+<tr>
+<td>(Shift) + F7</td>
+<td>（上）下一处修改</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>更多快捷键请参考此文章</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/judasn/Int">https://github.com/judasn/Int</a>…</p>
+<p><strong>mac os</strong> 快捷键请参考本文章 <a target="_blank" rel="noopener" href="https://github.com/judasn/IntelliJ-IDEA-Tutorial/blob/master/keymap-win-mac.md">https://github.com/judasn/Int…</a></p>
+</blockquote>
+<h3 id="编码效率相关（★★）"><a href="#编码效率相关（★★）" class="headerlink" title="编码效率相关（★★）"></a>编码效率相关（★★）</h3><h4 id="文件代码模板"><a href="#文件代码模板" class="headerlink" title="文件代码模板"></a>文件代码模板</h4><pre><code>Settings -&gt; Editor -&gt; File and Code Template</code></pre>
+<p><img src="/2020/11/24/intellij-idea-skills/2754792117-5d47f4680b132_articlex.jfif" alt="img"></p>
+<p>在这里可以看到IDEA所有内置的文件代码模板，当你选择某个文件生成时，就会按照这里面的模板生成指定的代码文件。</p>
+<p>另外，你可以在这里设置文件头。</p>
+<p><img src="/2020/11/24/intellij-idea-skills/3923464073-5d47f6e6eee45_articlex.jfif" alt="img"></p>
+<p>设置之后，效果如下</p>
+<p><img src="/2020/11/24/intellij-idea-skills/2591569098-5d47f464eb1b5_articlex.jfif" alt="img"></p>
+<h4 id="实时代码模板"><a href="#实时代码模板" class="headerlink" title="实时代码模板"></a>实时代码模板</h4><p>IDEA提供了强大的实时代码模板功能，并且原生内置了很多的模板，比如，当你输入<code>sout</code>或者<code>psvm</code>，就会快速自动生成<code>System.out.println();</code>和<code>public static void main(String[] args) {}</code>的代码块。</p>
+<p><img src="/2020/11/24/intellij-idea-skills/3065273944-5d47f464d7f9e_articlex.jfif" alt="img"></p>
+<p><img src="/2020/11/24/intellij-idea-skills/546789878-5d47f464b60fa_articlex.jfif" alt="img"></p>
+<p>这些的模板可以在<code>Settings -&gt; Editor -&gt; Live Templates </code>看到。使用者可以按照自己的使用习惯来熟悉相关的代码模板。</p>
+<p><img src="/2020/11/24/intellij-idea-skills/415570660-5d47f6e371702_articlex.jfif" alt="img"></p>
+<h5 id="定制代码模板"><a href="#定制代码模板" class="headerlink" title="定制代码模板"></a>定制代码模板</h5><p>IDEA也提供自己定制实时代码模板的功能。</p>
+<ol>
+<li>创建自己的模板库</li>
+<li>创建定制的代码模板</li>
+</ol>
+<p><img src="/2020/11/24/intellij-idea-skills/4292259647-5d47f464e180c_articlex.jfif" alt="img"></p>
+<p>图中的<code>MyGroup</code>就存放着我自己定义的代码模板。</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><h5 id="CRTL-ALT-T"><a href="#CRTL-ALT-T" class="headerlink" title="CRTL+ALT+T"></a>CRTL+ALT+T</h5><p><img src="/2020/11/24/intellij-idea-skills/1460000019977280.jpg" alt="img"></p>
+<p><code>Ctrl + Alt + T</code> 提供的是代码块包裹功能 - Surround With。可以快速将选中的代码块，包裹到选择的语句块中。</p>
+<h5 id="本地历史版本"><a href="#本地历史版本" class="headerlink" title="本地历史版本"></a>本地历史版本</h5><p>IDEA 自带本地版本管理的功能，能够让你本地编写代码变得更加的安心和方便。</p>
+<p><img src="/2020/11/24/intellij-idea-skills/1460000019977281.jpg" alt="img"></p>
+<h3 id="代码调试-源码阅读相关（★★★）"><a href="#代码调试-源码阅读相关（★★★）" class="headerlink" title="代码调试 源码阅读相关（★★★）"></a>代码调试 源码阅读相关（★★★）</h3><h4 id="视图模式"><a href="#视图模式" class="headerlink" title="视图模式"></a>视图模式</h4><p><img src="/2020/11/24/intellij-idea-skills/1460000019977529.jpg" alt="img"></p>
+<p>IDEA提供两种特殊的视图模式，</p>
+<ol>
+<li>Presentation Mode - 演示模式，专门用于Code Review这种需要展示代码的场景</li>
+<li>Distraction Free Mode - 禅模式，专注于代码开发</li>
+</ol>
+<h4 id="代码调试"><a href="#代码调试" class="headerlink" title="代码调试"></a>代码调试</h4><h5 id="1-条件断点"><a href="#1-条件断点" class="headerlink" title="1. 条件断点"></a>1. 条件断点</h5><p>IDEA 可以设置指定条件的断点，增加我们调试的效率。</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5Cabc.jpg" alt="img"></p>
+<h5 id="2-强制返回"><a href="#2-强制返回" class="headerlink" title="2. 强制返回"></a>2. 强制返回</h5><p>IDEA 可以在打断点的方法栈处，强制返回你想要的方法返回值给调用方。非常灵活！</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C1460000019977282.jpg" alt="img"></p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C1460000019977283.jpg" alt="img"></p>
+<h5 id="3-模拟异常"><a href="#3-模拟异常" class="headerlink" title="3. 模拟异常"></a>3. 模拟异常</h5><p>IDEA 可以在打断点的方法栈处，强制抛出异常给调用方。这个在调试源码的时候非常有用。</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C1460000019977284.jpg" alt="img"></p>
+<h5 id="4-Evaluate-Expression"><a href="#4-Evaluate-Expression" class="headerlink" title="4. Evaluate Expression"></a>4. Evaluate Expression</h5><p>IDEA 还可以在调试代码的时候，动态修改当前方法栈中变量的值，方便我们的调试。</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C1460000019977531.jpg" alt="img"></p>
+<h3 id="插件方面"><a href="#插件方面" class="headerlink" title="插件方面"></a>插件方面</h3><h4 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h4><pre><code>File -&gt; Setting -&gt; Plugin</code></pre>
+<p>插件安装，可以直接在IDEA的插件库中实时搜索安装。<code>browse plugin repository</code></p>
+<p>对于<strong>网络不好</strong>的用户，可以登录官方插件仓库地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/idea">https://plugins.jetbrains.com…</a>，下载压缩包之后，选择<code>install from disk</code></p>
+<h4 id="插件推荐"><a href="#插件推荐" class="headerlink" title="插件推荐"></a>插件推荐</h4><p>本人日常开发中使用的插件</p>
+<h5 id="Alibaba-Java-Coding-Guidelines"><a href="#Alibaba-Java-Coding-Guidelines" class="headerlink" title="Alibaba Java Coding Guidelines"></a>Alibaba Java Coding Guidelines</h5><p>阿里Java编程规约插件</p>
+<h5 id="FindBugs"><a href="#FindBugs" class="headerlink" title="FindBugs"></a>FindBugs</h5><p>代码缺陷扫描</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5Csadfsadf.jpg" alt="img"></p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5Csadfsaf.jpg" alt="img"></p>
+<h5 id="PMD"><a href="#PMD" class="headerlink" title="PMD"></a>PMD</h5><p>代码缺陷扫描</p>
+<h5 id="InnerBuilder"><a href="#InnerBuilder" class="headerlink" title="InnerBuilder"></a>InnerBuilder</h5><p>builder模式快速生成</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5Cddddd.jpg" alt="img"></p>
+<h5 id="lombok-plugin"><a href="#lombok-plugin" class="headerlink" title="lombok plugin"></a>lombok plugin</h5><p>lombok 插件</p>
+<h5 id="maven-helper"><a href="#maven-helper" class="headerlink" title="maven helper"></a>maven helper</h5><p>maven 依赖管理助手 ，解析maven pom结构，分析冲突；</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C3l450-2134912873.jpg" alt="img"></p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5Csdafsadfddd.jpg" alt="img"></p>
+<h5 id="Rainbow-brackets"><a href="#Rainbow-brackets" class="headerlink" title="Rainbow brackets"></a>Rainbow brackets</h5><p>让代码中的括号更具标识性</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5Cdddd.jpg" alt="img"></p>
+<h5 id="String-Manipulation"><a href="#String-Manipulation" class="headerlink" title="String Manipulation"></a>String Manipulation</h5><p>String相关辅助简化，搭配 CTRL+W 、ALT+J等文本选择快捷键使用</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C3332.gif" alt="img"></p>
+<h5 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h5><p>翻译插件，阅读源码必备</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C146000002001721.jpg" alt="img"></p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C146000002001.jpg" alt="img"></p>
+<h5 id="GenerateAllSetter"><a href="#GenerateAllSetter" class="headerlink" title="GenerateAllSetter"></a>GenerateAllSetter</h5><p><img src="/2020/11/24/intellij-idea-skills/3726146879-5d4cce11103f7_articlex.gif" alt="img"></p>
+<h5 id="Key-Promoter-X"><a href="#Key-Promoter-X" class="headerlink" title="Key Promoter X"></a>Key Promoter X</h5><p>对你的鼠标操作进行 快捷键提示</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C1460000020017219.gif" alt="img"></p>
+<h5 id="GenerateSerialVersionUID"><a href="#GenerateSerialVersionUID" class="headerlink" title="GenerateSerialVersionUID"></a>GenerateSerialVersionUID</h5><p><code>Alt</code> + <code>Insert</code> 快速生成SerialVersionUID</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C1460000020017220.gif" alt="img"></p>
+<h5 id="GsonFormat"><a href="#GsonFormat" class="headerlink" title="GsonFormat"></a>GsonFormat</h5><p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C1460000020017221.gif" alt="img"></p>
+<h5 id="RestfulToolkit"><a href="#RestfulToolkit" class="headerlink" title="RestfulToolkit"></a>RestfulToolkit</h5><ol>
+<li>快速跳转到Restful Api处( use: Ctrl(Command) + or Ctrl + Alt + N )</li>
+<li>展示Resultful 接口结构</li>
+<li>http 简单请求工具</li>
+</ol>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C146000002001722.jpg" alt="img"></p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C14600000200172.jpg" alt="img"></p>
+<h5 id="Material-Theme-UI"><a href="#Material-Theme-UI" class="headerlink" title="Material Theme UI"></a>Material Theme UI</h5><p>本人自用的主题就是这个。</p>
+<p><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5C1460000020017.jpg" alt="img"></p>
+<h5 id="MyBatis-Log-Plugin"><a href="#MyBatis-Log-Plugin" class="headerlink" title="MyBatis Log Plugin"></a>MyBatis Log Plugin</h5><p>把 Mybatis 输出的sql日志还原成完整的sql语句，看起来更直观。<br><img src="/2020/11/24/intellij-idea-skills/IntelliJ-IDEA-Skills%5Cdddsddddafsa.jpg" alt="img"></p>
+<h5 id="Free-Mybatis"><a href="#Free-Mybatis" class="headerlink" title="Free Mybatis"></a>Free Mybatis</h5><p>MyBatis 免费的插件</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://github.com/judasn/IntelliJ-IDEA-Tutorial"></a></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2020/11/24/intellij-idea-skills/">https://chenguoo.github.io/2020/11/24/intellij-idea-skills/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/idea/">
+                                    <span class="chip bg-color">idea</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/11/24/ceshi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="ceshi">
+                        
+                        <span class="card-title">ceshi</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Cheney
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/11/24/linux-commond/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Linux Commond">
+                        
+                        <span class="card-title">Linux Commond</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+查询端口监听情况
+
+netstat -lnp | grep
+
+
+查询java运行程序
+
+jps
+
+
+临时切换用户并执行命令
+
+su - esuser-c “/opt/elasticsearch-6.1.3/bin/elasticsearc
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category">
+                                    linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/linux/">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
