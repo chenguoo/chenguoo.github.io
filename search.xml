@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>springboot @Validated分组功能用在service层校验对象解决方案</title>
+      <link href="2020/11/28/springboot-validated-service/"/>
+      <url>2020/11/28/springboot-validated-service/</url>
+      
+        <content type="html"><![CDATA[<h3 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Validated</span><span class="token annotation punctuation">@Service</span><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BrandServiceImpl</span> <span class="token keyword">extends</span> <span class="token class-name">ServiceImpl</span><span class="token operator">&lt;</span>BrandMapper<span class="token punctuation">,</span> Brand<span class="token operator">></span> <span class="token keyword">implements</span> <span class="token class-name">BrandService</span> <span class="token punctuation">{</span>    <span class="token annotation punctuation">@Override</span>    <span class="token keyword">public</span> Brand <span class="token function">getBrandByCode</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NotBlank</span> String brandCode<span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token keyword">return</span> <span class="token function">getById</span><span class="token punctuation">(</span>brandCode<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span>    <span class="token annotation punctuation">@Override</span>    <span class="token annotation punctuation">@Validated</span><span class="token punctuation">(</span><span class="token punctuation">{</span>Create<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">saveBrand</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Valid</span> Brand brand<span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token keyword">return</span> <span class="token function">save</span><span class="token punctuation">(</span>brand<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span>    <span class="token annotation punctuation">@Override</span>    <span class="token annotation punctuation">@Validated</span><span class="token punctuation">(</span><span class="token punctuation">{</span>Update<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">updateBrand</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Valid</span> Brand brand<span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token keyword">return</span> <span class="token function">updateById</span><span class="token punctuation">(</span>brand<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><a href="https://blog.csdn.net/blueheart20/article/details/88817754">https://blog.csdn.net/blueheart20/article/details/88817754</a></p><p><a href="https://reflectoring.io/bean-validation-with-spring-boot/">https://reflectoring.io/bean-validation-with-spring-boot/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> develop </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> sprintboot </tag>
+            
+            <tag> validated </tag>
+            
+            <tag> group </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>排名前 16 的 Java 工具类</title>
       <link href="2020/11/24/java-tools-class/"/>
       <url>2020/11/24/java-tools-class/</url>

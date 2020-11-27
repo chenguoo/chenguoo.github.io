@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="排名前 16 的 Java 工具类, Cheney 学习日志">
+    <meta name="keywords" content="springboot @Validated分组功能用在service层校验对象解决方案, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>排名前 16 的 Java 工具类 | Cheney 学习日志</title>
+    <title>springboot @Validated分组功能用在service层校验对象解决方案 | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">排名前 16 的 Java 工具类</h1>
+                    <h1 class="description center-align post-title">springboot @Validated分组功能用在service层校验对象解决方案</h1>
                 </div>
             </div>
         </div>
@@ -374,8 +374,16 @@
                                 <span class="chip bg-color">java</span>
                             </a>
                         
-                            <a href="/tags/tools/">
-                                <span class="chip bg-color">tools</span>
+                            <a href="/tags/sprintboot/">
+                                <span class="chip bg-color">sprintboot</span>
+                            </a>
+                        
+                            <a href="/tags/validated/">
+                                <span class="chip bg-color">validated</span>
+                            </a>
+                        
+                            <a href="/tags/group/">
+                                <span class="chip bg-color">group</span>
                             </a>
                         
                     </div>
@@ -386,8 +394,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/java/" class="post-category">
-                                java
+                            <a href="/categories/develop/" class="post-category">
+                                develop
                             </a>
                         
                     </div>
@@ -399,7 +407,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-24
+                    2020-11-28
                 </div>
                 
 
@@ -415,198 +423,30 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在Java中，实用程序类是定义一组执行通用功能的方法的类。</p>
-<p>这篇文章展示了最常用的Java实用工具类及其最常用的方法。类列表及其方法列表均按受欢迎程度排序。数据基于从GitHub随机选择的50,000个开源Java项目。</p>
-<p>希望您可以通过浏览列表来了解已经提供和流行的功能的一些想法，以使您知道不需要自己实现。这些方法的名称通常指示它们的作用。如果方法名称不够直观，您还可以查看其他开发人员如何在其开源项目中使用它们。</p>
-<ol>
-<li><code>org.apache.commons.io.IOUtils</code></li>
-</ol>
-<pre><code>closeQuietly()  
-toString()  
-copy()  
-toByteArray()  
-write()  
-toInputStream()  
-readLines()  
-copyLarge()  
-lineIterator()  
-readFully()  </code></pre>
-<ol>
-<li><code>org.apache.commons.io.FileUtils</code></li>
-</ol>
-<pre><code>deleteDirectory()  
-readFileToString()  
-deleteQuietly()  
-copyFile()  
-writeStringToFile()  
-forceMkdir()  
-write()  
-listFiles()  
-copyDirectory()  
-forceDelete()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang.StringUtils</code></li>
-</ol>
-<pre><code>isBlank()  
-isNotBlank()  
-isEmpty()  
-isNotEmpty()  
-equals()  
-join()  
-split()  
-EMPTY  
-trimToNull()  
-replace()  </code></pre>
-<ol>
-<li><code>org.apache.http.util.EntityUtils</code></li>
-</ol>
-<pre><code>toString()  
-consume()  
-toByteArray()  
-consumeQuietly()  
-getContentCharSet()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang3.StringUtils</code></li>
-</ol>
-<pre><code>isBlank()  
-isNotBlank()  
-isEmpty()  
-isNotEmpty()  
-join()  
-equals()  
-split()  
-EMPTY  
-replace()  
-capitalize()  </code></pre>
-<ol>
-<li><code>org.apache.commons.io.FilenameUtils</code></li>
-</ol>
-<pre><code>getExtension()  
-getBaseName()  
-getName()  
-concat()  
-removeExtension()  
-normalize()  
-wildcardMatch()  
-separatorsToUnix()  
-getFullPath()  
-isExtension()  </code></pre>
-<ol>
-<li><code>org.springframework.util.StringUtils</code></li>
-</ol>
-<pre><code>hasText()  
-hasLength()  
-isEmpty()  
-commaDelimitedListToStringArray()  
-collectionToDelimitedString()  
-replace()  
-delimitedListToStringArray()  
-uncapitalize()  
-collectionToCommaDelimitedString()  
-tokenizeToStringArray()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang.ArrayUtils</code></li>
-</ol>
-<pre><code>contains()  
-addAll()  
-clone()  
-isEmpty()  
-add()  
-EMPTY_BYTE_ARRAY  
-subarray()  
-indexOf()  
-isEquals()  
-toObject()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang.StringEscapeUtils</code></li>
-</ol>
-<pre><code>escapeHtml()  
-unescapeHtml()  
-escapeXml()  
-escapeSql()  
-unescapeJava()  
-escapeJava()  
-escapeJavaScript()  
-unescapeXml()  
-unescapeJavaScript()  </code></pre>
-<ol>
-<li><code>org.apache.http.client.utils.URLEncodedUtils</code></li>
-</ol>
-<pre><code>format()  
-parse()  </code></pre>
-<ol>
-<li><code>org.apache.commons.codec.digest.DigestUtils</code></li>
-</ol>
-<pre><code>md5Hex()  
-shaHex()  
-sha256Hex()  
-sha1Hex()  
-sha()  
-md5()  
-sha512Hex()  
-sha1()  </code></pre>
-<ol>
-<li><code>org.apache.commons.collections.CollectionUtils</code></li>
-</ol>
-<pre><code>isEmpty()  
-isNotEmpty()  
-select()  
-transform()  
-filter()  
-find()  
-collect()  
-forAllDo()  
-addAll()  
-isEqualCollection()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang3.ArrayUtils</code></li>
-</ol>
-<pre><code>contains()  
-isEmpty()  
-isNotEmpty()  
-add()  
-clone()  
-addAll()  
-subarray()  
-indexOf()  
-EMPTY_OBJECT_ARRAY  
-EMPTY_STRING_ARRAY  </code></pre>
-<ol>
-<li><code>org.apache.commons.beanutils.PropertyUtils</code></li>
-</ol>
-<pre><code>getProperty()  
-setProperty()  
-getPropertyDescriptors()  
-isReadable()  
-copyProperties()  
-getPropertyDescriptor()  
-getSimpleProperty()  
-isWriteable()  
-setSimpleProperty()  
-getPropertyType()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang3.StringEscapeUtils</code></li>
-</ol>
-<pre><code>unescapeHtml4()  
-escapeHtml4()  
-escapeXml()  
-unescapeXml()  
-escapeJava()  
-escapeEcmaScript()  
-unescapeJava()  
-escapeJson()  
-escapeXml10()  </code></pre>
-<ol>
-<li><code>org.apache.commons.beanutils.BeanUtils</code></li>
-</ol>
-<pre><code>copyProperties()  
-getProperty()  
-setProperty()  
-describe()  
-populate()  
-copyProperty()  
-cloneBean()  </code></pre>
-<p>来源：<a target="_blank" rel="noopener" href="https://www.programcreek.com/">https://www.programcreek.com/</a></p>
+                <h3 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Validated</span>
+<span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BrandServiceImpl</span> <span class="token keyword">extends</span> <span class="token class-name">ServiceImpl</span><span class="token operator">&lt;</span>BrandMapper<span class="token punctuation">,</span> Brand<span class="token operator">></span> <span class="token keyword">implements</span> <span class="token class-name">BrandService</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Brand <span class="token function">getBrandByCode</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NotBlank</span> String brandCode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">getById</span><span class="token punctuation">(</span>brandCode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token annotation punctuation">@Validated</span><span class="token punctuation">(</span><span class="token punctuation">{</span>Create<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">saveBrand</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Valid</span> Brand brand<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">save</span><span class="token punctuation">(</span>brand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token annotation punctuation">@Validated</span><span class="token punctuation">(</span><span class="token punctuation">{</span>Update<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">updateBrand</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Valid</span> Brand brand<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">updateById</span><span class="token punctuation">(</span>brand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/blueheart20/article/details/88817754">https://blog.csdn.net/blueheart20/article/details/88817754</a></p>
+<p><a target="_blank" rel="noopener" href="https://reflectoring.io/bean-validation-with-spring-boot/">https://reflectoring.io/bean-validation-with-spring-boot/</a></p>
 
             </div>
             <hr/>
@@ -632,7 +472,7 @@ cloneBean()  </code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2020/11/24/java-tools-class/">https://chenguoo.github.io/2020/11/24/java-tools-class/</a>
+                    <a href="https://chenguoo.github.io/2020/11/28/springboot-validated-service/">https://chenguoo.github.io/2020/11/28/springboot-validated-service/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -674,8 +514,16 @@ cloneBean()  </code></pre>
                                     <span class="chip bg-color">java</span>
                                 </a>
                             
-                                <a href="/tags/tools/">
-                                    <span class="chip bg-color">tools</span>
+                                <a href="/tags/sprintboot/">
+                                    <span class="chip bg-color">sprintboot</span>
+                                </a>
+                            
+                                <a href="/tags/validated/">
+                                    <span class="chip bg-color">validated</span>
+                                </a>
+                            
+                                <a href="/tags/group/">
+                                    <span class="chip bg-color">group</span>
                                 </a>
                             
                         </div>
@@ -717,9 +565,10 @@ cloneBean()  </code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/11/28/springboot-validated-service/">
                     <div class="card-image">
@@ -739,9 +588,9 @@ public class BrandServiceImpl extends ServiceImpl&lt;BrandMapper, Brand> impleme
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -754,6 +603,7 @@ public class BrandServiceImpl extends ServiceImpl&lt;BrandMapper, Brand> impleme
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -784,23 +634,21 @@ public class BrandServiceImpl extends ServiceImpl&lt;BrandMapper, Brand> impleme
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/24/intellij-idea-skills/">
+                <a href="/2020/11/24/java-tools-class/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="IntelliJ IDEA 超实用技巧">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="排名前 16 的 Java 工具类">
                         
-                        <span class="card-title">IntelliJ IDEA 超实用技巧</span>
+                        <span class="card-title">排名前 16 的 Java 工具类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            前言
-工欲善其事
- 必先利其器
-
-最近受部门的邀请，给入职新人统一培训IDEA，发现有很多新人虽然日常开发使用的是IDEA，但是还是很多好用的技巧没有用到，只是用到一些基本的功能，蛮浪费IDEA这个优秀的IDE。 同时，在这次分享之后，本人
+                            在Java中，实用程序类是定义一组执行通用功能的方法的类。
+这篇文章展示了最常用的Java实用工具类及其最常用的方法。类列表及其方法列表均按受欢迎程度排序。数据基于从GitHub随机选择的50,000个开源Java项目。
+希望您可以通过浏览
                         
                     </div>
                     <div class="publish-info">
@@ -811,12 +659,8 @@ public class BrandServiceImpl extends ServiceImpl&lt;BrandMapper, Brand> impleme
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/develop/" class="post-category">
-                                    develop
-                                </a>
-                            
-                            <a href="/categories/develop/tools/" class="post-category">
-                                    tools
+                            <a href="/categories/java/" class="post-category">
+                                    java
                                 </a>
                             
                             
@@ -826,8 +670,12 @@ public class BrandServiceImpl extends ServiceImpl&lt;BrandMapper, Brand> impleme
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/idea/">
-                        <span class="chip bg-color">idea</span>
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/tags/tools/">
+                        <span class="chip bg-color">tools</span>
                     </a>
                     
                 </div>
