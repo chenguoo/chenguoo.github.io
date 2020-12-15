@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="排名前 16 的 Java 工具类, Cheney 学习日志">
+    <meta name="keywords" content="springboot2之优雅处理返回值, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>排名前 16 的 Java 工具类 | Cheney 学习日志</title>
+    <title>springboot2之优雅处理返回值 | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">排名前 16 的 Java 工具类</h1>
+                    <h1 class="description center-align post-title">springboot2之优雅处理返回值</h1>
                 </div>
             </div>
         </div>
@@ -370,12 +370,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java/">
-                                <span class="chip bg-color">java</span>
-                            </a>
-                        
-                            <a href="/tags/tools/">
-                                <span class="chip bg-color">tools</span>
+                            <a href="/tags/springboot/">
+                                <span class="chip bg-color">springboot</span>
                             </a>
                         
                     </div>
@@ -386,8 +382,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/java/" class="post-category">
-                                java
+                            <a href="/categories/springboot/" class="post-category">
+                                springboot
                             </a>
                         
                     </div>
@@ -399,7 +395,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-24
+                    2020-12-15
                 </div>
                 
 
@@ -415,198 +411,275 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在Java中，实用程序类是定义一组执行通用功能的方法的类。</p>
-<p>这篇文章展示了最常用的Java实用工具类及其最常用的方法。类列表及其方法列表均按受欢迎程度排序。数据基于从GitHub随机选择的50,000个开源Java项目。</p>
-<p>希望您可以通过浏览列表来了解已经提供和流行的功能的一些想法，以使您知道不需要自己实现。这些方法的名称通常指示它们的作用。如果方法名称不够直观，您还可以查看其他开发人员如何在其开源项目中使用它们。</p>
-<ol>
-<li><code>org.apache.commons.io.IOUtils</code></li>
-</ol>
-<pre><code>closeQuietly()  
-toString()  
-copy()  
-toByteArray()  
-write()  
-toInputStream()  
-readLines()  
-copyLarge()  
-lineIterator()  
-readFully()  </code></pre>
-<ol>
-<li><code>org.apache.commons.io.FileUtils</code></li>
-</ol>
-<pre><code>deleteDirectory()  
-readFileToString()  
-deleteQuietly()  
-copyFile()  
-writeStringToFile()  
-forceMkdir()  
-write()  
-listFiles()  
-copyDirectory()  
-forceDelete()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang.StringUtils</code></li>
-</ol>
-<pre><code>isBlank()  
-isNotBlank()  
-isEmpty()  
-isNotEmpty()  
-equals()  
-join()  
-split()  
-EMPTY  
-trimToNull()  
-replace()  </code></pre>
-<ol>
-<li><code>org.apache.http.util.EntityUtils</code></li>
-</ol>
-<pre><code>toString()  
-consume()  
-toByteArray()  
-consumeQuietly()  
-getContentCharSet()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang3.StringUtils</code></li>
-</ol>
-<pre><code>isBlank()  
-isNotBlank()  
-isEmpty()  
-isNotEmpty()  
-join()  
-equals()  
-split()  
-EMPTY  
-replace()  
-capitalize()  </code></pre>
-<ol>
-<li><code>org.apache.commons.io.FilenameUtils</code></li>
-</ol>
-<pre><code>getExtension()  
-getBaseName()  
-getName()  
-concat()  
-removeExtension()  
-normalize()  
-wildcardMatch()  
-separatorsToUnix()  
-getFullPath()  
-isExtension()  </code></pre>
-<ol>
-<li><code>org.springframework.util.StringUtils</code></li>
-</ol>
-<pre><code>hasText()  
-hasLength()  
-isEmpty()  
-commaDelimitedListToStringArray()  
-collectionToDelimitedString()  
-replace()  
-delimitedListToStringArray()  
-uncapitalize()  
-collectionToCommaDelimitedString()  
-tokenizeToStringArray()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang.ArrayUtils</code></li>
-</ol>
-<pre><code>contains()  
-addAll()  
-clone()  
-isEmpty()  
-add()  
-EMPTY_BYTE_ARRAY  
-subarray()  
-indexOf()  
-isEquals()  
-toObject()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang.StringEscapeUtils</code></li>
-</ol>
-<pre><code>escapeHtml()  
-unescapeHtml()  
-escapeXml()  
-escapeSql()  
-unescapeJava()  
-escapeJava()  
-escapeJavaScript()  
-unescapeXml()  
-unescapeJavaScript()  </code></pre>
-<ol>
-<li><code>org.apache.http.client.utils.URLEncodedUtils</code></li>
-</ol>
-<pre><code>format()  
-parse()  </code></pre>
-<ol>
-<li><code>org.apache.commons.codec.digest.DigestUtils</code></li>
-</ol>
-<pre><code>md5Hex()  
-shaHex()  
-sha256Hex()  
-sha1Hex()  
-sha()  
-md5()  
-sha512Hex()  
-sha1()  </code></pre>
-<ol>
-<li><code>org.apache.commons.collections.CollectionUtils</code></li>
-</ol>
-<pre><code>isEmpty()  
-isNotEmpty()  
-select()  
-transform()  
-filter()  
-find()  
-collect()  
-forAllDo()  
-addAll()  
-isEqualCollection()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang3.ArrayUtils</code></li>
-</ol>
-<pre><code>contains()  
-isEmpty()  
-isNotEmpty()  
-add()  
-clone()  
-addAll()  
-subarray()  
-indexOf()  
-EMPTY_OBJECT_ARRAY  
-EMPTY_STRING_ARRAY  </code></pre>
-<ol>
-<li><code>org.apache.commons.beanutils.PropertyUtils</code></li>
-</ol>
-<pre><code>getProperty()  
-setProperty()  
-getPropertyDescriptors()  
-isReadable()  
-copyProperties()  
-getPropertyDescriptor()  
-getSimpleProperty()  
-isWriteable()  
-setSimpleProperty()  
-getPropertyType()  </code></pre>
-<ol>
-<li><code>org.apache.commons.lang3.StringEscapeUtils</code></li>
-</ol>
-<pre><code>unescapeHtml4()  
-escapeHtml4()  
-escapeXml()  
-unescapeXml()  
-escapeJava()  
-escapeEcmaScript()  
-unescapeJava()  
-escapeJson()  
-escapeXml10()  </code></pre>
-<ol>
-<li><code>org.apache.commons.beanutils.BeanUtils</code></li>
-</ol>
-<pre><code>copyProperties()  
-getProperty()  
-setProperty()  
-describe()  
-populate()  
-copyProperty()  
-cloneBean()  </code></pre>
-<p>来源：<a target="_blank" rel="noopener" href="https://www.programcreek.com/">https://www.programcreek.com/</a></p>
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h1><p>最近项目组有个老项目要进行前后端分离改造，应前端同学的要求，其后端提供的返回值格式需形如</p>
+<pre><code>{
+  "status": 0,
+  "message": "success",
+  "data": {
+
+  }
+}</code></pre>
+<p>方便前端数据处理。要实现前端同学这个需求，其实也挺简单的，仅需做如下改造，新增一个返回对象，形如</p>
+<pre><code>@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Result&lt;T&gt; {
+    public static final int success = 0;
+    public static final int fail = 1;
+    private int status = success;
+    private String message = "success";
+    private T data;
+
+
+}</code></pre>
+<p>然后controller改造成如下</p>
+<pre><code>@RestController
+@RequestMapping("/user")
+@Slf4j
+public class UserController {
+
+  @Autowired
+  private UserService userService;
+
+  @PostMapping(value="/add")
+  public Result&lt;UserDTO&gt; addUser(@Valid UserDTO userDTO, BindingResult bindingResult){
+    Result&lt;UserDTO&gt; result = new Result&lt;&gt;();
+    if (bindingResult.hasErrors()){
+      return getUserFailResult(bindingResult, result);
+    }
+    saveUser(userDTO, result);
+
+    return result;
+
+  }
+}</code></pre>
+<p>仅仅需要这么改造就可以满足前端同学的述求。但这边存在一个问题就是，这个项目后端接口的contoller之前都是直接返回业务bean对象，形如下</p>
+<pre><code>@RestController
+@Api(tags = "用户管理")
+@Slf4j
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping(value="/get/{id}")
+    @ApiOperation("根据用户ID查找用户")
+    @ApiImplicitParam(value = "用户id",name = "id",required = true,paramType = "path")
+    public UserDTO getUserById(@PathVariable("id") Long id){
+        UserDTO dto = userService.getUserById(id);
+        log.info("{}",dto);
+        return dto;
+
+    }
+    }</code></pre>
+<p>如果按上面的思路</p>
+<pre><code>把UserDTO改造成Result&lt;UserDTO&gt;</code></pre>
+<p>虽然可以满足需求，但问题是后端这样的接口有好几十个，按这种改法很明显工作量比较大，更重要的不符合开闭原则–<strong>对扩展开放，对修改关闭</strong>。那有没有优雅一点的处理方式呢？答案是有的，利用<br>@RestControllerAdvice+ResponseBodyAdvice就可以满足我们的需求</p>
+<h1 id="改造"><a href="#改造" class="headerlink" title="改造"></a><strong>改造</strong></h1><h1 id="1、在改造前，先简单介绍一下-RestControllerAdvice和ResponseBodyAdvice"><a href="#1、在改造前，先简单介绍一下-RestControllerAdvice和ResponseBodyAdvice" class="headerlink" title="1、在改造前，先简单介绍一下@RestControllerAdvice和ResponseBodyAdvice"></a><strong>1、在改造前，先简单介绍一下@RestControllerAdvice和ResponseBodyAdvice</strong></h1><blockquote>
+<p>@RestControllerAdvice</p>
+</blockquote>
+<p>@RestControllerAdvice这个注解是spring 4.3版本之后新增的注解。用于定义@ExceptionHandler、@InitBinder、@ModelAttribute，并应用到所有@RequestMapping。利用他可以来做<strong>异常统一处理</strong>。如果使用的spring低于4.3，那可以使用@ControllerAdvice+@ResponseBody。@ControllerAdvice是spring 3.2版本后就提供的注解，其实现的功能和@RestControllerAdvice类似。<br>其详细的参考文档，可以查看链接@RestControllerAdvice文档以及@ControllerAdvice文档</p>
+<blockquote>
+<p>ResponseBodyAdvice</p>
+</blockquote>
+<p>这个是spring4.1版本之后，新增的接口。其作用是<strong>允许在执行@ResponseBody或ResponseEntity控制器方法之后但在使用HttpMessageConverter编写正文之前自定义响应</strong>。可以直接在RequestMappingHandlerAdapter和ExceptionHandlerExceptionResolver中注册实现，也可以在@ControllerAdvice或者@RestControllerAdvice中注解。其详细参考文档可以查看链接ResponseBodyAdvice文档</p>
+<h1 id="2、编写一个通用的响应实体"><a href="#2、编写一个通用的响应实体" class="headerlink" title="2、编写一个通用的响应实体"></a><strong>2、编写一个通用的响应实体</strong></h1><pre><code>@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Result&lt;T&gt; {
+    public static final int success = 0;
+    public static final int fail = 1;
+    private int status = success;
+    private String message = "success";
+    private T data;
+
+
+}</code></pre>
+<h1 id="3、编写一个类上加上-RestControllerAdvice并实现ResponseBodyAdvice接口。用来统一处理响应值"><a href="#3、编写一个类上加上-RestControllerAdvice并实现ResponseBodyAdvice接口。用来统一处理响应值" class="headerlink" title="3、编写一个类上加上@RestControllerAdvice并实现ResponseBodyAdvice接口。用来统一处理响应值"></a><strong>3、编写一个类上加上@RestControllerAdvice并实现ResponseBodyAdvice接口。用来统一处理响应值</strong></h1><pre><code>@RestControllerAdvice(basePackages = "com.github.lybgeek")
+@Slf4j
+public class ResponseAdvice implements ResponseBodyAdvice {
+    @Override
+    public boolean supports(MethodParameter methodParameter, Class aClass) {
+        return true;
+    }
+
+    @Override
+    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        if(Objects.isNull(o)){
+            return Result.builder().message("success").build();
+        }
+
+        if(o instanceof Result){
+            return o;
+        }
+
+        return Result.builder().message("success").data(o).build();
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result&lt;?&gt; exceptionHandler(HttpServletRequest request, Exception e) {
+        log.error(e.getMessage(), e);
+        return Result.builder().message(e.getMessage()).status(Result.fail).build();
+    }
+
+    /**
+     * 针对业务异常统一处理
+     * @param request
+     * @param bizException
+     * @return
+     */
+    @ExceptionHandler(BizException.class)
+    @ResponseStatus(code = HttpStatus.EXPECTATION_FAILED)
+    public Result&lt;?&gt; bizExceptionHandler(HttpServletRequest request, BizException bizException) {
+            int errorCode = bizException.getCode();
+            log.error("catch bizException {}", errorCode);
+            return Result.builder().message(bizException.getMessage()).status(errorCode).build();
+    }
+
+
+    /**
+     * 针对Validate校验异常统一处理
+     * @param request
+     * @param methodArgumentNotValidException
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public Result&lt;?&gt; methodArgumentNotValidExceptionExceptionHandler(HttpServletRequest request, MethodArgumentNotValidException methodArgumentNotValidException) {
+        Result result = new Result();
+        log.error("catch methodArgumentNotValidException :" + methodArgumentNotValidException.getMessage(), methodArgumentNotValidException);
+        return ResultUtils.INSTANCE.getFailResult(methodArgumentNotValidException.getBindingResult(),result);
+    }
+
+    /**
+     * 针对Assert断言异常统一处理
+     * @param request
+     * @param illegalArgumentExceptionException
+     * @return
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(code = HttpStatus.EXPECTATION_FAILED)
+    public Result&lt;?&gt; illegalArgumentExceptionHandler(HttpServletRequest request, IllegalArgumentException illegalArgumentExceptionException) {
+        log.error("illegalArgumentExceptionException:"+illegalArgumentExceptionException.getMessage(), illegalArgumentExceptionException);
+        return Result.builder().message(illegalArgumentExceptionException.getMessage()).status(Result.fail).build();
+    }</code></pre>
+<h1 id="测试验证"><a href="#测试验证" class="headerlink" title="测试验证"></a><strong>测试验证</strong></h1><blockquote>
+<p>1、编写业务DTO</p>
+</blockquote>
+<pre><code>@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ApiModel
+public class UserDTO implements Serializable {
+
+  @NotNull(message = "编号不能为空",groups = {Update.class, Delete.class})
+  @ApiModelProperty(value = "编号",name = "id",example = "1")
+  private Long id;
+
+  @NotBlank(message = "用户名不能为空",groups = {Add.class})
+  @ApiModelProperty(value = "用户名",name = "userName",example = "zhangsan")
+  private String userName;
+
+  @NotBlank(message = "姓名不能为空",groups = {Add.class})
+  @ApiModelProperty(value = "姓名",name = "realName",example = "张三")
+  private String realName;
+
+  @NotBlank(message = "密码不能为空",groups = {Add.class})
+  @Size(max=32,min=6,message = "密码长度要在6-32之间",groups = {Add.class})
+  @ApiModelProperty(value = "密码",name = "password",example = "123456")
+  private String password;
+
+  @NotNull(message = "性别不能为空",groups = {Add.class})
+  @ApiModelProperty(value = "性别",name = "gender",example = "1")
+  @EnumValid(target = Gender.class, message = "性别取值必须为0或者1",groups = {Add.class,Update.class})
+  private Integer gender;
+
+  @ApiModelProperty(value = "邮箱",name = "email",example = "zhangsan@qq.com")
+  @Pattern(regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$",message = "不满足邮箱正则表达式",groups = {Add.class,Update.class})
+  private String email;
+
+
+
+}</code></pre>
+<blockquote>
+<p>2、编写业务controller</p>
+</blockquote>
+<pre><code>@RestController
+@Api(tags = "用户管理")
+@Slf4j
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping(value="/get/{id}")
+    @ApiOperation("根据用户ID查找用户")
+    @ApiImplicitParam(value = "用户id",name = "id",required = true,paramType = "path")
+    public UserDTO getUserById(@PathVariable("id") Long id){
+        UserDTO dto = userService.getUserById(id);
+        log.info("{}",dto);
+        return dto;
+
+    }
+
+    @PostMapping(value="/add")
+    @ApiOperation("添加用户")
+    public UserDTO add(@RequestBody @Validated({Add.class}) UserDTO userDTO){
+        log.info("{}",userDTO);
+        return userService.save(userDTO);
+    }
+
+    @PostMapping(value="/update")
+    @ApiOperation("更新用户")
+    public UserDTO update(@RequestBody @Validated({Update.class}) UserDTO userDTO){
+        log.info("{}",userDTO);
+        return userService.save(userDTO);
+    }
+
+    @DeleteMapping(value="/detele")
+    @ApiOperation("删除用户")
+    public boolean delete(@Validated({Delete.class}) UserDTO userDTO){
+        log.info("id：{}",userDTO.getId());
+        return userService.delete(userDTO.getId());
+    }
+}</code></pre>
+<p><strong>注：</strong> 业务service就不贴了和文章内容关系不大。如果感兴趣的朋友，可以从文末提供的链接进行查看</p>
+<blockquote>
+<p>3、利用swagger在线接口文档进行测试</p>
+</blockquote>
+<p>a：正常响应时，返回值形如下</p>
+<pre><code>{
+  "status": 0,
+  "message": "success",
+  "data": {
+    "id": 1,
+    "userName": "zhangsan",
+    "realName": "张三",
+    "password": "123456",
+    "gender": 1,
+    "email": "zhangsan@qq.com"
+  }
+}</code></pre>
+<p>b：当数据校验异常时，返回值形如下</p>
+<pre><code>{
+  "status": 1,
+  "message": "姓名不能为空;",
+  "data": null
+}</code></pre>
+<p>c:当业务异常时，返回值形如下</p>
+<pre><code>{
+  "status": 1,
+  "message": "user is not found by id :3",
+  "data": null
+}</code></pre>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>本文主要介绍了如何利用@RestControllerAdvice和ResponseBodyAdvice来统一处理返回值。本文代码示例还实现了分组校验，自定义校验，利用mdc traceId日志埋点，如果对这些内容感兴趣的朋友，可以查看文末项目链接</p>
+<h1 id="demo链接"><a href="#demo链接" class="headerlink" title="demo链接"></a><strong>demo链接</strong></h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/lyb-geek/springboot-learning/tree/master/springboot-unit-resp">https://github.com/lyb-geek/springboot-learning/tree/master/springboot-unit-resp</a></p>
+</blockquote>
 
             </div>
             <hr/>
@@ -632,7 +705,7 @@ cloneBean()  </code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2020/11/24/java-tools-class/">https://chenguoo.github.io/2020/11/24/java-tools-class/</a>
+                    <a href="https://chenguoo.github.io/2020/12/15/springbootgracefullyhandlesthereturnvalue/">https://chenguoo.github.io/2020/12/15/springbootgracefullyhandlesthereturnvalue/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -670,12 +743,8 @@ cloneBean()  </code></pre>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/java/">
-                                    <span class="chip bg-color">java</span>
-                                </a>
-                            
-                                <a href="/tags/tools/">
-                                    <span class="chip bg-color">tools</span>
+                                <a href="/tags/springboot/">
+                                    <span class="chip bg-color">springboot</span>
                                 </a>
                             
                         </div>
@@ -717,9 +786,68 @@ cloneBean()  </code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/12/15/springbootgracefullyhandlesthereturnvalue/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="springboot2之优雅处理返回值">
+                        
+                        <span class="card-title">springboot2之优雅处理返回值</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言最近项目组有个老项目要进行前后端分离改造，应前端同学的要求，其后端提供的返回值格式需形如
+{
+  "status": 0,
+  "message": "success",
+  "data": {
+
+  }
+}
+方便前端数据处理。要实现前
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/springboot/" class="post-category">
+                                    springboot
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/springboot/">
+                        <span class="chip bg-color">springboot</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2020/11/28/springboot-validated-service/">
                     <div class="card-image">
@@ -739,9 +867,9 @@ public class BrandServiceImpl extends ServiceImpl&lt;BrandMapper, Brand> impleme
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -771,63 +899,6 @@ public class BrandServiceImpl extends ServiceImpl&lt;BrandMapper, Brand> impleme
                     
                     <a href="/tags/group/">
                         <span class="chip bg-color">group</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/11/24/intellij-idea-skills/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="IntelliJ IDEA 超实用技巧">
-                        
-                        <span class="card-title">IntelliJ IDEA 超实用技巧</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            前言
-工欲善其事
- 必先利其器
-
-最近受部门的邀请，给入职新人统一培训IDEA，发现有很多新人虽然日常开发使用的是IDEA，但是还是很多好用的技巧没有用到，只是用到一些基本的功能，蛮浪费IDEA这个优秀的IDE。 同时，在这次分享之后，本人
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-24
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/develop/" class="post-category">
-                                    develop
-                                </a>
-                            
-                            <a href="/categories/develop/tools/" class="post-category">
-                                    tools
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/idea/">
-                        <span class="chip bg-color">idea</span>
                     </a>
                     
                 </div>
