@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="springboot2之优雅处理返回值, Cheney 学习日志">
+    <meta name="keywords" content="Spring Boot 启动事件和监听器，太强大了, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>springboot2之优雅处理返回值 | Cheney 学习日志</title>
+    <title>Spring Boot 启动事件和监听器，太强大了 | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">springboot2之优雅处理返回值</h1>
+                    <h1 class="description center-align post-title">Spring Boot 启动事件和监听器，太强大了</h1>
                 </div>
             </div>
         </div>
@@ -374,6 +374,10 @@
                                 <span class="chip bg-color">springboot</span>
                             </a>
                         
+                            <a href="/tags/event/">
+                                <span class="chip bg-color">event</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -411,275 +415,83 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近项目组有个老项目要进行前后端分离改造，应前端同学的要求，其后端提供的返回值格式需形如</p>
-<pre><code>{
-  "status": 0,
-  "message": "success",
-  "data": {
-
-  }
-}</code></pre>
-<p>方便前端数据处理。要实现前端同学这个需求，其实也挺简单的，仅需做如下改造，新增一个返回对象，形如</p>
-<pre><code>@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class Result&lt;T&gt; {
-    public static final int success = 0;
-    public static final int fail = 1;
-    private int status = success;
-    private String message = "success";
-    private T data;
-
-
-}</code></pre>
-<p>然后controller改造成如下</p>
-<pre><code>@RestController
-@RequestMapping("/user")
-@Slf4j
-public class UserController {
-
-  @Autowired
-  private UserService userService;
-
-  @PostMapping(value="/add")
-  public Result&lt;UserDTO&gt; addUser(@Valid UserDTO userDTO, BindingResult bindingResult){
-    Result&lt;UserDTO&gt; result = new Result&lt;&gt;();
-    if (bindingResult.hasErrors()){
-      return getUserFailResult(bindingResult, result);
-    }
-    saveUser(userDTO, result);
-
-    return result;
-
-  }
-}</code></pre>
-<p>仅仅需要这么改造就可以满足前端同学的述求。但这边存在一个问题就是，这个项目后端接口的contoller之前都是直接返回业务bean对象，形如下</p>
-<pre><code>@RestController
-@Api(tags = "用户管理")
-@Slf4j
-public class UserController {
-
-    @Autowired
-    private UserService userService;
-
-    @GetMapping(value="/get/{id}")
-    @ApiOperation("根据用户ID查找用户")
-    @ApiImplicitParam(value = "用户id",name = "id",required = true,paramType = "path")
-    public UserDTO getUserById(@PathVariable("id") Long id){
-        UserDTO dto = userService.getUserById(id);
-        log.info("{}",dto);
-        return dto;
-
-    }
-    }</code></pre>
-<p>如果按上面的思路</p>
-<pre><code>把UserDTO改造成Result&lt;UserDTO&gt;</code></pre>
-<p>虽然可以满足需求，但问题是后端这样的接口有好几十个，按这种改法很明显工作量比较大，更重要的不符合开闭原则–<strong>对扩展开放，对修改关闭</strong>。那有没有优雅一点的处理方式呢？答案是有的，利用<br>@RestControllerAdvice+ResponseBodyAdvice就可以满足我们的需求</p>
-<h2 id="改造"><a href="#改造" class="headerlink" title="改造"></a>改造</h2><h3 id="1、在改造前，先简单介绍一下-RestControllerAdvice和ResponseBodyAdvice"><a href="#1、在改造前，先简单介绍一下-RestControllerAdvice和ResponseBodyAdvice" class="headerlink" title="1、在改造前，先简单介绍一下@RestControllerAdvice和ResponseBodyAdvice"></a>1、在改造前，先简单介绍一下@RestControllerAdvice和ResponseBodyAdvice</h3><blockquote>
-<p>@RestControllerAdvice</p>
-</blockquote>
-<p>@RestControllerAdvice这个注解是spring 4.3版本之后新增的注解。用于定义@ExceptionHandler、@InitBinder、@ModelAttribute，并应用到所有@RequestMapping。利用他可以来做<strong>异常统一处理</strong>。如果使用的spring低于4.3，那可以使用@ControllerAdvice+@ResponseBody。@ControllerAdvice是spring 3.2版本后就提供的注解，其实现的功能和@RestControllerAdvice类似。<br>其详细的参考文档，可以查看链接@RestControllerAdvice文档以及@ControllerAdvice文档</p>
+                <p>大家都知道，在 Spring 框架中事件和监听无处不在，打通了 Spring 框架的任督二脉，事件和监听也是 Spring 框架必学的核心知识之一。</p>
+<p>一般来说，我们很少会使用到应用程序事件，但我们也不要忘了它们的存在，比如说在 Spring 框架内部都使用了各种不同的事件来处理不同的任务。</p>
+<p>毫无疑问，在 Spring Boot 框架中，事件和监听也得到了发扬光大，除了常用的 Spring Framework 事件（例如：ContextRefreshedEvent）之外，Spring Boot 在启动过程中还发送一系列其他的应用程序事件。</p>
+<h2 id="Spring-Boot-启动事件顺序"><a href="#Spring-Boot-启动事件顺序" class="headerlink" title="Spring Boot 启动事件顺序"></a>Spring Boot 启动事件顺序</h2><p><strong>1、ApplicationStartingEvent</strong></p>
+<p>这个事件在 Spring Boot 应用运行开始时，且进行任何处理之前发送（除了监听器和初始化器注册之外）。</p>
+<p><strong>2、ApplicationEnvironmentPreparedEvent</strong></p>
+<p>这个事件在当已知要在上下文中使用 Spring 环境（Environment）时，在 Spring 上下文（context）创建之前发送。</p>
+<p><strong>3、ApplicationContextInitializedEvent</strong></p>
+<p>这个事件在当 Spring 应用上下文（ApplicationContext）准备好了，并且应用初始化器（ApplicationContextInitializers）已经被调用，在 bean 的定义（bean definitions）被加载之前发送。</p>
+<p><strong>4、ApplicationPreparedEvent</strong></p>
+<p>这个事件是在 Spring 上下文（context）刷新之前，且在 bean 的定义（bean definitions）被加载之后发送。</p>
+<p><strong>5、ApplicationStartedEvent</strong></p>
+<p>这个事件是在 Spring 上下文（context）刷新之后，且在 application/ command-line runners 被调用之前发送。</p>
+<p><strong>6、AvailabilityChangeEvent</strong></p>
+<p>这个事件紧随上个事件之后发送，状态：ReadinessState.CORRECT，表示应用已处于活动状态。</p>
+<p><strong>7、ApplicationReadyEvent</strong></p>
+<p>这个事件在任何 application/ command-line runners 调用之后发送。</p>
+<p><strong>8、AvailabilityChangeEvent</strong></p>
+<p>这个事件紧随上个事件之后发送，状态：ReadinessState.ACCEPTING_TRAFFIC，表示应用可以开始准备接收请求了。</p>
+<p><strong>9、ApplicationFailedEvent</strong></p>
+<p>这个事件在应用启动异常时进行发送。</p>
+<hr>
+<p>上面所介绍的这些事件列表仅包括绑定到 SpringApplication 的 SpringApplicationEvents 事件，除了这些事件以外，以下事件也会在 ApplicationPreparedEvent 之后和 ApplicationStartedEvent 之前发送：</p>
+<ul>
+<li><strong>WebServerInitializedEvent</strong>这个 Web 服务器初始化事件在 WebServer 启动之后发送，对应的还有 ServletWebServerInitializedEvent（Servlet Web 服务器初始化事件）、ReactiveWebServerInitializedEvent（响应式 Web 服务器初始化事件）。</li>
+<li><strong>ContextRefreshedEvent</strong>这个上下文刷新事件是在 Spring 应用上下文（ApplicationContext）刷新之后发送。</li>
+</ul>
+<hr>
+<h2 id="自定义启动事件监听器"><a href="#自定义启动事件监听器" class="headerlink" title="自定义启动事件监听器"></a>自定义启动事件监听器</h2><p>既然我们知道了 Spring Boot 在启动过程中的各个事件，那么我们就可以在每个环节来处理一些我们想做的事情，只需要自定义一个监听器来监听某个事件就可以了。</p>
+<p>比如我们想在上面的第 8 步，即应用启动完成可以接收请求了，我们简单输出一个成功标识。</p>
+<p>Spring Boot 基础的构建这里就不介绍了，如果你对 Spring Boot 还不是很熟悉，或者只是会简单的使用，那还是建议你深入学习下吧，推荐这个 Spring Boot 学习仓库，欢迎 Star 关注：</p>
 <blockquote>
-<p>ResponseBodyAdvice</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/javastacks/spring-boot-best-practice">https://github.com/javastacks/spring-boot-best-practice</a></p>
 </blockquote>
-<p>这个是spring4.1版本之后，新增的接口。其作用是<strong>允许在执行@ResponseBody或ResponseEntity控制器方法之后但在使用HttpMessageConverter编写正文之前自定义响应</strong>。可以直接在RequestMappingHandlerAdapter和ExceptionHandlerExceptionResolver中注册实现，也可以在@ControllerAdvice或者@RestControllerAdvice中注解。其详细参考文档可以查看链接ResponseBodyAdvice文档</p>
-<h3 id="2、编写一个通用的响应实体"><a href="#2、编写一个通用的响应实体" class="headerlink" title="2、编写一个通用的响应实体"></a>2、编写一个通用的响应实体</h3><pre><code>@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class Result&lt;T&gt; {
-    public static final int success = 0;
-    public static final int fail = 1;
-    private int status = success;
-    private String message = "success";
-    private T data;
+<h3 id="1-新建监听器"><a href="#1-新建监听器" class="headerlink" title="1. 新建监听器"></a>1. 新建监听器</h3><pre><code>import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.availability.AvailabilityChangeEvent;
+import org.springframework.boot.availability.ReadinessState;
+import org.springframework.context.ApplicationListener;
 
-
-}</code></pre>
-<h3 id="3、编写一个类上加上-RestControllerAdvice并实现ResponseBodyAdvice接口。用来统一处理响应值"><a href="#3、编写一个类上加上-RestControllerAdvice并实现ResponseBodyAdvice接口。用来统一处理响应值" class="headerlink" title="3、编写一个类上加上@RestControllerAdvice并实现ResponseBodyAdvice接口。用来统一处理响应值"></a>3、编写一个类上加上@RestControllerAdvice并实现ResponseBodyAdvice接口。用来统一处理响应值</h3><pre><code>@RestControllerAdvice(basePackages = "com.github.lybgeek")
+/**
+ * 来源：Java技术栈
+ */
 @Slf4j
-public class ResponseAdvice implements ResponseBodyAdvice {
-    @Override
-    public boolean supports(MethodParameter methodParameter, Class aClass) {
-        return true;
-    }
+public class JavastackListener implements ApplicationListener&lt;AvailabilityChangeEvent&gt; {
 
     @Override
-    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if(Objects.isNull(o)){
-            return Result.builder().message("success").build();
+    public void onApplicationEvent(AvailabilityChangeEvent event) {
+        log.info("监听到事件：" + event);
+        if (ReadinessState.ACCEPTING_TRAFFIC == event.getState()){
+            log.info("应用启动完成，可以请求了……");
         }
-
-        if(o instanceof Result){
-            return o;
-        }
-
-        return Result.builder().message("success").data(o).build();
     }
-
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result&lt;?&gt; exceptionHandler(HttpServletRequest request, Exception e) {
-        log.error(e.getMessage(), e);
-        return Result.builder().message(e.getMessage()).status(Result.fail).build();
-    }
-
-    /**
-     * 针对业务异常统一处理
-     * @param request
-     * @param bizException
-     * @return
-     */
-    @ExceptionHandler(BizException.class)
-    @ResponseStatus(code = HttpStatus.EXPECTATION_FAILED)
-    public Result&lt;?&gt; bizExceptionHandler(HttpServletRequest request, BizException bizException) {
-            int errorCode = bizException.getCode();
-            log.error("catch bizException {}", errorCode);
-            return Result.builder().message(bizException.getMessage()).status(errorCode).build();
-    }
-
-
-    /**
-     * 针对Validate校验异常统一处理
-     * @param request
-     * @param methodArgumentNotValidException
-     * @return
-     */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public Result&lt;?&gt; methodArgumentNotValidExceptionExceptionHandler(HttpServletRequest request, MethodArgumentNotValidException methodArgumentNotValidException) {
-        Result result = new Result();
-        log.error("catch methodArgumentNotValidException :" + methodArgumentNotValidException.getMessage(), methodArgumentNotValidException);
-        return ResultUtils.INSTANCE.getFailResult(methodArgumentNotValidException.getBindingResult(),result);
-    }
-
-    /**
-     * 针对Assert断言异常统一处理
-     * @param request
-     * @param illegalArgumentExceptionException
-     * @return
-     */
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(code = HttpStatus.EXPECTATION_FAILED)
-    public Result&lt;?&gt; illegalArgumentExceptionHandler(HttpServletRequest request, IllegalArgumentException illegalArgumentExceptionException) {
-        log.error("illegalArgumentExceptionException:"+illegalArgumentExceptionException.getMessage(), illegalArgumentExceptionException);
-        return Result.builder().message(illegalArgumentExceptionException.getMessage()).status(Result.fail).build();
-    }</code></pre>
-<h2 id="测试验证"><a href="#测试验证" class="headerlink" title="测试验证"></a>测试验证</h2><blockquote>
-<p>1、编写业务DTO</p>
-</blockquote>
-<pre><code>@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@ApiModel
-public class UserDTO implements Serializable {
-
-  @NotNull(message = "编号不能为空",groups = {Update.class, Delete.class})
-  @ApiModelProperty(value = "编号",name = "id",example = "1")
-  private Long id;
-
-  @NotBlank(message = "用户名不能为空",groups = {Add.class})
-  @ApiModelProperty(value = "用户名",name = "userName",example = "zhangsan")
-  private String userName;
-
-  @NotBlank(message = "姓名不能为空",groups = {Add.class})
-  @ApiModelProperty(value = "姓名",name = "realName",example = "张三")
-  private String realName;
-
-  @NotBlank(message = "密码不能为空",groups = {Add.class})
-  @Size(max=32,min=6,message = "密码长度要在6-32之间",groups = {Add.class})
-  @ApiModelProperty(value = "密码",name = "password",example = "123456")
-  private String password;
-
-  @NotNull(message = "性别不能为空",groups = {Add.class})
-  @ApiModelProperty(value = "性别",name = "gender",example = "1")
-  @EnumValid(target = Gender.class, message = "性别取值必须为0或者1",groups = {Add.class,Update.class})
-  private Integer gender;
-
-  @ApiModelProperty(value = "邮箱",name = "email",example = "zhangsan@qq.com")
-  @Pattern(regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$",message = "不满足邮箱正则表达式",groups = {Add.class,Update.class})
-  private String email;
-
-
 
 }</code></pre>
+<p>新建一个自定义监听器，实现了 ApplicationListener 接口，泛型 AvailabilityChangeEvent 表示仅仅监听 AvailabilityChangeEvent 事件。</p>
+<p>因第 8 步的事件和第 6 步的事件同名，我们可以根据事件的状态来区分到底是哪一个环节的事件 。</p>
+<h3 id="2-注册监听器"><a href="#2-注册监听器" class="headerlink" title="2. 注册监听器"></a>2. 注册监听器</h3><p><strong>注册监听器有两种方式：</strong></p>
+<p>1、在资源目录中的 META-INF/spring.factories 文件中自动注册：</p>
+<pre><code>org.springframework.context.ApplicationListener=\
+cn.javastack.springboot.features.listener.JavastackListener</code></pre>
+<p>2、如果是监听 Spring 应用上下文（ApplicationContext）创建之后的事件，可以直接在监听器上使用 @Component 注解即可，否则需要使用第一种方法的自动注册，因为 ApplicationContext 并未创建，这时的 Bean 是不能被加载的。</p>
+<h3 id="3-应用启动"><a href="#3-应用启动" class="headerlink" title="3. 应用启动"></a>3. 应用启动</h3><p>下面来看下启动日志：</p>
+<p><img src="https://p3-tt.byteimg.com/origin/pgc-image/173441b6373b46d7a82f8c90325b1926?from=pc" alt="Spring Boot 启动事件和监听器，太强大了"></p>
+<p>可以看到同时输出了第 6 步和 8 步的监听日志，但只输出第 8 步的启动完成日志，自定义监听实现成功。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>了解了 Spring Boot 启动过程中的各个事件及监听机制，大家可以依葫芦画瓢实现 Spring Boot 启动过程中的各个自定义操作，比如说在启动过程上实现动态注册、移除 Bean 等。</p>
+<p>一般来说，不建议使用事件和监听器来实现比较耗时和繁重的任务，这样会影响应用程序的正常启动，考虑使用 Spring Boot 的 application/ command-line runners 来进行实现。</p>
+<p>本文只是介绍了一下 Spring Boot 启动过程中的事件及如何实现自定义监听器，怎么实现一个业务上的自定义事件和监听器不在本文范围之类，后续栈长再开一篇，关注Java技术栈第一时间推送，不要走开。</p>
+<p>本文实践所有源代码已上传：</p>
 <blockquote>
-<p>2、编写业务controller</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/javastacks/spring-boot-best-practice">https://github.com/javastacks/spring-boot-best-practice</a></p>
 </blockquote>
-<pre><code>@RestController
-@Api(tags = "用户管理")
-@Slf4j
-public class UserController {
-
-    @Autowired
-    private UserService userService;
-
-    @GetMapping(value="/get/{id}")
-    @ApiOperation("根据用户ID查找用户")
-    @ApiImplicitParam(value = "用户id",name = "id",required = true,paramType = "path")
-    public UserDTO getUserById(@PathVariable("id") Long id){
-        UserDTO dto = userService.getUserById(id);
-        log.info("{}",dto);
-        return dto;
-
-    }
-
-    @PostMapping(value="/add")
-    @ApiOperation("添加用户")
-    public UserDTO add(@RequestBody @Validated({Add.class}) UserDTO userDTO){
-        log.info("{}",userDTO);
-        return userService.save(userDTO);
-    }
-
-    @PostMapping(value="/update")
-    @ApiOperation("更新用户")
-    public UserDTO update(@RequestBody @Validated({Update.class}) UserDTO userDTO){
-        log.info("{}",userDTO);
-        return userService.save(userDTO);
-    }
-
-    @DeleteMapping(value="/detele")
-    @ApiOperation("删除用户")
-    public boolean delete(@Validated({Delete.class}) UserDTO userDTO){
-        log.info("id：{}",userDTO.getId());
-        return userService.delete(userDTO.getId());
-    }
-}</code></pre>
-<p><strong>注：</strong> 业务service就不贴了和文章内容关系不大。如果感兴趣的朋友，可以从文末提供的链接进行查看</p>
+<p>参考资料：</p>
 <blockquote>
-<p>3、利用swagger在线接口文档进行测试</p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.5.RELEASE/reference/htmlsingle/#boot-features-application-events-and-listeners">https://docs.spring.io/spring-boot/docs/2.3.5.RELEASE/reference/htmlsingle/#boot-features-application-events-and-listeners</a></p>
 </blockquote>
-<p>a：正常响应时，返回值形如下</p>
-<pre><code>{
-  "status": 0,
-  "message": "success",
-  "data": {
-    "id": 1,
-    "userName": "zhangsan",
-    "realName": "张三",
-    "password": "123456",
-    "gender": 1,
-    "email": "zhangsan@qq.com"
-  }
-}</code></pre>
-<p>b：当数据校验异常时，返回值形如下</p>
-<pre><code>{
-  "status": 1,
-  "message": "姓名不能为空;",
-  "data": null
-}</code></pre>
-<p>c:当业务异常时，返回值形如下</p>
-<pre><code>{
-  "status": 1,
-  "message": "user is not found by id :3",
-  "data": null
-}</code></pre>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文主要介绍了如何利用@RestControllerAdvice和ResponseBodyAdvice来统一处理返回值。本文代码示例还实现了分组校验，自定义校验，利用mdc traceId日志埋点，如果对这些内容感兴趣的朋友，可以查看文末项目链接</p>
-<h2 id="demo链接"><a href="#demo链接" class="headerlink" title="demo链接"></a>demo链接</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/lyb-geek/springboot-learning/tree/master/springboot-unit-resp">https://github.com/lyb-geek/springboot-learning/tree/master/springboot-unit-resp</a></p>
-</blockquote>
+<p>最后，觉得有收获，在看、转发一下哦，原创不易，需要鼓励。</p>
+<p>作者：Java技术栈<br>链接：<a target="_blank" rel="noopener" href="https://www.toutiao.com/i6906359568658399752/?tt_from=dingtalk&amp;utm_campaign=client_share&amp;timestamp=1608014320&amp;app=news_article&amp;utm_source=dingtalk&amp;utm_medium=toutiao_ios&amp;use_new_style=1&amp;req_id=202012151438400100260790160D018A45&amp;dtshare_count=1&amp;group_id=6906359568658399752">https://www.toutiao.com/i6906359568658399752/?tt_from=dingtalk&amp;utm_campaign=client_share&amp;timestamp=1608014320&amp;app=news_article&amp;utm_source=dingtalk&amp;utm_medium=toutiao_ios&amp;use_new_style=1&amp;req_id=202012151438400100260790160D018A45&amp;dtshare_count=1&amp;group_id=6906359568658399752</a><br>来源：头条<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 
             </div>
             <hr/>
@@ -705,7 +517,7 @@ public class UserController {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2020/12/15/springbootgracefullyhandlesthereturnvalue/">https://chenguoo.github.io/2020/12/15/springbootgracefullyhandlesthereturnvalue/</a>
+                    <a href="https://chenguoo.github.io/2020/12/15/springbootevent/">https://chenguoo.github.io/2020/12/15/springbootevent/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -745,6 +557,10 @@ public class UserController {
                             
                                 <a href="/tags/springboot/">
                                     <span class="chip bg-color">springboot</span>
+                                </a>
+                            
+                                <a href="/tags/event/">
+                                    <span class="chip bg-color">event</span>
                                 </a>
                             
                         </div>
@@ -790,26 +606,83 @@ public class UserController {
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/12/15/springbootevent/">
+                <a href="/2020/12/17/encryption-algorithm/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Spring Boot 启动事件和监听器，太强大了">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="常用的加密算法">
                         
-                        <span class="card-title">Spring Boot 启动事件和监听器，太强大了</span>
+                        <span class="card-title">常用的加密算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            大家都知道，在 Spring 框架中事件和监听无处不在，打通了 Spring 框架的任督二脉，事件和监听也是 Spring 框架必学的核心知识之一。
-一般来说，我们很少会使用到应用程序事件，但我们也不要忘了它们的存在，比如说在 Spring
+                            加密算法我们整体可以分为：可逆加密和不可逆加密，可逆加密又可以分为：对称加密和非对称加密。
+一、不可逆加密常见的不可逆加密算法有MD5，HMAC，SHA1、SHA-224、SHA-256、SHA-384，和SHA-512，其中SHA-224
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-15
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-17
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Encryption/">
+                        <span class="chip bg-color">Encryption</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/12/15/springbootgracefullyhandlesthereturnvalue/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="springboot2之优雅处理返回值">
+                        
+                        <span class="card-title">springboot2之优雅处理返回值</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言最近项目组有个老项目要进行前后端分离改造，应前端同学的要求，其后端提供的返回值格式需形如
+{
+  "status": 0,
+  "message": "success",
+  "data": {
+
+  }
+}
+方便前端数据处理。要实现前
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -827,73 +700,6 @@ public class UserController {
                     
                     <a href="/tags/springboot/">
                         <span class="chip bg-color">springboot</span>
-                    </a>
-                    
-                    <a href="/tags/event/">
-                        <span class="chip bg-color">event</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/11/28/springboot-validated-service/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="springboot @Validated分组功能用在service层校验对象解决方案">
-                        
-                        <span class="card-title">springboot @Validated分组功能用在service层校验对象解决方案</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            分组校验@Validated
-@Service
-public class BrandServiceImpl extends ServiceImpl&lt;BrandMapper, Brand> implements BrandService
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-28
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/develop/" class="post-category">
-                                    develop
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/springboot/">
-                        <span class="chip bg-color">springboot</span>
-                    </a>
-                    
-                    <a href="/tags/validated/">
-                        <span class="chip bg-color">validated</span>
-                    </a>
-                    
-                    <a href="/tags/group/">
-                        <span class="chip bg-color">group</span>
                     </a>
                     
                 </div>

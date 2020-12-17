@@ -1,0 +1,1290 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="常用的加密算法, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>常用的加密算法 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">常用的加密算法</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Encryption/">
+                                <span class="chip bg-color">Encryption</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java/" class="post-category">
+                                java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-17
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>加密算法我们整体可以分为：可逆加密和不可逆加密，可逆加密又可以分为：对称加密和非对称加密。</p>
+<h2 id="一、不可逆加密"><a href="#一、不可逆加密" class="headerlink" title="一、不可逆加密"></a>一、不可逆加密</h2><p>常见的不可逆加密算法有<code>MD5</code>，<code>HMAC</code>，<code>SHA1</code>、<code>SHA-224</code>、<code>SHA-256</code>、<code>SHA-384</code>，和<code>SHA-512</code>，其中<code>SHA-224</code>、<code>SHA-256</code>、<code>SHA-384</code>，和<code>SHA-512</code>我们可以统称为<code>SHA2</code>加密算法，<code>SHA</code>加密算法的安全性要比<code>MD5</code>更高，而<code>SHA2</code>加密算法比<code>SHA1</code>的要高。其中<code>SHA</code>后面的数字表示的是加密后的字符串长度，<code>SHA1</code>默认会产生一个<code>160</code>位的信息摘要。</p>
+<p>不可逆加密算法最大的特点就是密钥，但是<code>HMAC</code>是需要密钥的【手动狗头】。</p>
+<p>由于这些加密都是不可逆的，因此比较常用的场景就是用户密码加密，其验证过程就是通过比较两个加密后的字符串是否一样来确认身份的。网上也有很多自称是可以破解<code>MD5</code>密码的网站，其原理也是一样，就是有一个巨大的资源库，存放了许多字符串及对应的<code>MD5</code>加密后的字符串，通过你输入的<code>MD5</code>加密串来进行比较，如果过你的密码复杂度比较低，还是有很大机率验证出来的。</p>
+<h3 id="1-1-MD5"><a href="#1-1-MD5" class="headerlink" title="1.1 MD5"></a>1.1 MD5</h3><blockquote>
+<p><strong>MD5信息摘要算法</strong>（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。</p>
+</blockquote>
+<p><code>MD5</code>算法有以下特点：</p>
+<p>1、压缩性：无论数据长度是多少，计算出来的<code>MD5</code>值长度相同</p>
+<p>2、容易计算性：由原数据容易计算出<code>MD5</code>值</p>
+<p>3、抗修改性：即便修改一个字节，计算出来的<code>MD5</code>值也会巨大差异</p>
+<p>4、抗碰撞性：知道数据和<code>MD5</code>值，很小概率找到相同<code>MD5</code>值相同的原数据。</p>
+<pre class="line-numbers language-java"><code class="language-java"> 1public <span class="token keyword">static</span> String <span class="token function">md5</span><span class="token punctuation">(</span>String text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token number">2</span>    MessageDigest messageDigest <span class="token operator">=</span> null<span class="token punctuation">;</span>
+ <span class="token number">3</span>    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+ <span class="token number">4</span>        messageDigest <span class="token operator">=</span> MessageDigest<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"MD5"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">5</span>    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchAlgorithmException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token number">6</span>        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">7</span>    <span class="token punctuation">}</span>
+ <span class="token number">8</span>    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> messageDigest<span class="token punctuation">.</span><span class="token function">digest</span><span class="token punctuation">(</span>text<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">9</span>    <span class="token keyword">return</span> Hex<span class="token punctuation">.</span><span class="token function">encodeHexString</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">10</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="1-2-SHA系列"><a href="#1-2-SHA系列" class="headerlink" title="1.2 SHA系列"></a>1.2 SHA系列</h3><blockquote>
+<p><strong>安全散列算法</strong>（英语：Secure Hash Algorithm，缩写为SHA）是一个密码散列函数家族，是FIPS所认证的安全散列算法。能计算出一个数字消息所对应到的，长度固定的字符串（又称消息摘要）的算法。且若输入的消息不同，它们对应到不同字符串的机率很高。</p>
+<p>2005年8月17日的CRYPTO会议尾声中王小云、姚期智、姚储枫再度发表更有效率的SHA-1攻击法，能在2的63次方个计算复杂度内找到碰撞。</p>
+</blockquote>
+<p>也就是说<code>SHA-1</code>加密算法有碰撞的可能性，虽然很小。</p>
+<pre class="line-numbers language-java"><code class="language-java"> 1public <span class="token keyword">static</span> String <span class="token function">sha256</span><span class="token punctuation">(</span>String text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token number">2</span>    MessageDigest messageDigest <span class="token operator">=</span> null<span class="token punctuation">;</span>
+ <span class="token number">3</span>    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+ <span class="token number">4</span>        messageDigest <span class="token operator">=</span> MessageDigest<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"SHA-256"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">5</span>    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchAlgorithmException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token number">6</span>        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">7</span>    <span class="token punctuation">}</span>
+ <span class="token number">8</span>    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> messageDigest<span class="token punctuation">.</span><span class="token function">digest</span><span class="token punctuation">(</span>text<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+ <span class="token number">9</span>    <span class="token keyword">return</span> Hex<span class="token punctuation">.</span><span class="token function">encodeHexString</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">10</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="1-3-HMAC系列"><a href="#1-3-HMAC系列" class="headerlink" title="1.3 HMAC系列"></a>1.3 HMAC系列</h3><blockquote>
+<p>HMAC是密钥相关的哈希运算消息认证码（Hash-based Message Authentication  Code）的缩写，由H.Krawezyk，M.Bellare，R.Canetti于1996年提出的一种基于Hash函数和密钥进行消息认证的方法，并于1997年作为RFC2104被公布，并在IPSec和其他网络协议（如SSL）中得以广泛应用，现在已经成为事实上的Internet安全标准。它可以与任何迭代散列函数捆绑使用。</p>
+<p>HMAC算法更像是一种加密算法，它引入了密钥，其安全性已经不完全依赖于所使用的Hash算法</p>
+</blockquote>
+<pre class="line-numbers language-java"><code class="language-java"> 1public <span class="token keyword">static</span> String <span class="token function">hmacSha256</span><span class="token punctuation">(</span>String text<span class="token punctuation">,</span> SecretKeySpec sk<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token number">2</span>    Mac mac <span class="token operator">=</span> null<span class="token punctuation">;</span>
+ <span class="token number">3</span>    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+ <span class="token number">4</span>        mac <span class="token operator">=</span> Mac<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"HmacSHA256"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">5</span>    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchAlgorithmException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token number">6</span>        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">7</span>    <span class="token punctuation">}</span>
+ <span class="token number">8</span>    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+ <span class="token number">9</span>        mac<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>sk<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">10</span>    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InvalidKeyException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token number">11</span>        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">12</span>    <span class="token punctuation">}</span>
+<span class="token number">13</span>    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> rawHmac <span class="token operator">=</span> mac<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>text<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">14</span>    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>Base64<span class="token punctuation">.</span><span class="token function">encodeBase64</span><span class="token punctuation">(</span>rawHmac<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">15</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果要使用不可逆加密，推荐使用SHA256、SHA384、SHA512以及HMAC-SHA256、HMAC-SHA384、HMAC-SHA512这几种算法。</p>
+<h2 id="二、对称加密算法"><a href="#二、对称加密算法" class="headerlink" title="二、对称加密算法"></a>二、对称加密算法</h2><p>对称加密算法是应用比较早的算法，在数据加密和解密的时用的都是同一个密钥，这就造成了密钥管理困难的问题。常见的对称加密算法有<code>DES</code>、<code>3DES</code>、<code>AES128</code>、<code>AES192</code>、<code>AES256</code>(默认安装的<code>JDK</code>尚不支持<code>AES256</code>，需要安装对应的<code>jce</code>补丁进行升级<code>jce1.7</code>，<code>jce1.8</code>)。其中<code>AES</code>后面的数字代表的是密钥长度。对称加密算法的安全性相对较低，比较适用的场景就是内网环境中的加解密。</p>
+<h3 id="2-1-DES"><a href="#2-1-DES" class="headerlink" title="2.1 DES"></a>2.1 DES</h3><p><code>DES</code>是对称加密算法领域中的典型算法，其密钥默认长度为<code>56</code>位。</p>
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token number">1</span>  <span class="token comment" spellcheck="true">// 加密</span>
+ <span class="token number">2</span>  <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">encrypt</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> dataSource<span class="token punctuation">,</span> String password<span class="token punctuation">)</span><span class="token punctuation">{</span>
+ <span class="token number">3</span>     <span class="token keyword">try</span> <span class="token punctuation">{</span>
+ <span class="token number">4</span>         SecureRandom random <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SecureRandom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">5</span>         DESKeySpec desKeySpec <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DESKeySpec</span><span class="token punctuation">(</span>password<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">6</span>         <span class="token comment" spellcheck="true">//创建一个密匙工厂，然后用它把DESKeySpec转换成 </span>
+ <span class="token number">7</span>         SecretKeyFactory secretKeyFactory <span class="token operator">=</span> SecretKeyFactory<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"DES"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+ <span class="token number">8</span>         SecretKey secretKey <span class="token operator">=</span> secretKeyFactory<span class="token punctuation">.</span><span class="token function">generateSecret</span><span class="token punctuation">(</span>desKeySpec<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+ <span class="token number">9</span>         <span class="token comment" spellcheck="true">//Cipher对象实际完成加密操作 </span>
+<span class="token number">10</span>         Cipher cipher <span class="token operator">=</span> Cipher<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"DES"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">11</span>         <span class="token comment" spellcheck="true">//用密匙初始化Cipher对象 </span>
+<span class="token number">12</span>         cipher<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>Cipher<span class="token punctuation">.</span>ENCRYPT_MODE<span class="token punctuation">,</span> secretKey<span class="token punctuation">,</span> random<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">13</span>         <span class="token comment" spellcheck="true">//正式执行加密操作 </span>
+<span class="token number">14</span>         <span class="token keyword">return</span> Base64<span class="token punctuation">.</span><span class="token function">encodeBase64String</span><span class="token punctuation">(</span>cipher<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>dataSource<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">15</span>     <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+<span class="token number">16</span>         e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">17</span>     <span class="token punctuation">}</span> <span class="token keyword">return</span> null<span class="token punctuation">;</span> 
+<span class="token number">18</span> <span class="token punctuation">}</span> 
+<span class="token number">19</span>  <span class="token comment" spellcheck="true">// 解密</span>
+<span class="token number">20</span>  <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">decrypt</span><span class="token punctuation">(</span>String src<span class="token punctuation">,</span> String password<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">{</span> 
+<span class="token number">21</span>    <span class="token comment" spellcheck="true">// DES算法要求有一个可信任的随机数源 </span>
+<span class="token number">22</span>    SecureRandom random <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SecureRandom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">23</span>    <span class="token comment" spellcheck="true">// 创建一个DESKeySpec对象 </span>
+<span class="token number">24</span>    DESKeySpec desKeySpec <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DESKeySpec</span><span class="token punctuation">(</span>password<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">25</span>    <span class="token comment" spellcheck="true">// 创建一个密匙工厂 </span>
+<span class="token number">26</span>    SecretKeyFactory keyFactory <span class="token operator">=</span> SecretKeyFactory<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"DES"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">27</span>    <span class="token comment" spellcheck="true">// 将DESKeySpec对象转换成SecretKey对象 </span>
+<span class="token number">28</span>    SecretKey secretKey <span class="token operator">=</span> keyFactory<span class="token punctuation">.</span><span class="token function">generateSecret</span><span class="token punctuation">(</span>desKeySpec<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">29</span>    <span class="token comment" spellcheck="true">// Cipher对象实际完成解密操作 </span>
+<span class="token number">30</span>    Cipher cipher <span class="token operator">=</span> Cipher<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"DES"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">31</span>    <span class="token comment" spellcheck="true">// 用密匙初始化Cipher对象 </span>
+<span class="token number">32</span>    cipher<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>Cipher<span class="token punctuation">.</span>DECRYPT_MODE<span class="token punctuation">,</span> secretKey<span class="token punctuation">,</span> random<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">33</span>    <span class="token comment" spellcheck="true">// 真正开始解密操作 </span>
+<span class="token number">34</span>    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>cipher<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>Base64<span class="token punctuation">.</span><span class="token function">decodeBase64</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token number">35</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-2-3DES"><a href="#2-2-3DES" class="headerlink" title="2.2 3DES"></a>2.2 3DES</h3><p><code>3DES</code>（即Triple DES）是<code>DES</code>向<code>AES</code>过渡的加密算法，它使用3条56位的密钥对数据进行三次加密。是<code>DES</code>的一个更安全的变形。它以<code>DES</code>为基本模块，通过组合分组方法设计出分组加密算法。比起最初的<code>DES</code>，<code>3DES</code>更为安全。密钥长度默认为<code>168</code>位，还可以选择<code>128</code>位。</p>
+<pre class="line-numbers language-java"><code class="language-java"> 1public <span class="token keyword">static</span> String <span class="token function">encryptThreeDESECB</span><span class="token punctuation">(</span>String src<span class="token punctuation">,</span> String key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token number">2</span>    <span class="token keyword">try</span><span class="token punctuation">{</span>
+ <span class="token number">3</span>        DESedeKeySpec dks <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DESedeKeySpec</span><span class="token punctuation">(</span>key<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">4</span>        SecretKeyFactory keyFactory <span class="token operator">=</span> SecretKeyFactory<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"DESede"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">5</span>        SecretKey securekey <span class="token operator">=</span> keyFactory<span class="token punctuation">.</span><span class="token function">generateSecret</span><span class="token punctuation">(</span>dks<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">6</span>
+ <span class="token number">7</span>        Cipher cipher <span class="token operator">=</span> Cipher<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"DESede/ECB/PKCS5Padding"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">8</span>        cipher<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>Cipher<span class="token punctuation">.</span>ENCRYPT_MODE<span class="token punctuation">,</span> securekey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">9</span>        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> b <span class="token operator">=</span> cipher<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>src<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">10</span>
+<span class="token number">11</span>        String ss <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>Base64<span class="token punctuation">.</span><span class="token function">encodeBase64</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">12</span>        ss <span class="token operator">=</span> ss<span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span><span class="token string">"\\+"</span><span class="token punctuation">,</span> <span class="token string">"-"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">13</span>        ss <span class="token operator">=</span> ss<span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token string">"_"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">14</span>        <span class="token keyword">return</span> ss<span class="token punctuation">;</span>
+<span class="token number">15</span>    <span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>Exception ex<span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token number">16</span>        ex<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">17</span>        <span class="token keyword">return</span> src<span class="token punctuation">;</span>
+<span class="token number">18</span>    <span class="token punctuation">}</span>
+<span class="token number">19</span><span class="token punctuation">}</span>
+<span class="token number">20</span>
+21public <span class="token keyword">static</span> String <span class="token function">decryptThreeDESECB</span><span class="token punctuation">(</span>String src<span class="token punctuation">,</span> String key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token number">22</span>    <span class="token keyword">try</span><span class="token punctuation">{</span>
+<span class="token number">23</span>        src <span class="token operator">=</span> src<span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">,</span> <span class="token string">"+"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">24</span>        src <span class="token operator">=</span> src<span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span><span class="token string">"_"</span><span class="token punctuation">,</span> <span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">25</span>        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytesrc <span class="token operator">=</span> Base64<span class="token punctuation">.</span><span class="token function">decodeBase64</span><span class="token punctuation">(</span>src<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">26</span>        <span class="token comment" spellcheck="true">// --解密的key</span>
+<span class="token number">27</span>        DESedeKeySpec dks <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DESedeKeySpec</span><span class="token punctuation">(</span>key<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">28</span>        SecretKeyFactory keyFactory <span class="token operator">=</span> SecretKeyFactory<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"DESede"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">29</span>        SecretKey securekey <span class="token operator">=</span> keyFactory<span class="token punctuation">.</span><span class="token function">generateSecret</span><span class="token punctuation">(</span>dks<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">30</span>
+<span class="token number">31</span>        <span class="token comment" spellcheck="true">// --Chipher对象解密</span>
+<span class="token number">32</span>        Cipher cipher <span class="token operator">=</span> Cipher<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"DESede/ECB/PKCS5Padding"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">33</span>        cipher<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>Cipher<span class="token punctuation">.</span>DECRYPT_MODE<span class="token punctuation">,</span> securekey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">34</span>        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> retByte <span class="token operator">=</span> cipher<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>bytesrc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">35</span>
+<span class="token number">36</span>        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>retByte<span class="token punctuation">,</span> <span class="token string">"UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">37</span>    <span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>Exception ex<span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token number">38</span>        ex<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">39</span>        <span class="token keyword">return</span> src<span class="token punctuation">;</span>
+<span class="token number">40</span>    <span class="token punctuation">}</span>
+<span class="token number">41</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-3-AES"><a href="#2-3-AES" class="headerlink" title="2.3 AES"></a>2.3 AES</h3><p><code>AES</code>高级数据加密标准，能够有效抵御已知的针对<code>DES</code>算法的所有攻击，默认密钥长度为<code>128</code>位，还可以供选择<code>192</code>位，<code>256</code>位。这里顺便提一句这个位指的是bit。</p>
+<pre class="line-numbers language-java"><code class="language-java"> 1private <span class="token keyword">static</span> <span class="token keyword">final</span> String defaultCharset <span class="token operator">=</span> <span class="token string">"UTF-8"</span><span class="token punctuation">;</span>
+ 2private <span class="token keyword">static</span> <span class="token keyword">final</span> String KEY_AES <span class="token operator">=</span> <span class="token string">"AES"</span><span class="token punctuation">;</span>
+ 3private <span class="token keyword">static</span> <span class="token keyword">final</span> String KEY_MD5 <span class="token operator">=</span> <span class="token string">"MD5"</span><span class="token punctuation">;</span>
+ 4private <span class="token keyword">static</span> MessageDigest md5Digest<span class="token punctuation">;</span>
+ 5static <span class="token punctuation">{</span>
+ <span class="token number">6</span>    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+ <span class="token number">7</span>        md5Digest <span class="token operator">=</span> MessageDigest<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>KEY_MD5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">8</span>    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchAlgorithmException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token number">9</span>
+<span class="token number">10</span>    <span class="token punctuation">}</span>
+<span class="token number">11</span><span class="token punctuation">}</span>
+<span class="token number">12</span><span class="token comment" spellcheck="true">/**
+13  * 加密
+14  */</span>
+15public <span class="token keyword">static</span> String <span class="token function">encrypt</span><span class="token punctuation">(</span>String data<span class="token punctuation">,</span> String key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token number">16</span>    <span class="token keyword">return</span> <span class="token function">doAES</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> key<span class="token punctuation">,</span> Cipher<span class="token punctuation">.</span>ENCRYPT_MODE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">17</span><span class="token punctuation">}</span>
+<span class="token number">18</span><span class="token comment" spellcheck="true">/**
+19  * 解密
+20  */</span>
+21public <span class="token keyword">static</span> String <span class="token function">decrypt</span><span class="token punctuation">(</span>String data<span class="token punctuation">,</span> String key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token number">22</span>    <span class="token keyword">return</span> <span class="token function">doAES</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> key<span class="token punctuation">,</span> Cipher<span class="token punctuation">.</span>DECRYPT_MODE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">23</span><span class="token punctuation">}</span>
+<span class="token number">24</span>
+<span class="token number">25</span>
+<span class="token number">26</span><span class="token comment" spellcheck="true">/**
+27  * 加解密
+28  */</span>
+29private <span class="token keyword">static</span> String <span class="token function">doAES</span><span class="token punctuation">(</span>String data<span class="token punctuation">,</span> String key<span class="token punctuation">,</span> <span class="token keyword">int</span> mode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token number">30</span>    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+<span class="token number">31</span>        <span class="token keyword">boolean</span> encrypt <span class="token operator">=</span> mode <span class="token operator">==</span> Cipher<span class="token punctuation">.</span>ENCRYPT_MODE<span class="token punctuation">;</span>
+<span class="token number">32</span>        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> content<span class="token punctuation">;</span>
+<span class="token number">33</span>        <span class="token keyword">if</span> <span class="token punctuation">(</span>encrypt<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token number">34</span>            content <span class="token operator">=</span> data<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span>defaultCharset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">35</span>        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+<span class="token number">36</span>            content <span class="token operator">=</span> Base64<span class="token punctuation">.</span><span class="token function">decodeBase64</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">37</span>        <span class="token punctuation">}</span>
+<span class="token number">38</span>        SecretKeySpec keySpec <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SecretKeySpec</span><span class="token punctuation">(</span>md5Digest<span class="token punctuation">.</span><span class="token function">digest</span><span class="token punctuation">(</span>key<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span>defaultCharset<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token number">39</span>                                                  <span class="token punctuation">,</span> KEY_AES<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">40</span>        Cipher cipher <span class="token operator">=</span> Cipher<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>KEY_AES<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 创建密码器</span>
+<span class="token number">41</span>        cipher<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>mode<span class="token punctuation">,</span> keySpec<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 初始化</span>
+<span class="token number">42</span>        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> result <span class="token operator">=</span> cipher<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">43</span>        <span class="token keyword">if</span> <span class="token punctuation">(</span>encrypt<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token number">44</span>            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>Base64<span class="token punctuation">.</span><span class="token function">encodeBase64</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">45</span>        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+<span class="token number">46</span>            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> defaultCharset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">47</span>        <span class="token punctuation">}</span>
+<span class="token number">48</span>    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token number">49</span>    <span class="token punctuation">}</span>
+<span class="token number">50</span>    <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+<span class="token number">51</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>推荐使用对称加密算法有：<code>AES128</code>、<code>AES192</code>、<code>AES256</code>。</p>
+<h2 id="三、非对称加密算法"><a href="#三、非对称加密算法" class="headerlink" title="三、非对称加密算法"></a>三、非对称加密算法</h2><p>非对称加密算法有两个密钥，这两个密钥完全不同但又完全匹配。只有使用匹配的一对公钥和私钥，才能完成对明文的加密和解密过程。常见的非对称加密有<code>RSA</code>、<code>SM2</code>等。</p>
+<h3 id="3-1-RSA"><a href="#3-1-RSA" class="headerlink" title="3.1 RSA"></a>3.1 RSA</h3><p><code>RSA</code>密钥至少为500位长，一般推荐使用1024位。</p>
+<pre class="line-numbers language-java"><code class="language-java">  <span class="token number">1</span><span class="token comment" spellcheck="true">//非对称密钥算法</span>
+  2public <span class="token keyword">static</span> <span class="token keyword">final</span> String KEY_ALGORITHM <span class="token operator">=</span> <span class="token string">"RSA"</span><span class="token punctuation">;</span>
+  <span class="token number">3</span>
+  <span class="token number">4</span><span class="token comment" spellcheck="true">/**
+  5  * 密钥长度，DH算法的默认密钥长度是1024
+  6  * 密钥长度必须是64的倍数，在512到65536位之间
+  7  */</span>
+  8private <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> KEY_SIZE <span class="token operator">=</span> <span class="token number">1024</span><span class="token punctuation">;</span>
+  <span class="token number">9</span><span class="token comment" spellcheck="true">//公钥</span>
+ 10private <span class="token keyword">static</span> <span class="token keyword">final</span> String PUBLIC_KEY <span class="token operator">=</span> <span class="token string">"RSAPublicKey"</span><span class="token punctuation">;</span>
+ <span class="token number">11</span><span class="token comment" spellcheck="true">//私钥</span>
+ 12private <span class="token keyword">static</span> <span class="token keyword">final</span> String PRIVATE_KEY <span class="token operator">=</span> <span class="token string">"RSAPrivateKey"</span><span class="token punctuation">;</span>
+ <span class="token number">13</span><span class="token comment" spellcheck="true">/**
+ 14  * 初始化密钥对
+ 15  *
+ 16  * @return Map 甲方密钥的Map
+ 17  */</span>
+ 18public <span class="token keyword">static</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> <span class="token function">initKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+ <span class="token number">19</span>    <span class="token comment" spellcheck="true">//实例化密钥生成器</span>
+ <span class="token number">20</span>    KeyPairGenerator keyPairGenerator <span class="token operator">=</span> KeyPairGenerator<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>KEY_ALGORITHM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">21</span>    <span class="token comment" spellcheck="true">//初始化密钥生成器</span>
+ <span class="token number">22</span>    keyPairGenerator<span class="token punctuation">.</span><span class="token function">initialize</span><span class="token punctuation">(</span>KEY_SIZE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">23</span>    <span class="token comment" spellcheck="true">//生成密钥对</span>
+ <span class="token number">24</span>    KeyPair keyPair <span class="token operator">=</span> keyPairGenerator<span class="token punctuation">.</span><span class="token function">generateKeyPair</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">25</span>    <span class="token comment" spellcheck="true">//甲方公钥</span>
+ <span class="token number">26</span>    RSAPublicKey publicKey <span class="token operator">=</span> <span class="token punctuation">(</span>RSAPublicKey<span class="token punctuation">)</span> keyPair<span class="token punctuation">.</span><span class="token function">getPublic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">27</span>    <span class="token comment" spellcheck="true">//甲方私钥</span>
+ <span class="token number">28</span>    RSAPrivateKey privateKey <span class="token operator">=</span> <span class="token punctuation">(</span>RSAPrivateKey<span class="token punctuation">)</span> keyPair<span class="token punctuation">.</span><span class="token function">getPrivate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">29</span>    <span class="token comment" spellcheck="true">//将密钥存储在map中</span>
+ <span class="token number">30</span>    Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> keyMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">31</span>    keyMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>PUBLIC_KEY<span class="token punctuation">,</span> publicKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">32</span>    keyMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>PRIVATE_KEY<span class="token punctuation">,</span> privateKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">33</span>    <span class="token keyword">return</span> keyMap<span class="token punctuation">;</span>
+ <span class="token number">34</span><span class="token punctuation">}</span>
+ <span class="token number">35</span><span class="token comment" spellcheck="true">/**
+ 36  * 私钥加密
+ 37  *
+ 38  * @param data 待加密数据
+ 39  * @param key  密钥
+ 40  * @return byte[] 加密数据
+ 41  */</span>
+ 42public <span class="token keyword">static</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">encryptByPrivateKey</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> key<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+ <span class="token number">43</span>
+ <span class="token number">44</span>    <span class="token comment" spellcheck="true">//取得私钥</span>
+ <span class="token number">45</span>    PKCS8EncodedKeySpec pkcs8KeySpec <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PKCS8EncodedKeySpec</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">46</span>    KeyFactory keyFactory <span class="token operator">=</span> KeyFactory<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>KEY_ALGORITHM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">47</span>    <span class="token comment" spellcheck="true">//生成私钥</span>
+ <span class="token number">48</span>    PrivateKey privateKey <span class="token operator">=</span> keyFactory<span class="token punctuation">.</span><span class="token function">generatePrivate</span><span class="token punctuation">(</span>pkcs8KeySpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">49</span>    <span class="token comment" spellcheck="true">//数据加密</span>
+ <span class="token number">50</span>    Cipher cipher <span class="token operator">=</span> Cipher<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>keyFactory<span class="token punctuation">.</span><span class="token function">getAlgorithm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">51</span>    cipher<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>Cipher<span class="token punctuation">.</span>ENCRYPT_MODE<span class="token punctuation">,</span> privateKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">52</span>    <span class="token keyword">return</span> cipher<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">53</span><span class="token punctuation">}</span>
+ <span class="token number">54</span>
+ <span class="token number">55</span><span class="token comment" spellcheck="true">/**
+ 56  * 公钥加密
+ 57  *
+ 58  * @param data 待加密数据
+ 59  * @param key  密钥
+ 60  * @return byte[] 加密数据
+ 61  */</span>
+ 62public <span class="token keyword">static</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">encryptByPublicKey</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> key<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+ <span class="token number">63</span>
+ <span class="token number">64</span>    <span class="token comment" spellcheck="true">//实例化密钥工厂</span>
+ <span class="token number">65</span>    KeyFactory keyFactory <span class="token operator">=</span> KeyFactory<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>KEY_ALGORITHM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">66</span>    <span class="token comment" spellcheck="true">//初始化公钥</span>
+ <span class="token number">67</span>    <span class="token comment" spellcheck="true">//密钥材料转换</span>
+ <span class="token number">68</span>    X509EncodedKeySpec x509KeySpec <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">X509EncodedKeySpec</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">69</span>    <span class="token comment" spellcheck="true">//产生公钥</span>
+ <span class="token number">70</span>    PublicKey pubKey <span class="token operator">=</span> keyFactory<span class="token punctuation">.</span><span class="token function">generatePublic</span><span class="token punctuation">(</span>x509KeySpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">71</span>    <span class="token comment" spellcheck="true">//数据加密</span>
+ <span class="token number">72</span>    Cipher cipher <span class="token operator">=</span> Cipher<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>keyFactory<span class="token punctuation">.</span><span class="token function">getAlgorithm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">73</span>    cipher<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>Cipher<span class="token punctuation">.</span>ENCRYPT_MODE<span class="token punctuation">,</span> pubKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">74</span>    <span class="token keyword">return</span> cipher<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">75</span><span class="token punctuation">}</span>
+ <span class="token number">76</span>
+ <span class="token number">77</span><span class="token comment" spellcheck="true">/**
+ 78  * 私钥解密
+ 79  *
+ 80  * @param data 待解密数据
+ 81  * @param key  密钥
+ 82  * @return byte[] 解密数据
+ 83  */</span>
+ 84public <span class="token keyword">static</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">decryptByPrivateKey</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> key<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+ <span class="token number">85</span>    <span class="token comment" spellcheck="true">//取得私钥</span>
+ <span class="token number">86</span>    PKCS8EncodedKeySpec pkcs8KeySpec <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PKCS8EncodedKeySpec</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">87</span>    KeyFactory keyFactory <span class="token operator">=</span> KeyFactory<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>KEY_ALGORITHM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">88</span>    <span class="token comment" spellcheck="true">//生成私钥</span>
+ <span class="token number">89</span>    PrivateKey privateKey <span class="token operator">=</span> keyFactory<span class="token punctuation">.</span><span class="token function">generatePrivate</span><span class="token punctuation">(</span>pkcs8KeySpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">90</span>    <span class="token comment" spellcheck="true">//数据解密</span>
+ <span class="token number">91</span>    Cipher cipher <span class="token operator">=</span> Cipher<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>keyFactory<span class="token punctuation">.</span><span class="token function">getAlgorithm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">92</span>    cipher<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>Cipher<span class="token punctuation">.</span>DECRYPT_MODE<span class="token punctuation">,</span> privateKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">93</span>    <span class="token keyword">return</span> cipher<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token number">94</span><span class="token punctuation">}</span>
+ <span class="token number">95</span>
+ <span class="token number">96</span><span class="token comment" spellcheck="true">/**
+ 97  * 公钥解密
+ 98  *
+ 99  * @param data 待解密数据
+100  * @param key  密钥
+101  * @return byte[] 解密数据
+102  */</span>
+103public <span class="token keyword">static</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">decryptByPublicKey</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> key<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+<span class="token number">104</span>
+<span class="token number">105</span>    <span class="token comment" spellcheck="true">//实例化密钥工厂</span>
+<span class="token number">106</span>    KeyFactory keyFactory <span class="token operator">=</span> KeyFactory<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>KEY_ALGORITHM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">107</span>    <span class="token comment" spellcheck="true">//初始化公钥</span>
+<span class="token number">108</span>    <span class="token comment" spellcheck="true">//密钥材料转换</span>
+<span class="token number">109</span>    X509EncodedKeySpec x509KeySpec <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">X509EncodedKeySpec</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">110</span>    <span class="token comment" spellcheck="true">//产生公钥</span>
+<span class="token number">111</span>    PublicKey pubKey <span class="token operator">=</span> keyFactory<span class="token punctuation">.</span><span class="token function">generatePublic</span><span class="token punctuation">(</span>x509KeySpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">112</span>    <span class="token comment" spellcheck="true">//数据解密</span>
+<span class="token number">113</span>    Cipher cipher <span class="token operator">=</span> Cipher<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>keyFactory<span class="token punctuation">.</span><span class="token function">getAlgorithm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">114</span>    cipher<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>Cipher<span class="token punctuation">.</span>DECRYPT_MODE<span class="token punctuation">,</span> pubKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">115</span>    <span class="token keyword">return</span> cipher<span class="token punctuation">.</span><span class="token function">doFinal</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">116</span><span class="token punctuation">}</span>
+<span class="token number">117</span>
+<span class="token number">118</span><span class="token comment" spellcheck="true">/**
+119  * 取得私钥
+120  *
+121  * @param keyMap 密钥map
+122  * @return byte[] 私钥
+123  */</span>
+124public <span class="token keyword">static</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getPrivateKey</span><span class="token punctuation">(</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> keyMap<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token number">125</span>    Key key <span class="token operator">=</span> <span class="token punctuation">(</span>Key<span class="token punctuation">)</span> keyMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>PRIVATE_KEY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">126</span>    <span class="token keyword">return</span> key<span class="token punctuation">.</span><span class="token function">getEncoded</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">127</span><span class="token punctuation">}</span>
+<span class="token number">128</span>
+<span class="token number">129</span><span class="token comment" spellcheck="true">/**
+130  * 取得公钥
+131  *
+132  * @param keyMap 密钥map
+133  * @return byte[] 公钥
+134  */</span>
+135public <span class="token keyword">static</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getPublicKey</span><span class="token punctuation">(</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> keyMap<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+<span class="token number">136</span>    Key key <span class="token operator">=</span> <span class="token punctuation">(</span>Key<span class="token punctuation">)</span> keyMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>PUBLIC_KEY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">137</span>    <span class="token keyword">return</span> key<span class="token punctuation">.</span><span class="token function">getEncoded</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">138</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="四、加密盐"><a href="#四、加密盐" class="headerlink" title="四、加密盐"></a>四、加密盐</h2><p>加密盐也是比较常听到的一个概念，盐就是一个随机字符串用来和我们的加密串拼接后进行加密。加盐主要是为了提供加密字符串的安全性。假如有一个加盐后的加密串，黑客通过一定手段这个加密串，他拿到的明文，并不是我们加密前的字符串，而是加密前的字符串和盐组合的字符串，这样相对来说又增加了字符串的安全性。</p>
+<p><strong>文中的一些算法来源于网络，可直接复制使用</strong>。</p>
+<p>比较推荐的几个加密算法有：</p>
+<ul>
+<li>不可逆加密：<code>SHA256</code>、<code>SHA384</code>、<code>SHA512</code>以及<code>HMAC-SHA256</code>、<code>HMAC-SHA384</code>、<code>HMAC-SHA512</code></li>
+<li>对称加密算法：<code>AES</code>、<code>3DES</code></li>
+<li>非对称加密算法：<code>RSA</code></li>
+</ul>
+<p>作者：Java旅途<br>链接：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247504648&amp;idx=3&amp;sn=a99e72e87a42e5226978843ce0b7a576&amp;chksm=eb50563edc27df28328bb731d0e071bcfdd65faab44f157ce37d9fc892eddff73996729f06df&amp;mpshare=1&amp;scene=1&amp;srcid=0814BbUANZahzDOZl3jK5UDR&amp;sharer_sharetime=1597375409640&amp;sharer_shareid=435636c34212982d3b3d0727d8fe020f&amp;key=d8d62429242a2c0edfd0010eaa53d21715fcbf89b88828f9a80b340559914e9e3fb15ca38d0b46478481da5060a9fbcb32ba1455869f177fefcee64c30e2b317c5065658b779911ce257a481f28af17d8377ab432fbf5cbfb45b9802bfb99f33bf792d5386735f5986ca6ca4ce5e5183585010440b30af1041210f0b2a127112&amp;ascene=1&amp;uin=MjY2MTM3NDU=&amp;devicetype=Windows+10+x64&amp;version=6300002f&amp;lang=zh_CN&amp;exportkey=Azn4+oIXr0yOB8MxZd1UYYc=&amp;pass_ticket=1qlYNDiFNFyY7QVygdW20NdHKJNTCiM6FPzTi+BaRWyJmMj/gc3TRTMdW+l04g8s&amp;wx_header=0">https://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247504648&amp;idx=3&amp;sn=a99e72e87a42e5226978843ce0b7a576&amp;chksm=eb50563edc27df28328bb731d0e071bcfdd65faab44f157ce37d9fc892eddff73996729f06df&amp;mpshare=1&amp;scene=1&amp;srcid=0814BbUANZahzDOZl3jK5UDR&amp;sharer_sharetime=1597375409640&amp;sharer_shareid=435636c34212982d3b3d0727d8fe020f&amp;key=d8d62429242a2c0edfd0010eaa53d21715fcbf89b88828f9a80b340559914e9e3fb15ca38d0b46478481da5060a9fbcb32ba1455869f177fefcee64c30e2b317c5065658b779911ce257a481f28af17d8377ab432fbf5cbfb45b9802bfb99f33bf792d5386735f5986ca6ca4ce5e5183585010440b30af1041210f0b2a127112&amp;ascene=1&amp;uin=MjY2MTM3NDU%3D&amp;devicetype=Windows+10+x64&amp;version=6300002f&amp;lang=zh_CN&amp;exportkey=Azn4%2BoIXr0yOB8MxZd1UYYc%3D&amp;pass_ticket=1qlYNDiFNFyY7QVygdW20NdHKJNTCiM6FPzTi%2BBaRWyJmMj%2Fgc3TRTMdW%2Bl04g8s&amp;wx_header=0</a><br>来源：微信公众号<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2020/12/17/encryption-algorithm/">https://chenguoo.github.io/2020/12/17/encryption-algorithm/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Encryption/">
+                                    <span class="chip bg-color">Encryption</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/12/17/encryption-algorithm/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="常用的加密算法">
+                        
+                        <span class="card-title">常用的加密算法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            加密算法我们整体可以分为：可逆加密和不可逆加密，可逆加密又可以分为：对称加密和非对称加密。
+一、不可逆加密常见的不可逆加密算法有MD5，HMAC，SHA1、SHA-224、SHA-256、SHA-384，和SHA-512，其中SHA-224
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Encryption/">
+                        <span class="chip bg-color">Encryption</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/12/15/springbootevent/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Spring Boot 启动事件和监听器，太强大了">
+                        
+                        <span class="card-title">Spring Boot 启动事件和监听器，太强大了</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            大家都知道，在 Spring 框架中事件和监听无处不在，打通了 Spring 框架的任督二脉，事件和监听也是 Spring 框架必学的核心知识之一。
+一般来说，我们很少会使用到应用程序事件，但我们也不要忘了它们的存在，比如说在 Spring
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/springboot/" class="post-category">
+                                    springboot
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/springboot/">
+                        <span class="chip bg-color">springboot</span>
+                    </a>
+                    
+                    <a href="/tags/event/">
+                        <span class="chip bg-color">event</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
