@@ -1,0 +1,1472 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="史上最全面的 Lombok 注解介绍, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>史上最全面的 Lombok 注解介绍 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">史上最全面的 Lombok 注解介绍</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-28
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="一、-Getter-and-Setter"><a href="#一、-Getter-and-Setter" class="headerlink" title="一、@Getter and @Setter"></a><strong>一、@Getter and @Setter</strong></h2><p>使用<code>@Getter</code>和/或<code>@Setter</code>注释任何字段，以使<code>lombok</code>自动生成默认的<code>getter / setter</code>。</p>
+<p>默认的<code>getter</code>只是返回该字段，如果该字段被称为<code>foo</code>，则名为<code>getFoo</code>（如果该字段的类型为<code>boolean</code>，则为<code>isFoo</code>）。</p>
+<p>默认生成的 <code>getter / setter</code>方法是公共的，除非你明确指定一个<code>AccessLevel</code>。合法访问级别为<code>PUBLIC，PROTECTED，PACKAGE和PRIVATE</code>。</p>
+<p>你还可以在类上添加<code>@Getter</code>和/或<code>@Setter</code>注释。在这种情况下，就好像你使用该注释来注释该类中的所有非静态字段一样。</p>
+<p>你始终可以使用特殊的<code>AccessLevel.NONE</code>访问级别来手动禁用任何字段的<code>getter / setter</code>生成。这使你可以覆盖类上的<code>@Getter，@Setter或@Data</code>注释的行为。</p>
+<p>With Lombok：</p>
+<pre><code>import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
+public class GetterSetterExample {
+
+  @Getter 
+  @Setter 
+  private int age = 10;
+
+  @Setter(AccessLevel.PROTECTED) 
+  private String name;
+
+  @Override 
+  public String toString() {
+    return String.format("%s (age: %d)", name, age);
+  }
+}</code></pre>
+<p>Native Java：</p>
+<pre><code>public class GetterSetterExample {
+
+  private int age = 10;
+
+  private String name;
+
+  @Override 
+  public String toString() {
+    return String.format("%s (age: %d)", name, age);
+  }
+
+  public int getAge() {
+    return age;
+  }
+
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  protected void setName(String name) {
+    this.name = name;
+  }
+}</code></pre>
+<h2 id="二、-ToString"><a href="#二、-ToString" class="headerlink" title="二、@ToString"></a><strong>二、@ToString</strong></h2><p>任何类定义都可以使用<code>@ToString</code>注释，以使<code>lombok</code>生成<code>toString()</code>方法的实现。</p>
+<p>默认情况下，将打印所有非静态字段。如果要跳过某些字段，可以使用<code>@ ToString.Exclude</code>注释这些字段。或者，可以通过使用<code>@ToString（onlyExplicitlyIncluded = true）</code>，然后使用<code>@ToString.Include</code>标记要包含的每个字段，来确切指定希望使用的字段。</p>
+<p>通过将<code>callSuper</code>设置为<code>true</code>，可以将<code>toString</code>的超类实现的输出包含到输出中。请注意，<code>java.lang.Object中toString()</code> 的默认实现几乎毫无意义。</p>
+<p>With Lombok：</p>
+<pre><code>import lombok.ToString;
+
+@ToString
+public class ToStringExample {
+  private static final int STATIC_VAR = 10;
+  private String name;
+  private Shape shape = new Square(5, 10);
+  private String[] tags;
+  @ToString.Exclude 
+  private int id;
+
+  public String getName() {
+    return this.name;
+  }
+
+  @ToString(callSuper=true, includeFieldNames=true)
+  public static class Square extends Shape {
+    private final int width, height;
+
+    public Square(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+  }
+}</code></pre>
+<p>Native Java：</p>
+<pre><code>import java.util.Arrays;
+
+public class ToStringExample {
+  private static final int STATIC_VAR = 10;
+  private String name;
+  private Shape shape = new Square(5, 10);
+  private String[] tags;
+  private int id;
+
+  public String getName() {
+    return this.name;
+  }
+
+  public static class Square extends Shape {
+    private final int width, height;
+
+    public Square(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+
+    @Override 
+    public String toString() {
+      return "Square(super=" + super.toString() + ", width=" + this.width + ", height=" + this.height + ")";
+    }
+  }
+
+  @Override 
+  public String toString() {
+    return "ToStringExample(" + this.getName() + ", " + this.shape + ", " + Arrays.deepToString(this.tags) + ")";
+  }
+}</code></pre>
+<h2 id="三、-EqualsAndHashCode"><a href="#三、-EqualsAndHashCode" class="headerlink" title="三、@EqualsAndHashCode"></a><strong>三、@EqualsAndHashCode</strong></h2><p>任何类定义都可以使用<code>@EqualsAndHashCode</code>进行注释，以使<code>lombok</code>生成<code>equals(Object other)</code>和<code>hashCode()</code>方法的实现。默认情况下，它将使用所有非静态，非瞬态字段，但是您可以通过使用<code>@EqualsAndHashCode.Include</code>标记类型成员来修改使用哪些字段（甚至指定要使用各种方法的输出）。 <code>@EqualsAndHashCode.Exclude</code>。或者，可以通过使用@ <code>EqualsAndHashCode.Include</code>标记并使用<code>@EqualsAndHashCode(onlyExplicitlyIncluded = true)</code>来精确指定要使用的字段或方法。</p>
+<p>如果将<code>@EqualsAndHashCode</code>应用于扩展另一个类的类，则此功能会有些棘手。通常，为此类自动生成<code>equals</code>和<code>hashCode</code>方法是一个坏主意，因为超类还定义了字段，该字段也需要<code>equals / hashCode</code>代码，但不会生成此代码。通过将<code>callSuper</code>设置为<code>true</code>，可以在生成的方法中包括超类的<code>equals</code>和<code>hashCode</code>方法。</p>
+<p>With Lombok：</p>
+<pre><code>import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
+public class EqualsAndHashCodeExample {
+  private transient int transientVar = 10;
+  private String name;
+  private double score;
+  @EqualsAndHashCode.Exclude 
+  private Shape shape = new Square(5, 10);
+  private String[] tags;
+  @EqualsAndHashCode.Exclude 
+  private int id;
+
+  public String getName() {
+    return this.name;
+  }
+
+  @EqualsAndHashCode(callSuper=true)
+  public static class Square extends Shape {
+    private final int width, height;
+
+    public Square(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+  }
+}</code></pre>
+<p>Native Java：</p>
+<pre><code>import java.util.Arrays;
+
+public class EqualsAndHashCodeExample {
+  private transient int transientVar = 10;
+  private String name;
+  private double score;
+  private Shape shape = new Square(5, 10);
+  private String[] tags;
+  private int id;
+
+  public String getName() {
+    return this.name;
+  }
+
+  @Override 
+  public boolean equals(Object o) {
+    if (o == this) return true;
+    if (!(o instanceof EqualsAndHashCodeExample)) return false;
+    EqualsAndHashCodeExample other = (EqualsAndHashCodeExample) o;
+    if (!other.canEqual((Object)this)) return false;
+    if (this.getName() == null ? other.getName() != null : !this.getName().equals(other.getName())) return false;
+    if (Double.compare(this.score, other.score) != 0) return false;
+    if (!Arrays.deepEquals(this.tags, other.tags)) return false;
+    return true;
+  }
+
+  @Override 
+  public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    final long temp1 = Double.doubleToLongBits(this.score);
+    result = (result*PRIME) + (this.name == null ? 43 : this.name.hashCode());
+    result = (result*PRIME) + (int)(temp1 ^ (temp1 &gt;&gt;&gt; 32));
+    result = (result*PRIME) + Arrays.deepHashCode(this.tags);
+    return result;
+  }
+
+  protected boolean canEqual(Object other) {
+    return other instanceof EqualsAndHashCodeExample;
+  }
+
+  public static class Square extends Shape {
+    private final int width, height;
+
+    public Square(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+
+    @Override 
+    public boolean equals(Object o) {
+      if (o == this) return true;
+      if (!(o instanceof Square)) return false;
+      Square other = (Square) o;
+      if (!other.canEqual((Object)this)) return false;
+      if (!super.equals(o)) return false;
+      if (this.width != other.width) return false;
+      if (this.height != other.height) return false;
+      return true;
+    }
+
+    @Override 
+    public int hashCode() {
+      final int PRIME = 59;
+      int result = 1;
+      result = (result*PRIME) + super.hashCode();
+      result = (result*PRIME) + this.width;
+      result = (result*PRIME) + this.height;
+      return result;
+    }
+
+    protected boolean canEqual(Object other) {
+      return other instanceof Square;
+    }
+  }
+}</code></pre>
+<h2 id="四、-AllArgsConstructor"><a href="#四、-AllArgsConstructor" class="headerlink" title="四、@AllArgsConstructor"></a><strong>四、@AllArgsConstructor</strong></h2><p><strong>@RequiredArgsConstructor</strong></p>
+<p><strong>@NoArgsConstructor</strong></p>
+<p><code>@NoArgsConstructor</code>将生成没有参数的构造函数。如果字段由final修饰，则将导致编译器错误，除非使用<code>@NoArgsConstructor(force = true)</code>，否则所有final字段都将初始化为<code>0 / false / null</code>。对于具有约束的字段(例如<code>@NonNull</code>字段)，不会生成任何检查。</p>
+<p><code>@RequiredArgsConstructor</code>为每个需要特殊处理的字段生成一个带有1个参数的构造函数。所有未初始化的final字段都会获取一个参数，以及所有未声明其位置的未标记为<code>@NonNull</code>的字段。</p>
+<p><code>@AllArgsConstructor</code>为类中的每个字段生成一个带有1个参数的构造函数。标有<code>@NonNull</code>的字段将对这些参数进行空检查。</p>
+<p>With Lombok：</p>
+<pre><code>import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
+
+@RequiredArgsConstructor(staticName = "of")
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+public class ConstructorExample&lt;T&gt; {
+  private int x, y;
+  @NonNull 
+  private T description;
+
+  @NoArgsConstructor
+  public static class NoArgsExample {
+    @NonNull 
+    private String field;
+  }
+}</code></pre>
+<p>Native Java：</p>
+<pre><code>public class ConstructorExample&lt;T&gt; {
+  private int x, y;
+  @NonNull 
+  private T description;
+
+  private ConstructorExample(T description) {
+    if (description == null) throw new NullPointerException("description");
+    this.description = description;
+  }
+
+  public static &lt;T&gt; ConstructorExample&lt;T&gt; of(T description) {
+    return new ConstructorExample&lt;T&gt;(description);
+  }
+
+  @java.beans.ConstructorProperties({"x", "y", "description"})
+  protected ConstructorExample(int x, int y, T description) {
+    if (description == null) throw new NullPointerException("description");
+    this.x = x;
+    this.y = y;
+    this.description = description;
+  }
+
+  public static class NoArgsExample {
+    @NonNull 
+    private String field;
+
+    public NoArgsExample() {
+    }
+  }
+}</code></pre>
+<h2 id="五、-Data"><a href="#五、-Data" class="headerlink" title="五、@Data"></a><strong>五、@Data</strong></h2><p><code>@Data</code>是一个方便的快捷方式批注，它将<code>@ToString</code>，<code>@EqualsAndHashCode</code>，<code>@ Getter / @Setter</code>和<code>@RequiredArgsConstructor</code>的功能捆绑在一起：换句话说，<code>@Data</code>生成通常与简单<code>POJO</code>关联的所有样板（普通的旧<code>Java</code>对象）和<code>bean</code>：所有字段的<code>getter</code>，所有<code>非final</code>字段的<code>setter</code>，以及涉及类字段的适当的<code>toString</code>，<code>equals</code>和<code>hashCode</code>实现，以及初始化所有<code>final</code>字段以及所有<code>非final</code>字段的构造函数没有使用<code>@NonNull</code>标记的初始化程序，以确保该字段永远不会为<code>null</code>。</p>
+<p>With Lombok：</p>
+<pre><code>import lombok.AccessLevel;
+import lombok.Setter;
+import lombok.Data;
+import lombok.ToString;
+
+@Data 
+public class DataExample {
+  private final String name;
+  @Setter(AccessLevel.PACKAGE) 
+  private int age;
+  private double score;
+  private String[] tags;
+
+  @ToString(includeFieldNames=true)
+  @Data(staticConstructor="of")
+  public static class Exercise&lt;T&gt; {
+    private final String name;
+    private final T value;
+  }
+}</code></pre>
+<p>Native Java：</p>
+<pre><code>import java.util.Arrays;
+
+public class DataExample {
+  private final String name;
+  private int age;
+  private double score;
+  private String[] tags;
+
+  public DataExample(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  void setAge(int age) {
+    this.age = age;
+  }
+
+  public int getAge() {
+    return this.age;
+  }
+
+  public void setScore(double score) {
+    this.score = score;
+  }
+
+  public double getScore() {
+    return this.score;
+  }
+
+  public String[] getTags() {
+    return this.tags;
+  }
+
+  public void setTags(String[] tags) {
+    this.tags = tags;
+  }
+
+  @Override 
+  public String toString() {
+    return "DataExample(" + this.getName() + ", " + this.getAge() + ", " + this.getScore() + ", " + Arrays.deepToString(this.getTags()) + ")";
+  }
+
+  protected boolean canEqual(Object other) {
+    return other instanceof DataExample;
+  }
+
+  @Override 
+  public boolean equals(Object o) {
+    if (o == this) return true;
+    if (!(o instanceof DataExample)) return false;
+    DataExample other = (DataExample) o;
+    if (!other.canEqual((Object)this)) return false;
+    if (this.getName() == null ? other.getName() != null : !this.getName().equals(other.getName())) return false;
+    if (this.getAge() != other.getAge()) return false;
+    if (Double.compare(this.getScore(), other.getScore()) != 0) return false;
+    if (!Arrays.deepEquals(this.getTags(), other.getTags())) return false;
+    return true;
+  }
+
+  @Override 
+  public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    final long temp1 = Double.doubleToLongBits(this.getScore());
+    result = (result*PRIME) + (this.getName() == null ? 43 : this.getName().hashCode());
+    result = (result*PRIME) + this.getAge();
+    result = (result*PRIME) + (int)(temp1 ^ (temp1 &gt;&gt;&gt; 32));
+    result = (result*PRIME) + Arrays.deepHashCode(this.getTags());
+    return result;
+  }
+
+  public static class Exercise&lt;T&gt; {
+    private final String name;
+    private final T value;
+
+    private Exercise(String name, T value) {
+      this.name = name;
+      this.value = value;
+    }
+
+    public static &lt;T&gt; Exercise&lt;T&gt; of(String name, T value) {
+      return new Exercise&lt;T&gt;(name, value);
+    }
+
+    public String getName() {
+      return this.name;
+    }
+
+    public T getValue() {
+      return this.value;
+    }
+
+    @Override 
+    public String toString() {
+      return "Exercise(name=" + this.getName() + ", value=" + this.getValue() + ")";
+    }
+
+    protected boolean canEqual(Object other) {
+      return other instanceof Exercise;
+    }
+
+    @Override 
+    public boolean equals(Object o) {
+      if (o == this) return true;
+      if (!(o instanceof Exercise)) return false;
+      Exercise&lt;?&gt; other = (Exercise&lt;?&gt;) o;
+      if (!other.canEqual((Object)this)) return false;
+      if (this.getName() == null ? other.getValue() != null : !this.getName().equals(other.getName())) return false;
+      if (this.getValue() == null ? other.getValue() != null : !this.getValue().equals(other.getValue())) return false;
+      return true;
+    }
+
+    @Override 
+    public int hashCode() {
+      final int PRIME = 59;
+      int result = 1;
+      result = (result*PRIME) + (this.getName() == null ? 43 : this.getName().hashCode());
+      result = (result*PRIME) + (this.getValue() == null ? 43 : this.getValue().hashCode());
+      return result;
+    }
+  }
+}</code></pre>
+<h2 id="六、-Value"><a href="#六、-Value" class="headerlink" title="六、@Value"></a><strong>六、@Value</strong></h2><p>@Value注解和<code>@Data</code>类似，区别在于它会把所有成员变量默认定义为<code>private final</code>修饰，并且不会生成<code>set</code>方法。</p>
+<h2 id="七、-Builder"><a href="#七、-Builder" class="headerlink" title="七、@Builder"></a><strong>七、@Builder</strong></h2><p>构建者模式</p>
+<p>只能标注到类上，将生成类的一个当前流程的一种链式构造工厂，如下：</p>
+<pre><code>User buildUser = User.builder().username("riemann").password("123").build();</code></pre>
+<p>可配合<code>@Singular</code>注解使用，<code>@Singular</code>注解使用在jdk内部集合类型的属性，<code>Map</code>类型的属性以及<code>Guava</code>的<code>com.google.common.collect</code> 的属性上。例如 未标注<code>@Singular</code>的属性，一般<code>setter</code>时，会直接覆盖原来的引用，标注了<code>@Singular</code>的属性，集合属性支持添加操作，会在属性原来的基础上增加。</p>
+<p>With Lombok：</p>
+<pre><code>import lombok.Builder;
+import lombok.Singular;
+import java.util.Set;
+
+@Builder
+public class BuilderExample {
+  @Builder.Default 
+  private long created = System.currentTimeMillis();
+  private String name;
+  private int age;
+  @Singular 
+  private Set&lt;String&gt; occupations;
+}</code></pre>
+<p>Native Java：</p>
+<pre><code>import java.util.Set;
+
+public class BuilderExample {
+  private long created;
+  private String name;
+  private int age;
+  private Set&lt;String&gt; occupations;
+
+  BuilderExample(String name, int age, Set&lt;String&gt; occupations) {
+    this.name = name;
+    this.age = age;
+    this.occupations = occupations;
+  }
+
+  private static long $default$created() {
+    return System.currentTimeMillis();
+  }
+
+  public static BuilderExampleBuilder builder() {
+    return new BuilderExampleBuilder();
+  }
+
+  public static class BuilderExampleBuilder {
+    private long created;
+    private boolean created$set;
+    private String name;
+    private int age;
+    private java.util.ArrayList&lt;String&gt; occupations;
+
+    BuilderExampleBuilder() {
+    }
+
+    public BuilderExampleBuilder created(long created) {
+      this.created = created;
+      this.created$set = true;
+      return this;
+    }
+
+    public BuilderExampleBuilder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public BuilderExampleBuilder age(int age) {
+      this.age = age;
+      return this;
+    }
+
+    public BuilderExampleBuilder occupation(String occupation) {
+      if (this.occupations == null) {
+        this.occupations = new java.util.ArrayList&lt;String&gt;();
+      }
+
+      this.occupations.add(occupation);
+      return this;
+    }
+
+    public BuilderExampleBuilder occupations(Collection&lt;? extends String&gt; occupations) {
+      if (this.occupations == null) {
+        this.occupations = new java.util.ArrayList&lt;String&gt;();
+      }
+
+      this.occupations.addAll(occupations);
+      return this;
+    }
+
+    public BuilderExampleBuilder clearOccupations() {
+      if (this.occupations != null) {
+        this.occupations.clear();
+      }
+
+      return this;
+    }
+
+    public BuilderExample build() {
+      // complicated switch statement to produce a compact properly sized immutable set omitted.
+      Set&lt;String&gt; occupations = ...;
+      return new BuilderExample(created$set ? created : BuilderExample.$default$created(), name, age, occupations);
+    }
+
+    @java.lang.Override
+    public String toString() {
+      return "BuilderExample.BuilderExampleBuilder(created = " + this.created + ", name = " + this.name + ", age = " + this.age + ", occupations = " + this.occupations + ")";
+    }
+  }
+}</code></pre>
+<h2 id="八、-Accessors"><a href="#八、-Accessors" class="headerlink" title="八、@Accessors"></a><strong>八、@Accessors</strong></h2><p>链式风格</p>
+<p><code>@Accessors</code>批注用于配置<code>lombok</code>如何生成和查找<code>getter</code>和<code>setter</code>。</p>
+<p>默认情况下，<code>lombok</code>遵循针对<code>getter</code>和<code>setter</code>的<code>bean</code>规范：例如，名为<code>Pepper</code>的字段的<code>getter</code>是<code>getPepper</code>。但是，有些人可能希望打破<code>bean</code>规范，以得到更好看的<code>API</code>。 <code>@Accessors</code>允许您执行此操作。</p>
+<p>可标注在类或属性上，当然最实用的功能还是标注到类上。</p>
+<p>标注到类上，<code>chain</code>属性设置为<code>true</code>时，类的所有属性的<code>setter</code>方法返回值将为<code>this</code>，用来支持<code>setter</code>方法的链式写法。如：</p>
+<pre><code>new User().setUsername("riemann").setPassword("123");</code></pre>
+<p><code>fluent</code>属性设置为<code>true</code>时，类的所有<code>getter</code>，<code>setter</code>方法将省略<code>get</code>和<code>set</code>前缀，获取属性值直接使用属性名相同的无参方法，设置属性值使用属性名相同的有参方法，并且返回值为this。如：</p>
+<pre><code>User user = new User().username("riemann").password("123");
+String username = user.username();
+String password = user.password();</code></pre>
+<p>标注到属性上，使用<code>prefix</code>设置需要省略的属性生成<code>getter</code>，<code>setter</code>方法时的前缀，且属性必须为驼峰式命名。</p>
+<pre><code>@Accessors(prefix = "r")
+@Getter
+@Setter
+private String rUsername = "riemann";</code></pre>
+<p>编译之后为</p>
+<pre><code>public String getUsername() {
+    return rUsername;
+}
+public void setUsername(String rUsername) {
+    this.rUsername = rUsername;
+}</code></pre>
+<h2 id="九、-Slf4j-and-Log4j"><a href="#九、-Slf4j-and-Log4j" class="headerlink" title="九、@Slf4j and @Log4j"></a><strong>九、@Slf4j and @Log4j</strong></h2><p>在需要打印日志的类中使用，项目中使用<code>slf4j</code>、<code>log4j</code>日志框架</p>
+<h2 id="十、-NonNull"><a href="#十、-NonNull" class="headerlink" title="十、@NonNull"></a><strong>十、@NonNull</strong></h2><p>该注解快速判断是否为空,为空抛出<code>java.lang.NullPointerException</code>。</p>
+<h2 id="十一、-Synchronized"><a href="#十一、-Synchronized" class="headerlink" title="十一、@Synchronized"></a><strong>十一、@Synchronized</strong></h2><p>注解自动添加到同步机制，生成的代码并不是直接锁方法,而是锁代码块， 作用范围是方法上。</p>
+<h2 id="十二、-Cleanup"><a href="#十二、-Cleanup" class="headerlink" title="十二、@Cleanup"></a><strong>十二、@Cleanup</strong></h2><p>注解用于确保已分配的资源被释放（<code>IO</code>的连接关闭）。</p>
+<blockquote>
+<p>作者：riemann_</p>
+<p>blog.csdn.net/riemann_/article/details/105374987</p>
+</blockquote>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2020/12/28/lombok/">https://chenguoo.github.io/2020/12/28/lombok/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/12/28/java-zip/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Java 压缩20M文件的优化过程，快得你不敢相信！">
+                        
+                        <span class="card-title">Java 压缩20M文件的优化过程，快得你不敢相信！</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            有一个需求需要将前端传过来的10张照片，然后后端进行处理以后压缩成一个压缩包通过网络流传输出去。之前没有接触过用Java压缩文件的，所以就直接上网找了一个例子改了一下用了，改完以后也能使用，但是随着前端所传图片的大小越来越大的时候，耗费的时
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Cheney
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/12/26/string/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="String对象的那些事，几行代码就解释得清清楚楚">
+                        
+                        <span class="card-title">String对象的那些事，几行代码就解释得清清楚楚</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言String是Java中十分常用的类，在面试题中也是出镜率很高的常客，本文将我自己学习中遇到的一些问题进行整理，如果有误，欢迎指正。
+String对象判等千万不要用 == 去判断String对象是否相等，==比较的是地址。JVM只会共享
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/String/">
+                        <span class="chip bg-color">String</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
