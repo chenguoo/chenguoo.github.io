@@ -1,0 +1,1112 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="RabbitMQ消息确认、消息持久化等核心知识总结, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>RabbitMQ消息确认、消息持久化等核心知识总结 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">RabbitMQ消息确认、消息持久化等核心知识总结</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/RabbitMQ/" class="post-category">
+                                RabbitMQ
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-31
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="一、消息中间件选型"><a href="#一、消息中间件选型" class="headerlink" title="一、消息中间件选型"></a>一、消息中间件选型</h3><h5 id="1-ActiveMQ"><a href="#1-ActiveMQ" class="headerlink" title="1. ActiveMQ:"></a>1. ActiveMQ:</h5><ul>
+<li>优点: ActiveMQ是老牌的消息中间件，国内很多公司过去运用的还是非常广泛的，功能很强大。</li>
+<li>缺点: 没法确认ActiveMQ可以支撑互联网公司的高并发、高负载以及高吞吐的复杂场景，在国内互联网公司落地较少。而且使用较多的是一些传统企业，用ActiveMQ做异步调用和系统解耦。</li>
+</ul>
+<h5 id="2-RabbitMQ"><a href="#2-RabbitMQ" class="headerlink" title="2. RabbitMQ:"></a>2. RabbitMQ:</h5><ul>
+<li>优点: 可以支撑高并发、高吞吐、性能很高，同时有非常完善便捷的后台管理界面可以使用。另外，他还支持集群化、高可用部署架构、消息高可靠支持，功能较为完善。而且经过调研，国内各大互联网公司落地大规模RabbitMQ集群支撑自身业务的case较多，国内各种中小型互联网公司使用RabbitMQ的实践也比较多。除此之外，RabbitMQ的开源社区很活跃，较高频率的迭代版本，来修复发现的bug以及进行各种优化，因此，综合对比后，RabbitMQ是一个不错的消息中间件选择。</li>
+<li>缺点: 基于erlang语言开发的，所以导致较为难以分析里面的源码，也较难进行深层次的源码定制和改造，毕竟需要较为扎实的erlang语言功底才可以。</li>
+</ul>
+<h5 id="3-RocketMQ"><a href="#3-RocketMQ" class="headerlink" title="3. RocketMQ:"></a>3. RocketMQ:</h5><ul>
+<li>优点: 阿里开源的，经过阿里的生产环境的超高并发、高吞吐的考验，性能卓越，同时还支持分布式事务等特殊场景。而且RocketMQ是基于Java语言开发的，适合深入阅读源码，有需要可以站在源码层面解决线上生产问题，包括源码的二次开发和改造。</li>
+<li>缺点: 社区活跃度相对较为一般，不过也还可以，文档相对来说简单一些，然后接口这块不是按照标准JMS规范走的有些系统要迁移需要修改大量代码</li>
+</ul>
+<h5 id="4-Kafka"><a href="#4-Kafka" class="headerlink" title="4. Kafka:"></a>4. Kafka:</h5><ul>
+<li>优点: 专为超高吞吐量的实时日志采集、实时数据同步、实时数据计算等场景来设计。在大数据领域中配合实时计算技术（比如Spark Streaming、Storm、Flink）使用的较多。</li>
+<li>缺点: 相对于以上几种中间件来说，功能较少，在传统的MQ中间件使用场景中较少采用。</li>
+</ul>
+<h3 id="二、消息中间件的常见使用场景"><a href="#二、消息中间件的常见使用场景" class="headerlink" title="二、消息中间件的常见使用场景"></a>二、消息中间件的常见使用场景</h3><ul>
+<li>复杂系统的解耦: 多个系统间通过中间件进行数据交互, 避免牵一发而动全身, 减少耦合, 提升系统稳定性与可扩展性</li>
+<li>复杂链路的异步调用: 某些业务场景可以通过异步执行减少同步调用的时间, 从而大大提高系统响应时间而不影响核心逻辑</li>
+<li>瞬时高峰的削峰处理: 流量高峰期, 可以将请求积压在MQ中, 服务器不用一下处理所有请求从而导致系统崩溃, 高峰期后, 消费者可以慢慢消费</li>
+</ul>
+<h3 id="三、系统架构引入消息中间件后会有哪些缺点"><a href="#三、系统架构引入消息中间件后会有哪些缺点" class="headerlink" title="三、系统架构引入消息中间件后会有哪些缺点"></a>三、系统架构引入消息中间件后会有哪些缺点</h3><ul>
+<li>系统可用性降低: 引入MQ，系统多了一个依赖。依赖如果出现问题，就会导致系统可用性降低。一旦引入中间件，就必须考虑这个中间件是如何部署的，如何保证高可用性</li>
+<li>系统稳定性降低: 引入MQ, 可能由于网络故障、中间件故障、消费者异常等原因导致各种各样乱七八糟的问题产生, 从而使系统稳定性下降</li>
+<li>分布式一致性问题: 多系统协同处理一个业务, 不能保证所有系统都正常处理, 有可能出现系统数据不一致的情况, 所以此时又需要使用可靠消息最终一致性的分布式事务方案来保障数据一致性。</li>
+</ul>
+<h3 id="四、消息发送确认"><a href="#四、消息发送确认" class="headerlink" title="四、消息发送确认"></a>四、消息发送确认</h3><p>生产者发送消息, 先发送消息到Exchange, 然后Exchange再路由到Queue, 这中间就需要确认两个事情</p>
+<ul>
+<li>确认消息是否成功发送到Exchange</li>
+<li>确认消息是否从Exchange成功路由到Queue</li>
+</ul>
+<p>spring提供了两个回调函数来处理这两种消息发送确认</p>
+<h5 id="1-确认消息是否成功发送到Exchange"><a href="#1-确认消息是否成功发送到Exchange" class="headerlink" title="1. 确认消息是否成功发送到Exchange"></a>1. 确认消息是否成功发送到Exchange</h5><p>有2种方式, 一种是重量级的事务消息机制。采用类事务的机制把消息投递到MQ，可以保证消息不丢失，但是性能极差，经过测试性能会呈现几百倍的下降。</p>
+<p>所以说现在一般是不会用这种过于重量级的机制，而是会用轻量级的confirm机制。</p>
+<p>另一种方式是confirm机制, 跟手动ack机制类似, 生产者将消息投递到RabbitMQ, 且将消息持久化到硬盘后, RabbitMQ会通过一个回调方法将confirm信息回传给生产端, 这样, 如果生产端的服务接收到了这个confirm消息，就知道是已经持久化到磁盘了。否则如果没有接收到confirm消息，那么就说明这条消息可能半路丢失了，此时你就可以重新投递消息到MQ去，确保消息不会丢失。</p>
+<p>1.1 通过AMQP的事务机制可以保证消息发送确认<br> 事务机制主要是通过对channel的设置实现</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">channel<span class="token punctuation">.</span><span class="token function">txSelect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 声明启动事务模式</span>
+channel<span class="token punctuation">.</span><span class="token function">txComment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 提交事务</span>
+channel<span class="token punctuation">.</span><span class="token function">txRollback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 回滚事务</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>1.2 使用confirm确认机制<br> 实现ConfirmCallback并重写confirm回调方法, 消息发送到Broker后触发回调, 可以确认消息是否成功发送到Exchange</p>
+<p><code>application.properties</code>:</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 开启confirms回调 P -> Exchange</span>
+spring.rabbitmq.publisher-confirms<span class="token operator">=</span>true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>回调:</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">        <span class="token comment" spellcheck="true">// 消息是否成功发送到Exchange</span>
+        rabbitTemplate<span class="token punctuation">.</span><span class="token function">setConfirmCallback</span><span class="token punctuation">(</span><span class="token punctuation">(</span>correlationData<span class="token punctuation">,</span> ack<span class="token punctuation">,</span> cause<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>ack<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"消息成功发送到Exchange"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"消息发送到Exchange失败: cause: {}"</span><span class="token punctuation">,</span> correlationData<span class="token punctuation">,</span> cause<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="2-确认消息是否从Exchange成功路由到Queue"><a href="#2-确认消息是否从Exchange成功路由到Queue" class="headerlink" title="2. 确认消息是否从Exchange成功路由到Queue"></a>2. 确认消息是否从Exchange成功路由到Queue</h5><p>实现ReturnCallback并重写returnedMessage回调方法, 可以确认消息从EXchange路由到Queue失败, 注意: 这里的回调是一个失败回调, 只有消息从Exchange路由到Queue失败才会回调这个方法</p>
+<p><code>application.properties</code>:</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 开启returnedMessage回调 Exchange -> Queue</span>
+spring.rabbitmq.publisher-returns<span class="token operator">=</span>true
+<span class="token comment" spellcheck="true"># 触发returnedMessage回调必须设置mandatory=true, 否则Exchange没有找到Queue就会丢弃掉消息, 而不会触发回调</span>
+spring.rabbitmq.template.mandatory<span class="token operator">=</span>true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>回调:</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">        <span class="token comment" spellcheck="true">// 消息是否从Exchange路由到Queue, 注意: 这是一个失败回调, 只有消息从Exchange路由到Queue失败才会回调这个方法</span>
+        rabbitTemplate<span class="token punctuation">.</span><span class="token function">setReturnCallback</span><span class="token punctuation">(</span><span class="token punctuation">(</span>message<span class="token punctuation">,</span> replyCode<span class="token punctuation">,</span> replyText<span class="token punctuation">,</span> exchange<span class="token punctuation">,</span> routingKey<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"消息从Exchange路由到Queue失败: exchange: {}, route: {}, replyCode: {}, replyText: {}, message: {}"</span><span class="token punctuation">,</span> exchange<span class="token punctuation">,</span> routingKey<span class="token punctuation">,</span> replyCode<span class="token punctuation">,</span> replyText<span class="token punctuation">,</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="五、消息接收确认"><a href="#五、消息接收确认" class="headerlink" title="五、消息接收确认"></a>五、消息接收确认</h3><p>消息怎样才算消费成功?</p>
+<p>RabbitMQ默认**自动确认(ack)**消息被正确消费, 即消息投递到消费者后就自动确认消息被处理完毕, 并且会将该消息删除, 即使消费者意外宕机, 或者抛出异常, 如果消费者接收到消息, 还没处理完成就down掉或者抛出异常, 那么, 这条消息就丢失了</p>
+<p>分析一下问题出在哪, 问题出在RabbitMQ只管消息投递出去, 而不管消息是否被正确处理就自动删除消息, 所以, 只要将自动ack修改为手动ack, 消费成功才通知RabbitMQ可以删除该消息即可, 如果消费者宕机, 消费失败, 由于RabbitMQ并未收到ack通知, 且感知到该消费者状态异常(如抛出异常), 就会将该消息重新推送给其他消费者, 让其他消费者继续执行, 这样就保证消费者挂掉但消息不会丢失</p>
+<p>消息确认模式有:</p>
+<ul>
+<li>AcknowledgeMode.NONE：自动确认</li>
+<li>AcknowledgeMode.AUTO：根据情况确认</li>
+<li>AcknowledgeMode.MANUAL：手动确认</li>
+</ul>
+<p>默认情况下消息消费者是自动ack(确认)消息的, 如果要手动ack(确认), 则需要修改确认模式为manual</p>
+<p><code>application.properties</code>:</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 设置手动确认(ack) Queue -> C</span>
+spring.rabbitmq.listener.simple.acknowledge-mode<span class="token operator">=</span>manual<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>消费消息并手动确认:</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LogUserConsumer</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    UserLogService userLogService<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> <span class="token string">"log.user.queue"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">logUserConsumer</span><span class="token punctuation">(</span>Message message<span class="token punctuation">,</span> Channel channel<span class="token punctuation">,</span> <span class="token annotation punctuation">@Header</span> <span class="token punctuation">(</span>AmqpHeaders<span class="token punctuation">.</span>DELIVERY_TAG<span class="token punctuation">)</span> <span class="token keyword">long</span> tag<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"收到消息: {}"</span><span class="token punctuation">,</span> message<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            userLogService<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>MessageHelper<span class="token punctuation">.</span><span class="token function">msgToObj</span><span class="token punctuation">(</span>message<span class="token punctuation">,</span> UserLog<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"logUserConsumer error"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            channel<span class="token punctuation">.</span><span class="token function">basicNack</span><span class="token punctuation">(</span>tag<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            channel<span class="token punctuation">.</span><span class="token function">basicAck</span><span class="token punctuation">(</span>tag<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>重点在<code>channel.basicAck(tag, false)</code>方法, 第一个参数deliveryTag（唯一标识 ID）：当一个消费者向 RabbitMQ 注册后，会建立起一个 Channel ，RabbitMQ 会用 basic.deliver 方法向消费者推送消息，这个方法携带了一个 delivery tag， 它代表了 RabbitMQ 向该 Channel 投递的这条消息的唯一标识 ID，是一个单调递增的正整数，delivery tag 的范围仅限于 Channel</li>
+<li>第二个参数multiple：为了减少网络流量，手动确认可以被批处理，当该参数为 true 时，则可以一次性确认 delivery_tag 小于等于传入值的所有消息</li>
+</ul>
+<h3 id="六、消息持久化"><a href="#六、消息持久化" class="headerlink" title="六、消息持久化"></a>六、消息持久化</h3><p>消息被投递到RabbitMQ的内存中, 还没投递到消费者实例之前宕机了, 消息不就丢失了?</p>
+<p>可以进行消息持久化, 将Exchange、queue和message都持久化到硬盘, 这样, RabbitMQ重启时, 会把持久化的Exchange、queue和message从硬盘重新加载出来, 重新投递消息</p>
+<p>1.1 <strong>Exchange的持久化</strong>, 声明交换机时指定持久化参数为<code>true</code>即可</p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> DirectExchange <span class="token function">logUserExchange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">DirectExchange</span><span class="token punctuation">(</span><span class="token string">"log.user.exchange"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二个参数<code>durable</code>: 是否持久化, 第三个参数<code>autoDelete</code>: 当所有绑定队列都不再使用时, 是否自动删除交换器, true: 删除, false: 不删除</p>
+<p>1.2 <strong>queue的持久化</strong>, 声明队列时指定持久化参数为<code>true</code>即可</p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> Queue <span class="token function">logUserQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span><span class="token string">"log.user.queue.name"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二个参数<code>durable</code>, 是否持久化</p>
+<p>1.3 <strong>message的持久化</strong>, 是通过配置<code>deliveryMode</code>实现的, 生产者投递时, 指定<code>deliveryMode</code>为<code>MessageDeliveryMode.PERSISTENT</code>即可实现消息的持久化, 投递和消费都需要通过<code>Message</code>对象进行交互, 为了不每次都写配置转换的代码, 我们写一个消息帮助类<code>MessageHelper</code>:</p>
+<pre class="line-numbers language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MessageHelper</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Message <span class="token function">objToMsg</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">==</span> obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        Message message <span class="token operator">=</span> MessageBuilder<span class="token punctuation">.</span><span class="token function">withBody</span><span class="token punctuation">(</span>JsonUtil<span class="token punctuation">.</span><span class="token function">objToStr</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        message<span class="token punctuation">.</span><span class="token function">getMessageProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setDeliveryMode</span><span class="token punctuation">(</span>MessageDeliveryMode<span class="token punctuation">.</span>PERSISTENT<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 消息持久化</span>
+        message<span class="token punctuation">.</span><span class="token function">getMessageProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setContentType</span><span class="token punctuation">(</span>MessageProperties<span class="token punctuation">.</span>CONTENT_TYPE_JSON<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> T <span class="token function">msgToObj</span><span class="token punctuation">(</span>Message message<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span>T<span class="token operator">></span> clazz<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">==</span> message <span class="token operator">||</span> <span class="token keyword">null</span> <span class="token operator">==</span> clazz<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        String str <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        T obj <span class="token operator">=</span> JsonUtil<span class="token punctuation">.</span><span class="token function">strToObj</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span> clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>消息投递时:</p>
+<pre class="line-numbers language-css"><code class="language-css">rabbitTemplate<span class="token number">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span><span class="token string">"log.user.exchange.name"</span>, <span class="token string">"log.user.routing.key.name"</span>, MessageHelper<span class="token number">.</span><span class="token function">objToMsg</span><span class="token punctuation">(</span>userLog<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>消息消费时(参考<code>五、消息接收确认</code>):</p>
+<pre class="line-numbers language-java"><code class="language-java">UserLog userLog <span class="token operator">=</span> MessageHelper<span class="token punctuation">.</span><span class="token function">msgToObj</span><span class="token punctuation">(</span>message<span class="token punctuation">,</span> UserLog<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果不需要消息持久化, 则不需要通过Message进行转换, 可以直接通过字符串或者对象投递和消费</p>
+<h3 id="七、unack消息的积压问题"><a href="#七、unack消息的积压问题" class="headerlink" title="七、unack消息的积压问题"></a>七、unack消息的积压问题</h3><p>什么叫unack消息的积压问题, 简单来说就是消费者处理能力有限, 无法一下将MQ投递过来的所有消息消费完, 如果MQ推送消息过多, 比如可能有几千上万条消息积压在某个消费者实例内存中, 此时这些积压的消息就处于unack状态, 如果一直积压, 就有可能导致消费者服务实例内存溢出、内存消耗过大、甚至内存泄露</p>
+<p>所以, RabbitMQ是必须要考虑一下消费者服务的处理能力的。</p>
+<p>如何解决?</p>
+<p>RabbitMQ基于一个prefetch count来控制这个unack message的数量。</p>
+<p>你可以通过 “channel.basicQos(10)” 这个方法来设置当前channel的prefetch count。也可以通过配置文件设置: <code>spring.rabbitmq.listener.simple.prefetch=10</code></p>
+<p>举个例子，比如你要是设置为10的话，那么意味着当前这个channel里，unack message的数量不能超过10个，以此来避免消费者服务实例积压unack message过多。</p>
+<p>这样的话，就意味着RabbitMQ正在投递到channel过程中的unack message，以及消费者服务在处理中的unack message，以及异步ack之后还没完成ack的unack message，所有这些message加起来，一个channel也不能超过10个。</p>
+<p>如果你要简单粗浅的理解的话，也大致可以理解为这个prefetch count就代表了一个消费者服务同时最多可以获取多少个message来处理。</p>
+<p>prefetch就是预抓取的意思，就意味着你的消费者服务实例预抓取多少条message过来处理，但是最多只能同时处理这么多消息。</p>
+<p>如果一个channel里的unack message超过了prefetch count指定的数量，此时RabbitMQ就会停止给这个channel投递消息了，必须要等待已经投递过去的消息被ack了，此时才能继续投递下一个消息。</p>
+<p>设置多大合理?</p>
+<p>RabbitMQ官方给出的建议是prefetch count一般设置在100 - 300之间。也就是一个消费者服务最多接收到100 - 300个message来处理，允许处于unack状态。</p>
+<p>这个状态下可以兼顾吞吐量也很高，同时也不容易造成内存溢出的问题。</p>
+<h3 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h3><ul>
+<li>配置汇总</li>
+</ul>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># rabbitmq</span>
+spring.rabbitmq.host<span class="token operator">=</span>localhost
+spring.rabbitmq.port<span class="token operator">=</span>5672
+spring.rabbitmq.username<span class="token operator">=</span>guest
+spring.rabbitmq.password<span class="token operator">=</span>guest
+<span class="token comment" spellcheck="true"># 开启confirms回调 P -> Exchange</span>
+spring.rabbitmq.publisher-confirms<span class="token operator">=</span>true
+<span class="token comment" spellcheck="true"># 开启returnedMessage回调 Exchange -> Queue</span>
+spring.rabbitmq.publisher-returns<span class="token operator">=</span>true
+<span class="token comment" spellcheck="true"># 触发returnedMessage回调必须设置mandatory=true, 否则Exchange没有找到Queue就会丢弃掉消息, 而不会触发回调</span>
+spring.rabbitmq.template.mandatory<span class="token operator">=</span>true
+<span class="token comment" spellcheck="true"># 设置手动确认(ack) Queue -> C</span>
+spring.rabbitmq.listener.simple.acknowledge-mode<span class="token operator">=</span>manual
+spring.rabbitmq.listener.simple.prefetch<span class="token operator">=</span>100<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><strong>Github</strong><br> 完整项目请查看我的GitHub, 通过RabbitMQ实现了用户登录日志的记录<br> <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/wangzaiplus/springboot/tree/wxw">https://github.com/wangzaiplus/springboot/tree/wxw</a></li>
+<li>另外, 关于windows安装RabbitMQ详细教程, 请参考:<br> <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c7726ba4b046">https://www.jianshu.com/p/c7726ba4b046</a></li>
+<li>关于Linux centos7安装RabbitMQ详细教程, 请参考:<br> <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ee9f7594212b">https://www.jianshu.com/p/ee9f7594212b</a></li>
+</ul>
+<p>作者：wangzaiplus<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cc3d2017e7b3">https://www.jianshu.com/p/cc3d2017e7b3</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2020/12/31/rabbitmq-xiao-xi-que-ren-xiao-xi-chi-jiu-hua-deng-he-xin-zhi-shi-zong-jie/">https://chenguoo.github.io/2020/12/31/rabbitmq-xiao-xi-que-ren-xiao-xi-chi-jiu-hua-deng-he-xin-zhi-shi-zong-jie/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/01/06/chi-xian-yum-yuan/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="离线yum源">
+                        
+                        <span class="card-title">离线yum源</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            CentOS 7 制作离线yum源1.建立本地yum源仓库mkdir -p /root/data/yum
+2.安装createrepo1 yum install -y createrepe
+# 或者
+2 rpm -ivh http://mi
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/centos/" class="post-category">
+                                    centos
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/centos/">
+                        <span class="chip bg-color">centos</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/12/29/java-download/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="在浏览器中异步下载文件监听下载进度">
+                        
+                        <span class="card-title">在浏览器中异步下载文件监听下载进度</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            在浏览器中异步下载文件，其实就是把服务器响应的文件先保存在内存中。然后再一次下载到磁盘。第二次下载过程，就是把内存的数据IO到磁盘，没有网络开销。速度极快。
+之所以要先保存在内存，主要是可以在下载开始之前和下载结束后可以做一些业务逻辑（例如
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Cheney
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
