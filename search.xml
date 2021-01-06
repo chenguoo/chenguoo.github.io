@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title>install nginx</title>
+      <link href="2021/01/06/install-nginx/"/>
+      <url>2021/01/06/install-nginx/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使用nginx代理centos yum 源</title>
+      <link href="2021/01/06/nginx-proxy-yum/"/>
+      <url>2021/01/06/nginx-proxy-yum/</url>
+      
+        <content type="html"><![CDATA[<p>我们在安装centos 服务器时，可能会有以下情况：</p><p>　　局域网内有若干台服务器，但是只有一台服务器可以连接外网，其余服务器都不可以连接外网，但通过局域网与外网机器联通。</p><p>那么我们再使用 yum 安装软件时，可以采用以下方式</p><ul><li>搭建本地 yum 源</li><li>使用nginx 代理 yum 源</li></ul><p>其中方法1比较复杂且一旦需要第三方数据源时，更麻烦，因此我们这里介绍使用方法2。</p><h3 id="在有外网的服务器上安装-nginx"><a href="#在有外网的服务器上安装-nginx" class="headerlink" title="在有外网的服务器上安装 nginx"></a>在有外网的服务器上安装 nginx</h3><p>　　安装 epel 源</p><pre class="line-numbers language-shell"><code class="language-shell">[root@localhost ~] yum -y install epel-release<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>　　安装 nginx</p><pre class="line-numbers language-shell"><code class="language-shell">[root@localhost ~] yum -y install nginx   #我习惯手动编译安装<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>或者手动安装：</p><pre class="line-numbers language-shell"><code class="language-shell">[root@localhost ~] yum -y install make zlib zlib-devel gcc-c++ libtool openssl openssl-devel[root@localhost ~] wget http://nginx.org/download/nginx-1.18.0.tar.gz[root@localhost ~] tar -zxvf nginx-1.18.0.tar.gz[root@localhost ~] cd nginx-1.18.0[root@localhost nginx-1.18.0] ./configure[root@localhost nginx-1.18.0]make && make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="配置nginx-代理-yum-源"><a href="#配置nginx-代理-yum-源" class="headerlink" title="配置nginx 代理 yum 源"></a>配置nginx 代理 yum 源</h3><p>新增 nginx 配置文件</p><pre><code>[root@localhost ~] vim /etc/nginx/conf/nginx.conf</code></pre><p>输入以下内容，这里添加了一些常用的yum源，如果需要其他yum源可以自行添加</p><pre><code>    # centos 7 yum local source    server {        listen       7000;        server_name  192.168.1.101;        add_header Access-Control-Allow-Origin *;        add_header Access-Control-Allow-Headers X-Requested-With;        add_header Access-Control-Allow-Methods GET,POST,OPTIONS;        location / {            root   html;            index  index.html index.htm;        }        location /centos/ {            proxy_pass http://mirrors.aliyun.com/centos/;        }        location /epel/ {            proxy_pass http://mirrors.aliyun.com/epel/;        }        location /mariadb/ {            proxy_pass http://mirrors.ustc.edu.cn/mariadb/;        }    }</code></pre><p>检查nginx 配置，并重载nginx配置</p><pre><code>[root@localhost sbin] nginx -t[root@localhost sbin] nginx -s reload</code></pre><p>　　</p><h3 id="在没有外网的服务器上面配置-yum-源"><a href="#在没有外网的服务器上面配置-yum-源" class="headerlink" title="在没有外网的服务器上面配置 yum 源"></a>在没有外网的服务器上面配置 yum 源</h3><p>备份以前的yum 源配置文件</p><pre><code>[root@localhost ~] cd /etc/yum.repos.d[root@localhost yum.repos.d] mv CentOS-Base.repo CentOS-Base.repo.bak</code></pre><p>根据上方代理的 yum 源，创建如下配置文件，注意将ip 192.168.1.101 换成对应的有外网服务器的局域网ip</p><p>　　<em>CentOS-Base-nginx.repo</em></p><pre><code># CentOS-Base.repo## The mirror system uses the connecting IP address of the client and the# update status of each mirror to pick mirrors that are updated to and# geographically close to the client.  You should use this for CentOS updates# unless you are manually picking other mirrors.## If the mirrorlist= does not work for you, as a fall back you can try the # remarked out baseurl= line instead.##[base]name=CentOS-$releasever - Base - 163.com#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=osbaseurl=http://192.168.1.101:7000/centos/$releasever/os/$basearch/gpgcheck=1gpgkey=http://192.168.1.101:7000/centos/RPM-GPG-KEY-CentOS-7#released updates[updates]name=CentOS-$releasever - Updates - 163.com#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updatesbaseurl=http://192.168.1.101:7000/centos/$releasever/updates/$basearch/gpgcheck=1gpgkey=http://192.168.1.101:7000/centos/RPM-GPG-KEY-CentOS-7#additional packages that may be useful[extras]name=CentOS-$releasever - Extras - 163.com#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extrasbaseurl=http://192.168.1.101:7000/centos/$releasever/extras/$basearch/gpgcheck=1gpgkey=http://192.168.1.101:7000/centos/RPM-GPG-KEY-CentOS-7#additional packages that extend functionality of existing packages[centosplus]name=CentOS-$releasever - Plus - 163.combaseurl=http://192.168.1.101:7000/centos/$releasever/centosplus/$basearch/gpgcheck=1enabled=0gpgkey=http://192.168.1.101:7000/centos/RPM-GPG-KEY-CentOS-7</code></pre><p>　　<em>epel-nginx.repo</em></p><pre><code>[epel]name=Extra Packages for Enterprise Linux 7 - $basearchbaseurl=http://192.168.1.101:7000/epel/7/$basearchfailovermethod=priorityenabled=1gpgcheck=1gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7[epel-debuginfo]name=Extra Packages for Enterprise Linux 7 - $basearch - Debugbaseurl=http://192.168.1.101:7000/epel/7/$basearch/debugfailovermethod=priorityenabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7gpgcheck=1[epel-source]name=Extra Packages for Enterprise Linux 7 - $basearch - Sourcebaseurl=http://192.168.1.101:7000/epel/7/SRPMSfailovermethod=priorityenabled=0gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7</code></pre><p>　　MariaDB-nginx.repo</p><pre><code># MariaDB 10.2 CentOS repository list - created 2017-07-03 06:59 UTC# http://downloads.mariadb.org/mariadb/repositories/[mariadb]name = MariaDBbaseurl = http://192.168.1.101:7000/mariadb/yum/10.3/centos7-amd64gpgkey=http://192.168.1.101:7000/mariadb/yum/RPM-GPG-KEY-MariaDBgpgcheck=1</code></pre><h3 id="刷新-yum-源"><a href="#刷新-yum-源" class="headerlink" title="刷新 yum 源"></a>刷新 yum 源</h3><pre><code>yum clean allyum makecache</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> yum </tag>
+            
+            <tag> nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>离线yum源</title>
       <link href="2021/01/06/chi-xian-yum-yuan/"/>
       <url>2021/01/06/chi-xian-yum-yuan/</url>
@@ -411,14 +451,14 @@
       
       <categories>
           
-          <category> linux </category>
+          <category> Linux </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> linux </tag>
+            <tag> Linux </tag>
             
         </tags>
       

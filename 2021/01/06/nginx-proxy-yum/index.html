@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="elasticsearch在CentOS环境下开机启动, Cheney 学习日志">
+    <meta name="keywords" content="使用nginx代理centos yum 源, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>elasticsearch在CentOS环境下开机启动 | Cheney 学习日志</title>
+    <title>使用nginx代理centos yum 源 | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">elasticsearch在CentOS环境下开机启动</h1>
+                    <h1 class="description center-align post-title">使用nginx代理centos yum 源</h1>
                 </div>
             </div>
         </div>
@@ -370,8 +370,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/elasticsearch/">
-                                <span class="chip bg-color">elasticsearch</span>
+                            <a href="/tags/yum/">
+                                <span class="chip bg-color">yum</span>
+                            </a>
+                        
+                            <a href="/tags/nginx/">
+                                <span class="chip bg-color">nginx</span>
                             </a>
                         
                     </div>
@@ -382,12 +386,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/develop/" class="post-category">
-                                develop
-                            </a>
-                        
-                            <a href="/categories/develop/tools/" class="post-category">
-                                tools
+                            <a href="/categories/Linux/" class="post-category">
+                                Linux
                             </a>
                         
                     </div>
@@ -399,7 +399,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-24
+                    2021-01-06
                 </div>
                 
 
@@ -415,68 +415,143 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="elasticsearch在CentOS环境下开机启动"><a href="#elasticsearch在CentOS环境下开机启动" class="headerlink" title="elasticsearch在CentOS环境下开机启动"></a>elasticsearch在CentOS环境下开机启动</h1><h4 id="实验环境："><a href="#实验环境：" class="headerlink" title="实验环境："></a>实验环境：</h4><p>​        OS版本：CentOS-7-x86_64-Minimal-1708；ES版本：elasticsearch-7.4.0.</p>
-<h4 id="具体步骤："><a href="#具体步骤：" class="headerlink" title="具体步骤："></a>具体步骤：</h4><ol>
-<li><p>在/etc/init.d/目录创建es文件</p>
-<pre class="line-numbers language-shell"><code class="language-shell">vi /etc/init.d/es<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>文件内容：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/bash
+                <p>我们在安装centos 服务器时，可能会有以下情况：</p>
+<p>　　局域网内有若干台服务器，但是只有一台服务器可以连接外网，其余服务器都不可以连接外网，但通过局域网与外网机器联通。</p>
+<p>那么我们再使用 yum 安装软件时，可以采用以下方式</p>
+<ul>
+<li>搭建本地 yum 源</li>
+<li>使用nginx 代理 yum 源</li>
+</ul>
+<p>其中方法1比较复杂且一旦需要第三方数据源时，更麻烦，因此我们这里介绍使用方法2。</p>
+<h3 id="在有外网的服务器上安装-nginx"><a href="#在有外网的服务器上安装-nginx" class="headerlink" title="在有外网的服务器上安装 nginx"></a>在有外网的服务器上安装 nginx</h3><p>　　安装 epel 源</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@localhost ~] yum -y install epel-release<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>　　安装 nginx</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@localhost ~] yum -y install nginx   #我习惯手动编译安装<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或者手动安装：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@localhost ~] yum -y install make zlib zlib-devel gcc-c++ libtool openssl openssl-devel
+
+[root@localhost ~] wget http://nginx.org/download/nginx-1.18.0.tar.gz
+
+[root@localhost ~] tar -zxvf nginx-1.18.0.tar.gz
+
+[root@localhost ~] cd nginx-1.18.0
+
+[root@localhost nginx-1.18.0] ./configure
+
+[root@localhost nginx-1.18.0]make && make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="配置nginx-代理-yum-源"><a href="#配置nginx-代理-yum-源" class="headerlink" title="配置nginx 代理 yum 源"></a>配置nginx 代理 yum 源</h3><p>新增 nginx 配置文件</p>
+<pre><code>[root@localhost ~] vim /etc/nginx/conf/nginx.conf</code></pre>
+<p>输入以下内容，这里添加了一些常用的yum源，如果需要其他yum源可以自行添加</p>
+<pre><code>    # centos 7 yum local source
+    server {
+        listen       7000;
+        server_name  192.168.1.101;
+
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Headers X-Requested-With;
+        add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+
+        location /centos/ {
+            proxy_pass http://mirrors.aliyun.com/centos/;
+        }
+
+        location /epel/ {
+            proxy_pass http://mirrors.aliyun.com/epel/;
+        }
+
+        location /mariadb/ {
+            proxy_pass http://mirrors.ustc.edu.cn/mariadb/;
+        }
+
+    }</code></pre>
+<p>检查nginx 配置，并重载nginx配置</p>
+<pre><code>[root@localhost sbin] nginx -t
+[root@localhost sbin] nginx -s reload</code></pre>
+<p>　　</p>
+<h3 id="在没有外网的服务器上面配置-yum-源"><a href="#在没有外网的服务器上面配置-yum-源" class="headerlink" title="在没有外网的服务器上面配置 yum 源"></a>在没有外网的服务器上面配置 yum 源</h3><p>备份以前的yum 源配置文件</p>
+<pre><code>[root@localhost ~] cd /etc/yum.repos.d
+[root@localhost yum.repos.d] mv CentOS-Base.repo CentOS-Base.repo.bak</code></pre>
+<p>根据上方代理的 yum 源，创建如下配置文件，注意将ip 192.168.1.101 换成对应的有外网服务器的局域网ip</p>
+<p>　　<em>CentOS-Base-nginx.repo</em></p>
+<pre><code># CentOS-Base.repo
 #
-#chkconfig: 345 63 37
-#description: elasticsearch
-#processname: elasticsearch-7.4.0
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the 
+# remarked out baseurl= line instead.
+#
+#
+[base]
+name=CentOS-$releasever - Base - 163.com
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os
+baseurl=http://192.168.1.101:7000/centos/$releasever/os/$basearch/
+gpgcheck=1
+gpgkey=http://192.168.1.101:7000/centos/RPM-GPG-KEY-CentOS-7
 
-ES_HOME=/usr/local//usr/local/elasticsearch-7.4.0
+#released updates
+[updates]
+name=CentOS-$releasever - Updates - 163.com
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates
+baseurl=http://192.168.1.101:7000/centos/$releasever/updates/$basearch/
+gpgcheck=1
+gpgkey=http://192.168.1.101:7000/centos/RPM-GPG-KEY-CentOS-7
 
-case $1 in
-  start)
-    su - es_user -c "$ES_HOME/bin/elasticsearch -d -p pid"
-    echo "elasticsearch is started"
-    ;;
-  stop)
-    pid=`cat $ES_HOME/pid`
-    kill -9 $pid
-    echo "elasticsearch is stopped"
-    ;;
-  restart)
-    pid=`cat $ES_HOME/pid`
-    kill -9 $pid
-    echo "elasticsearch is stopped"
-    sleep 1
-    su - es_user -c "$ES_HOME/bin/elasticsearch -d -p pid"
-    echo "elasticsearch is started"
-    ;;
-  *)
-    echo "start|stop|restart"
-    ;;  
-esac
-exit 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ol>
-<ol start="2">
-<li><p>修改上面文件的权限，执行命令</p>
-<pre class="line-numbers language-shell"><code class="language-shell">chmod 777 /etc/init.d/es<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-</ol>
-<ol start="3">
-<li><p>添加和删除服务并设置启动方式（chkconfig具体使用另行百度）</p>
-<pre class="line-numbers language-shell"><code class="language-shell">chkconfig --add es
-chkconfig --del es<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-</ol>
-<ol start="4">
-<li><p>启动和关闭服务</p>
-<pre class="line-numbers language-shell"><code class="language-shell">service es start    // 启动服务
-service es stop     // 关闭服务
-service es restart  // 重启服务<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-</ol>
-<ol start="5">
-<li><p>设置服务的启动方式</p>
-<pre class="line-numbers language-shell"><code class="language-shell">chkconfig es on  // 设置开机启动
-chkconfig es off // 关闭开机启动<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-</ol>
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever - Extras - 163.com
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras
+baseurl=http://192.168.1.101:7000/centos/$releasever/extras/$basearch/
+gpgcheck=1
+gpgkey=http://192.168.1.101:7000/centos/RPM-GPG-KEY-CentOS-7
+
+#additional packages that extend functionality of existing packages
+[centosplus]
+name=CentOS-$releasever - Plus - 163.com
+baseurl=http://192.168.1.101:7000/centos/$releasever/centosplus/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=http://192.168.1.101:7000/centos/RPM-GPG-KEY-CentOS-7</code></pre>
+<p>　　<em>epel-nginx.repo</em></p>
+<pre><code>[epel]
+name=Extra Packages for Enterprise Linux 7 - $basearch
+baseurl=http://192.168.1.101:7000/epel/7/$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+
+[epel-debuginfo]
+name=Extra Packages for Enterprise Linux 7 - $basearch - Debug
+baseurl=http://192.168.1.101:7000/epel/7/$basearch/debug
+failovermethod=priority
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+gpgcheck=1
+
+[epel-source]
+name=Extra Packages for Enterprise Linux 7 - $basearch - Source
+baseurl=http://192.168.1.101:7000/epel/7/SRPMS
+failovermethod=priority
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7</code></pre>
+<p>　　MariaDB-nginx.repo</p>
+<pre><code># MariaDB 10.2 CentOS repository list - created 2017-07-03 06:59 UTC
+# http://downloads.mariadb.org/mariadb/repositories/
+[mariadb]
+name = MariaDB
+baseurl = http://192.168.1.101:7000/mariadb/yum/10.3/centos7-amd64
+gpgkey=http://192.168.1.101:7000/mariadb/yum/RPM-GPG-KEY-MariaDB
+gpgcheck=1</code></pre>
+<h3 id="刷新-yum-源"><a href="#刷新-yum-源" class="headerlink" title="刷新 yum 源"></a>刷新 yum 源</h3><pre><code>yum clean all
+yum makecache</code></pre>
 
             </div>
             <hr/>
@@ -502,7 +577,7 @@ chkconfig es off // 关闭开机启动<span aria-hidden="true" class="line-numbe
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2020/11/24/elasticsearch-zai-centos-huan-jing-xia-kai-ji-qi-dong/">https://chenguoo.github.io/2020/11/24/elasticsearch-zai-centos-huan-jing-xia-kai-ji-qi-dong/</a>
+                    <a href="https://chenguoo.github.io/2021/01/06/nginx-proxy-yum/">https://chenguoo.github.io/2021/01/06/nginx-proxy-yum/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -540,8 +615,12 @@ chkconfig es off // 关闭开机启动<span aria-hidden="true" class="line-numbe
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/elasticsearch/">
-                                    <span class="chip bg-color">elasticsearch</span>
+                                <a href="/tags/yum/">
+                                    <span class="chip bg-color">yum</span>
+                                </a>
+                            
+                                <a href="/tags/nginx/">
+                                    <span class="chip bg-color">nginx</span>
                                 </a>
                             
                         </div>
@@ -587,57 +666,32 @@ chkconfig es off // 关闭开机启动<span aria-hidden="true" class="line-numbe
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/24/linux-commond/">
+                <a href="/2021/01/06/install-nginx/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Linux Commond">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="install nginx">
                         
-                        <span class="card-title">Linux Commond</span>
+                        <span class="card-title">install nginx</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             
-查询端口监听情况
-
-netstat -lnp | grep
-
-
-查询java运行程序
-
-jps
-
-
-临时切换用户并执行命令
-
-su - esuser-c “/opt/elasticsearch-6.1.3/bin/elasticsearc
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-24
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-06
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Cheney
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -649,37 +703,34 @@ su - esuser-c “/opt/elasticsearch-6.1.3/bin/elasticsearc
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/22/restfull-request-tool-for-vscode/">
+                <a href="/2021/01/06/chi-xian-yum-yuan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="使用VS Code的REST客户端插件即可进行API调用">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="离线yum源">
                         
-                        <span class="card-title">使用VS Code的REST客户端插件即可进行API调用</span>
+                        <span class="card-title">离线yum源</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            为什么要离开IDE去测试新的API？现在你不必这样做了。
-我们如何获取数据如果你已经做了很长时间的Web开发，你可能知道我们的很多工作都是围绕着数据展开的：读取数据、写入数据、操作数据，并以合理的方式在浏览器中显示出来。
-而这些数据绝大部分
+                            CentOS 7 制作离线yum源1.建立本地yum源仓库mkdir -p /root/data/yum
+2.安装createrepo1 yum install -y createrepe
+# 或者
+2 rpm -ivh http://mi
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-06
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/develop/" class="post-category">
-                                    develop
-                                </a>
-                            
-                            <a href="/categories/develop/tools/" class="post-category">
-                                    tools
+                            <a href="/categories/centos/" class="post-category">
+                                    centos
                                 </a>
                             
                             
@@ -689,8 +740,8 @@ su - esuser-c “/opt/elasticsearch-6.1.3/bin/elasticsearc
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/restfull/">
-                        <span class="chip bg-color">restfull</span>
+                    <a href="/tags/centos/">
+                        <span class="chip bg-color">centos</span>
                     </a>
                     
                 </div>
