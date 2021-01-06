@@ -416,7 +416,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="CentOS-7-制作离线yum源"><a href="#CentOS-7-制作离线yum源" class="headerlink" title="CentOS 7 制作离线yum源"></a>CentOS 7 制作离线yum源</h2><h3 id="1-建立本地yum源仓库"><a href="#1-建立本地yum源仓库" class="headerlink" title="1.建立本地yum源仓库"></a>1.建立本地yum源仓库</h3><pre class="line-numbers language-shell"><code class="language-shell">mkdir -p /root/data/yum<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="2-安装createrepo"><a href="#2-安装createrepo" class="headerlink" title="2.安装createrepo"></a>2.安装createrepo</h3><pre class="line-numbers language-shell"><code class="language-shell">1 yum install -y createrepe
+<h3 id="2-安装createrepo"><a href="#2-安装createrepo" class="headerlink" title="2.安装createrepo"></a>2.安装createrepo</h3><pre class="line-numbers language-shell"><code class="language-shell">1 yum install -y createrepo
 # 或者
 2 rpm -ivh http://mirror.centos.org/centos/7/os/x86_64/Packages/createrepo-0.9.9-23.el7.noarch.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h3 id="3-下载需要的rpm包到第一步的文件夹中"><a href="#3-下载需要的rpm包到第一步的文件夹中" class="headerlink" title="3.下载需要的rpm包到第一步的文件夹中"></a>3.下载需要的rpm包到第一步的文件夹中</h3><pre class="line-numbers language-shell"><code class="language-shell">yum  install   createrepo --downloadonly --downloaddir=/root/data/yum<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
