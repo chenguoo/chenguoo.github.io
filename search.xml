@@ -49,6 +49,8 @@
             
             <tag> Linux </tag>
             
+            <tag> Nginx </tag>
+            
             <tag> yum </tag>
             
         </tags>
@@ -67,14 +69,16 @@
       
       <categories>
           
-          <category> centos </category>
+          <category> Linux </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> centos </tag>
+            <tag> Linux </tag>
+            
+            <tag> yum </tag>
             
         </tags>
       
