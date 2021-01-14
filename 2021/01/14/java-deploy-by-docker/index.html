@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Spring Boot 2.0 的配置绑定类Bindable居然如此强大, Cheney 学习日志">
+    <meta name="keywords" content="java deploy by docker, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Spring Boot 2.0 的配置绑定类Bindable居然如此强大 | Cheney 学习日志</title>
+    <title>java deploy by docker | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Spring Boot 2.0 的配置绑定类Bindable居然如此强大</h1>
+                    <h1 class="description center-align post-title">java deploy by docker</h1>
                 </div>
             </div>
         </div>
@@ -370,8 +370,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java/">
-                                <span class="chip bg-color">java</span>
+                            <a href="/tags/docker/">
+                                <span class="chip bg-color">docker</span>
                             </a>
                         
                     </div>
@@ -382,7 +382,11 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/springboot/" class="post-category">
+                            <a href="/categories/docker/" class="post-category">
+                                docker
+                            </a>
+                        
+                            <a href="/categories/docker/springboot/" class="post-category">
                                 springboot
                             </a>
                         
@@ -411,99 +415,52 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>在开发<strong>Spring Boot</strong>应用时会用到根据条件来向<strong>Spring IoC</strong>容器注入<strong>Bean</strong>。比如配置文件存在了某个配置属性才注入<strong>Bean</strong> ：</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/zuF5sJGRDCtztsjKj45H5hianGghoUWD89obARqhYETibdyH0iabmnLMzZWx8aRwMRgia0nh9MfSuxLcUxPZ3v5YMQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片">根据配置属性来动态注入Bean</p>
-<p>图中红色的部分是说，只有<code>ali.pay.v1.app-id</code>存在于<strong>Spring</strong>的环境配置中时这个<code>@Configuration</code>标记的类才能注入<strong>Spring IoC</strong>。</p>
-<p>这里面的<code>@ConditionalOnProperty</code>就是条件注解系列的一种。它还有很多种来满足各种场景的条件注解：</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/zuF5sJGRDCtztsjKj45H5hianGghoUWD8kMUXIcWyZs5VT9RbibPy1zLEicNH44eeVU6sNFzy6qwKiaBdGiaGwqbv4Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片">条件注解家族</p>
-<blockquote>
-<p>❝</p>
-<p>其实数量远不止截图中这几个，在 Spring 家族的其它框架中也有实现。</p>
-</blockquote>
-<p>这里扯得有点远了，今天不是来讲这些条件控制注解的用法的，只是我发现了一个使用条件注解<code>@ConditionalOnProperty</code>无法解决的问题。</p>
-<h2 id="2-配置文件存在-Map-结构的场景"><a href="#2-配置文件存在-Map-结构的场景" class="headerlink" title="2. 配置文件存在 Map 结构的场景"></a>2. 配置文件存在 Map 结构的场景</h2><p>下面是一段配置文件：</p>
-<pre><code>app:
- v1:
-  foo:
-    name: felord.cn
-    description: 码农小胖哥
-  bar:
-    name: ooxx.cn
-    description: xxxxxx</code></pre>
-<p>对应配置类：</p>
-<pre><code>@Data
-@ConfigurationProperties("app")
-public class AppProperties {
-    /**
-     *
-     */
-    private Map&lt;String, V1&gt; v1 = new HashMap&lt;&gt;();
+                <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p><strong>Docker</strong> 是啥？好处是啥？ 什么现在如果作为一名开发你还不知道甚至没有用过我都感觉你落伍了。<strong>Docker</strong> 是一种虚拟化的容器技术，目的为了打造持续集成、版本控制、可移植性、隔离性和安全性的应用集成。这都是官话。其实我认为最简单的理解就是 <strong>Docker</strong> 能给你的应用打造一套隔离的应用环境。只要能跑docker的环境，不管是<strong>Linux</strong>，还是 <strong>Mac</strong>，还是 <strong>windows</strong> 都能快速把你的应用部署过来甚至达到秒级启动。如果你有个<strong>Mysql</strong>集群镜像，你瞬间就能启动一个 <strong>Mysql</strong> 集群，如果让你用手撸一个估计得一袋烟的工夫。看到这里如果没用过 <strong>Docker</strong>，赶紧找资料学习去，并不难学。 别忘记关注一下，回来接着下面的干货分享。 那么今天我将如何将 <strong>Spring Boot</strong> 应用容器化。</p>
+<h2 id="2-环境"><a href="#2-环境" class="headerlink" title="2. 环境"></a>2. 环境</h2><ul>
+<li>Spring Boot 版本2.2.0.RELEASE</li>
+<li><code>Jdk</code> 版本 <code>java 8</code> 这里可以选择 <code>openjdk8</code> 或者 <code>oracle jdk8</code></li>
+<li><code>Docker</code> 环境自己可以选择 <code>Linux</code>，<code>Mac</code>或者<code>Win10专业版</code> 没有太多区别</li>
+<li>开发工具 <code>Idea 2019</code> 旗舰版</li>
+</ul>
+<h2 id="3-Spring-Boot-应用"><a href="#3-Spring-Boot-应用" class="headerlink" title="3. Spring Boot 应用"></a>3. Spring Boot 应用</h2><p>通过 Idea 搭建一个简单的名称为<code>docker-springboot</code> 的 springboot web maven应用。 并编写一个 Spring MVC 接口。</p>
+<pre><code>    @GetMapping("/hello")
+  public Map&lt;String,String&gt; hello(){
+      Map&lt;String, String&gt; map = new HashMap&lt;&gt;(3);
+           map.put("aud","码农小胖哥");
+           map.put("msg","关注我学习更多的原创知识");
+           map.put("time", LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:MM:ss")));
+           return  map;
 
-    /**
-     *
-     *
-     * @author felord.cn
-     * @since 1.0.0.RELEASE
-     */
-    @Data
-    public static class V1 {
-        /**
-         * name
-         */
-        private String name;
-        /**
-         * description
-         */
-        private String description;
-
-    }
-}</code></pre>
-<p>特殊之处来了<code>yml</code>配置里的 <code>foo</code>、<code>bar</code>其实是作为<code>Map</code>中的<code>key</code>来标识<code>V1</code>的，和其它配置参数不同这个<code>key</code>用户可以随意定义一个<code>String</code>来标识，可能是<code>foo</code>，可能是<code>bar</code>，完全根据开发者的喜好进行主观定义。这个时候 你想根据<code>app.v1.*.name</code>（暂时用通配符<code>*</code>）来进行<code>@ConditionalOnProperty</code>判断是行不通的，因为你不确定<code>*</code>的值，该怎么办呢？</p>
-<h2 id="3-解决方案"><a href="#3-解决方案" class="headerlink" title="3. 解决方案"></a>3. 解决方案</h2><p>这里我花了一天的时间去摸索，最开始我认为 Spring 提供通配符（<code>app.v1.*.name</code>）甚至是<code>SpringEL</code>表达式可以拿到，但是搞了半天无功而返。</p>
-<p>突然我想到之前看<strong>Spring Security OAuth2</strong>源码中有类似的逻辑。用过<strong>Spring Security OAuth2</strong>相关的都知道<strong>Spring Security OAuth2</strong>也要求用户自定义一个<code>key</code>来标识自己的<strong>OAuth2</strong>客户端。比如我用<strong>Gitee</strong>的：</p>
-<pre><code>spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          gitee:
-            client-id: xxxxxx
-            client-secret: xxxxx</code></pre>
-<blockquote>
-<p>❝</p>
-<p>这里的<code>key</code>就是<code>gitee</code>,当然这根据您的心情决定，甚至你用<code>zhangshan</code>作为<code>key</code>都可以。</p>
-</blockquote>
-<p><strong>Spring Security OAuth2</strong> 提供了相关的条件注入思路，下面是其条件注入判断的核心类：</p>
-<pre><code>public class ClientsConfiguredCondition extends SpringBootCondition {
-
-   private static final Bindable&lt;Map&lt;String, OAuth2ClientProperties.Registration&gt;&gt; STRING_REGISTRATION_MAP = Bindable
-         .mapOf(String.class, OAuth2ClientProperties.Registration.class);
-
-   @Override
-   public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-      ConditionMessage.Builder message = ConditionMessage.forCondition("OAuth2 Clients Configured Condition");
-      Map&lt;String, OAuth2ClientProperties.Registration&gt; registrations = getRegistrations(context.getEnvironment());
-      if (!registrations.isEmpty()) {
-         return ConditionOutcome.match(message.foundExactly("registered clients " + registrations.values().stream()               .map(OAuth2ClientProperties.Registration::getClientId).collect(Collectors.joining(", "))));
-      }
-      return ConditionOutcome.noMatch(message.notAvailable("registered clients"));
-   }
-
-   private Map&lt;String, OAuth2ClientProperties.Registration&gt; getRegistrations(Environment environment) {
-      return Binder.get(environment).bind("spring.security.oauth2.client.registration", STRING_REGISTRATION_MAP)
-            .orElse(Collections.emptyMap());
-   }
-
-}</code></pre>
-<p>显然<code>OAuth2ClientProperties</code>的结构和我们要验证的<code>AppProperties</code>结构是一样的。所以上面的逻辑是可以抄过来的，它可以将环境配置中的带有不确定<code>key</code>的配置绑定到我们的配置类<code>AppProperties</code>中。核心的绑定逻辑是这一段：</p>
-<pre><code>Binder.get(environment).bind("spring.security.oauth2.client.registration", STRING_REGISTRATION_MAP)</code></pre>
-<p>首先通过<code>Bindable</code>来声明一个可绑定的数据结构,这里调用了<code>mapOf</code>方法声明了一个<code>Map</code>的数据绑定结构。然后通过绑定的具体操作对象<code>Binder</code>从配置环境接口<code>Environment</code>中提取了<code>spring.security.oauth2.client.registration</code>开头的配置属性并注入到<code>Map</code>中去。既然我们能够获取到了<code>Map</code>，根据什么策略判断就完全掌握在我们手中了。</p>
-<blockquote>
-<p>❝</p>
-<p><code>Bindable</code>为 Spring Boot 2.0 提供的数据绑定新特性，这里只是它的运用的场景之一。有兴趣可从 spring.io 获取更多信息。</p>
-</blockquote>
-<p>接下来不用我说了吧，照葫芦画瓢还有谁不会呢？配合<code>@Conditional</code>注解就能实现根据<code>app.v1</code>下参数的实际情况来动态的进行 Bean 注入。</p>
-<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>今天利用<strong>Spring Boot 2.0</strong>的数据绑定特性解决了一个实际需求，花了不少时间。当我们解决问题陷入困境时，首先要去想想有没有类似场景以及对应的解决方案。这同样说明平时的积累很重要，很多粉丝的问题其实公众号都有讲过，所以处处留心解释学问。</p>
+  }</code></pre>
+<p>接下来我们要把spring boot打包成可执行jar</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/zuF5sJGRDCtPdxEBibUJl86CVxEFpGnFibYmDpaEUbrO8dMybajibuTIEZMnKqc25vH2INRTbCVTXNWOgCzABia8zQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<p>点击上图的 <code>package</code> 或者熟悉 <strong>Maven</strong>的用高逼格命令行操作 <code>mvn clean package</code> 编译好后会在 <code>target</code> 目录下找到一个打包好的 <code>jar</code> 文件。</p>
+<h2 id="4-编写-Docker-脚本"><a href="#4-编写-Docker-脚本" class="headerlink" title="4. 编写 Docker 脚本"></a>4. 编写 Docker 脚本</h2><p>下来该编写 <strong>Docker</strong> 创建镜像的打包脚本，名称必须是 <strong>Dockerfile</strong>，位置为项目根目录，还有通过 Maven 插件来操作位置不尽相同。内容如下</p>
+<pre><code>   # 使用aws 的 openjdk8
+   FROM amazoncorretto:8
+   # 作者署名
+   MAINTAINER Felordcn
+   # 挂载的容器磁盘
+   VOLUME ["/tmp"]
+   # 使用东八区时间 环境 其他环境参数也可以通过ENV 声明
+   ENV TZ=Asia/Shanghai
+   RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone
+   #  add 命令是 将主机构建环境（上下文）目录中的文件和目录、以及一个URL标记的文件 拷贝到镜像中
+   ADD /target/docker-springboot-0.0.1-SNAPSHOT.jar app.jar
+   # 暴露端口 跟springboot 默认应用端口一样
+   EXPOSE 8080
+   #  启动镜像就执行的命令操作   相当于执行  java -jar  app.jar  -Djava.security.egd=file:/dev/./urandom     最后的指令是为了加快启动
+   ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","app.jar"]</code></pre>
+<h2 id="5-构建镜像"><a href="#5-构建镜像" class="headerlink" title="5. 构建镜像"></a>5. 构建镜像</h2><p>然后在项目目录下打开命令行工具（idea 自带有）执行脚本（记得启动docker）不要忘记最后的点 代表当前路径 其他路径 写相对路径</p>
+<pre><code>   docker build -t docker-springboot:0.0.1 .</code></pre>
+<p>然后进入下面的分层构建阶段，走到最后镜像就成了</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/zuF5sJGRDCtPdxEBibUJl86CVxEFpGnFibxWSjwFGwibpbBAAsDxHD9qicicxwocCOr8LBj6Z9lsoO3BfMib8XZ6CXaQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<h2 id="6-启动容器"><a href="#6-启动容器" class="headerlink" title="6. 启动容器"></a>6. 启动容器</h2><p>命令行 执行 <code>docker images</code> 查看一下是否存在 一个 <code>docker-springboot：0.0.1</code> 的镜像，只要结果跟上图一样就一定存在。然后从镜像启动一个容器，命令行如下</p>
+<pre><code>   docker run --name docker-app -p 8088:8080 docker-springboot:0.0.1</code></pre>
+<p>该命令的意思是 我前台从 <code>docker-springboot:0.0.1</code> 镜像启动一个名字叫 <code>docker-app</code>的容器应用，同时将容器<code>内部端口8080</code>映射到<code>宿主机端口8088</code> ，这样我们可以通过本地端口<code>8088</code>访问容器端口<code>8080</code> 。然后你访问上面写好的那个接口 <code>http://localhost:8088/docker/hello</code></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/zuF5sJGRDCtPdxEBibUJl86CVxEFpGnFibfyYxBiaQxw5OE0ibyJJgnf1JicW32vseSicomUyiakQCUTgTiamSbgK6mn6Q/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<p>大功告成。 这样我们就简单的实现了 <strong>Spring Boot</strong> 应用的容器化</p>
+<h2 id="7-总结"><a href="#7-总结" class="headerlink" title="7. 总结"></a>7. 总结</h2><p>应用容器化是近年来的热点。而且容器技术层出不穷，掌握应用的容器化技术还是很有必要的。今天我们一步一步从零利用 <strong>Docker</strong> 构建了一个 <code>Spring Boot</code> 容器 。希望对你有所帮助。</p>
 
             </div>
             <hr/>
@@ -529,7 +486,7 @@ public class AppProperties {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2021/01/14/spring-boot-2-0-de-pei-zhi-bang-ding-lei-bindable-ju-ran-ru-ci-qiang-da/">https://chenguoo.github.io/2021/01/14/spring-boot-2-0-de-pei-zhi-bang-ding-lei-bindable-ju-ran-ru-ci-qiang-da/</a>
+                    <a href="https://chenguoo.github.io/2021/01/14/java-deploy-by-docker/">https://chenguoo.github.io/2021/01/14/java-deploy-by-docker/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -567,8 +524,8 @@ public class AppProperties {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/java/">
-                                    <span class="chip bg-color">java</span>
+                                <a href="/tags/docker/">
+                                    <span class="chip bg-color">docker</span>
                                 </a>
                             
                         </div>
@@ -614,19 +571,19 @@ public class AppProperties {
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/01/14/java-deploy-by-docker/">
+                <a href="/2021/01/14/an-quan-chuan-shu-cun-chu-yong-hu-mi-ma/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="java deploy by docker">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="安全传输存储用户密码">
                         
-                        <span class="card-title">java deploy by docker</span>
+                        <span class="card-title">安全传输存储用户密码</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 前言Docker 是啥？好处是啥？ 什么现在如果作为一名开发你还不知道甚至没有用过我都感觉你落伍了。Docker 是一种虚拟化的容器技术，目的为了打造持续集成、版本控制、可移植性、隔离性和安全性的应用集成。这都是官话。其实我认为最简单
+                            前言我们开发网站或者APP的时候，首先要解决的问题，就是「如何安全传输和存储用户的密码」。一些大公司的用户数据库泄露事件也时有发生，带来非常大的负面影响。因此，如何安全传输存储用户密码，是每位程序员必备的基础。本文将跟大家一起学习，如何安全
                         
                     </div>
                     <div class="publish-info">
@@ -637,12 +594,8 @@ public class AppProperties {
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/docker/" class="post-category">
-                                    docker
-                                </a>
-                            
-                            <a href="/categories/docker/springboot/" class="post-category">
-                                    springboot
+                            <a href="/categories/java/" class="post-category">
+                                    java
                                 </a>
                             
                             
@@ -652,8 +605,8 @@ public class AppProperties {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/docker/">
-                        <span class="chip bg-color">docker</span>
+                    <a href="/tags/encryption/">
+                        <span class="chip bg-color">encryption</span>
                     </a>
                     
                 </div>
@@ -667,32 +620,33 @@ public class AppProperties {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/06/install-nginx/">
+                <a href="/2021/01/14/spring-boot-2-0-de-pei-zhi-bang-ding-lei-bindable-ju-ran-ru-ci-qiang-da/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="手动安装nginx">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Spring Boot 2.0 的配置绑定类Bindable居然如此强大">
                         
-                        <span class="card-title">手动安装nginx</span>
+                        <span class="card-title">Spring Boot 2.0 的配置绑定类Bindable居然如此强大</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            安装gcc等编译环境yum -y install make zlib zlib-devel gcc-c++ libtool openssl openssl-devel
-下载nginx-1.18.0.tar.gz并解压wget http://
+                            1. 前言在开发Spring Boot应用时会用到根据条件来向Spring IoC容器注入Bean。比如配置文件存在了某个配置属性才注入Bean ：
+根据配置属性来动态注入Bean
+图中红色的部分是说，只有ali.pay.v1.app-id
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/nginx/" class="post-category">
-                                    nginx
+                            <a href="/categories/springboot/" class="post-category">
+                                    springboot
                                 </a>
                             
                             
@@ -702,12 +656,8 @@ public class AppProperties {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/linux/">
-                        <span class="chip bg-color">linux</span>
-                    </a>
-                    
-                    <a href="/tags/nginx/">
-                        <span class="chip bg-color">nginx</span>
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
                     </a>
                     
                 </div>
