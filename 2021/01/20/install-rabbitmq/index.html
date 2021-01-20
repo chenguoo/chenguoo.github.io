@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Spring 中@Transactional 注解失效的场景, Cheney 学习日志">
+    <meta name="keywords" content="install rabbitmq, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Spring 中@Transactional 注解失效的场景 | Cheney 学习日志</title>
+    <title>install rabbitmq | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Spring 中@Transactional 注解失效的场景</h1>
+                    <h1 class="description center-align post-title">install rabbitmq</h1>
                 </div>
             </div>
         </div>
@@ -370,8 +370,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/transactional/">
-                                <span class="chip bg-color">transactional</span>
+                            <a href="/tags/rabbitMQ/">
+                                <span class="chip bg-color">rabbitMQ</span>
                             </a>
                         
                     </div>
@@ -382,8 +382,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/spring/" class="post-category">
-                                spring
+                            <a href="/categories/rabbitMQ/" class="post-category">
+                                rabbitMQ
                             </a>
                         
                     </div>
@@ -395,7 +395,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-01-14
+                    2021-01-20
                 </div>
                 
 
@@ -411,159 +411,112 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><strong>引言</strong></p>
-<p><code>@Transactional</code>注解哪些场景下会失效，一时语塞致使面试失败。所以今天简单的和大家分享一下<code>@Transactional</code>相关的知识。</p>
-<p><code>@Transactional</code> 注解相信大家并不陌生，平时开发中很常用的一个注解，它能保证方法内多个数据库操作要么同时成功、要么同时失败。使用<code>@Transactional</code>注解时需要注意许多的细节，不然你会发现<code>@Transactional</code>总是莫名其妙的就失效了。</p>
-<h2 id="一、事务"><a href="#一、事务" class="headerlink" title="一、事务"></a><strong>一、事务</strong></h2><p>事务管理在系统开发中是不可缺少的一部分，<code>Spring</code>提供了很好事务管理机制，主要分为<code>编程式事务</code>和<code>声明式事务</code>两种。</p>
-<p><strong>编程式事务</strong>：是指在代码中手动的管理事务的提交、回滚等操作，代码侵入性比较强，如下示例：</p>
-<pre><code>1try {
-2    //TODO something
-3     transactionManager.commit(status);
-4} catch (Exception e) {
-5    transactionManager.rollback(status);
-6    throw new InvoiceApplyException("异常失败");
-7}</code></pre>
-<p><strong>声明式事务</strong>：基于<code>AOP</code>面向切面的，它将具体业务与事务处理部分解耦，代码侵入性很低，所以在实际开发中声明式事务用的比较多。声明式事务也有两种实现方式，一是基于<code>TX</code>和<code>AOP</code>的xml配置文件方式，二种就是基于@Transactional注解了。</p>
-<pre><code>1    @Transactional
-2    @GetMapping("/test")
-3    public String test() {
-4
-5        int insert = cityInfoDictMapper.insert(cityInfoDict);
-6    }</code></pre>
-<p><strong><em>\</em><br>**</strong></p>
-<h2 id="二、-Transactional介绍"><a href="#二、-Transactional介绍" class="headerlink" title="二、@Transactional介绍"></a>二、@Transactional介绍</h2><h4 id="1、-Transactional注解可以作用于哪些地方？"><a href="#1、-Transactional注解可以作用于哪些地方？" class="headerlink" title="1、@Transactional注解可以作用于哪些地方？"></a>1、@Transactional注解可以作用于哪些地方？</h4><p>@Transactional 可以作用在<code>接口</code>、<code>类</code>、<code>类方法</code>。</p>
-<ul>
-<li><strong>作用于类</strong>：当把@Transactional 注解放在类上时，表示所有该类的<code>public</code>方法都配置相同的事务属性信息。</li>
-<li><strong>作用于方法</strong>：当类配置了@Transactional，方法也配置了@Transactional，方法的事务会覆盖类的事务配置信息。</li>
-<li><strong>作用于接口</strong>：不推荐这种使用方法，因为一旦标注在Interface上并且配置了Spring AOP 使用CGLib动态代理，将会导致@Transactional注解失效</li>
-</ul>
-<pre><code> 1@Transactional
- 2@RestController
- 3@RequestMapping
- 4public class MybatisPlusController {
- 5    @Autowired
- 6    private CityInfoDictMapper cityInfoDictMapper;
- 7
- 8    @Transactional(rollbackFor = Exception.class)
- 9    @GetMapping("/test")
-10    public String test() throws Exception {
-11        CityInfoDict cityInfoDict = new CityInfoDict();
-12        cityInfoDict.setParentCityId(2);
-13        cityInfoDict.setCityName("2");
-14        cityInfoDict.setCityLevel("2");
-15        cityInfoDict.setCityCode("2");
-16        int insert = cityInfoDictMapper.insert(cityInfoDict);
-17        return insert + "";
-18    }
-19}</code></pre>
-<h4 id="2、-Transactional注有哪些属性？"><a href="#2、-Transactional注有哪些属性？" class="headerlink" title="2、@Transactional注有哪些属性？"></a>2、@Transactional注有哪些属性？</h4><h5 id="propagation属性"><a href="#propagation属性" class="headerlink" title="propagation属性"></a>propagation属性</h5><p><code>propagation</code> 代表事务的传播行为，默认值为 <code>Propagation.REQUIRED</code>，其他的属性信息如下：</p>
-<ul>
-<li><code>Propagation.REQUIRED</code>：如果当前存在事务，则加入该事务，如果当前不存在事务，则创建一个新的事务。**(** 也就是说如果A方法和B方法都添加了注解，在默认传播模式下，A方法内部调用B方法，会把两个方法的事务合并为一个事务 <strong>）</strong></li>
-<li><code>Propagation.SUPPORTS</code>：如果当前存在事务，则加入该事务；如果当前不存在事务，则以非事务的方式继续运行。</li>
-<li><code>Propagation.MANDATORY</code>：如果当前存在事务，则加入该事务；如果当前不存在事务，则抛出异常。</li>
-<li><code>Propagation.REQUIRES_NEW</code>：重新创建一个新的事务，如果当前存在事务，暂停当前的事务。**(** 当类A中的 a 方法用默认<code>Propagation.REQUIRED</code>模式，类B中的 b方法加上采用 <code>Propagation.REQUIRES_NEW</code>模式，然后在 a 方法中调用 b方法操作数据库，然而 a方法抛出异常后，b方法并没有进行回滚，因为<code>Propagation.REQUIRES_NEW</code>会暂停 a方法的事务 <strong>)</strong></li>
-<li><code>Propagation.NOT_SUPPORTED</code>：以非事务的方式运行，如果当前存在事务，暂停当前的事务。</li>
-<li><code>Propagation.NEVER</code>：以非事务的方式运行，如果当前存在事务，则抛出异常。</li>
-<li><code>Propagation.NESTED</code> ：和 Propagation.REQUIRED 效果一样。</li>
-</ul>
-<h5 id="isolation-属性"><a href="#isolation-属性" class="headerlink" title="isolation 属性"></a>isolation 属性</h5><p><code>isolation</code> ：事务的隔离级别，默认值为 <code>Isolation.DEFAULT</code>。</p>
-<ul>
-<li>Isolation.DEFAULT：使用底层数据库默认的隔离级别。</li>
-<li>Isolation.READ_UNCOMMITTED</li>
-<li>Isolation.READ_COMMITTED</li>
-<li>Isolation.REPEATABLE_READ</li>
-<li>Isolation.SERIALIZABLE</li>
-</ul>
-<h5 id="timeout-属性"><a href="#timeout-属性" class="headerlink" title="timeout 属性"></a>timeout 属性</h5><p><code>timeout</code> ：事务的超时时间，默认值为 -1。如果超过该时间限制但事务还没有完成，则自动回滚事务。</p>
-<h5 id="readOnly-属性"><a href="#readOnly-属性" class="headerlink" title="readOnly 属性"></a>readOnly 属性</h5><p><code>readOnly</code> ：指定事务是否为只读事务，默认值为 false；为了忽略那些不需要事务的方法，比如读取数据，可以设置 read-only 为 true。</p>
-<h5 id="rollbackFor-属性"><a href="#rollbackFor-属性" class="headerlink" title="rollbackFor 属性"></a>rollbackFor 属性</h5><p><code>rollbackFor</code> ：用于指定能够触发事务回滚的异常类型，可以指定多个异常类型。</p>
-<h5 id="noRollbackFor属性"><a href="#noRollbackFor属性" class="headerlink" title="noRollbackFor属性**"></a><strong>noRollbackFor</strong>属性**</h5><p><code>noRollbackFor</code>：抛出指定的异常类型，不回滚事务，也可以指定多个异常类型。</p>
-<h3 id=""><a href="#" class="headerlink" title="** **"></a>** **</h3><h2 id="二、-Transactional失效场景"><a href="#二、-Transactional失效场景" class="headerlink" title="二、@Transactional失效场景"></a><strong>二、@Transactional失效场景</strong></h2><p>接下来我们结合具体的代码分析一下哪些场景下，@Transactional 注解会失效。</p>
-<h4 id="1、-Transactional-应用在非-public-修饰的方法上"><a href="#1、-Transactional-应用在非-public-修饰的方法上" class="headerlink" title="1、@Transactional 应用在非 public 修饰的方法上"></a>1、@Transactional 应用在非 public 修饰的方法上</h4><p>如果<code>Transactional</code>注解应用在非<code>public</code> 修饰的方法上，Transactional将会失效。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aOhsEJ0TtJSM5kcSOKZGJDOJoUPF0IHL2wvUHIzlHVYOib6bEN2tKkCyUn8fOxMVicBxvoKpgXU2HDQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片">在这里插入图片描述</p>
-<p>之所以会失效是因为在Spring AOP 代理时，如上图所示 <code>TransactionInterceptor</code> （事务拦截器）在目标方法执行前后进行拦截，<code>DynamicAdvisedInterceptor</code>（CglibAopProxy 的内部类）的 intercept 方法或 <code>JdkDynamicAopProxy</code> 的 invoke 方法会间接调用 <code>AbstractFallbackTransactionAttributeSource</code>的 <code>computeTransactionAttribute</code> 方法，获取Transactional 注解的事务配置信息。</p>
-<pre><code>1protected TransactionAttribute computeTransactionAttribute(Method method,
-2    Class&lt;?&gt; targetClass) {
-3        // Don't allow no-public methods as required.
-4        if (allowPublicMethodsOnly() &amp;&amp; !Modifier.isPublic(method.getModifiers())) {
-5        return null;
-6}</code></pre>
-<p>此方法会检查目标方法的修饰符是否为 public，不是 public则不会获取@Transactional 的属性配置信息。</p>
-<p><strong>注意：**</strong><code>protected</code>、<code>private</code> 修饰的方法上使用 <code>@Transactional</code> 注解，虽然事务无效，但不会有任何报错，这是我们很容犯错的一点。**</p>
-<h4 id="2、-Transactional-注解属性-propagation-设置错误"><a href="#2、-Transactional-注解属性-propagation-设置错误" class="headerlink" title="2、@Transactional 注解属性 propagation 设置错误"></a>2、@Transactional 注解属性 propagation 设置错误</h4><p>这种失效是由于配置错误，若是错误的配置以下三种 propagation，事务将不会发生回滚。</p>
-<p><code>TransactionDefinition.PROPAGATION_SUPPORTS</code>：如果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行。<br><code>TransactionDefinition.PROPAGATION_NOT_SUPPORTED</code>：以非事务方式运行，如果当前存在事务，则把当前事务挂起。<br><code>TransactionDefinition.PROPAGATION_NEVER</code>：以非事务方式运行，如果当前存在事务，则抛出异常。</p>
-<h4 id="3、-Transactional-注解属性-rollbackFor-设置错误"><a href="#3、-Transactional-注解属性-rollbackFor-设置错误" class="headerlink" title="3、@Transactional 注解属性 rollbackFor 设置错误"></a>3、@Transactional 注解属性 rollbackFor 设置错误</h4><p><code>rollbackFor</code> 可以指定能够触发事务回滚的异常类型。Spring默认抛出了未检查<code>unchecked</code>异常（继承自 <code>RuntimeException</code>的异常）或者 <code>Error</code>才回滚事务；其他异常不会触发回滚事务。如果在事务中抛出其他类型的异常，但却期望 Spring 能够回滚事务，就需要指定 <strong>rollbackFor</strong>属性。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/0OzaL5uW2aOhsEJ0TtJSM5kcSOKZGJDOENdU9CHkPlMgJrCv3Du00eDAiaaqleo6D9Q49dQuwY4lddQOsRRiadPA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片">在这里插入图片描述</p>
-<pre><code>1// 希望自定义的异常可以进行回滚
-2@Transactional(propagation= Propagation.REQUIRED,rollbackFor= MyException.class</code></pre>
-<p>若在目标方法中抛出的异常是 <code>rollbackFor</code> 指定的异常的子类，事务同样会回滚。Spring源码如下：</p>
-<pre><code> 1private int getDepth(Class&lt;?&gt; exceptionClass, int depth) {
- 2        if (exceptionClass.getName().contains(this.exceptionName)) {
- 3            // Found it!
- 4            return depth;
- 5}
- 6        // If we've gone as far as we can go and haven't found it...
- 7        if (exceptionClass == Throwable.class) {
- 8            return -1;
- 9}
-10return getDepth(exceptionClass.getSuperclass(), depth + 1);
-11}</code></pre>
-<h4 id="4、同一个类中方法调用，导致-Transactional失效"><a href="#4、同一个类中方法调用，导致-Transactional失效" class="headerlink" title="4、同一个类中方法调用，导致@Transactional失效"></a>4、同一个类中方法调用，导致@Transactional失效</h4><p>开发中避免不了会对同一个类里面的方法调用，比如有一个类Test，它的一个方法A，A再调用本类的方法B（不论方法B是用public还是private修饰），但方法A没有声明注解事务，而B方法有。则外部调用方法A之后，方法B的事务是不会起作用的。这也是经常犯错误的一个地方。</p>
-<p>那为啥会出现这种情况？其实这还是由于使用<code>Spring AOP</code>代理造成的，因为只有当事务方法被当前类以外的代码调用时，才会由<code>Spring</code>生成的代理对象来管理。</p>
-<pre><code> 1//@Transactional
- 2    @GetMapping("/test")
- 3    private Integer A() throws Exception {
- 4        CityInfoDict cityInfoDict = new CityInfoDict();
- 5        cityInfoDict.setCityName("2");
- 6        /**
- 7         * B 插入字段为 3的数据
- 8         */
- 9        this.insertB();
-10        /**
-11         * A 插入字段为 2的数据
-12         */
-13        int insert = cityInfoDictMapper.insert(cityInfoDict);
-14
-15        return insert;
-16    }
-17
-18    @Transactional()
-19    public Integer insertB() throws Exception {
-20        CityInfoDict cityInfoDict = new CityInfoDict();
-21        cityInfoDict.setCityName("3");
-22        cityInfoDict.setParentCityId(3);
-23
-24        return cityInfoDictMapper.insert(cityInfoDict);
-25    }</code></pre>
-<h4 id="5、异常被你的-catch“吃了”导致-Transactional失效"><a href="#5、异常被你的-catch“吃了”导致-Transactional失效" class="headerlink" title="5、异常被你的 catch“吃了”导致@Transactional失效"></a>5、异常被你的 catch“吃了”导致@Transactional失效</h4><p>这种情况是最常见的一种@Transactional注解失效场景</p>
-<pre><code> 1    @Transactional
- 2    private Integer A() throws Exception {
- 3        int insert = 0;
- 4        try {
- 5            CityInfoDict cityInfoDict = new CityInfoDict();
- 6            cityInfoDict.setCityName("2");
- 7            cityInfoDict.setParentCityId(2);
- 8            /**
- 9             * A 插入字段为 2的数据
-10             */
-11            insert = cityInfoDictMapper.insert(cityInfoDict);
-12            /**
-13             * B 插入字段为 3的数据
-14             */
-15            b.insertB();
-16        } catch (Exception e) {
-17            e.printStackTrace();
-18        }
-19    }</code></pre>
-<p>如果B方法内部抛了异常，而A方法此时try catch了B方法的异常，那这个事务还能正常回滚吗？</p>
-<p>答案：不能！</p>
-<p>会抛出异常：</p>
-<pre><code>1org.springframework.transaction.UnexpectedRollbackException: Transaction rolled back because it has been marked as rollback-only</code></pre>
-<p>因为当<code>ServiceB</code>中抛出了一个异常以后，<code>ServiceB</code>标识当前事务需要<code>rollback</code>。但是<code>ServiceA</code>中由于你手动的捕获这个异常并进行处理，<code>ServiceA</code>认为当前事务应该正常<code>commit</code>。此时就出现了前后不一致，也就是因为这样，抛出了前面的<code>UnexpectedRollbackException</code>异常。</p>
-<p><code>spring</code>的事务是在调用业务方法之前开始的，业务方法执行完毕之后才执行<code>commit</code> or <code>rollback</code>，事务是否执行取决于是否抛出<code>runtime异常</code>。如果抛出<code>runtime exception</code> 并在你的业务方法中没有catch到的话，事务会回滚。</p>
-<p>在业务方法中一般不需要catch异常，如果非要catch一定要抛出<code>throw new RuntimeException()</code>，或者注解中指定抛异常类型<code>@Transactional(rollbackFor=Exception.class)</code>，否则会导致事务失效，数据commit造成数据不一致，所以有些时候try catch反倒会画蛇添足。</p>
-<h4 id="6、数据库引擎不支持事务"><a href="#6、数据库引擎不支持事务" class="headerlink" title="6、数据库引擎不支持事务"></a>6、数据库引擎不支持事务</h4><p>这种情况出现的概率并不高，事务能否生效数据库引擎是否支持事务是关键。常用的MySQL数据库默认使用支持事务的<code>innodb</code>引擎。一旦数据库引擎切换成不支持事务的<code>myisam</code>，那事务就从根本上失效了。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>@Transactional 注解的看似简单易用，但如果对它的用法一知半解，还是会踩到很多坑的。</p>
+                <h2 id="已安装rabbitmq-server-3-8-5为例，具体环境："><a href="#已安装rabbitmq-server-3-8-5为例，具体环境：" class="headerlink" title="已安装rabbitmq-server-3.8.5为例，具体环境："></a>已安装rabbitmq-server-3.8.5为例，具体环境：</h2><table>
+<thead>
+<tr>
+<th>环境</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OS</td>
+<td>linux7</td>
+</tr>
+<tr>
+<td>rabbitmq</td>
+<td>rabbitmq-server-3.8.5-1.el7.noarch.rpm</td>
+</tr>
+<tr>
+<td>erlang</td>
+<td>erlang-22.3.4.1-1.el7.x86_64.rpm</td>
+</tr>
+<tr>
+<td>socat</td>
+<td>socat-1.7.3.2-2.el7.x86_64.rpm</td>
+</tr>
+</tbody></table>
+<h3 id="安装Erlang"><a href="#安装Erlang" class="headerlink" title="安装Erlang"></a>安装Erlang</h3><p>由于RabbitMQ依赖Erlang， 所以需要先安装Erlang。</p>
+<p>Erlang的安装方式大概有两种：</p>
+<ol>
+<li><p>rpm方式安装Erlang</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> # 添加erlang solutions源
+ $ wget https://xxx/erlang-22.3.4.1-1.el7.x86_64.rpm
+ $ sudo rpm -Uvh erlang-22.3.4.1-1.el7.x86_64.rpm
+ $ sudo yum install erlang<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>从EPEL源安装(<strong><em>\</em>此方式安装的Erlang版本可能不是最新的，有时候不能满足RabbitMQ需要的最低版本**</strong>)</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> # 启动EPEL源
+ $ sudo yum install epel-release 
+ # 安装erlang
+ $ sudo yum install erlang  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h3 id="安装socat"><a href="#安装socat" class="headerlink" title="安装socat"></a>安装socat</h3><p>先下载rpm：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">wget http://www.rpmfind.net/linux/centos/7.9.2009/os/x86_64/Packages/socat-1.7.3.2-2.el7.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>下载完成后安装：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">rpm -ivh  socat-1.7.3.2-2.el7.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="安装RabbitMQ"><a href="#安装RabbitMQ" class="headerlink" title="安装RabbitMQ"></a>安装RabbitMQ</h3><p>先下载rpm：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>下载完成后安装：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">rpm -ivh rabbitmq-server-3.8.5-1.el7.noarch.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="关于RabbitMQ的一些基本操作"><a href="#关于RabbitMQ的一些基本操作" class="headerlink" title="关于RabbitMQ的一些基本操作"></a>关于RabbitMQ的一些基本操作</h3><pre class="line-numbers language-shell"><code class="language-shell">$ systemctl enable rabbitmq-server  # 添加开机启动RabbitMQ服务
+$ systemctl start rabbitmq-server # 启动服务
+$ systemctl status rabbitmq-server  # 查看服务状态
+$ systemctl stop rabbitmq-server    # 停止服务
+
+# 查看当前所有用户
+$ sudo rabbitmqctl list_users
+
+# 查看默认guest用户的权限
+$ sudo rabbitmqctl list_user_permissions guest
+
+# 由于RabbitMQ默认的账号用户名和密码都是guest。为了安全起见, 先删掉默认用户
+$ sudo rabbitmqctl delete_user guest
+
+# 添加新用户
+$ sudo rabbitmqctl add_user username password
+
+# 设置用户tag
+$ sudo rabbitmqctl set_user_tags username administrator
+
+# 赋予用户默认vhost的全部操作权限
+$ sudo rabbitmqctl set_permissions -p / username ".*" ".*" ".*"
+
+# 查看用户的权限
+$ sudo rabbitmqctl list_user_permissions username<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>更多关于<code>rabbitmqctl</code>的使用，可以参考<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://www.rabbitmq.com/man/rabbitmqctl.1.man.html">帮助手册</a>。</p>
+<h3 id="开启web管理接口"><a href="#开启web管理接口" class="headerlink" title="开启web管理接口"></a>开启web管理接口</h3><p>如果只从命令行操作RabbitMQ，多少有点不方便。幸好RabbitMQ自带了web管理界面，只需要启动插件便可以使用。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ sudo rabbitmq-plugins enable rabbitmq_management<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后通过浏览器访问</p>
+<p><a target="_blank" rel="noopener" href="http://localhost:15672/">http://localhost:15672</a></p>
+<p>输入用户名和密码访问web管理界面了。</p>
+<h3 id="配置RabbitMQ"><a href="#配置RabbitMQ" class="headerlink" title="配置RabbitMQ"></a>配置RabbitMQ</h3><p>关于RabbitMQ的配置，可以下载RabbitMQ的<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/stable/docs/rabbitmq.config.example">配置文件模板</a>到<code>/etc/rabbitmq/rabbitmq.config</code>, 然后按照需求更改即可。<br>关于每个配置项的具体作用，可以参考<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://www.rabbitmq.com/configure.html">官方文档</a>。<br>更新配置后，别忘了重启服务哦！</p>
+<h3 id="开启用户远程访问"><a href="#开启用户远程访问" class="headerlink" title="开启用户远程访问"></a>开启用户远程访问</h3><p>默认情况下，RabbitMQ的默认的<code>guest</code>用户只允许本机访问， 如果想让<code>guest</code>用户能够远程访问的话，只需要将配置文件中的<code>loopback_users</code>列表置为空即可，如下：</p>
+<pre><code>{loopback_users, []}</code></pre>
+<p>另外关于新添加的用户，直接就可以从远程访问的，如果想让新添加的用户只能本地访问，可以将用户名添加到上面的列表, 如只允许<code>admin</code>用户本机访问。</p>
+<pre><code>{loopback_users, ["admin"]}</code></pre>
+<p>更新配置后，别忘了重启服务哦！</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ systemctl status rabbitmq-server   # 查看服务状态<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="http://images2015.cnblogs.com/blog/321801/201611/321801-20161123155611737-770552575.png" alt="img"></p>
+<p>这里可以看到log文件的位置，转到文件位置，打开文件：</p>
+<p><img src="http://images2015.cnblogs.com/blog/321801/201611/321801-20161123155722050-140847138.png" alt="img"></p>
+<p>这里显示的是没有找到配置文件，我们可以自己创建这个文件</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ cd /etc/rabbitmq/
+$ vi rabbitmq.config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>编辑内容如下：</p>
+<pre class="line-numbers language-html"><code class="language-html">[{rabbit, [{loopback_users, []}]}].<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里的意思是开放使用，rabbitmq默认创建的用户guest，密码也是guest，这个用户默认只能是本机访问，localhost或者127.0.0.1，从外部访问需要添加上面的配置。</p>
+<p>保存配置后重启服务：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ systemctl stop rabbitmq-server 
+$ systemctl start rabbitmq-server <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>此时就可以从外部访问了，但此时再看log文件，发现内容还是原来的，还是显示没有找到配置文件，可以手动删除这个文件再重启服务，不过这不影响使用</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ rm rabbit\@mythsky.log 
+$ systemctl stop rabbitmq-server 
+$ systemctl start rabbitmq-server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>注意:记得要开放5672和15672端口</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ firewall-cmd --zone=public --add-port=5672/tcp --permanent
+$ firewall-cmd --zone=public --add-port=15672/tcp --permanent 
+$ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -589,7 +542,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2021/01/14/spring-zhong-transactional-zhu-jie-shi-xiao-de-chang-jing/">https://chenguoo.github.io/2021/01/14/spring-zhong-transactional-zhu-jie-shi-xiao-de-chang-jing/</a>
+                    <a href="https://chenguoo.github.io/2021/01/20/install-rabbitmq/">https://chenguoo.github.io/2021/01/20/install-rabbitmq/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -627,8 +580,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/transactional/">
-                                    <span class="chip bg-color">transactional</span>
+                                <a href="/tags/rabbitMQ/">
+                                    <span class="chip bg-color">rabbitMQ</span>
                                 </a>
                             
                         </div>
@@ -670,9 +623,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/01/20/install-rabbitmq/">
                     <div class="card-image">
@@ -707,9 +661,9 @@ erlang-
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -722,6 +676,7 @@ erlang-
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -740,21 +695,21 @@ erlang-
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/14/spring-tong-guo-classpathresource-lei-du-qu-pei-zhi-wen-jian/">
+                <a href="/2021/01/14/spring-zhong-transactional-zhu-jie-shi-xiao-de-chang-jing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Spring通过ClassPathResource类读取配置文件">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Spring 中@Transactional 注解失效的场景">
                         
-                        <span class="card-title">Spring通过ClassPathResource类读取配置文件</span>
+                        <span class="card-title">Spring 中@Transactional 注解失效的场景</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1. 前言在开发中读取项目中的配置或者静态文件是家常便饭的事情，我相信很多同学都从网上找下面的例子来进行文件加载读取操作。
-利用ClassLoader获取classpath路径：
- ClassLoader loader = Thread.c
+                            引言
+@Transactional注解哪些场景下会失效，一时语塞致使面试失败。所以今天简单的和大家分享一下@Transactional相关的知识。
+@Transactional 注解相信大家并不陌生，平时开发中很常用的一个注解，它能保证方法
                         
                     </div>
                     <div class="publish-info">
@@ -776,8 +731,8 @@ erlang-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/tools/">
-                        <span class="chip bg-color">tools</span>
+                    <a href="/tags/transactional/">
+                        <span class="chip bg-color">transactional</span>
                     </a>
                     
                 </div>
