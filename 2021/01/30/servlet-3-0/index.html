@@ -1,0 +1,1354 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Servlet 3.0 新特性详解, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Servlet 3.0 新特性详解 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Servlet 3.0 新特性详解</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/servlet/">
+                                <span class="chip bg-color">servlet</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java/" class="post-category">
+                                java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-30
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Servlet-3-0-新特性详解"><a href="#Servlet-3-0-新特性详解" class="headerlink" title="Servlet 3.0 新特性详解"></a>Servlet 3.0 新特性详解</h1><p>Servlet 3.0 作为 Java EE 6 规范体系中一员，随着 Java EE 6 规范一起发布。该版本在前一版本（Servlet 2.5）的基础上提供了若干新特性用于简化 Web 应用的开发和部署。其中有几项特性的引入让开发者感到非常兴奋，同时也获得了 Java 社区的一片赞誉之声：</p>
+<ol>
+<li>异步处理支持：有了该特性，Servlet 线程不再需要一直阻塞，直到业务处理完毕才能再输出响应，最后才结束该 Servlet 线程。在接收到请求之后，Servlet 线程可以将耗时的操作委派给另一个线程来完成，自己在不生成响应的情况下返回至容器。针对业务处理较耗时的情况，这将大大减少服务器资源的占用，并且提高并发处理速度。</li>
+<li>新增的注解支持：该版本新增了若干注解，用于简化 Servlet、过滤器（Filter）和监听器（Listener）的声明，这使得 web.xml 部署描述文件从该版本开始不再是必选的了。</li>
+<li>可插性支持：熟悉 Struts2 的开发者一定会对其通过插件的方式与包括 Spring 在内的各种常用框架的整合特性记忆犹新。将相应的插件封装成 JAR 包并放在类路径下，Struts2 运行时便能自动加载这些插件。现在 Servlet 3.0 提供了类似的特性，开发者可以通过插件的方式很方便的扩充已有 Web 应用的功能，而不需要修改原有的应用。</li>
+</ol>
+<p>下面我们将逐一讲解这些新特性，通过下面的学习，读者将能够明晰了解 Servlet 3.0 的变化，并能够顺利使用它进行日常的开发工作。</p>
+<h2 id="异步处理支持"><a href="#异步处理支持" class="headerlink" title="异步处理支持"></a>异步处理支持</h2><p>Servlet 3.0 之前，一个普通 Servlet 的主要工作流程大致如下：首先，Servlet 接收到请求之后，可能需要对请求携带的数据进行一些预处理；接着，调用业务接口的某些方法，以完成业务处理；最后，根据处理的结果提交响应，Servlet 线程结束。其中第二步的业务处理通常是最耗时的，这主要体现在数据库操作，以及其它的跨网络调用等，在此过程中，Servlet 线程一直处于阻塞状态，直到业务方法执行完毕。在处理业务的过程中，Servlet 资源一直被占用而得不到释放，对于并发较大的应用，这有可能造成性能的瓶颈。对此，在以前通常是采用私有解决方案来提前结束 Servlet 线程，并及时释放资源。</p>
+<p>Servlet 3.0 针对这个问题做了开创性的工作，现在通过使用 Servlet 3.0 的异步处理支持，之前的 Servlet 处理流程可以调整为如下的过程：首先，Servlet 接收到请求之后，可能首先需要对请求携带的数据进行一些预处理；接着，Servlet 线程将请求转交给一个异步线程来执行业务处理，线程本身返回至容器，此时 Servlet 还没有生成响应数据，异步线程处理完业务以后，可以直接生成响应数据（异步线程拥有 ServletRequest 和 ServletResponse 对象的引用），或者将请求继续转发给其它 Servlet。如此一来， Servlet 线程不再是一直处于阻塞状态以等待业务逻辑的处理，而是启动异步线程之后可以立即返回。</p>
+<p>异步处理特性可以应用于 Servlet 和过滤器两种组件，由于异步处理的工作模式和普通工作模式在实现上有着本质的区别，因此默认情况下，Servlet 和过滤器并没有开启异步处理特性，如果希望使用该特性，则必须按照如下的方式启用：</p>
+<ol>
+<li><p>对于使用传统的部署描述文件 (web.xml) 配置 Servlet 和过滤器的情况，Servlet 3.0 为 <servlet> 和 <filter> 标签增加了 <async-supported> 子标签，该标签的默认取值为 false，要启用异步处理支持，则将其设为 true 即可。以 Servlet 为例，其配置方式如下所示：</async-supported></filter></servlet></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token operator">&lt;</span>servlet<span class="token operator">></span> 
+    <span class="token operator">&lt;</span>servlet<span class="token operator">-</span>name<span class="token operator">></span>DemoServlet<span class="token operator">&lt;</span><span class="token operator">/</span>servlet<span class="token operator">-</span>name<span class="token operator">></span> 
+    <span class="token operator">&lt;</span>servlet<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>footmark<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>Demo Servlet<span class="token operator">&lt;</span><span class="token operator">/</span>servlet<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span> 
+    <span class="token operator">&lt;</span>async<span class="token operator">-</span>supported<span class="token operator">></span><span class="token boolean">true</span><span class="token operator">&lt;</span><span class="token operator">/</span>async<span class="token operator">-</span>supported<span class="token operator">></span> 
+<span class="token operator">&lt;</span><span class="token operator">/</span>servlet<span class="token operator">></span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>对于使用 Servlet 3.0 提供的 @WebServlet 和 @WebFilter 进行 Servlet 或过滤器配置的情况，这两个注解都提供了 asyncSupported 属性，默认该属性的取值为 false，要启用异步处理支持，只需将该属性设置为 true 即可。以 @WebFilter 为例，其配置方式如下所示：</p>
+</li>
+</ol>
+<pre><code>@WebFilter(urlPatterns = "/demo",asyncSupported = true) 
+public class DemoFilter implements Filter{...} </code></pre>
+<p>一个简单的模拟异步处理的 Servlet 示例如下：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@WebServlet</span><span class="token punctuation">(</span>urlPatterns <span class="token operator">=</span> <span class="token string">"/demo"</span><span class="token punctuation">,</span> asyncSupported <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AsyncDemoServlet</span> <span class="token keyword">extends</span> <span class="token class-name">HttpServlet</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doGet</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span> HttpServletResponse resp<span class="token punctuation">)</span>
+    <span class="token keyword">throws</span> IOException<span class="token punctuation">,</span> ServletException <span class="token punctuation">{</span>
+        resp<span class="token punctuation">.</span><span class="token function">setContentType</span><span class="token punctuation">(</span><span class="token string">"text/html;charset=UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        PrintWriter out <span class="token operator">=</span> resp<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"进入Servlet的时间："</span> <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        out<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//在子线程中执行业务调用，并由其负责输出响应，主线程退出</span>
+        AsyncContext ctx <span class="token operator">=</span> req<span class="token punctuation">.</span><span class="token function">startAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Executor</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"结束Servlet的时间："</span> <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        out<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Executor</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> AsyncContext ctx <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token function">Executor</span><span class="token punctuation">(</span>AsyncContext ctx<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>ctx <span class="token operator">=</span> ctx<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//等待十秒钟，以模拟业务方法的执行</span>
+            Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            PrintWriter out <span class="token operator">=</span> ctx<span class="token punctuation">.</span><span class="token function">getResponse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"业务处理完毕的时间："</span> <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            out<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            ctx<span class="token punctuation">.</span><span class="token function">complete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>除此之外，Servlet 3.0 还为异步处理提供了一个监听器，使用 AsyncListener 接口表示。它可以监控如下四种事件：</p>
+<ol>
+<li>异步线程开始时，调用 AsyncListener 的 onStartAsync(AsyncEvent event) 方法；</li>
+<li>异步线程出错时，调用 AsyncListener 的 onError(AsyncEvent event) 方法；</li>
+<li>异步线程执行超时，则调用 AsyncListener 的 onTimeout(AsyncEvent event) 方法；</li>
+<li>异步执行完毕时，调用 AsyncListener 的 onComplete(AsyncEvent event) 方法；</li>
+</ol>
+<p>要注册一个 AsyncListener，只需将准备好的 AsyncListener 对象传递给 AsyncContext 对象的 addListener() 方法即可，如下所示：</p>
+<pre class="line-numbers language-java"><code class="language-java">AsyncContext ctx <span class="token operator">=</span> req<span class="token punctuation">.</span><span class="token function">startAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+ctx<span class="token punctuation">.</span><span class="token function">addListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AsyncListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onComplete</span><span class="token punctuation">(</span>AsyncEvent asyncEvent<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span> 
+        <span class="token comment" spellcheck="true">// 做一些清理工作或者其他</span>
+    <span class="token punctuation">}</span> 
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> 
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="新增的注解支持"><a href="#新增的注解支持" class="headerlink" title="新增的注解支持"></a>新增的注解支持</h2><p>Servlet 3.0 的部署描述文件 web.xml 的顶层标签 <web-app> 有一个 metadata-complete 属性，该属性指定当前的部署描述文件是否是完全的。如果设置为 true，则容器在部署时将只依赖部署描述文件，忽略所有的注解（同时也会跳过 web-fragment.xml 的扫描，亦即禁用可插性支持，具体请看后文关于 [可插性支持](<a target="_blank" rel="noopener" href="http://www.ibm.com/#">http://www.ibm.com/#</a>_ 可插性支持)的讲解）；如果不配置该属性，或者将其设置为 false，则表示启用注解支持（和可插性支持）。</web-app></p>
+<h3 id="WebServlet"><a href="#WebServlet" class="headerlink" title="@WebServlet"></a>@WebServlet</h3><p>@WebServlet 用于将一个类声明为 Servlet，该注解将会在部署时被容器处理，容器将根据具体的属性配置将相应的类部署为 Servlet。该注解具有下表给出的一些常用属性（以下所有属性均为可选属性，但是 vlaue 或者 urlPatterns 通常是必需的，且二者不能共存，如果同时指定，通常是忽略 value 的取值）：</p>
+<p><strong>表 1. @WebServlet 主要属性列表</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>属性名</strong></th>
+<th><strong>类型</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>String</td>
+<td>指定 Servlet 的 name 属性，等价于 <servlet-name>。如果没有显式指定，则该 Servlet 的取值即为类的全限定名。</servlet-name></td>
+</tr>
+<tr>
+<td>value</td>
+<td>String[]</td>
+<td>该属性等价于 urlPatterns 属性。两个属性不能同时使用。</td>
+</tr>
+<tr>
+<td>urlPatterns</td>
+<td>String[]</td>
+<td>指定一组 Servlet 的 URL 匹配模式。等价于 <url-pattern> 标签。</url-pattern></td>
+</tr>
+<tr>
+<td>loadOnStartup</td>
+<td>int</td>
+<td>指定 Servlet 的加载顺序，等价于 <load-on-startup> 标签。</load-on-startup></td>
+</tr>
+<tr>
+<td>initParams</td>
+<td>WebInitParam[]</td>
+<td>指定一组 Servlet 初始化参数，等价于 <init-param> 标签。</init-param></td>
+</tr>
+<tr>
+<td>asyncSupported</td>
+<td>boolean</td>
+<td>声明 Servlet 是否支持异步操作模式，等价于 <async-supported> 标签。</async-supported></td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>该 Servlet 的描述信息，等价于 <description> 标签。</description></td>
+</tr>
+<tr>
+<td>displayName</td>
+<td>String</td>
+<td>该 Servlet 的显示名，通常配合工具使用，等价于 <display-name> 标签。</display-name></td>
+</tr>
+</tbody></table>
+<p>下面是一个简单的示例：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@WebServlet</span><span class="token punctuation">(</span>urlPatterns <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"/simple"</span><span class="token punctuation">}</span><span class="token punctuation">,</span> asyncSupported <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">,</span> 
+    loadOnStartup <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> name <span class="token operator">=</span> <span class="token string">"SimpleServlet"</span><span class="token punctuation">,</span> displayName <span class="token operator">=</span> <span class="token string">"ss"</span><span class="token punctuation">,</span> 
+    initParams <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token annotation punctuation">@WebInitParam</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"username"</span><span class="token punctuation">,</span> value <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">)</span><span class="token punctuation">}</span> 
+<span class="token punctuation">)</span> 
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleServlet</span> <span class="token keyword">extends</span> <span class="token class-name">HttpServlet</span><span class="token punctuation">{</span> … <span class="token punctuation">}</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如此配置之后，就可以不必在 web.xml 中配置相应的 <servlet> 和 <servlet-mapping> 元素了，容器会在部署时根据指定的属性将该类发布为 Servlet。它的等价的 web.xml 配置形式如下：</servlet-mapping></servlet></p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>display-name</span><span class="token punctuation">></span></span>ss<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>display-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>SimpleServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-class</span><span class="token punctuation">></span></span>footmark.servlet.SimpleServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-class</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>load-on-startup</span><span class="token punctuation">></span></span>-1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>load-on-startup</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>async-supported</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>async-supported</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>init-param</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-name</span><span class="token punctuation">></span></span>username<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-value</span><span class="token punctuation">></span></span>tom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>init-param</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-mapping</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>SimpleServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/simple<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-mapping</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="WebInitParam"><a href="#WebInitParam" class="headerlink" title="@WebInitParam"></a>@WebInitParam</h3><p>该注解通常不单独使用，而是配合 @WebServlet 或者 @WebFilter 使用。它的作用是为 Servlet 或者过滤器指定初始化参数，这等价于 web.xml 中 <servlet> 和 <filter> 的 <init-param> 子标签。@WebInitParam 具有下表给出的一些常用属性：</init-param></filter></servlet></p>
+<p><strong>表 2. @WebInitParam 的常用属性</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>属性名</strong></th>
+<th><strong>类型</strong></th>
+<th><strong>是否可选</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>String</td>
+<td>否</td>
+<td>指定参数的名字，等价于 <param-name>。</param-name></td>
+</tr>
+<tr>
+<td>value</td>
+<td>String</td>
+<td>否</td>
+<td>指定参数的值，等价于 <param-value>。</param-value></td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>是</td>
+<td>关于参数的描述，等价于 <description>。</description></td>
+</tr>
+</tbody></table>
+<h3 id="WebFilter"><a href="#WebFilter" class="headerlink" title="@WebFilter"></a>@WebFilter</h3><p>@WebFilter 用于将一个类声明为过滤器，该注解将会在部署时被容器处理，容器将根据具体的属性配置将相应的类部署为过滤器。该注解具有下表给出的一些常用属性 ( 以下所有属性均为可选属性，但是 value、urlPatterns、servletNames 三者必需至少包含一个，且 value 和 urlPatterns 不能共存，如果同时指定，通常忽略 value 的取值 )：</p>
+<p><strong>表 3. @WebFilter 的常用属性</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>属性名</strong></th>
+<th><strong>类型</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>filterName</td>
+<td>String</td>
+<td>指定过滤器的 name 属性，等价于 <filter-name></filter-name></td>
+</tr>
+<tr>
+<td>value</td>
+<td>String[]</td>
+<td>该属性等价于 urlPatterns 属性。但是两者不应该同时使用。</td>
+</tr>
+<tr>
+<td>urlPatterns</td>
+<td>String[]</td>
+<td>指定一组过滤器的 URL 匹配模式。等价于 <url-pattern> 标签。</url-pattern></td>
+</tr>
+<tr>
+<td>servletNames</td>
+<td>String[]</td>
+<td>指定过滤器将应用于哪些 Servlet。取值是 @WebServlet 中的 name 属性的取值，或者是 web.xml 中 <servlet-name> 的取值。</servlet-name></td>
+</tr>
+<tr>
+<td>dispatcherTypes</td>
+<td>DispatcherType</td>
+<td>指定过滤器的转发模式。具体取值包括：<br>ASYNC、ERROR、FORWARD、INCLUDE、REQUEST。</td>
+</tr>
+<tr>
+<td>initParams</td>
+<td>WebInitParam[]</td>
+<td>指定一组过滤器初始化参数，等价于 <init-param> 标签。</init-param></td>
+</tr>
+<tr>
+<td>asyncSupported</td>
+<td>boolean</td>
+<td>声明过滤器是否支持异步操作模式，等价于 <async-supported> 标签。</async-supported></td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>该过滤器的描述信息，等价于 <description> 标签。</description></td>
+</tr>
+<tr>
+<td>displayName</td>
+<td>String</td>
+<td>该过滤器的显示名，通常配合工具使用，等价于 <display-name> 标签。</display-name></td>
+</tr>
+</tbody></table>
+<p>下面是一个简单的示例：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@WebFilter</span><span class="token punctuation">(</span>servletNames <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"SimpleServlet"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>filterName<span class="token operator">=</span><span class="token string">"SimpleFilter"</span><span class="token punctuation">)</span> 
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LessThanSixFilter</span> <span class="token keyword">implements</span> <span class="token class-name">Filter</span><span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如此配置之后，就可以不必在 web.xml 中配置相应的 <filter> 和 <filter-mapping> 元素了，容器会在部署时根据指定的属性将该类发布为过滤器。它等价的 web.xml 中的配置形式为：</filter-mapping></filter></p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-name</span><span class="token punctuation">></span></span>SimpleFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-name</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-class</span><span class="token punctuation">></span></span>xxx<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-class</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-mapping</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-name</span><span class="token punctuation">></span></span>SimpleFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-name</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>SimpleServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-mapping</span><span class="token punctuation">></span></span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="WebListener"><a href="#WebListener" class="headerlink" title="@WebListener"></a>@WebListener</h3><p>该注解用于将类声明为监听器，被 @WebListener 标注的类必须实现以下至少一个接口：</p>
+<ul>
+<li>ServletContextListener</li>
+<li>ServletContextAttributeListener</li>
+<li>ServletRequestListener</li>
+<li>ServletRequestAttributeListener</li>
+<li>HttpSessionListener</li>
+<li>HttpSessionAttributeListener</li>
+</ul>
+<p>该注解使用非常简单，其属性如下：</p>
+<p><strong>表 4. @WebListener 的常用属性</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>属性名</strong></th>
+<th><strong>类型</strong></th>
+<th><strong>是否可选</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value</td>
+<td>String</td>
+<td>是</td>
+<td>该监听器的描述信息。</td>
+</tr>
+</tbody></table>
+<p>一个简单示例如下：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@WebListener</span><span class="token punctuation">(</span><span class="token string">"This is only a demo listener"</span><span class="token punctuation">)</span> 
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleListener</span> <span class="token keyword">implements</span> <span class="token class-name">ServletContextListener</span><span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如此，则不需要在 web.xml 中配置 <listener> 标签了。它等价的 web.xml 中的配置形式如下：</listener></p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>listener</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>listener-class</span><span class="token punctuation">></span></span>footmark.servlet.SimpleListener<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>listener-class</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>listener</span><span class="token punctuation">></span></span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="MultipartConfig"><a href="#MultipartConfig" class="headerlink" title="@MultipartConfig"></a>@MultipartConfig</h3><p>该注解主要是为了辅助 Servlet 3.0 中 HttpServletRequest 提供的对上传文件的支持。该注解标注在 Servlet 上面，以表示该 Servlet 希望处理的请求的 MIME 类型是 multipart/form-data。另外，它还提供了若干属性用于简化对上传文件的处理。具体如下：</p>
+<p><strong>表 5. @MultipartConfig 的常用属性</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>是否可选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fileSizeThreshold</td>
+<td>int</td>
+<td>是</td>
+<td>当数据量大于该值时，内容将被写入文件。</td>
+</tr>
+<tr>
+<td>location</td>
+<td>String</td>
+<td>是</td>
+<td>存放生成的文件地址。</td>
+</tr>
+<tr>
+<td>maxFileSize</td>
+<td>long</td>
+<td>是</td>
+<td>允许上传的文件最大值。默认值为 -1，表示没有限制。</td>
+</tr>
+<tr>
+<td>maxRequestSize</td>
+<td>long</td>
+<td>是</td>
+<td>针对该 multipart/form-data 请求的最大数量，默认值为 -1，表示没有限制。</td>
+</tr>
+</tbody></table>
+<h2 id="可插性支持"><a href="#可插性支持" class="headerlink" title="可插性支持"></a>可插性支持</h2><p>如果说 3.0 版本新增的注解支持是为了简化 Servlet/ 过滤器 / 监听器的声明，从而使得 web.xml 变为可选配置， 那么新增的可插性 (pluggability) 支持则将 Servlet 配置的灵活性提升到了新的高度。熟悉 Struts2 的开发者都知道，Struts2 通过插件的形式提供了对包括 Spring 在内的各种开发框架的支持，开发者甚至可以自己为 Struts2 开发插件，而 Servlet 的可插性支持正是基于这样的理念而产生的。使用该特性，现在我们可以在不修改已有 Web 应用的前提下，只需将按照一定格式打成的 JAR 包放到 WEB-INF/lib 目录下，即可实现新功能的扩充，不需要额外的配置。</p>
+<p>Servlet 3.0 引入了称之为“Web 模块部署描述符片段”的 web-fragment.xml 部署描述文件，该文件必须存放在 JAR 文件的 META-INF 目录下，该部署描述文件可以包含一切可以在 web.xml 中定义的内容。JAR 包通常放在 WEB-INF/lib 目录下，除此之外，所有该模块使用的资源，包括 class 文件、配置文件等，只需要能够被容器的类加载器链加载的路径上，比如 classes 目录等。</p>
+<p>现在，为一个 Web 应用增加一个 Servlet 配置有如下三种方式 ( 过滤器、监听器与 Servlet 三者的配置都是等价的，故在此以 Servlet 配置为例进行讲述，过滤器和监听器具有与之非常类似的特性 )：</p>
+<ul>
+<li>编写一个类继承自 HttpServlet，将该类放在 classes 目录下的对应包结构中，修改 web.xml，在其中增加一个 Servlet 声明。这是最原始的方式；</li>
+<li>编写一个类继承自 HttpServlet，并且在该类上使用 @WebServlet 注解将该类声明为 Servlet，将该类放在 classes 目录下的对应包结构中，无需修改 web.xml 文件。</li>
+<li>编写一个类继承自 HttpServlet，将该类打成 JAR 包，并且在 JAR 包的 META-INF 目录下放置一个 web-fragment.xml 文件，该文件中声明了相应的 Servlet 配置。web-fragment.xml 文件示例如下：</li>
+</ul>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>web-fragment</span> 
+    <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span>http://java.sun.com/xml/ns/javaee</span>
+    <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>3.0<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://java.sun.com/xml/ns/javaee
+    http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd<span class="token punctuation">"</span></span>
+    <span class="token attr-name">metadata-complete</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>fragment<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-class</span><span class="token punctuation">></span></span>footmark.servlet.FragmentServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-class</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-mapping</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>fragment<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/fragment<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-mapping</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>web-fragment</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从上面的示例可以看出，web-fragment.xml 与 web.xml 除了在头部声明的 XSD 引用不同之外，其主体配置与 web.xml 是完全一致的。</p>
+<p>由于一个 Web 应用中可以出现多个 web-fragment.xml 声明文件，加上一个 web.xml 文件，加载顺序问题便成了不得不面对的问题。Servlet 规范的专家组在设计的时候已经考虑到了这个问题，并定义了加载顺序的规则。</p>
+<p>web-fragment.xml 包含了两个可选的顶层标签，<name> 和 <ordering>，如果希望为当前的文件指定明确的加载顺序，通常需要使用这两个标签，<name> 主要用于标识当前的文件，而 <ordering> 则用于指定先后顺序。一个简单的示例如下：</ordering></name></ordering></name></p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>web-fragment...</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>FragmentA<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ordering</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>after</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>FragmentB<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>FragmentC<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>after</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>before</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>others</span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>before</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ordering</span><span class="token punctuation">></span></span>
+    ...
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>web-fragment</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如上所示， <name> 标签的取值通常是被其它 web-fragment.xml 文件在定义先后顺序时引用的，在当前文件中一般用不着，它起着标识当前文件的作用。</name></p>
+<p>在 <ordering> 标签内部，我们可以定义当前 web-fragment.xml 文件与其他文件的相对位置关系，这主要通过 <ordering> 的 <after> 和 <before> 子标签来实现的。在这两个子标签内部可以通过 <name> 标签来指定相对应的文件。比如：</name></before></after></ordering></ordering></p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>after</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>FragmentB<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>FragmentC<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>after</span><span class="token punctuation">></span></span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上片段则表示当前文件必须在 FragmentB 和 FragmentC 之后解析。<before> 的使用于此相同，它所表示的是当前文件必须早于 <before> 标签里所列出的 web-fragment.xml 文件。</before></before></p>
+<p>除了将所比较的文件通过 <name> 在 <after> 和 <begin> 中列出之外，Servlet 还提供了一个简化的标签 <others>。它表示除了当前文件之外的其他所有的 web-fragment.xml 文件。该标签的优先级要低于使用 <name> 明确指定的相对位置关系。</name></others></begin></after></name></p>
+<h2 id="ServletContext-的性能增强"><a href="#ServletContext-的性能增强" class="headerlink" title="ServletContext 的性能增强"></a>ServletContext 的性能增强</h2><p>除了以上的新特性之外，ServletContext 对象的功能在新版本中也得到了增强。现在，该对象支持在运行时动态部署 Servlet、过滤器、监听器，以及为 Servlet 和过滤器增加 URL 映射等。以 Servlet 为例，过滤器与监听器与之类似。ServletContext 为动态配置 Servlet 增加了如下方法：</p>
+<ul>
+<li><code>ServletRegistration.Dynamic addServlet(String servletName,Class&lt;? extends Servlet&gt; servletClass)</code></li>
+<li><code>ServletRegistration.Dynamic addServlet(String servletName, Servlet servlet)</code></li>
+<li><code>ServletRegistration.Dynamic addServlet(String servletName, String className)</code></li>
+<li><t extends="" servlet=""> T createServlet(Class<t> clazz)</t></t></li>
+<li>ServletRegistration getServletRegistration(String servletName)</li>
+<li>Map&lt;String,? extends ServletRegistration&gt; getServletRegistrations()</li>
+</ul>
+<p>其中前三个方法的作用是相同的，只是参数类型不同而已；通过 createServlet() 方法创建的 Servlet，通常需要做一些自定义的配置，然后使用 addServlet() 方法来将其动态注册为一个可以用于服务的 Servlet。两个 getServletRegistration() 方法主要用于动态为 Servlet 增加映射信息，这等价于在 web.xml( 抑或 web-fragment.xml) 中使用 <servlet-mapping> 标签为存在的 Servlet 增加映射信息。</servlet-mapping></p>
+<p>以上 ServletContext 新增的方法要么是在 ServletContextListener 的 contexInitialized 方法中调用，要么是在 ServletContainerInitializer 的 onStartup() 方法中调用。</p>
+<p>ServletContainerInitializer 也是 Servlet 3.0 新增的一个接口，容器在启动时使用 JAR 服务 API(JAR Service API) 来发现 ServletContainerInitializer 的实现类，并且容器将 WEB-INF/lib 目录下 JAR 包中的类都交给该类的 onStartup() 方法处理，我们通常需要在该实现类上使用 @HandlesTypes 注解来指定希望被处理的类，过滤掉不希望给 onStartup() 处理的类。</p>
+<h2 id="HttpServletRequest-对文件上传的支持"><a href="#HttpServletRequest-对文件上传的支持" class="headerlink" title="HttpServletRequest 对文件上传的支持"></a>HttpServletRequest 对文件上传的支持</h2><p>此前，对于处理上传文件的操作一直是让开发者头疼的问题，因为 Servlet 本身没有对此提供直接的支持，需要使用第三方框架来实现，而且使用起来也不够简单。如今这都成为了历史，Servlet 3.0 已经提供了这个功能，而且使用也非常简单。为此，HttpServletRequest 提供了两个方法用于从请求中解析出上传的文件：</p>
+<ul>
+<li>Part getPart(String name)</li>
+<li>Collection<part> getParts()</part></li>
+</ul>
+<p>前者用于获取请求中给定 name 的文件，后者用于获取所有的文件。每一个文件用一个 javax.servlet.http.Part 对象来表示。该接口提供了处理文件的简易方法，比如 write()、delete() 等。至此，结合 HttpServletRequest 和 Part 来保存上传的文件变得非常简单，如下所示：</p>
+<pre class="line-numbers language-java"><code class="language-java">Part photo <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getPart</span><span class="token punctuation">(</span><span class="token string">"photo"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+photo<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"/tmp/photo.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment" spellcheck="true">// 可以将两行代码简化为 request.getPart("photo").write("/tmp/photo.jpg") 一行。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>另外，开发者可以配合前面提到的 @MultipartConfig 注解来对上传操作进行一些自定义的配置，比如限制上传文件的大小，以及保存文件的路径等。其用法非常简单，故不在此赘述了。</p>
+<p>需要注意的是，如果请求的 MIME 类型不是 multipart/form-data，则不能使用上面的两个方法，否则将抛异常。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Servlet 3.0 的众多新特性使得 Servlet 开发变得更加简单，尤其是异步处理特性和可插性支持的出现，必将对现有的 MVC 框架产生深远影响。虽然我们通常不会自己去用 Servlet 编写控制层代码，但是也许在下一个版本的 Struts 中，您就能切实感受到这些新特性带来的实质性改变。</p>
+<p>参考资料</p>
+<p><strong>学习</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://jcp.org/aboutJava/communityprocess/final/jsr315/index.html">JSR-000315 Java Servlet 3.0 规范</a>：这里除了可以下载 Servlet 3.0 的规范文档，还可以了解关于与该规范相关的一些其他信息。</li>
+<li><a target="_blank" rel="noopener" href="https://glassfish.dev.java.net/">GlassFish 项目主页</a>：可以在这里现在 GlassFish V3 版本，这是 SUN 提供的 Java EE 6 规范的参考实现。</li>
+<li>“<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/servlet_new/">Servlet 2.2 的新特征</a>”（developerWorks，2000 年 12 月）：讨论 Servlet 2.2 一些新的比较重要的特征，并给出了一些简单的例子来演示这些特征的用途及用法。</li>
+<li>“<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/views/java/tutorials.jsp?cv_doc_id=85168">Java Servlet 技术简介</a>”（developerWorks，2004 年 12 月）：本教程包括一个说明 servlet 基本概念的简单例子，以及一个涉及更多内容的例子，它说明如何在小型的合同管理程序中更复杂地使用 servlet。</li>
+<li><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/apps/SendTo?bookstore=safari">技术书店</a>：浏览关于这些和其他技术主题的图书。</li>
+<li><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/">developerWorks Java 技术专区</a>：数百篇关于 Java 编程各个方面的文章。</li>
+</ul>
+<p>摘自<a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/java/j-lo-servlet30/">http://www.ibm.com/developerworks/cn/java/j-lo-servlet30/</a></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2021/01/30/servlet-3-0/">https://chenguoo.github.io/2021/01/30/servlet-3-0/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/servlet/">
+                                    <span class="chip bg-color">servlet</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/01/30/servlet-3-0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Servlet 3.0 新特性详解">
+                        
+                        <span class="card-title">Servlet 3.0 新特性详解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Servlet 3.0 新特性详解Servlet 3.0 作为 Java EE 6 规范体系中一员，随着 Java EE 6 规范一起发布。该版本在前一版本（Servlet 2.5）的基础上提供了若干新特性用于简化 Web 应用的开发和部署
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/servlet/">
+                        <span class="chip bg-color">servlet</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/01/21/linux-link/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux 软硬链接说明及使用">
+                        
+                        <span class="card-title">Linux 软硬链接说明及使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            软连接是linux中一个常用命令，它的功能是为某一个文件在另外一个位置建立一个同不的链接。
+具体用法是：ln -s 源文件 目标文件。 
+当 我们需要在不同的目录，用到相同的文件时，我们不需要在每一个需要的目录下都放一个必须相同的文件，我们
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category">
+                                    linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/linux/">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                    <a href="/tags/link/">
+                        <span class="chip bg-color">link</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"react":{"opacity":0.7}}});</script></body>
+
+</html>
