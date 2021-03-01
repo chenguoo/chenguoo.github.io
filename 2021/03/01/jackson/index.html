@@ -1,0 +1,1307 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Jackson, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Jackson | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Jackson</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/jackson/">
+                                <span class="chip bg-color">jackson</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java/" class="post-category">
+                                java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-03-01
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Jackson的功能原来如此之牛"><a href="#Jackson的功能原来如此之牛" class="headerlink" title="Jackson的功能原来如此之牛"></a>Jackson的功能原来如此之牛</h1><p>Java高级架构师2021-02-24 13:18:53</p>
+<blockquote>
+<p>原文出自：公众号 程序新视界</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/m34q4AC-T0fc9oIWxDqEVg">https://mp.weixin.qq.com/s/m34q4AC-T0fc9oIWxDqEVg</a></p>
+</blockquote>
+<p>在上篇《<a target="_blank" rel="noopener" href="https://www.toutiao.com/i6932339487607439880/?group_id=6932339487607439880">经过多方调研，最终还是决定禁用FastJson</a>》中，讲了FastJson的基本使用以及存在的不确定性问题，所以最终决定在项目中放弃使用，进而选择市面上比较主流，Spring Boot默认绑定的JSON类库：Jackson。</p>
+<p>本文就来讲解一下Jackson的基本使用以及与Spring Boot的结合与实践。</p>
+<h1 id="什么是Jackson"><a href="#什么是Jackson" class="headerlink" title="什么是Jackson"></a>什么是Jackson</h1><p>Jackson是比较主流的基于Java的JSON类库，可用于Json和XML与JavaBean之间的序列化和反序列化。</p>
+<p>没看错，Jackson也可以处理JavaBean与XML之间的转换，基于jackson-dataformat-xml组件，而且比较JDK自带XML实现更加高效和安全。而我们使用比较多的是处理JSON与JavaBean之间的功能。</p>
+<p>Jackson主流到什么程度？单从Maven仓库中的统计来看，Jackson的使用量排位第一。而Spring Boot支持的三个JSON库（Gson、Jackson、JSON-B）中，Jackson是首选默认库。</p>
+<p>Jackson也有以下特点：依赖少，简单易用，解析大Json速度快、内存占用比较低、拥有灵活的API、方便扩展与定制。</p>
+<p>Jackson类库GitHub地址：<a target="_blank" rel="noopener" href="https://github.com/FasterXML/jackson">https://github.com/FasterXML/jackson</a> 。</p>
+<h1 id="Jackson的组成部分"><a href="#Jackson的组成部分" class="headerlink" title="Jackson的组成部分"></a>Jackson的组成部分</h1><p>Jackson的核心模块由三部分组成（从Jackson 2.x开始）：jackson-core、jackson-annotations、jackson-databind。</p>
+<ul>
+<li>jackson-core：核心包，定义了低级流（Streaming）API，提供基于”流模式”解析。Jackson内部实现正是通过高性能的流模式API的JsonGenerator和JsonParser来生成和解析json。</li>
+<li>jackson-annotations，注解（Annotations）包，提供标准的Jackson注解功能；</li>
+<li>jackson-databind：数据绑定（Databind）包，实现了数据绑定（和对象序列化）支持，它依赖于Streaming和Annotations包。提供基于“对象绑定”解析的API（ObjectMapper）和”树模型”解析的API（JsonNode）；基于”对象绑定”解析的API和”树模型”解析的API依赖基于“流模式”解析的API。</li>
+</ul>
+<p>下面看一下不同环境下相关组件的依赖引入情况。</p>
+<p>在SpringBoot当中，spring-boot-starter-web间接引入了Jackson组件，也就是如果你使用了SpringBoot框架，那么你的项目中已经有了Jackson依赖。下面的依赖省略了version和scope项。</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<p>web starter中依赖了json starter：</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-json&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<p>json starter最终引入了Jackson：</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+  &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;com.fasterxml.jackson.datatype&lt;/groupId&gt;
+  &lt;artifactId&gt;jackson-datatype-jdk8&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;com.fasterxml.jackson.datatype&lt;/groupId&gt;
+  &lt;artifactId&gt;jackson-datatype-jsr310&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;com.fasterxml.jackson.module&lt;/groupId&gt;
+  &lt;artifactId&gt;jackson-module-parameter-names&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<p>上面已经提到过，jackson-databind依赖于Streaming和Annotations包，因此，引入jackson-databind相当于引入了jackson-core和jackson-annotations。</p>
+<p>通常情况下，我们单独使用时，根据需要通过Maven引入jackson-databind、jackson-core和jackson-annotations即可。</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<p>对于SpringBoot项目，基本上不用再额外添加依赖。</p>
+<h1 id="Jackson核心类ObjectMapper"><a href="#Jackson核心类ObjectMapper" class="headerlink" title="Jackson核心类ObjectMapper"></a>Jackson核心类ObjectMapper</h1><p>Jackson提供了三种JSON的处理方式，分别是：数据绑定、JSON树模型、流式API。其中前两项功能都是基于ObjectMapper来实现的，而流式API功能则需要基于更底层的JsonGenerator和JsonParser来实现。</p>
+<p>通常情况下我们使用ObjectMapper类就足够了，它拥有以下功能：</p>
+<ul>
+<li>从字符串、流或文件中解析JSON，并创建表示已解析的JSON的Java对象（反序列化）。</li>
+<li>将Java对象构建成JSON字符串（序列化）。</li>
+<li>将JSON解析为自定义类的对象，也可以解析JSON树模型的对象；</li>
+</ul>
+<p>ObjectMapper基于JsonParser和JsonGenerator来实现JSON实际的读/写。这一点看一下ObjectMapper的构造方法即可明白。</p>
+<h1 id="具体实例"><a href="#具体实例" class="headerlink" title="具体实例"></a>具体实例</h1><p>Jackson的常见使用，就不逐一讲解了，通过一些列的实例给大家展示一下，每个实例当中都会通过注释进行说明。</p>
+<h1 id="常见简单使用"><a href="#常见简单使用" class="headerlink" title="常见简单使用"></a>常见简单使用</h1><p>下面的示例是我们经常会用到的用法演示，主要涉及到JavaBean和Json字符串之间的转换。</p>
+<p>Jackson在将json转换为JavaBean属性时，默认是通过Json字段的名称与Java对象中的getter和setter方法进行匹配进行绑定。</p>
+<p>Jackson取getter和setter方法名称中去除“get”和“set”部分，并将首字母小写。例如Json中的name，与JavaBean中的getName()和setName()进行匹配。</p>
+<p>但并不是所有的属性都可以被序列化和反序列化，基本上遵循一下规则：</p>
+<ul>
+<li>public修饰的属性可序列化和反序列化。</li>
+<li>属性提供public的getter/setter方法，该属性可序列化和反序列化。</li>
+<li>属性只有public的setter方法，而无public的getter方法，该属性只能用于反序列化。</li>
+</ul>
+<pre><code>@Slf4j
+public class JacksonTest {
+
+    /**
+     * JavaBean转JSON字符串
+     */
+    @Test
+    public void testJavaBeanToJson() {
+        WeChat weChat = new WeChat();
+        weChat.setId("zhuan2quan");
+        weChat.setName("程序新视界");
+        weChat.setInterest(new String[]{"Java", "Spring Boot", "JVM"});
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String result = mapper.writeValueAsString(weChat);
+            System.out.println(result);
+        } catch (JsonProcessingException e) {
+            log.error("转换异常", e);
+        }
+    }
+
+    /**
+     * JSON字符串转JavaBean
+     */
+    @Test
+    public void testJsonToJavaBean() {
+        String json = "{\"id\":\"zhuan2quan\",\"name\":\"程序新视界\",\"interest\":[\"Java\",\"Spring Boot\",\"JVM\"]}";
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            WeChat weChat = mapper.readValue(json, WeChat.class);
+            System.out.println(weChat);
+        } catch (JsonProcessingException e) {
+            log.error("解析异常", e);
+        }
+    }
+
+    /**
+     * JSON字符串转Map集合
+     */
+    @Test
+    public void testJsonToMap() {
+        String json = "{\"id\":\"zhuan2quan\",\"name\":\"程序新视界\",\"interest\":[\"Java\",\"Spring Boot\",\"JVM\"]}";
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // 对泛型的反序列化，使用TypeReference可以明确的指定反序列化的类型。
+            Map&lt;String, Object&gt; map = mapper.readValue(json, new TypeReference&lt;Map&lt;String, Object&gt;&gt;() {
+            });
+            System.out.println(map);
+        } catch (JsonProcessingException e) {
+            log.error("解析异常", e);
+        }
+    }
+
+    /**
+     * JavaBean转文件
+     */
+    @Test
+    public void testJavaBeanToFile() {
+        WeChat weChat = new WeChat();
+        weChat.setId("zhuan2quan");
+        weChat.setName("程序新视界");
+        weChat.setInterest(new String[]{"Java", "Spring Boot", "JVM"});
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            //写到文件
+            mapper.writeValue(new File("/json.txt"), weChat);
+
+            //从文件中读取
+            WeChat weChat1 = mapper.readValue(new File("/json.txt"), WeChat.class);
+            System.out.println(weChat1);
+        } catch (IOException e) {
+            log.error("转换异常", e);
+        }
+    }
+
+    /**
+     * JavaBean转字节流
+     */
+    @Test
+    public void testJavaBeanToBytes() {
+        WeChat weChat = new WeChat();
+        weChat.setId("zhuan2quan");
+        weChat.setName("程序新视界");
+        weChat.setInterest(new String[]{"Java", "Spring Boot", "JVM"});
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // 写为字节流
+            byte[] bytes = mapper.writeValueAsBytes(weChat);
+            // 从字节流读取
+            WeChat weChat1 = mapper.readValue(bytes, WeChat.class);
+            System.out.println(weChat1);
+        } catch (IOException e) {
+            log.error("转换异常", e);
+        }
+    }
+}</code></pre>
+<p>上述代码用到了lombok注解和单元测试注解，根据需要可进行替换。</p>
+<h1 id="JSON树模型"><a href="#JSON树模型" class="headerlink" title="JSON树模型"></a>JSON树模型</h1><p>如果Json字符串比较大，则可使用JSON树模型来灵活的获取所需的字段内容。在Jackson中提供了get、path、has等方法来获取或判断。</p>
+<p>下面直接看两个示例：</p>
+<pre><code>@Slf4j
+public class JacksonNodeTest {
+
+    /**
+     * JavaBean转JSON字符串
+     */
+    @Test
+    public void testJsonNode() {
+        // 构建JSON树
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode root = mapper.createObjectNode();
+        root.put("id", "zhuan2quan");
+        root.put("name", "程序新视界");
+        ArrayNode interest = root.putArray("interest");
+        interest.add("Java");
+        interest.add("Spring Boot");
+        interest.add("JVM");
+
+        // JSON树转JSON字符串
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(root);
+        } catch (JsonProcessingException e) {
+            log.error("Json Node转换异常", e);
+        }
+        System.out.println(json);
+    }
+
+    /**
+     * 解析JSON字符串为JSON树模型
+     */
+    @Test
+    public void testJsonToJsonNode() {
+        String json = "{\"id\":\"zhuan2quan\",\"name\":\"程序新视界\",\"interest\":[\"Java\",\"Spring Boot\",\"JVM\"]}";
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // 将JSON字符串转为JSON树
+            JsonNode jsonNode = mapper.readTree(json);
+            String name = jsonNode.path("name").asText();
+            System.out.println(name);
+
+            JsonNode interestNode = jsonNode.get("interest");
+            if (interestNode.isArray()){
+                for (JsonNode node : interestNode){
+                    System.out.println(node.asText());
+                }
+            }
+        } catch (JsonProcessingException e) {
+            log.error("Json Node转换异常", e);
+        }
+    }
+}</code></pre>
+<p>其中get方法和path功能相似，区别在于如果要读取的key在Json串中不存在时，get方法会null，而path会返回MissingNode实例对象，在链路方法情况下保证不会抛出异常。</p>
+<h1 id="流式API"><a href="#流式API" class="headerlink" title="流式API"></a>流式API</h1><p>除了上述两种形式，还可以基于底层的流式API来进行操作，主要通过JsonGenerator和JsonParser两个API，但操作起来比较复杂，就不再这里演示了。</p>
+<h1 id="格式化统一配置"><a href="#格式化统一配置" class="headerlink" title="格式化统一配置"></a>格式化统一配置</h1><p>在使用ObjectMapper时，会存在一些字段在某些情况下不需要进行序列化或反序列化，同时还可能需要指定格式化的一些信息等。此时，可以通过ObjectMapper进行配置。</p>
+<pre><code>//反序列化时忽略json中存在但Java对象不存在的属性
+mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//序列化时日期格式默认为yyyy-MM-dd'T'HH:mm:ss.SSSZ
+mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+//序列化时自定义时间日期格式
+mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+//序列化时忽略值为null的属性
+mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+//序列化时忽略值为默认值的属性
+mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);</code></pre>
+<p>针对于配置项，在2.2版本中新增了一个ObjectMapper的实现类JsonMapper，功能与ObjectMapper一致。不过新增了一个builder方法。可以直接通过JsonMapper.builder().configure()方法来进行配置，最后获得一个JsonMapper对象。JsonMapper的其他方法基本都集成自ObjectMapper。</p>
+<h1 id="注解的使用"><a href="#注解的使用" class="headerlink" title="注解的使用"></a>注解的使用</h1><p>上面通过统一配置可对全局格式的序列化和反序列化进行配置，但某些个别的场景下，需要针对具体的字段进行配置，这就需要用注解。比如当Json字符串中的字段与Java对象中的属性不一致时，就需要通过注解来建立它们直接的关系。</p>
+<p>@JsonProperty，作用JavaBean字段上，指定一个字段用于JSON映射，默认情况下映射的JSON字段与注解的字段名称相同。可通过value属性指定映射的JSON的字段名称。</p>
+<p>@JsonIgnore可用于字段、getter/setter、构造函数参数上，指定字段不参与序列化和反序列化。</p>
+<p>@JsonIgnoreProperties作用于类上，序列化时@JsonIgnoreProperties({“prop1”, “prop2”})会忽略pro1和pro2两个属性。反序列化时@JsonIgnoreProperties(ignoreUnknown=true)会忽略类中不存在的字段。</p>
+<p>@JsonFormat作用于字段上，通常用来进行格式化操作。</p>
+<pre><code>@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+private Date date;</code></pre>
+<p>如果JavaBean中的时间字段使用的是JDK8新增的时间日期（LocalDate/LocalTime/LocalDateTime）类型的话，需要添加jackson-datatype-jsr310依赖。在讲依赖部分时，SpringBoot默认引入的依赖中就有这个。</p>
+<p>当然，还有一些其他的注解，比如@JsonPropertyOrder、@JsonRootName、@JsonAnySetter、@JsonAnyGetter、@JsonNaming等，当使用时参考对应的文档和示例看一下就可以，这里就不再一一列出了。</p>
+<h1 id="自定义解析器"><a href="#自定义解析器" class="headerlink" title="自定义解析器"></a>自定义解析器</h1><p>如果上面的注解和统一配置还无法满足需求，可自定义解析器，示例如下：</p>
+<pre><code>public class MyFastjsonDeserialize extends JsonDeserializer&lt;Point&gt; {
+
+    @Override
+    public Point deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        JsonNode node = jsonParser.getCodec().readTree(jsonParser);
+        Iterator&lt;JsonNode&gt; iterator = node.get("coordinates").elements();
+        List&lt;Double&gt; list = new ArrayList&lt;&gt;();
+        while (iterator.hasNext()) {
+            list.add(iterator.next().asDouble());
+        }
+        return new Point(list.get(0), list.get(1));
+    }
+}</code></pre>
+<p>定义完成之后，注册到Mapper中：</p>
+<pre><code>ObjectMapper objectMapper = new ObjectMapper();
+SimpleModule module = new SimpleModule();
+module.addDeserializer(Point.class, new MyFastjsonDeserialize());
+objectMapper.registerModule(module);</code></pre>
+<h1 id="Jackson处理XML"><a href="#Jackson处理XML" class="headerlink" title="Jackson处理XML"></a>Jackson处理XML</h1><p>Jackson也可以通过jackson-dataformat-xml包提供了处理XML的功能。在处理XML时建议使用woodstox-core包，它是一个XML的实现，比JDK自带XML实现更加高效，也更加安全。</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<p>如果使用Java 9及以上版本，可能会出现java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException异常，这是因为Java 9实现了JDK的模块化，将原本和JDK打包在一起的JAXB实现分隔出来。所以需要手动添加JAXB的实现。</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;javax.xml.bind&lt;/groupId&gt;
+    &lt;artifactId&gt;jaxb-api&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<p>下面是代码示例，基本上和JSON的API非常相似，XmlMapper实际上就是ObjectMapper的子类。</p>
+<pre><code>@Test
+public void testXml(){
+    WeChat weChat = new WeChat();
+    weChat.setId("zhuan2quan");
+    weChat.setName("程序新视界");
+    weChat.setInterest(new String[]{"Java", "Spring Boot", "JVM"});
+
+    XmlMapper xmlMapper = new XmlMapper();
+    try {
+        String xml = xmlMapper.writeValueAsString(weChat);
+        System.out.println(xml);
+    } catch (JsonProcessingException e) {
+        e.printStackTrace();
+    }
+}</code></pre>
+<p>执行之后，输出结果：</p>
+<pre><code>&lt;WeChat&gt;
+    &lt;id&gt;zhuan2quan&lt;/id&gt;
+    &lt;name&gt;程序新视界&lt;/name&gt;
+    &lt;interest&gt;
+        &lt;interest&gt;Java&lt;/interest&gt;
+        &lt;interest&gt;Spring Boot&lt;/interest&gt;
+        &lt;interest&gt;JVM&lt;/interest&gt;
+    &lt;/interest&gt;
+&lt;/WeChat&gt;</code></pre>
+<h1 id="Spring-Boot中的集成"><a href="#Spring-Boot中的集成" class="headerlink" title="Spring Boot中的集成"></a>Spring Boot中的集成</h1><p>在最开始的时候，我们已经看到Spring Boot默认引入了Jackson的依赖，而且也用我们做什么额外的操作，其实已经在使用Jackson进行Json格式的数据与MVC中参数进行绑定操作了。</p>
+<p>如果Spring Boot默认的配置并不适合项目需求，也可以通过内置的配置进行配置，以application.yml配置为例，可通过指定以下属性进行相应选项的配置：</p>
+<pre><code>#指定日期格式，比如yyyy-MM-dd HH:mm:ss，或者具体的格式化类的全限定名
+spring.jackson.date-format 
+#是否开启Jackson的反序列化
+spring.jackson.deserialization
+#是否开启json的generators.
+spring.jackson.generator
+#指定Joda date/time的格式，比如yyyy-MM-ddHH:mm:ss). 如果没有配置的话，dateformat会作为backup
+spring.jackson.joda-date-time-format
+#指定json使用的Locale.
+spring.jackson.locale
+#是否开启Jackson通用的特性.
+spring.jackson.mapper
+#是否开启jackson的parser特性.
+spring.jackson.parser
+#指定PropertyNamingStrategy(CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES)或者指定PropertyNamingStrategy子类的全限定类名.
+spring.jackson.property-naming-strategy
+#是否开启jackson的序列化.
+spring.jackson.serialization
+#指定序列化时属性的inclusion方式，具体查看JsonInclude.Include枚举.
+spring.jackson.serialization-inclusion
+#指定日期格式化时区，比如America/Los_Angeles或者GMT+10.
+spring.jackson.time-zone</code></pre>
+<p>Spring Boot自动配置非常方便，但某些时候需要我们手动配置Bean来替代自动配置的Bean。可通过如下形式进行配置：</p>
+<pre><code>@Configuration
+public class JacksonConfig {
+    @Bean
+    @Qualifier("json")
+    public ObjectMapper jsonMapper(Jackson2ObjectMapperBuilder builder) {
+        ObjectMapper mapper = builder.createXmlMapper(false)
+                .build();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        return mapper;
+    }
+}</code></pre>
+<p>配置完成，可在使用的地方直接注入即可：</p>
+<pre><code>@Resource
+private ObjectMapper jsonMapper;</code></pre>
+<p>对于上面的注入，可能会有朋友问了，是否有线程安全的问题？这个不用担心ObjectMapper是线程安全的。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>经过本篇文章的讲解，大家对Jackson应该有一个比较全面的了解了。就个人而言，学习Jackson之后，感觉还是挺有意思的。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2021/03/01/jackson/">https://chenguoo.github.io/2021/03/01/jackson/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/jackson/">
+                                    <span class="chip bg-color">jackson</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/03/01/jackson/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Jackson">
+                        
+                        <span class="card-title">Jackson</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Jackson的功能原来如此之牛Java高级架构师2021-02-24 13:18:53
+
+原文出自：公众号 程序新视界
+原文链接：https://mp.weixin.qq.com/s/m34q4AC-T0fc9oIWxDqEVg
+
+在上篇
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/jackson/">
+                        <span class="chip bg-color">jackson</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/02/23/xiang-jie-springsecurity-deng-lu-yuan-li-dai-ni-kan-yuan-dai-ma/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="详解SpringSecurity登录原理带你看源代码">
+                        
+                        <span class="card-title">详解SpringSecurity登录原理带你看源代码</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            使用的jar和版本：springboot：2.4.2
+&lt;dependency>
+    &lt;groupId>org.springframework.cloud&lt;/groupId>
+    &lt;artifactId>spr
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/spring/" class="post-category">
+                                    spring
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringSecurity/">
+                        <span class="chip bg-color">SpringSecurity</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"react":{"opacity":0.7}}});</script></body>
+
+</html>
