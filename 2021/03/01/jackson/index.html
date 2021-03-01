@@ -418,12 +418,12 @@
 </blockquote>
 <p>在上篇《<a target="_blank" rel="noopener" href="https://www.toutiao.com/i6932339487607439880/?group_id=6932339487607439880">经过多方调研，最终还是决定禁用FastJson</a>》中，讲了FastJson的基本使用以及存在的不确定性问题，所以最终决定在项目中放弃使用，进而选择市面上比较主流，Spring Boot默认绑定的JSON类库：Jackson。</p>
 <p>本文就来讲解一下Jackson的基本使用以及与Spring Boot的结合与实践。</p>
-<h1 id="什么是Jackson"><a href="#什么是Jackson" class="headerlink" title="什么是Jackson"></a>什么是Jackson</h1><p>Jackson是比较主流的基于Java的JSON类库，可用于Json和XML与JavaBean之间的序列化和反序列化。</p>
+<h2 id="什么是Jackson"><a href="#什么是Jackson" class="headerlink" title="什么是Jackson"></a>什么是Jackson</h2><p>Jackson是比较主流的基于Java的JSON类库，可用于Json和XML与JavaBean之间的序列化和反序列化。</p>
 <p>没看错，Jackson也可以处理JavaBean与XML之间的转换，基于jackson-dataformat-xml组件，而且比较JDK自带XML实现更加高效和安全。而我们使用比较多的是处理JSON与JavaBean之间的功能。</p>
 <p>Jackson主流到什么程度？单从Maven仓库中的统计来看，Jackson的使用量排位第一。而Spring Boot支持的三个JSON库（Gson、Jackson、JSON-B）中，Jackson是首选默认库。</p>
 <p>Jackson也有以下特点：依赖少，简单易用，解析大Json速度快、内存占用比较低、拥有灵活的API、方便扩展与定制。</p>
 <p>Jackson类库GitHub地址：<a target="_blank" rel="noopener" href="https://github.com/FasterXML/jackson">https://github.com/FasterXML/jackson</a> 。</p>
-<h1 id="Jackson的组成部分"><a href="#Jackson的组成部分" class="headerlink" title="Jackson的组成部分"></a>Jackson的组成部分</h1><p>Jackson的核心模块由三部分组成（从Jackson 2.x开始）：jackson-core、jackson-annotations、jackson-databind。</p>
+<h2 id="Jackson的组成部分"><a href="#Jackson的组成部分" class="headerlink" title="Jackson的组成部分"></a>Jackson的组成部分</h2><p>Jackson的核心模块由三部分组成（从Jackson 2.x开始）：jackson-core、jackson-annotations、jackson-databind。</p>
 <ul>
 <li>jackson-core：核心包，定义了低级流（Streaming）API，提供基于”流模式”解析。Jackson内部实现正是通过高性能的流模式API的JsonGenerator和JsonParser来生成和解析json。</li>
 <li>jackson-annotations，注解（Annotations）包，提供标准的Jackson注解功能；</li>
@@ -472,7 +472,7 @@
     &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 <p>对于SpringBoot项目，基本上不用再额外添加依赖。</p>
-<h1 id="Jackson核心类ObjectMapper"><a href="#Jackson核心类ObjectMapper" class="headerlink" title="Jackson核心类ObjectMapper"></a>Jackson核心类ObjectMapper</h1><p>Jackson提供了三种JSON的处理方式，分别是：数据绑定、JSON树模型、流式API。其中前两项功能都是基于ObjectMapper来实现的，而流式API功能则需要基于更底层的JsonGenerator和JsonParser来实现。</p>
+<h2 id="Jackson核心类ObjectMapper"><a href="#Jackson核心类ObjectMapper" class="headerlink" title="Jackson核心类ObjectMapper"></a>Jackson核心类ObjectMapper</h2><p>Jackson提供了三种JSON的处理方式，分别是：数据绑定、JSON树模型、流式API。其中前两项功能都是基于ObjectMapper来实现的，而流式API功能则需要基于更底层的JsonGenerator和JsonParser来实现。</p>
 <p>通常情况下我们使用ObjectMapper类就足够了，它拥有以下功能：</p>
 <ul>
 <li>从字符串、流或文件中解析JSON，并创建表示已解析的JSON的Java对象（反序列化）。</li>
@@ -480,8 +480,8 @@
 <li>将JSON解析为自定义类的对象，也可以解析JSON树模型的对象；</li>
 </ul>
 <p>ObjectMapper基于JsonParser和JsonGenerator来实现JSON实际的读/写。这一点看一下ObjectMapper的构造方法即可明白。</p>
-<h1 id="具体实例"><a href="#具体实例" class="headerlink" title="具体实例"></a>具体实例</h1><p>Jackson的常见使用，就不逐一讲解了，通过一些列的实例给大家展示一下，每个实例当中都会通过注释进行说明。</p>
-<h1 id="常见简单使用"><a href="#常见简单使用" class="headerlink" title="常见简单使用"></a>常见简单使用</h1><p>下面的示例是我们经常会用到的用法演示，主要涉及到JavaBean和Json字符串之间的转换。</p>
+<h2 id="具体实例"><a href="#具体实例" class="headerlink" title="具体实例"></a>具体实例</h2><p>Jackson的常见使用，就不逐一讲解了，通过一些列的实例给大家展示一下，每个实例当中都会通过注释进行说明。</p>
+<h2 id="常见简单使用"><a href="#常见简单使用" class="headerlink" title="常见简单使用"></a>常见简单使用</h2><p>下面的示例是我们经常会用到的用法演示，主要涉及到JavaBean和Json字符串之间的转换。</p>
 <p>Jackson在将json转换为JavaBean属性时，默认是通过Json字段的名称与Java对象中的getter和setter方法进行匹配进行绑定。</p>
 <p>Jackson取getter和setter方法名称中去除“get”和“set”部分，并将首字母小写。例如Json中的name，与JavaBean中的getName()和setName()进行匹配。</p>
 <p>但并不是所有的属性都可以被序列化和反序列化，基本上遵循一下规则：</p>
@@ -590,7 +590,7 @@ public class JacksonTest {
     }
 }</code></pre>
 <p>上述代码用到了lombok注解和单元测试注解，根据需要可进行替换。</p>
-<h1 id="JSON树模型"><a href="#JSON树模型" class="headerlink" title="JSON树模型"></a>JSON树模型</h1><p>如果Json字符串比较大，则可使用JSON树模型来灵活的获取所需的字段内容。在Jackson中提供了get、path、has等方法来获取或判断。</p>
+<h2 id="JSON树模型"><a href="#JSON树模型" class="headerlink" title="JSON树模型"></a>JSON树模型</h2><p>如果Json字符串比较大，则可使用JSON树模型来灵活的获取所需的字段内容。在Jackson中提供了get、path、has等方法来获取或判断。</p>
 <p>下面直接看两个示例：</p>
 <pre><code>@Slf4j
 public class JacksonNodeTest {
@@ -645,8 +645,8 @@ public class JacksonNodeTest {
     }
 }</code></pre>
 <p>其中get方法和path功能相似，区别在于如果要读取的key在Json串中不存在时，get方法会null，而path会返回MissingNode实例对象，在链路方法情况下保证不会抛出异常。</p>
-<h1 id="流式API"><a href="#流式API" class="headerlink" title="流式API"></a>流式API</h1><p>除了上述两种形式，还可以基于底层的流式API来进行操作，主要通过JsonGenerator和JsonParser两个API，但操作起来比较复杂，就不再这里演示了。</p>
-<h1 id="格式化统一配置"><a href="#格式化统一配置" class="headerlink" title="格式化统一配置"></a>格式化统一配置</h1><p>在使用ObjectMapper时，会存在一些字段在某些情况下不需要进行序列化或反序列化，同时还可能需要指定格式化的一些信息等。此时，可以通过ObjectMapper进行配置。</p>
+<h2 id="流式API"><a href="#流式API" class="headerlink" title="流式API"></a>流式API</h2><p>除了上述两种形式，还可以基于底层的流式API来进行操作，主要通过JsonGenerator和JsonParser两个API，但操作起来比较复杂，就不再这里演示了。</p>
+<h2 id="格式化统一配置"><a href="#格式化统一配置" class="headerlink" title="格式化统一配置"></a>格式化统一配置</h2><p>在使用ObjectMapper时，会存在一些字段在某些情况下不需要进行序列化或反序列化，同时还可能需要指定格式化的一些信息等。此时，可以通过ObjectMapper进行配置。</p>
 <pre><code>//反序列化时忽略json中存在但Java对象不存在的属性
 mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //序列化时日期格式默认为yyyy-MM-dd'T'HH:mm:ss.SSSZ
@@ -658,7 +658,7 @@ mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 //序列化时忽略值为默认值的属性
 mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);</code></pre>
 <p>针对于配置项，在2.2版本中新增了一个ObjectMapper的实现类JsonMapper，功能与ObjectMapper一致。不过新增了一个builder方法。可以直接通过JsonMapper.builder().configure()方法来进行配置，最后获得一个JsonMapper对象。JsonMapper的其他方法基本都集成自ObjectMapper。</p>
-<h1 id="注解的使用"><a href="#注解的使用" class="headerlink" title="注解的使用"></a>注解的使用</h1><p>上面通过统一配置可对全局格式的序列化和反序列化进行配置，但某些个别的场景下，需要针对具体的字段进行配置，这就需要用注解。比如当Json字符串中的字段与Java对象中的属性不一致时，就需要通过注解来建立它们直接的关系。</p>
+<h2 id="注解的使用"><a href="#注解的使用" class="headerlink" title="注解的使用"></a>注解的使用</h2><p>上面通过统一配置可对全局格式的序列化和反序列化进行配置，但某些个别的场景下，需要针对具体的字段进行配置，这就需要用注解。比如当Json字符串中的字段与Java对象中的属性不一致时，就需要通过注解来建立它们直接的关系。</p>
 <p>@JsonProperty，作用JavaBean字段上，指定一个字段用于JSON映射，默认情况下映射的JSON字段与注解的字段名称相同。可通过value属性指定映射的JSON的字段名称。</p>
 <p>@JsonIgnore可用于字段、getter/setter、构造函数参数上，指定字段不参与序列化和反序列化。</p>
 <p>@JsonIgnoreProperties作用于类上，序列化时@JsonIgnoreProperties({“prop1”, “prop2”})会忽略pro1和pro2两个属性。反序列化时@JsonIgnoreProperties(ignoreUnknown=true)会忽略类中不存在的字段。</p>
@@ -667,7 +667,7 @@ mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);</code></pre
 private Date date;</code></pre>
 <p>如果JavaBean中的时间字段使用的是JDK8新增的时间日期（LocalDate/LocalTime/LocalDateTime）类型的话，需要添加jackson-datatype-jsr310依赖。在讲依赖部分时，SpringBoot默认引入的依赖中就有这个。</p>
 <p>当然，还有一些其他的注解，比如@JsonPropertyOrder、@JsonRootName、@JsonAnySetter、@JsonAnyGetter、@JsonNaming等，当使用时参考对应的文档和示例看一下就可以，这里就不再一一列出了。</p>
-<h1 id="自定义解析器"><a href="#自定义解析器" class="headerlink" title="自定义解析器"></a>自定义解析器</h1><p>如果上面的注解和统一配置还无法满足需求，可自定义解析器，示例如下：</p>
+<h2 id="自定义解析器"><a href="#自定义解析器" class="headerlink" title="自定义解析器"></a>自定义解析器</h2><p>如果上面的注解和统一配置还无法满足需求，可自定义解析器，示例如下：</p>
 <pre><code>public class MyFastjsonDeserialize extends JsonDeserializer&lt;Point&gt; {
 
     @Override
@@ -686,7 +686,7 @@ private Date date;</code></pre>
 SimpleModule module = new SimpleModule();
 module.addDeserializer(Point.class, new MyFastjsonDeserialize());
 objectMapper.registerModule(module);</code></pre>
-<h1 id="Jackson处理XML"><a href="#Jackson处理XML" class="headerlink" title="Jackson处理XML"></a>Jackson处理XML</h1><p>Jackson也可以通过jackson-dataformat-xml包提供了处理XML的功能。在处理XML时建议使用woodstox-core包，它是一个XML的实现，比JDK自带XML实现更加高效，也更加安全。</p>
+<h2 id="Jackson处理XML"><a href="#Jackson处理XML" class="headerlink" title="Jackson处理XML"></a>Jackson处理XML</h2><p>Jackson也可以通过jackson-dataformat-xml包提供了处理XML的功能。在处理XML时建议使用woodstox-core包，它是一个XML的实现，比JDK自带XML实现更加高效，也更加安全。</p>
 <pre><code>&lt;dependency&gt;
     &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
     &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
@@ -722,7 +722,7 @@ public void testXml(){
         &lt;interest&gt;JVM&lt;/interest&gt;
     &lt;/interest&gt;
 &lt;/WeChat&gt;</code></pre>
-<h1 id="Spring-Boot中的集成"><a href="#Spring-Boot中的集成" class="headerlink" title="Spring Boot中的集成"></a>Spring Boot中的集成</h1><p>在最开始的时候，我们已经看到Spring Boot默认引入了Jackson的依赖，而且也用我们做什么额外的操作，其实已经在使用Jackson进行Json格式的数据与MVC中参数进行绑定操作了。</p>
+<h2 id="Spring-Boot中的集成"><a href="#Spring-Boot中的集成" class="headerlink" title="Spring Boot中的集成"></a>Spring Boot中的集成</h2><p>在最开始的时候，我们已经看到Spring Boot默认引入了Jackson的依赖，而且也用我们做什么额外的操作，其实已经在使用Jackson进行Json格式的数据与MVC中参数进行绑定操作了。</p>
 <p>如果Spring Boot默认的配置并不适合项目需求，也可以通过内置的配置进行配置，以application.yml配置为例，可通过指定以下属性进行相应选项的配置：</p>
 <pre><code>#指定日期格式，比如yyyy-MM-dd HH:mm:ss，或者具体的格式化类的全限定名
 spring.jackson.date-format 
@@ -763,7 +763,7 @@ public class JacksonConfig {
 <pre><code>@Resource
 private ObjectMapper jsonMapper;</code></pre>
 <p>对于上面的注入，可能会有朋友问了，是否有线程安全的问题？这个不用担心ObjectMapper是线程安全的。</p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>经过本篇文章的讲解，大家对Jackson应该有一个比较全面的了解了。就个人而言，学习Jackson之后，感觉还是挺有意思的。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>经过本篇文章的讲解，大家对Jackson应该有一个比较全面的了解了。就个人而言，学习Jackson之后，感觉还是挺有意思的。</p>
 
             </div>
             <hr/>
