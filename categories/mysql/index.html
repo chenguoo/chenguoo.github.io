@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类: spring, Cheney 学习日志">
+    <meta name="keywords" content="分类: mysql, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类: spring | Cheney 学习日志</title>
+    <title>分类: mysql | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -356,7 +356,7 @@
                 
                 <a href="/categories/spring/" title="spring: 4">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active "
+                             chip-default "
                             style="background-color: #82E0AA;">spring
                         <span class="tag-length">4</span>
                     </span>
@@ -401,7 +401,7 @@
                 
                 <a href="/categories/mysql/" title="mysql: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
+                             chip-active "
                             style="background-color: #F9E79F;">mysql
                         <span class="tag-length">1</span>
                     </span>
@@ -421,34 +421,32 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/02/23/xiang-jie-springsecurity-deng-lu-yuan-li-dai-ni-kan-yuan-dai-ma/">
+                    <a href="/2021/03/12/bi-mian-mysql-chong-fu-cha-ru-shu-ju/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="详解SpringSecurity登录原理带你看源代码">
+                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="避免 Mysql重复插入数据">
                             
-                            <span class="card-title">详解SpringSecurity登录原理带你看源代码</span>
+                            <span class="card-title">避免 Mysql重复插入数据</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                使用的jar和版本：springboot：2.4.2
-&lt;dependency>
-    &lt;groupId>org.springframework.cloud&lt;/groupId>
-    &lt;artifactId>spr
+                                最常见的方式就是为字段设置主键或唯一索引，当插入重复数据时，抛出错误，程序终止，但这会给后续处理带来麻烦，因此需要对插入语句做特殊处理，尽量避开或忽略异常，下面我简单介绍一下，感兴趣的朋友可以尝试一下：
+这里为了方便演示，我新建了一个use
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-12
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/spring/" class="post-category">
-                                    spring
+                                <a href="/categories/mysql/" class="post-category">
+                                    mysql
                                 </a>
                                 
                                 
@@ -456,157 +454,6 @@
                         </div>
                     </div>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/SpringSecurity/">
-                            <span class="chip bg-color">SpringSecurity</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2021/01/14/spring-zhong-transactional-zhu-jie-shi-xiao-de-chang-jing/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Spring 中@Transactional 注解失效的场景">
-                            
-                            <span class="card-title">Spring 中@Transactional 注解失效的场景</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                引言
-@Transactional注解哪些场景下会失效，一时语塞致使面试失败。所以今天简单的和大家分享一下@Transactional相关的知识。
-@Transactional 注解相信大家并不陌生，平时开发中很常用的一个注解，它能保证方法
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/spring/" class="post-category">
-                                    spring
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/transactional/">
-                            <span class="chip bg-color">transactional</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2021/01/14/spring-tong-guo-classpathresource-lei-du-qu-pei-zhi-wen-jian/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Spring通过ClassPathResource类读取配置文件">
-                            
-                            <span class="card-title">Spring通过ClassPathResource类读取配置文件</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                1. 前言在开发中读取项目中的配置或者静态文件是家常便饭的事情，我相信很多同学都从网上找下面的例子来进行文件加载读取操作。
-利用ClassLoader获取classpath路径：
- ClassLoader loader = Thread.c
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/spring/" class="post-category">
-                                    spring
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/tools/">
-                            <span class="chip bg-color">tools</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2021/01/14/spring-cao-zuo-dui-xiang-lei-xing/">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Spring操作对象类型">
-                            
-                            <span class="card-title">Spring操作对象类型</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                1. 前言今天在看Spring Security源码的时候无意间注意到两行代码;
-ResolvableType type = ResolvableType.forClassWithGenerics(OAuth2UserService.cla
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/spring/" class="post-category">
-                                    spring
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/tools/">
-                            <span class="chip bg-color">tools</span>
-                        </a>
-                        
-                    </div>
                     
                 </div>
             </div>
