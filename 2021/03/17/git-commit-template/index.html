@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="避免 Mysql重复插入数据, Cheney 学习日志">
+    <meta name="keywords" content="git commit template, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>避免 Mysql重复插入数据 | Cheney 学习日志</title>
+    <title>git commit template | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">避免 Mysql重复插入数据</h1>
+                    <h1 class="description center-align post-title">git commit template</h1>
                 </div>
             </div>
         </div>
@@ -368,9 +368,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/git/">
+                                <span class="chip bg-color">git</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -378,8 +382,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/mysql/" class="post-category">
-                                mysql
+                            <a href="/categories/git/" class="post-category">
+                                git
                             </a>
                         
                     </div>
@@ -391,7 +395,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-12
+                    2021-03-17
                 </div>
                 
 
@@ -407,25 +411,56 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>最常见的方式就是为字段设置主键或唯一索引，当插入重复数据时，抛出错误，程序终止，但这会给后续处理带来麻烦，因此需要对插入语句做特殊处理，尽量避开或忽略异常，下面我简单介绍一下，感兴趣的朋友可以尝试一下：</p>
-<p>这里为了方便演示，我新建了一个user测试表，主要有id，username，sex，address这4个字段，其中主键为id（自增），同时对username字段设置了唯一索引：</p>
-<h2 id="01-insert-ignore-into"><a href="#01-insert-ignore-into" class="headerlink" title="\01 insert ignore into**"></a><strong><em>\</em>01 insert ignore into**</strong></h2><p>即插入数据时，如果数据存在，则忽略此次插入，前提条件是插入的数据字段设置了主键或唯一索引，测试SQL语句如下，当插入本条数据时，MySQL数据库会首先检索已有数据（也就是idx_username索引），如果存在，则忽略本次插入，如果不存在，则正常插入数据：</p>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">insert</span> <span class="token keyword">ignore</span> <span class="token keyword">into</span> <span class="token keyword">user</span><span class="token punctuation">(</span>username，sex，address<span class="token punctuation">)</span> <span class="token keyword">values</span><span class="token punctuation">(</span><span class="token string">"jack"</span><span class="token punctuation">,</span><span class="token string">"male"</span><span class="token punctuation">,</span><span class="token string">"new york"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eukZ9J6BEiafMZnicLgVib5Y8ia8ic8IoVzPahzSWmjjbg1QJdmCdUbzpVx59M9ZpnWB7bWatpKhfUQNooZf768edAw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
-<h2 id="02-on-duplicate-key-update"><a href="#02-on-duplicate-key-update" class="headerlink" title="02 on duplicate key update"></a><strong>02 on duplicate key update</strong></h2><p>即插入数据时，如果数据存在，则执行更新操作，前提条件同上，也是插入的数据字段设置了主键或唯一索引，测试SQL语句如下，当插入本条记录时，MySQL数据库会首先检索已有数据（idx_username索引），如果存在，则执行update更新操作，如果不存在，则直接插入：</p>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">insert</span> <span class="token keyword">into</span> <span class="token keyword">user</span><span class="token punctuation">(</span>username，sex，address<span class="token punctuation">)</span> <span class="token keyword">values</span><span class="token punctuation">(</span><span class="token string">"jack"</span><span class="token punctuation">,</span><span class="token string">"male"</span><span class="token punctuation">,</span><span class="token string">"new york"</span><span class="token punctuation">)</span>
-<span class="token keyword">on</span> <span class="token keyword">duplicate key</span> <span class="token keyword">update</span>
-<span class="token keyword">set</span><span class="token operator">=</span><span class="token string">'male'</span><span class="token punctuation">,</span>address<span class="token operator">=</span><span class="token string">'noe york'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eukZ9J6BEiafMZnicLgVib5Y8ia8ic8IoVzPaYPzKQzy6CFxcOblCjBf9roZSiav2T4DiaPicxqKlmGKWhNHce2CGdOyNw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
-<h2 id="03-replace-into"><a href="#03-replace-into" class="headerlink" title="03 replace into"></a><strong>03 replace into</strong></h2><p>即插入数据时，如果数据存在，则删除再插入，前提条件同上，插入的数据字段需要设置主键或唯一索引，测试SQL语句如下，当插入本条记录时，MySQL数据库会首先检索已有数据（idx_username索引），如果存在，则先删除旧数据，然后再插入，如果不存在，则直接插入：</p>
-<pre class="line-numbers language-sql"><code class="language-sql">replace <span class="token keyword">into</span> <span class="token keyword">user</span><span class="token punctuation">(</span>username，sex，address<span class="token punctuation">)</span> <span class="token keyword">values</span><span class="token punctuation">(</span><span class="token string">"jack"</span><span class="token punctuation">,</span><span class="token string">"male"</span><span class="token punctuation">,</span><span class="token string">"new york"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eukZ9J6BEiafMZnicLgVib5Y8ia8ic8IoVzPaj7P8HAtNwvA4KZKlucELQ3icRvgE8fjvFYJJ5WXQB7f0bZn0y5ZZ5Mg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
-<h2 id="04-insert-if-not-exists"><a href="#04-insert-if-not-exists" class="headerlink" title="04 insert if not exists"></a><strong>04 insert if not exists</strong></h2><p>即insert into … select … where not exist … ，这种方式适合于插入的数据字段没有设置主键或唯一索引，当插入一条数据时，首先判断MySQL数据库中是否存在这条数据，如果不存在，则正常插入，如果存在，则忽略：</p>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">insert</span> <span class="token keyword">into</span> <span class="token keyword">user</span><span class="token punctuation">(</span>username，sex，address<span class="token punctuation">)</span> 
-<span class="token keyword">select</span> <span class="token string">"jack"</span><span class="token punctuation">,</span><span class="token string">"male"</span><span class="token punctuation">,</span><span class="token string">"new york"</span> <span class="token keyword">from</span> <span class="token keyword">user</span>
-<span class="token keyword">where</span> <span class="token operator">not</span> <span class="token keyword">exists</span>
-<span class="token punctuation">(</span><span class="token keyword">select</span> username <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> username<span class="token operator">=</span><span class="token string">'jack'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eukZ9J6BEiafMZnicLgVib5Y8ia8ic8IoVzPaMicViaejyxysicKHtkG0pHBfw4SRW3vCTWvia6PFYN3Fk6RxgyC7ZcTm6Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片">目前，就分享这4种MySQL处理重复数据的方式吧，前3种方式适合字段设置了主键或唯一索引，最后一种方式则没有此限制，只要你熟悉一下使用过程，很快就能掌握的，网上也有相关资料和教程，介绍的非常详细，感兴趣的话，可以搜一下。</p>
+                <p>程序员应该写出简洁明了的commit log，否则对别人和自己来说就是一种困扰。最近代码review多了，总有一股想笑的感觉。就像下图这满屏的ok，永远无法从中得知提交人的意图。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/9d9e670b93bc456a8e4e855354b1641c?from=pc" alt="80%的程序员，不会写commit记录"></p>
+<p>commit log将如何提交？都有哪些约定？其实是有答案的。对于Java程序员，尤其幸福。IDEA有一个非常好用的插件，可以用来辅助你进行代码提交，辅助你进行团队规范建设。接下来，我将带大家看一看它的使用方法。</p>
+<h1 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h1><p>在IDEA的Marketplace中，搜索Git Commit Template，就可以安装这个插件。插件很小，很快就能下载下来。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/e40238128a3b4f909fcc243ec65d969e?from=pc" alt="80%的程序员，不会写commit记录"></p>
+<p>正常从IDEA提交代码的时候。我们发现多了一个小按钮。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/dde610d69f834dd6b91aaac2d568f346?from=pc" alt="80%的程序员，不会写commit记录"></p>
+<p>点击之后，将弹出一个窗口。让你去设计提交模板。</p>
+<p><img src="https://p3-tt.byteimg.com/origin/pgc-image/18df0ba36a3e422ebc752dbcbc4e7cc0?from=pc" alt="80%的程序员，不会写commit记录"></p>
+<p>这么多信息，真的让人头晕。怪不得程序员们都不喜欢写提交记录。</p>
+<p>其实，在插件的安装界面，就已经说明了这个提交记录的格式。</p>
+<pre><code> &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+ &lt;BLANK LINE&gt;
+ &lt;body&gt;
+ &lt;BLANK LINE&gt;
+ &lt;footer&gt;</code></pre>
+<p>从描述中，可以肯容易的看到一个提交记录中，应该包含哪些东西。其中类型最多的，当然是提交类型。</p>
+<h1 id="提交类型Type"><a href="#提交类型Type" class="headerlink" title="提交类型Type"></a>提交类型Type</h1><p>我们按照插件显示的顺序来说明一下。</p>
+<ul>
+<li>feat 功能feature的意思，也是最常用的。当你的功能有变更的时候，都可以采用这种类型的type</li>
+<li>fix 当然指的是bug修复</li>
+<li>docs 更新了文档，或者更新了注释</li>
+<li>style 代码格式调整，比如执行了format、更改了tab显示等</li>
+<li>refactor 重构代码。指的是代码结构的调整，比如使用了一些设计模式重新组织了代码</li>
+<li>perf 对项目或者模块进行了性能优化。比如一些jvm的参数改动，把stringbuffer改为stringbuilder等</li>
+<li>test 这个简单，就是增加了单元测试和自动化相关的代码</li>
+<li>build 影响编译的一些更改，比如更改了maven插件、增加了npm的过程等</li>
+<li>ci 持续集成方面的更改。现在有些build系统喜欢把ci功能使用yml描述。如有这种更改，建议使用ci</li>
+<li>chore 其他改动。比如一些注释修改或者文件清理。不影响src和test代码文件的，都可以放在这里</li>
+<li>revert 回滚了一些前面的代码</li>
+</ul>
+<p>除了这些预设的，团队还可以按照自己的需求，增加新的type。比如专门处理线上工单，就可以创造一个叫做ticket的类型。</p>
+<h1 id="范围scope"><a href="#范围scope" class="headerlink" title="范围scope"></a>范围scope</h1><p>scope是范围的意思，主要指的是代码的影响面。scope并没有要求强制，但团队可以按照自己的理解进行设计。通常由技术维度和业务维度两种划分方式。比如按照技术分为：controller、dto、service、dao等。但因为一个功能提交，会涉及到多个scope（都不喜欢非常细粒度的提交），所以按照技术维度分的情况比较少。</p>
+<p>按照业务模块进行划分，也是比较不错的选择。比如分为user、order等划分，可以很容易看出是影响用户模块还是order模块。</p>
+<p>如果你实在不知道怎么填，那就留空。</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h1 id="主题subject"><a href="#主题subject" class="headerlink" title="主题subject"></a>主题subject</h1><p>这个体现的是总结概括能力，没得跑。一句话能够说明主要的提交是什么。subject也是众多git管理工具默认显示的一行。如果你写的标准，那么提交记录看起来就很漂亮很规整。</p>
+<h1 id="正文Body"><a href="#正文Body" class="headerlink" title="正文Body"></a>正文Body</h1><p>主要填写详细的改动记录。我一般习惯列上1234，但如果你的subject写的非常好，正文可以直接弱化。但如果时间充裕，填写上重要记录的前因后果，需求背景，是一个好的习惯。</p>
+<h1 id="尾部Footer"><a href="#尾部Footer" class="headerlink" title="尾部Footer"></a>尾部Footer</h1><p>添加一些额外的hook，比如提交记录之后，自动关闭jira的工单（JIRA和gitlab等是可以联动的）。在比如触发一些文档编译或者其他动作。</p>
+<p>这部分自定义行也是比较强的。</p>
+<h1 id="Skip-CI"><a href="#Skip-CI" class="headerlink" title="Skip CI"></a>Skip CI</h1><p>最后还有一个skip CI选项。一般的ci工具，都可以设置提交代码时自动触发编译。但你可以告诉它忽略本次提交。这可能是因为你提前预判到了一些构建风险，或者就是不想编译。</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>最后，看一个典型的提交记录，有了工具的支持，我们的瞎扯也看得正经起来。</p>
+<pre><code>fix(order): 修复了1分钱买汽车的bug
+
+商务反馈可以1分钱买汽车，目前已经卖出了100w量
+
+Closes #2455
+
+[skip ci]</code></pre>
+<p>其实，提交的核心是type和subject。一个用来表示它的提交类型，一个用来对提交进行概括性总结，写好了这两点，就能轻轻松松秒杀80%的程序员了。</p>
+<p>有了这些基础，从commit log，自动生成change log，就变的非常的容易。配合持续集成平台，自动生成发版的变更记录，也是可行的，这也是为什么团队管理，都在一直强调git的提交规范。因为它确实非常有用。</p>
 
             </div>
             <hr/>
@@ -451,7 +486,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2021/03/12/bi-mian-mysql-chong-fu-cha-ru-shu-ju/">https://chenguoo.github.io/2021/03/12/bi-mian-mysql-chong-fu-cha-ru-shu-ju/</a>
+                    <a href="https://chenguoo.github.io/2021/03/17/git-commit-template/">https://chenguoo.github.io/2021/03/17/git-commit-template/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -488,7 +523,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/git/">
+                                    <span class="chip bg-color">git</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -528,9 +567,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/03/17/git-commit-template/">
                     <div class="card-image">
@@ -550,9 +590,9 @@ commit log将如何提交？都有哪些约定？其实是有答案
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-17
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -565,6 +605,7 @@ commit log将如何提交？都有哪些约定？其实是有答案
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -583,19 +624,20 @@ commit log将如何提交？都有哪些约定？其实是有答案
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/03/12/springboot-mybatis-shi-xian-dong-tai-shu-ju-yuan-qie-huan/">
+                <a href="/2021/03/12/bi-mian-mysql-chong-fu-cha-ru-shu-ju/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="SpringBoot+Mybatis实现动态数据源切换">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="避免 Mysql重复插入数据">
                         
-                        <span class="card-title">SpringBoot+Mybatis实现动态数据源切换</span>
+                        <span class="card-title">避免 Mysql重复插入数据</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            SpringBoot + Mybatis实现动态数据源切换业务背景电商订单项目分正向和逆向两个部分：其中正向数据库记录了订单的基本信息，包括订单基本信息、订单商品信息、优惠卷信息、发票信息、账期信息、结算信息、订单备注信息、收货人信息等；逆
+                            最常见的方式就是为字段设置主键或唯一索引，当插入重复数据时，抛出错误，程序终止，但这会给后续处理带来麻烦，因此需要对插入语句做特殊处理，尽量避开或忽略异常，下面我简单介绍一下，感兴趣的朋友可以尝试一下：
+这里为了方便演示，我新建了一个use
                         
                     </div>
                     <div class="publish-info">
@@ -606,8 +648,8 @@ commit log将如何提交？都有哪些约定？其实是有答案
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/springboot/" class="post-category">
-                                    springboot
+                            <a href="/categories/mysql/" class="post-category">
+                                    mysql
                                 </a>
                             
                             
