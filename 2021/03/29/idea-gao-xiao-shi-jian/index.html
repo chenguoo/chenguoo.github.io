@@ -1,0 +1,1132 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="idea高效实践, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>idea高效实践 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">idea高效实践</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/idea/" class="post-category">
+                                idea
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-03-29
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>IDEA（IntelliJ IDEA）是业界公认的最好开发工具之一，当然好不好也因人而异，也不要刻意去争谁强谁弱，高手往往不在乎手中的兵器是什么的。个人而言，更高效的工具适合每个开发人员，在编写代码的时候花的时间少，就有更多的时间去设计代码，当然，使用一个陌生的IDE，效率肯定是比不上自己熟练的IDE的，所以为了节省诸君的学习成本，也为了更快地去接纳和熟练IDEA，所以周末之余，故作此文。—- 一品江南</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>所有的电脑软件都有着相同的UI框架、菜单结构，对于每一个开发人员来说，基本的文件操作、项目操作、工作空间操作不成问题，不会讲到。<br>涉及的其他工具（Maven、Git等）不会详细讲，只会讲到如何操作，想要深入学习，关注其他博文。</p>
+<h2 id="二、配置"><a href="#二、配置" class="headerlink" title="二、配置"></a>二、配置</h2><p>在安装软件（JDK、Maven、Git、IDEA）搭建好环境后，要对IDEA进行一番配置，才能开始开发，每个人都有每个人的配置习惯，可以自己研究自己喜欢的配置，进入IDEA的配置 File | Settings（Ctrl+Alt+S）开始配置。</p>
+<p>选择菜单或设置步骤使用 “|” 分开，后面操作一样</p>
+<ol>
+<li><h3 id="主题与行为"><a href="#主题与行为" class="headerlink" title="主题与行为"></a>主题与行为</h3><p>选择自己喜欢的主题：Appearance &amp; Behavior | Appearance | Theme</p>
+</li>
+</ol>
+<p>配置骚气的背景图片：Appearance &amp; Behavior | Appearance | UI Options | Background Image…</p>
+<p>在配置中选择合适的窗口选项：Appearance &amp; Behavior | Appearance | Window Options</p>
+<p> Animate windows：关闭动画效果<br> Show memory indicator：显示内存使用情况<br> Show tool window bars：关闭工具栏显示，按两次Alt键可以显示<br> Small labels in editor tabs：编辑器显示小标签<br>配置自己想看到的菜单项和工具栏：Appearance &amp; Behavior | Menus and Toolbars</p>
+<p>配置启动退出和保存同步：Appearance &amp; Behavior | System Settings</p>
+<ol start="2">
+<li><h3 id="快捷键与编辑器"><a href="#快捷键与编辑器" class="headerlink" title="快捷键与编辑器"></a>快捷键与编辑器</h3><p>配置快捷键：Keymap</p>
+</li>
+</ol>
+<p>配置Git的Pull操作快捷键：Version Control Systems | Git | Repository | Pull 添加Alt+P<br>配置Maven窗口显示快捷键：Tool Windows | Maven 添加 Alt+3</p>
+<p>优化导包：Editor | General | Auto Import | Java</p>
+<p>Insert imports on paste: All：粘贴的时候导入全部包</p>
+<p> Add unambiguous imports on the fly<br> Optimize imports on the fly (for current project)<br>配置显示行号和方法分隔线：Editor | General | Appearance</p>
+<p> Show line numbers<br> Show method separators<br>配置代码折叠规则：Editor | General | Code Folding</p>
+<p>配置编辑器标签页：Editor | General | Editor Tabs</p>
+<p> Show tabs in one row：多行显示标签<br>配置高效的智能键：Editor | General | Smart Keys</p>
+<p> Insert paired brackets (), [], &lt;&gt;：成双成对输入<br> Reformat block on typing ‘}’：输入’}’后格式化代码<br> Use “CamelHumps” words：使用驼峰词，使用Ctrl+Righ/Left可以词内移动</p>
+<p> Jump outside closing bracket/quote with Tab：使用Tab键跳到括号/引号外面<br>配置牛逼的字体：Editor | Font</p>
+<p> Enable font ligatures：使用连字符<br>推荐字段：Fira Code，使用连字符输入&gt;=,&lt;=,==,!=,=&gt;等符号有惊喜。</p>
+<p>配置文件和代码模板：Editor | File and Code Templates</p>
+<p>配置文件编码：Editor | File Encodings</p>
+<p>建议全部配置成 UTF-8</p>
+<p>配置代码片段：Editor | Live Templates</p>
+<p>添加高效的代码片段可以提高效率</p>
+<h3 id="编译构建"><a href="#编译构建" class="headerlink" title="编译构建"></a>编译构建</h3><p>配置JDK环境：File | Other Settings | Structure for New Projects… | Project | Project SDK</p>
+<p>配置Maven构建：Build, Execution, Deployment | Maven</p>
+<p>配置Maven主目录：D:/apache-maven-3.5.4</p>
+<p>配置用户Maven设置文件：D:\apache-maven-3.5.4\conf\settings.xml</p>
+<p>配置本地仓库：D:\apache-maven-3.5.4\repo</p>
+<p> Always update snapshots：构建时总是更新依赖快照版本</p>
+<h3 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h3><p>配置Git管理：Version Control | Git</p>
+<p>配置Git路径：D:\Program Files\Git\bin\git.exe</p>
+<h3 id="运行内存"><a href="#运行内存" class="headerlink" title="运行内存"></a>运行内存</h3><p>编辑IDEA安装目录下bin目录：D:\IntelliJ IDEA\bin\idea64.exe.vmoptions文件</p>
+<pre class="line-numbers language-properties"><code class="language-properties">-Xms750m
+-Xmx750m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>运行内存配置可以配置IDEA初时内存大小和最大内存数，根据自己电脑配置优化</p>
+<h2 id="三、视图"><a href="#三、视图" class="headerlink" title="三、视图"></a>三、视图</h2><p>好的界面布局和主题，会让开发者更舒适。快速地能看到想要的信息，会让开发者事半功倍。</p>
+<h3 id="1-0-工具"><a href="#1-0-工具" class="headerlink" title="1.0 工具"></a>1.0 工具</h3><p>常用的工具栏默认位于IDEA界面的左、右、下三侧，也可以用鼠标悬停界面左下角图标弹出所有工具栏，你如果在前面主题与行为中配置隐藏工具栏显示，可以按两次 Alt 键显示。按键Esc可以帮助你从任何激活的工具栏返回到代码编辑。每个工具栏窗口顶部都会有一个Toolbar，可快速实现某些常用功能以及配置。</p>
+<p>推荐使用快捷键弹出想要使用的工具栏，不建议修改默认快捷键，但常用的工具栏如果没有快捷键，应当自定义：</p>
+<p>Alt+1：Project<br>Alt+2：Favorites<br>Alt+3：Maven（自定义）<br>Alt+4：Run<br>Alt+5：Debug<br>Alt+6：TODO<br>Alt+7：Structure<br>Alt+9：Version Control<br>Alt+F12：Terminal</p>
+<h4 id="1-1-Project"><a href="#1-1-Project" class="headerlink" title="1.1 Project"></a>1.1 Project</h4><p>Project工具栏主要是管理项目文件和目录，所有的项目资源都能在些找到，而且它可以有多种管理形式，可以更好聚焦于当前工作。</p>
+<p>管理形式</p>
+<p>Project：显示项目所有资源<br>Packages：显示项目所有包，适合开发模式<br>Tests：显示项目所有测试资源，适合测试模式<br>Problems：显示项目所有问题，所有存在问题的代码都会列举<br>Changed Files：显示项目所有修改资源，VCS中修改未提交的代码<br>Toolbar：<br>Scroll form source：从当前打开的文件定位文件树位置<br>Collapse All：折叠所有目录（Ctrl+-）<br>Setting：打开工具栏设置<br> Flatten Packages：平铺展示所有包<br> Compact Middle Packages：折叠包名显示<br>Hide：隐藏工具栏（Shift+Esc）<br>由于所有的工具栏都会有Setting和Hide，所以后面不会再说，在Setting里面会挑选几个常用的设置说。在Setting中的View Mode配置工具栏的显示模式：</p>
+<p>Dock Pinned：钉住停靠显示<br>Dock Unpinned：不钉信停靠显示，激活其他工具栏隐藏<br>Undock：不停靠显示，类似Dock Unpinned<br>Float：浮动显示<br>Window：窗口模式显示，在全屏查看日志时非常有用<br>技巧</p>
+<p>在展开的文件树中，可以直接输入字母对类或包进行模糊搜索，快速定位目标。</p>
+<p>在很多的窗口都可以这样进行模糊搜索，可以自己大胆尝试，效率大大地提高，不过注意要使用英文输入法。</p>
+<p>使用 Left/Right 键可以快速折叠/展开当前目录<br>使用 Alt+Home 可以导航当前项目</p>
+<h4 id="1-2-Favorites"><a href="#1-2-Favorites" class="headerlink" title="1.2 Favorites"></a>1.2 Favorites</h4><p>Favorites可以用来管理开发人员高频使用的目录或文件，可以是包和类，或者是类中的某一行，它分为三类：</p>
+<p>项目：在Project工具栏中对包或类右击选择 Add Favorites 添加</p>
+<p>书签：在Project工具栏中对包或类或者代码某行，按 F11 添加书签</p>
+<p>断点：打断点就会创建</p>
+<p>在很多地方使用 F4 快捷键可以快速跳转到源码或目录位置。比如选中 Favorites 中的某个书签或断点，选中 VCS 中的某个记录文件。</p>
+<h4 id="1-3-Maven"><a href="#1-3-Maven" class="headerlink" title="1.3. Maven"></a>1.3. Maven</h4><p>Maven是管理Maven项目的工具集合，可以执行Maven的生命周期和插件，可以查看依赖等。<br>Toolbar：</p>
+<p>Reimport All Maven Projects：重新导入Maven项目和依赖<br>Generate Sources and Update Folders For All Projects：创建源码更新目录<br>Download Sources and/or Documentation：下载源码或文档<br>Add Maven Projects：添加Maven项目<br>Run Maven Build：运行Maven生命周期或插件Goal<br>Execute Maven Goal：运行Maven插件Goal<br>Toggle Offline Mode：切换离线模式<br>Toggle ‘Skip Tests’ Mode：是否跳过测试<br>Setting</p>
+<p> Group Modules：Maven模块分组展示<br> Always Show ArtifactId：总是展示项目ArtifactId<br>Profiles</p>
+<p>选择激活Maven配置的Profile</p>
+<h4 id="1-4-TODO"><a href="#1-4-TODO" class="headerlink" title="1.4 TODO"></a>1.4 TODO</h4><p>TODO是管理项目代码中所有含有 // TODO 注释以及 // FIXME 注释的代码，这类特殊注释可以帮助开发人员处理事务。</p>
+<h4 id="1-5-Structure"><a href="#1-5-Structure" class="headerlink" title="1.5 Structure"></a>1.5 Structure</h4><p>Structure可以管理文件结构，包括类、接口等源文件的属性、方法等。<br>Toolbar：</p>
+<p>Sort by Visibility：按可见性排序<br>Sort Alphabetically：按字母排序<br>Group Methods by Defining Type：方法按类型分组<br>Show Properties：显示属性<br>Show Fields：显示字段<br>Show non-public：显示非公共的<br>Show Inherited：显示继承的<br>Show Anonymous Classes：显示匿名类<br>Show Lambdas：显示Lambda<br>Autoscroll to Source：自动定位到源码<br>Autoscroll from Source：自动从源码定位</p>
+<h4 id="1-6-Version-Control"><a href="#1-6-Version-Control" class="headerlink" title="1.6 Version Control"></a>1.6 Version Control</h4><p>Version Control是版本管理工具，这里使用Git为例，它一般会有两个固定标签页 Local Changes 和 Log，用来管理本地修改和提交日志。<br>Toolbar：</p>
+<p>Refresh：刷新本地修改列表<br>Commit：提交（Ctrl+K）<br>Revert：撤消选中的修改（Ctrl+Alt+Z）<br>Show Diff：查看修改源文件的Diff（Ctrl+D）<br>Changelists：把修改源文件分组<br>Shelve Silently：搁置修改源文件（Ctrl+Alt+H）<br>Group By：分组方式：Directory、Repository、Module<br>Ignored Files：忽略的文件<br>Expand All：展开所有目录（Ctrl++）<br>Collapse All：折叠所有目录（Ctrl+-）<br>Preview Diff：预览修改源文件的Diff<br>技巧</p>
+<p>查看Diff或者合并冲突的时候使用 F7/Shift+F7 查看下一个/上一个修改或冲突。<br>在提交代码的时候，可以查看历史的Commit信息。</p>
+<p>在提交代码的时候可以配置提交方式和提交前置事件。<br>提交方式：</p>
+<p>Amend commit：和上一次提交合并，等于命令 git commit –amend<br>Sign-off commit：在提交信息后面追加用户签名<br>提交前置事件：</p>
+<p> Alibaba Code Guidelines：阿里开发规约检测（插件）<br> Reformat code：格式化代码<br> Optimize imports：优化包的导入<br> Perform code analyses：代码分析<br> Check TODO（Show All）：检查TODO<br>前置事件非常有用，在提交代码前会自动优化代码的格式以及检查出不合格的代码。</p>
+<p>在推送（Ctrl+Shift+K）代码到远程仓库的时候，可以配置推送Tag以及强推。<br>在IDEA状态栏右边可以操作Git仓库的分支，包括本地仓库和远程仓库。</p>
+<h4 id="1-7-Event-Log"><a href="#1-7-Event-Log" class="headerlink" title="1.7 Event Log"></a>1.7 Event Log</h4><p>Event Log 查看IDEA全局操作的所有日志，当某些操作异常了，可以在此找到答案。</p>
+<h4 id="1-8-Spring"><a href="#1-8-Spring" class="headerlink" title="1.8 Spring"></a>1.8 Spring</h4><p>Spring可以根据当前的Spring框架管理Bean和MVC，对于使用Spring框架的开发人员来说，非常方便。</p>
+<p>技巧</p>
+<p>在Spring项目中，在自己创建的properties配置文件，在添加配置的时候，只有默认的application.properties文件才会有上下文提示，可以在项目右击菜单中 Open Module Settings （F4）中将properties文件添加到Spring上下文环境中。</p>
+<h4 id="1-9-Terminal"><a href="#1-9-Terminal" class="headerlink" title="1.9 Terminal"></a>1.9 Terminal</h4><p>Terminal是IDEA的集成终端，方便执行命令行。</p>
+<h4 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h4><p>Windows系统的开发人员会觉得CMD的功能太弱鸡，所以会使用Git软件自带的Bash，可以将Bash集成到IDEA中。<br>IDEA集成终端配置Bash：File | Settings | Tools | Terminal | Application settings</p>
+<p>Shell path：D:\Program Files\Git\bin\bash.exe</p>
+<p>NOTE：如果终端出现乱码问题，可以百度解决，很简单。</p>
+<h3 id="2-0-Web"><a href="#2-0-Web" class="headerlink" title="2.0 Web"></a>2.0 Web</h3><p>Web工具栏和Java Enterprise工具栏有点类似，在Web项目中，会管理Servlet、Filter、Listener，当然，如果我们的项目中只用到SpringMVC，而不是自己编写Servlet的话，这工具似乎没有太多的作用。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>在代码视图中，主要是使用快捷键快速浏览一些代码的信息，这些快捷键在开发过程中也是大有用处的。</p>
+<p>查看当前变量、方法、类等的定义：Ctrl+Shift+I<br>查看当前变量、方法、类等的文档注释：Ctrl+Q<br>查看当前方法的参数信息：Ctrl+P<br>查看当前输入表达式信息：Ctrl+Shift+P<br>查看当前上下文信息：Alt+Q（可以查看当前类文件类定义信息）</p>
+<p>技巧</p>
+<p>使用Ctrl+Shift+I快速查看当前枚举、常量的信息<br>调用方法的时候使用Ctrl+P查看当前参数输入情况，由其是重载方法的情况<br>使用Ctrl+Shift+P快速修改某段代码</p>
+<h4 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h4><p>在文件视图中，可以导航最近修改的文件或位置。</p>
+<p>查看最近修改的文件：Ctrl+E<br>查看最近修改的位置：Ctrl+Shift+E</p>
+<h4 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h4><p>窗口视图可以设置IDEA主界面的显示方式。</p>
+<p>演示模式：View | Enter Presentation Mode<br>专注模式：View | Enter Distraction Mode<br>全屏模式：View | Enter Full Mode</p>
+<h1 id="四、导航"><a href="#四、导航" class="headerlink" title="四、导航"></a>四、导航</h1><p>想去哪儿就去哪儿，定位问题与查阅代码都很方便。</p>
+<h3 id="文件-1"><a href="#文件-1" class="headerlink" title="文件"></a>文件</h3><p>类全局查找：Ctrl+N<br>文件全局查找：Ctrl+Shift+N<br>符号全局查找：Ctrl+Alt+Shift+N<br>行/列定位：Ctrl+G<br>退回上/下一个位置：Ctrl+Alt + Left/Right<br>跳转到文件上/下一个修改的位置：Ctrl+Alt+Shift + Top/Bottom<br>切换文件标签页：Ctrl+Tab和Ctrl+Shift+Tab</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><p>跳转到属性、方法、类定义的位置：Ctrl+B<br>跳转到接口、方法实现的位置：Ctrl+Alt+B<br>跳转到类型定义的位置：Ctrl+Shift+B<br>跳转到父类，父方法的位置：Ctrl+U<br>跳转类测试类、方法的位置：Ctrl+Shift+T<br>跳转到下一个错误位置：F2<br>跳转到上一个错误位置：Shift+F2<br>跳转到上/下一个方法位置：Alt + Top/Bottom<br>跳转到大括号开头/结尾：Ctrl + [/]<br>在代码编辑器的左侧会存在Gutter图标，在设置 File | Settings | Editor | General | Gutter Icons 中我们可以看到这些图标的含义，单击图标也可以跳转到对应的位置。</p>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>查看文件结构：Ctrl+F12<br>查看文件路径：Ctrl+Alt+F12<br>查看类型层次结构：Ctrl+H<br>查看方法层次结构：Ctrl+Shift+H<br>查看调用层次结构：Ctrl+Alt+H</p>
+<h3 id="技巧-1"><a href="#技巧-1" class="headerlink" title="技巧"></a>技巧</h3><p>在查找类、文件的时候可以通过特殊符号定位到类中的某个方法或某行。<br>这个方法在定位问题的时候大有用处，而且只需简单的规则，就可以形成代码的坐标。</p>
+<p>使用#标记类或文件中的某个方法或属性：HttpProxy#get<br>使用:标记类或文件中的某行某列：HttpProxy:37:10<br>在团队之间发送代码位置的时候，使用右击菜单中 Copy Reference（Ctrl+Alt+Shift+C）来复制某个类、方法、属性等的唯一坐标，然后开发人员可以使用Ctrl+N输入坐标来定位代码。</p>
+<p>查看类型层次结构的时候可以使用 Ctrl+Alt+U 来显示类的UML图。<br>在Project文件树中也可以选择类使用 Ctrl+Alt+U生成UML图。</p>
+<h1 id="五、代码"><a href="#五、代码" class="headerlink" title="五、代码"></a>五、代码</h1><p>高效编辑代码，节省苦力活，缩短开发时间，今天不加班。</p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>重写父类方法：Ctrl+O<br>实现父类接口：Ctrl+I<br>生成代理方法：Code | Delegate Methods<br>生成多种代码：Alt+Insert<br>Constructor：构造方法<br>Getter：Get方法<br>Setter：Set方法<br>Getter and Setter：Get方法和Set方法<br>equals() and hashCode()：equals方法和hashCode方法<br>toString()：toString方法<br>Test：测试类或测试方法<br>Copyright：版权信息<br>@Autowired Dependency：注入Spring Bean<br>插入包围代码：Ctrl+Alt+T<br>if / else / while / for<br>try / catch / finally<br>synchronized / Runnable<br>region…endregion Comments<br>去除包围代码：Ctrl+Shift+Delete<br>补全当前词语：Alt+/或Alt+Shift+/<br>当前行前面插入一行：Ctrl+Alt+Enter<br>当前行后面插入一行：Shift+Enter<br>删除当前行或选中行：Ctrl+Y<br>重复插入当前行或选中行：Ctrl+D<br>在编写代码的时候，经常会要记录一些非代码文件，可以使用 Ctrl+Alt+Shift+Insert 来新建草稿文件，支持多种格式，新建好的草稿文件会保存在 Project 文件树的/Scratches and Consoles/Scratches目录下。</p>
+<h3 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h3><p>选择当前光标所在区域：Ctrl+W，重复使用扩大选择范围<br>缩小当前选择范围：Ctrl+Shift+W<br>选择当前光标所在表达式：Ctrl+Shift+P</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><p>插入行注释：Ctrl+/<br>插入块注释：Ctrl+Shift+/<br>格式化代码：Ctrl+Alt+L<br>自动缩进对齐：Ctrl+Alt+I<br>生动优化导包：Ctrl+Alt+O<br>列自动对齐：Code | Align to Columns<br>代码折叠<br>折叠/展开当前代码段：Ctrl + -/+<br>折叠/展开全部代码：Ctrl+Shift + -/+<br>折叠全部文档注释：Code | Folding | Collapse doc comments<br>展开全部文档注释：Code | Folding | Expand doc comments</p>
+<h3 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h3><p>代码语句上/下移动：Ctrl+Shift + Up/Bottom，可以简单移动方法的位置<br>代码行上/下移动：Alt+Shift + Up/Bottom</p>
+<h3 id="片段"><a href="#片段" class="headerlink" title="片段"></a>片段</h3><p>在快捷键与编辑器配置中说到了如何配置代码片段，代码片段可以明显地提高编辑代码的速度，由其插入高频代码。</p>
+<p>智能片段：可以直接输入，也可以使用Ctrl+J来选择</p>
+<p>包围片段：可以选中一段代码使用Ctrl+Alt+J插入，也可以使用Ctrl+Alt+T</p>
+<h3 id="纠错"><a href="#纠错" class="headerlink" title="纠错"></a>纠错</h3><p>在代码中存在红色波浪线的代码都是有问题的代码<br>右侧滚动条上方图标不为绿色的对钩时表示该文件中存在有问题的代码<br>可以点击滚动条的彩色条来定位有问题的代码<br>也可以使用F2和Shift+F2来快速定位有问题的代码<br>滚动条的彩色条颜色决定着问题的严重性，例：警告、错误等<br>光标置于错误代码的时候，左侧会出现电灯泡，单击它有解决办法<br>使用快捷键 Alt+Enter 和单击电灯泡的功能一样<br>不管代码有什么问题，使用 Alt+Enter 总能找到解决办法。</p>
+<p>不要轻易关闭代码的错误提示，级别较低的警告可以酌情处理</p>
+<p>网上有许多坑人的教程，解决报红的错误的办法就是把错误提示关掉，万不可取。</p>
+<h3 id="技巧-2"><a href="#技巧-2" class="headerlink" title="技巧"></a>技巧</h3><p>在接口名称AE选择 Implement interface 快速添加接口的实现类。<br>在抽象类名称AE选择 Implement abstract class 快速添加抽象类的实现类。<br>在类名称AE选择 Create subclass 快速添加该类的子类。<br>在接口、抽象类、类名称AE选择 Create Test 快速添加类的测试类。<br>在方法名称AE选择 Generate missed test methods 创建测试方法。<br>在方法名称AE选择 Generate overloaded method with default parameter values 创建当前方法的重载方法。<br>在属性、方法、类名称AE选择 Add Javadoc 快速添加文档注释。<br>在正则表达式字符串AE选择 Check RegExp 校验正则表达式。<br>AE表示使用Alt+Enter快捷键</p>
+<p>在光标拖动选择的时候按住Alt键可以垂直选择进行多行编辑。<br>按住 Alt+Shift 键使用光标单击可以进行多个位置编辑。<br>在使用Ctrl+F的时候，想要编辑所有的结果可以使用Ctrl+Alt+Shift+J。</p>
+<h1 id="六、分析"><a href="#六、分析" class="headerlink" title="六、分析"></a>六、分析</h1><p>分析项目，分析代码，才能分析设计。</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><p>检查代码：Analyze | Inspect Code<br>检查代码并修复：Analyze | Code Cleanup</p>
+<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><p>分析依赖信息：Analyze | Analyze Dependencies<br>分析被依赖信息：Analyze | Analyze Backward Dependencies<br>分析Module依赖信息：Analyze | Analyze Module Dependencies<br>分析依赖矩阵：Analyze | Analyze Dependency Matrix</p>
+<h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h3><p>分析传递到当前的数据流：Analyze | Analyze Data Flow to Here<br>分析从当前开始传递的数据流：Analyze | Analyze Data Flow from Here<br>分析异常堆栈信息：Analyze | Analyze Stack Trace</p>
+<h3 id="技巧-3"><a href="#技巧-3" class="headerlink" title="技巧"></a>技巧</h3><p>分析数据流可以追踪方法调用关系。</p>
+<p>可以使用分析异常堆栈信息来处理异常日志。</p>
+<h1 id="七、重构"><a href="#七、重构" class="headerlink" title="七、重构"></a>七、重构</h1><p>珍惜每一次重构的机会，尽量把项目设计的更好。</p>
+<h3 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h3><p>重构当前代码：Ctrl+Alt+Shift+T<br>重命名：Shift+F6<br>修改类或方法签名：Ctrl+F6<br>修改定义类型：Ctrl+Shift+F6<br>修改成静态定义：Refactor | Make Static<br>修改成实例方法：Refactor | Convert To Instance Method<br>移动/复制：F6/F5（可以移动静态变量或方法）<br>安全删除：Alt+Delete<br>提取方法生成代理类：Refactor | Extract | Delegate<br>提取方法生成接口：Refactor | Extract | Interface<br>提取方法生成父类：Refactor | Extract | Superclass</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>对当前表达式提取并封装：Refactor | Extract<br>提取为变量：Ctrl+Alt+V<br>提取为常量：Ctrl+Alt+C<br>提取为类属性：Ctrl+Alt+F<br>提取为方法参数：Ctrl+Alt+P<br>提取为函数式参数：Ctrl+Alt+Shift+P<br>提取为函数式变量：Refactor | Extract | Functional Variable<br>提取方法的多个参数封装为对象：Refactor | Extract | Parameter Object<br>提取为方法：Ctrl+Alt+M<br>提取为方法并封装成对象：Refactor | Extract | Method Object<br>对当前表达式去除封装：Refactor | Inline<br>查找并封装重复代码：Refactor | Find and Replace Code Duplicates<br>倒置布尔类型：Refactor | Invert Boolean<br>去除中介调用：Refactor | Remove Middleman<br>包装方法返回结果：Refactor | Wrap Method Return Value<br>使用方法概括属性：Refactor | Encapsulate Fields<br>变量的初始化提取为方法：Refactor | Replace Temp with Query<br>使用工厂方法替换构造方法：Refactor | Replace Constructor with Factory Method<br>使用构建器替换构造方法：Refactor | Replace Constructor with Builder<br>使用安全的类型填充泛型：Refactor | Generify</p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>将类成员推送到父类：Refactor | Pull Members Up<br>将类成员拉取到子类：Refactor | Push Members Dowm<br>使用接口替换类定义：Refactor | Use Interface Where Possible<br>使用代理来替换继承：Refactor | Replace Inheritance with Delegation<br>匿名类替换成内部类：Refactor | Convert Anonymous to Inner</p>
+<h3 id="技巧-4"><a href="#技巧-4" class="headerlink" title="技巧"></a>技巧</h3><p>在Controller方法中，使用 Refactor | Extract | Parameter Object 把多个接收表单的参数封装成VO类。</p>
+<p>灵活运用好重构技能，编码速度可以提高几个档。</p>
+<h1 id="八、构建"><a href="#八、构建" class="headerlink" title="八、构建"></a>八、构建</h1><p>蛋变成鸡的一步，怎样处理好一个蛋，一窝蛋？</p>
+<h3 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h3><p>构建项目：Build | Build Project （Ctrl+F9）<br>重新构建项目：Build | Rebuild Project （Ctrl+Shift+F9）<br>构建Module：Build | Build Module</p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>在菜单 Run 下面会有相关运行的操作，可以在 Run | Edit Configurations 中管理配置各种运行方式。</p>
+<p>运行/调试：Shift + F10/F9<br>运行/调试列表：Alt+Shift + F10/F9<br>停止/重启：Ctrl + F2/F5</p>
+<h4 id="2-1-Main"><a href="#2-1-Main" class="headerlink" title="2.1 Main"></a>2.1 Main</h4><p>如果代码中存在Main方法，并以Main方法形式启动，打开Main方法所有类，除了使用 Alt+F10 或 Alt+Shift+F10 启动之外，也可以单击类名或方法名所在的运行Gutter图标。</p>
+<p>如果想要全屏或者分屏显示运行日志，可以把运行工具窗口的 View Mode 设置成 Window 模式。</p>
+<h4 id="2-2-Tomcat"><a href="#2-2-Tomcat" class="headerlink" title="2.2 Tomcat"></a>2.2 Tomcat</h4><p>如果Web项目要使用Tomcat启动，则先要配置Tomcat Server运行方式，在 Run | Edit Configurations 添加该运行方式，在添加列表中选择 Tomcat Server | Local，配置好后即可运行。</p>
+<p>在配置之前需要在本地下载Tomcat，在 Edit Configurations 配置中可以不仅可以添加运行方式，还可以对每个运行方式进行其他配置，比如：VM Options 等。</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>使用Debug启动可以快速定位问题，打断点步进调试是每个开发人员必备的技能，这里不多说，常用快捷键：</p>
+<p>每行执行：F8<br>进入方法：F7<br>跳出方法：Shift+F8<br>执行到下一个断点：F9<br>跳转到当前执行的断点位置：Alt+F10<br>计算表达式：Alt+F8<br>技巧</p>
+<p>在断点停止的时候可以使用计算表达式来调试断点前的数据。</p>
+<p>不小心跳过了自己想要调试的断点，可以使用 Drop Frame 来删除当前栈帧，来重新执行方法。</p>
+<p>在栈帧窗口（Frames）右击，可以使用 Force Return 来强制返回当前方法，或使用 Throw Exception 来抛出异常。</p>
+<h1 id="九、工具"><a href="#九、工具" class="headerlink" title="九、工具"></a>九、工具</h1><p>IDEA不仅仅只是一个写代码的软件，还拥有开发过程中经常使用的工具。</p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>在视图工具栏 View | Tool Windows | Database 中可以找到Database工具，点击Toolbar上的加号可以添加数据源，配置好服务器和驱动后就可以使用了，打开 Console 输入SQL，使用 Ctrl+Enter 执行。</p>
+<h3 id="服务器管理"><a href="#服务器管理" class="headerlink" title="服务器管理"></a>服务器管理</h3><p>在工具栏 Tools | Deployment | Browse Remote Host 菜单打开Remote Host工具，点击 … 配置服务器，配置好了之后就可以操作 Remote Host 的文件树了。</p>
+<h3 id="HTTP客户端"><a href="#HTTP客户端" class="headerlink" title="HTTP客户端"></a>HTTP客户端</h3><p>在任何目录下都可以右击新建文件的时候创建 New HTTP Request 文件来编写HTTP报文来请求和测试HTTP接口，推荐在test目录下创建。创建测试文件如下：</p>
+<pre><code>GET http://localhost:80/api/item?id=99
+Accept: application/json</code></pre>
+<p>点击每个请求报文左侧的运行Gutter图标就可以发送请求，同样创建POST请求：</p>
+<pre><code>POST http://localhost:80/api/item?id=99
+Content-Type: application/x-www-form-urlencoded
+
+id=1&amp;name=2&amp;gender=1&amp;mobile=1413131212</code></pre>
+<p>可以在请求报文中使用环境变量，使用来引用变量，变量可以在配置文件（http-client.env.json或rest-client.env.json）中定义：</p>
+<pre><code>{
+  "local": {
+    "host": "http://localhost:8080",
+    "x_token": "token"
+  },
+  "test": {
+    "host": "http://10.250.1.122:8087",
+    "x_token": "token"
+  }
+}</code></pre>
+<p>在运行的时候选择不同的环境使用不同的变量：</p>
+<pre><code>POST {{host}}/api/item
+Content-Type: application/json
+
+{
+  "name": "ajn",
+  "age": 24
+}</code></pre>
+<p>变量也可以在响应脚本中使用client.global.set设置和使用client.global.get获取。</p>
+<p>可以使用响应脚本来测试HTTP请求，脚本使用Javascript语言编写：</p>
+<pre><code>GET https://httpbin.org/status/404
+Accept: application/json
+
+{%
+client.test("Request executed successfully", function() {
+client.assert(response.status === 200, "Response status is not 200");
+});
+%}</code></pre>
+<p>响应脚本API详解：</p>
+<p>client：客户端对象<br>global：全局变量属性<br>set(string, object)：设置变量<br>get(string)：获取变量<br>isEmpty()：判断全局变量是否为空<br>clear(string)：清除某个变量<br>clearAll()：清除所有变量<br>test(string, function)：测试函数<br>assert(boolean, string)：断言函数<br>log(string)：输出日志函数<br>response：响应对象<br>body：响应体<br>headers：响应头<br>status：响应状态码<br>contentType：响应的ContentType头<br>4. SSH会话<br>在工具栏 Tool | Start SSH session 菜单可以新建SSH会话，在前面服务器管理中如果创建了服务器，会自动添加该服务器的SSH会话。</p>
+<h1 id="十、插件"><a href="#十、插件" class="headerlink" title="十、插件"></a>十、插件</h1><p>强大的功能，还远远不够，一个合格的软件，都应支持功能自由地扩展。</p>
+<ol>
+<li>Lombok<br>Lombok插件支持代码中使用Lombok注解编译生成Get和Set等方法，该插件不仅支持注解，它在菜单中添加了两个功能：</li>
+</ol>
+<p>Refactor | Lombok：插入Lombok注解<br>Refactor | Delombok：将Lombok注解生成代码<br>更多设置：File | Settings | Other Settings | Lombok plugin</p>
+<ol start="2">
+<li>Alibaba Java Coding Guidelines<br>该插件是结合阿里巴巴Java开发规约而出的，主要功能用于检测代码是否条例阿里开发规范，它结合了IDEA的纠错功能可以快速定位问题和修复问题，在菜单中添加的功能有：</li>
+</ol>
+<p>Tool | 阿里编码规约<br>阿里规约插件提示的问题也可以使用 Alt+Enter 来寻找解决办法。</p>
+<p>技巧</p>
+<p>根据阿里规约，快速分析代码并一键修复。</p>
+<ol start="3">
+<li>CamelCase<br>CamelCase添加一个快捷键 Alt+Shift+U来修改标识符的下划线、小驼峰、大驼峰等格式，并支持批量转换。</li>
+</ol>
+<p>按住 Alt+Shift 使用鼠标单击可以选择多选编辑。</p>
+<ol start="4">
+<li>Easy Code<br>Easy Code插件可以根据数据库表和模板来生成代码，可以解决编写重复底层代码的问题。添加的设置项有：</li>
+</ol>
+<p>配置编码和作者名称：Other Settings | Easy Code<br>配置类型映射：Other Settings | Easy Code | Type Mapper<br>配置模板：Other Settings | Easy Code | Template Setting<br>配置全局模板：Other Settings | Easy Code | Global Config<br>只需在 Database 工具栏选中一个或多个表，右击 EasyCode | Generate Code 就可以生成代码，针对单表配置类型映射可以右击 EasyCode | Config Table 来配置。</p>
+<ol start="5">
+<li>GenerateAllSetter<br>该插件可以一键调用对象的所有Setter方法，在新建对象实例后使用 Alt+Enter 弹出面板中菜单：</li>
+</ol>
+<p>创建似有Setter不带默认值：Generate all setter no default value<br>创建似有Setter带默认值：Generate all setter with default value</p>
+<ol start="6">
+<li>Maven Helper<br>该插件用于Maven管理，可以分析Maven依赖结构和执行Maven生命周期，添加快捷键 Ctrl+Alt+R 来运行Maven生命周期，可以在 File | Settings | Other Settings | Maven Helper 中进行设置，另外一个功能就是在pom.xml文件下方添加了一个Dependency Analyzer标签，可以用来分析Maven依赖，可以查看和解决Maven依赖冲突。</li>
+</ol>
+<ol start="7">
+<li>MyBatisX<br>MyBatisX插件主要增强了IDEA对MyBatis框架的支持，可以在 File | Settings | Other Settings | Mybatis 进行设置，它添加的功能有：</li>
+</ol>
+<p>检验Mapper层的代码逻辑<br>添加Mapper层接口与XML文件跳转功能的Gutter图标<br>快速根据接口生成XML标签<br>接口参数生成 @Param 注解</p>
+<ol start="8">
+<li>RestfulToolkit<br>该插件是管理Restful接口的工具集，它提供的功能有：</li>
+</ol>
+<p>使用快捷键 Ctrl+\ 来根据URL来跳转到方法定义<br>提供了一个接口的树形窗口<br>提供了一个简单的HTTP请求工具<br>在请求方法上生成特殊字符串并复制的功能<br>复制K-V形式的QueryString：Generate &amp; Copy Query Param (Key value)<br>复制JSON形式的请求体：Generate &amp; Copy RequestBody (JSON)<br>复制相对路径URL：Generate &amp; Copy Relation URL<br>复制全路径URL：Generate &amp; Copy Full URL<br>在Java类上生成JSON并复制的功能<br>复制压缩格式的JSON：Convert to JSON(Compressed)<br>复制JSON：Convert to JSON</p>
+<p>参考文献</p>
+<p>IDEA快捷键手册：Help | Keymap Reference<br>IDEA 2019.1 官方文档：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/idea/2019.1/">https://www.jetbrains.com/help/idea/2019.1/</a></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2021/03/29/idea-gao-xiao-shi-jian/">https://chenguoo.github.io/2021/03/29/idea-gao-xiao-shi-jian/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/03/29/idea-gao-xiao-shi-jian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="idea高效实践">
+                        
+                        <span class="card-title">idea高效实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一、概述IDEA（IntelliJ IDEA）是业界公认的最好开发工具之一，当然好不好也因人而异，也不要刻意去争谁强谁弱，高手往往不在乎手中的兵器是什么的。个人而言，更高效的工具适合每个开发人员，在编写代码的时候花的时间少，就有更多的时间去
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/idea/" class="post-category">
+                                    idea
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/03/26/huan-cun-xue-beng-ji-chuan-chuan-tou/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="缓存雪崩、击穿、穿透">
+                        
+                        <span class="card-title">缓存雪崩、击穿、穿透</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            再也不怕，缓存雪崩、击穿、穿透！用户的数据一般都是存储于数据库，数据库的数据是落在磁盘上的，磁盘的读写速度可以说是计算机里最慢的硬件了。
+当用户的请求，都访问数据库的话，请求数量一上来，数据库很容易就奔溃的了，所以为了避免用户直接访问数据库
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Cheney
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"react":{"opacity":0.7}}});</script></body>
+
+</html>
