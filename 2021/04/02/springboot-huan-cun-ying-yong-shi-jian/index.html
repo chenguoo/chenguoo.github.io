@@ -1,0 +1,1950 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="SpringBoot缓存应用实践, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>SpringBoot缓存应用实践 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">SpringBoot缓存应用实践</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-04-02
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>缓存是最直接有效提升系统性能的手段之一。个人认为用好用对缓存是优秀程序员的必备基本素质。本文结合实际开发经验，从简单概念原理和代码入手，一步一步搭建一个简单的二级缓存系统。</p>
+<h2 id="一、通用缓存接口"><a href="#一、通用缓存接口" class="headerlink" title="一、通用缓存接口"></a><strong>一、通用缓存接口</strong></h2><h3 id="1、缓存基础算法"><a href="#1、缓存基础算法" class="headerlink" title="1、缓存基础算法"></a>1、缓存基础算法</h3><ul>
+<li><strong>FIFO（First In First Out）</strong>，先进先出，和OS里的FIFO思路相同，如果一个数据最先进入缓存中，当缓存满的时候，应当把最先进入缓存的数据给移除掉。</li>
+<li><strong>LFU（Least Frequently Used）</strong>，最不经常使用，如果一个数据在最近一段时间内使用次数很少，那么在将来一段时间内被使用的可能性也很小。</li>
+<li><strong>LRU（Least Recently Used）</strong>，最近最少使用，如果一个数据在最近一段时间没有被访问到，那么在将来它被访问的可能性也很小。也就是说，当限定的空间已存满数据时，应当把最久没有被访问到的数据移除。</li>
+</ul>
+<h3 id="2、接口定义"><a href="#2、接口定义" class="headerlink" title="2、接口定义"></a>2、接口定义</h3><p>简单定义缓存接口，大致可以抽象如下：</p>
+<pre><code>package com.power.demo.cache.contract;
+
+import java.util.function.Function;
+
+/**
+ * 缓存提供者接口
+ **/
+public interface CacheProviderService {
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    &lt;T extends Object&gt; T get(String key);
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     **/
+    &lt;T extends Object&gt; T get(String key, Function&lt;String, T&gt; function);
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param funcParm function函数的调用参数
+     **/
+    &lt;T extends Object, M extends Object&gt; T get(String key, Function&lt;M, T&gt; function, M funcParm);
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    &lt;T extends Object&gt; T get(String key, Function&lt;String, T&gt; function, Long expireTime);
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param funcParm function函数的调用参数
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    &lt;T extends Object, M extends Object&gt; T get(String key, Function&lt;M, T&gt; function, M funcParm, Long expireTime);
+
+    /**
+     * 设置缓存键值
+     *
+     * @param key 缓存键 不可为空
+     * @param obj 缓存值 不可为空
+     **/
+    &lt;T extends Object&gt; void set(String key, T obj);
+
+    /**
+     * 设置缓存键值
+     *
+     * @param key 缓存键 不可为空
+     * @param obj 缓存值 不可为空
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    &lt;T extends Object&gt; void set(String key, T obj, Long expireTime);
+
+    /**
+     * 移除缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    void remove(String key);
+
+    /**
+     * 是否存在缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    boolean contains(String key);
+}</code></pre>
+<p><em>注意，这里列出的只是常见缓存功能接口，一些在特殊场景下用到的统计类的接口、分布式锁、自增（减）等功能不在讨论范围之内。</em></p>
+<p>Get相关方法，注意多个参数的情况，缓存接口里面传人的Function，这是Java8提供的函数式接口，虽然支持的入参个数有限（这里你会非常怀念.NET下的Func委托），但是仅对Java这个语言来说，这真是一个重大的进步^_^。</p>
+<p>接口定义好了，下面就要实现缓存提供者程序了。按照存储类型的不同，本文简单实现最常用的两种缓存提供者：<strong>本地缓存和分布式缓存</strong>。</p>
+<h2 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a><strong>二、本地缓存</strong></h2><p>本地缓存，也就是JVM级别的缓存(本地缓存可以认为是直接在进程内通信调用，而分布式缓存则需要通过网络进行跨进程通信调用)，一般有很多种实现方式，比如直接使用Hashtable、ConcurrentHashMap等天生线程安全的集合作为缓存容器，或者使用一些成熟的开源组件，如EhCache、Guava Cache等。本文选择上手简单的Guava缓存。</p>
+<h3 id="1、什么是Guava"><a href="#1、什么是Guava" class="headerlink" title="1、什么是Guava"></a>1、什么是Guava</h3><p>Guava，简单来说就是一个开发类库，且是一个非常丰富强大的开发工具包，号称可以让使用Java语言更令人愉悦，主要包括基本工具类库和接口、缓存、发布订阅风格的事件总线等。在实际开发中，我用的最多的是集合、缓存和常用类型帮助类，很多人都对这个类库称赞有加。</p>
+<h3 id="2、添加依赖"><a href="#2、添加依赖" class="headerlink" title="2、添加依赖"></a>2、添加依赖</h3><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.google.guava&lt;/groupId&gt;
+    &lt;artifactId&gt;guava&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<h3 id="3、实现接口"><a href="#3、实现接口" class="headerlink" title="3、实现接口"></a>3、实现接口</h3><pre><code>/*
+ * 本地缓存提供者服务 (Guava Cache)
+ * */
+@Configuration
+@ComponentScan(basePackages = AppConst.BASE_PACKAGE_NAME)
+@Qualifier("localCacheService")
+public class LocalCacheProviderImpl implements CacheProviderService {
+
+    private static Map&lt;String, Cache&lt;String, Object&gt;&gt; _cacheMap = Maps.newConcurrentMap();
+
+    static {
+
+        Cache&lt;String, Object&gt; cacheContainer = CacheBuilder.newBuilder()
+                .maximumSize(AppConst.CACHE_MAXIMUM_SIZE)
+                .expireAfterWrite(AppConst.CACHE_MINUTE, TimeUnit.MILLISECONDS)//最后一次写入后的一段时间移出
+                //.expireAfterAccess(AppConst.CACHE_MINUTE, TimeUnit.MILLISECONDS) //最后一次访问后的一段时间移出
+                .recordStats()//开启统计功能
+                .build();
+
+        _cacheMap.put(String.valueOf(AppConst.CACHE_MINUTE), cacheContainer);
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    public &lt;T extends Object&gt; T get(String key) {
+        T obj = get(key, null, null, AppConst.CACHE_MINUTE);
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     **/
+    public &lt;T extends Object&gt; T get(String key, Function&lt;String, T&gt; function) {
+        T obj = get(key, function, key, AppConst.CACHE_MINUTE);
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param funcParm function函数的调用参数
+     **/
+    public &lt;T extends Object, M extends Object&gt; T get(String key, Function&lt;M, T&gt; function, M funcParm) {
+        T obj = get(key, function, funcParm, AppConst.CACHE_MINUTE);
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    public &lt;T extends Object&gt; T get(String key, Function&lt;String, T&gt; function, Long expireTime) {
+        T obj = get(key, function, key, expireTime);
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param funcParm function函数的调用参数
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    public &lt;T extends Object, M extends Object&gt; T get(String key, Function&lt;M, T&gt; function, M funcParm, Long expireTime) {
+        T obj = null;
+        if (StringUtils.isEmpty(key) == true) {
+            return obj;
+        }
+
+        expireTime = getExpireTime(expireTime);
+
+        Cache&lt;String, Object&gt; cacheContainer = getCacheContainer(expireTime);
+
+        try {
+            if (function == null) {
+                obj = (T) cacheContainer.getIfPresent(key);
+            } else {
+                final Long cachedTime = expireTime;
+                obj = (T) cacheContainer.get(key, () -&gt; {
+                    T retObj = function.apply(funcParm);
+                    return retObj;
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return obj;
+    }
+
+    /**
+     * 设置缓存键值 直接向缓存中插入值，这会直接覆盖掉给定键之前映射的值
+     *
+     * @param key 缓存键 不可为空
+     * @param obj 缓存值 不可为空
+     **/
+    public &lt;T extends Object&gt; void set(String key, T obj) {
+
+        set(key, obj, AppConst.CACHE_MINUTE);
+    }
+
+    /**
+     * 设置缓存键值 直接向缓存中插入值，这会直接覆盖掉给定键之前映射的值
+     *
+     * @param key 缓存键 不可为空
+     * @param obj 缓存值 不可为空
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    public &lt;T extends Object&gt; void set(String key, T obj, Long expireTime) {
+        if (StringUtils.isEmpty(key) == true) {
+            return;
+        }
+
+        if (obj == null) {
+            return;
+        }
+
+        expireTime = getExpireTime(expireTime);
+
+        Cache&lt;String, Object&gt; cacheContainer = getCacheContainer(expireTime);
+
+        cacheContainer.put(key, obj);
+    }
+
+    /**
+     * 移除缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    public void remove(String key) {
+        if (StringUtils.isEmpty(key) == true) {
+            return;
+        }
+
+        long expireTime = getExpireTime(AppConst.CACHE_MINUTE);
+
+        Cache&lt;String, Object&gt; cacheContainer = getCacheContainer(expireTime);
+
+        cacheContainer.invalidate(key);
+    }
+
+    /**
+     * 是否存在缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    public boolean contains(String key) {
+        boolean exists = false;
+        if (StringUtils.isEmpty(key) == true) {
+            return exists;
+        }
+
+        Object obj = get(key);
+
+        if (obj != null) {
+            exists = true;
+        }
+
+        return exists;
+    }
+
+    private static Lock lock = new ReentrantLock();
+
+    private Cache&lt;String, Object&gt; getCacheContainer(Long expireTime) {
+
+        Cache&lt;String, Object&gt; cacheContainer = null;
+        if (expireTime == null) {
+            return cacheContainer;
+        }
+
+        String mapKey = String.valueOf(expireTime);
+
+        if (_cacheMap.containsKey(mapKey) == true) {
+            cacheContainer = _cacheMap.get(mapKey);
+            return cacheContainer;
+        }
+
+        try {
+            lock.lock();
+            cacheContainer = CacheBuilder.newBuilder()
+                    .maximumSize(AppConst.CACHE_MAXIMUM_SIZE)
+                    .expireAfterWrite(expireTime, TimeUnit.MILLISECONDS)//最后一次写入后的一段时间移出
+                    //.expireAfterAccess(AppConst.CACHE_MINUTE, TimeUnit.MILLISECONDS) //最后一次访问后的一段时间移出
+                    .recordStats()//开启统计功能
+                    .build();
+
+            _cacheMap.put(mapKey, cacheContainer);
+
+        } finally {
+            lock.unlock();
+        }
+
+        return cacheContainer;
+    }
+
+    /**
+     * 获取过期时间 单位：毫秒
+     *
+     * @param expireTime 传人的过期时间 单位毫秒 如小于1分钟，默认为10分钟
+     **/
+    private Long getExpireTime(Long expireTime) {
+        Long result = expireTime;
+        if (expireTime == null || expireTime &lt; AppConst.CACHE_MINUTE / 10) {
+            result = AppConst.CACHE_MINUTE;
+        }
+
+        return result;
+    }
+}</code></pre>
+<h3 id="4、注意事项"><a href="#4、注意事项" class="headerlink" title="4、注意事项"></a>4、注意事项</h3><p>Guava Cache初始化容器时，支持缓存过期策略，类似FIFO、LRU和LFU等算法。</p>
+<ul>
+<li>expireAfterWrite：最后一次写入后的一段时间移出。</li>
+<li>expireAfterAccess：最后一次访问后的一段时间移出。</li>
+</ul>
+<p>Guava Cache对缓存过期时间的设置实在不够友好。常见的应用场景，比如，有些几乎不变的基础数据缓存1天，有些热点数据缓存2小时，有些会话数据缓存5分钟等等。</p>
+<p>通常我们认为设置缓存的时候带上缓存的过期时间是非常容易的，而且只要一个缓存容器实例即可，比如.NET下的ObjectCache、System.Runtime.Cache等等。</p>
+<p>但是Guava Cache不是这个实现思路，如果缓存的过期时间不同，Guava的CacheBuilder要初始化多份Cache实例。</p>
+<p>好在我在实现的时候注意到了这个问题，并且提供了解决方案，可以看到getCacheContainer这个函数，根据过期时长做缓存实例判断，就算不同过期时间的多实例缓存也是完全没有问题的。</p>
+<h2 id="三、分布式缓存"><a href="#三、分布式缓存" class="headerlink" title="三、分布式缓存"></a><strong>三、分布式缓存</strong></h2><p>分布式缓存产品非常多，本文使用应用普遍的Redis，在Spring Boot应用中使用Redis非常简单。</p>
+<h3 id="1、什么是Redis"><a href="#1、什么是Redis" class="headerlink" title="1、什么是Redis"></a>1、什么是Redis</h3><p>Redis是一款开源（BSD许可）的、用C语言写成的高性能的键-值存储（key-value store）。它常被称作是一款数据结构服务器（data structure server）。它可以被用作缓存、消息中间件和数据库，在很多应用中，经常看到有人选择使用Redis做缓存，实现分布式锁和分布式Session等。作为缓存系统时，和经典的KV结构的Memcached非常相似，但又有很多不同。</p>
+<p>Redis支持丰富的数据类型。Redis的键值可以包括字符串（strings）类型，同时它还包括哈希（hashes）、列表（lists）、集合（sets）和有序集合（sorted sets）等数据类型。对于这些数据类型，你可以执行原子操作。例如：对字符串进行附加操作（append）；递增哈希中的值；向列表中增加元素；计算集合的交集、并集与差集等。</p>
+<p><strong>Redis的数据类型：</strong></p>
+<p>Keys：非二进制安全的字符类型（ not binary-safe strings ），由于key不是binary safe的字符串，所以像“my key”和“mykey\n”这样包含空格和换行的key是不允许的。</p>
+<p>Values：Strings、Hash、Lists、 Sets、 Sorted sets。考虑到Redis单线程操作模式，Value的粒度不应该过大，缓存的值越大，越容易造成阻塞和排队。</p>
+<p>为了获得优异的性能，Redis采用了内存中（in-memory）数据集（dataset）的方式。同时，Redis支持数据的持久化，你可以每隔一段时间将数据集转存到磁盘上（snapshot），或者在日志尾部追加每一条操作命令（append only file,aof）。</p>
+<p>Redis同样支持主从复制（master-slave replication），并且具有非常快速的非阻塞首次同步（ non-blocking first synchronization）、网络断开自动重连等功能。</p>
+<p>同时Redis还具有其它一些特性，其中包括简单的事物支持、发布订阅 （ pub/sub）、管道（pipeline）和虚拟内存（vm）等 。</p>
+<h3 id="2、添加依赖-1"><a href="#2、添加依赖-1" class="headerlink" title="2、添加依赖"></a>2、添加依赖</h3><pre><code>&lt;dependency&gt;
+     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+     &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<h3 id="3、配置Redis"><a href="#3、配置Redis" class="headerlink" title="3、配置Redis"></a>3、配置Redis</h3><p>在application.properties配置文件中，配置Redis常用参数：</p>
+<pre><code>## Redis缓存相关配置
+#Redis数据库索引（默认为0）
+spring.redis.database=0
+#Redis服务器地址
+spring.redis.host=127.0.0.1
+#Redis服务器端口
+spring.redis.port=6379
+#Redis服务器密码（默认为空）
+spring.redis.password=123321
+#Redis连接超时时间 默认：5分钟（单位：毫秒）
+spring.redis.timeout=300000ms
+#Redis连接池最大连接数（使用负值表示没有限制）
+spring.redis.jedis.pool.max-active=512
+#Redis连接池中的最小空闲连接
+spring.redis.jedis.pool.min-idle=0
+#Redis连接池中的最大空闲连接
+spring.redis.jedis.pool.max-idle=8
+#Redis连接池最大阻塞等待时间（使用负值表示没有限制）
+spring.redis.jedis.pool.max-wait=-1ms
+redisproperties</code></pre>
+<p>常见的需要注意的是最大连接数（spring.redis.jedis.pool.max-active ）和超时时间（spring.redis.jedis.pool.max-wait）。Redis在生产环境中出现故障的频率经常和这两个参数息息相关。</p>
+<p>接着定义一个继承自CachingConfigurerSupport（请注意cacheManager和keyGenerator这两个方法在子类的实现）的RedisConfig类：</p>
+<pre><code>/**
+ * Redis缓存配置类
+ */
+@Configuration
+@EnableCaching
+public class RedisConfig extends CachingConfigurerSupport {
+
+    @Bean
+    public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+        return RedisCacheManager.create(connectionFactory);
+    }
+
+    @Bean
+    public RedisTemplate&lt;String, Object&gt; redisTemplate(RedisConnectionFactory factory) {
+        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;&gt;();
+
+        //Jedis的Key和Value的序列化器默认值是JdkSerializationRedisSerializer
+        //经实验，JdkSerializationRedisSerializer通过RedisDesktopManager看到的键值对不能正常解析
+
+        //设置key的序列化器
+        template.setKeySerializer(new StringRedisSerializer());
+
+        ////设置value的序列化器 默认值是JdkSerializationRedisSerializer
+        //使用Jackson序列化器的问题是，复杂对象可能序列化失败，比如JodaTime的DateTime类型
+
+        // //使用Jackson2，将对象序列化为JSON
+        // Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        // //json转对象类，不设置默认的会将json转成hashmap
+        // ObjectMapper om = new ObjectMapper();
+        // om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        // om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        // jackson2JsonRedisSerializer.setObjectMapper(om);
+        // template.setValueSerializer(jackson2JsonRedisSerializer);
+
+        //将redis连接工厂设置到模板类中
+        template.setConnectionFactory(factory);
+
+        return template;
+    }
+
+// //自定义缓存key生成策略
+// @Bean
+// public KeyGenerator keyGenerator() {
+// return new KeyGenerator() {
+// @Override
+// public Object generate(Object target, java.lang.reflect.Method method, Object... params) {
+// StringBuffer sb = new StringBuffer();
+// sb.append(target.getClass().getName());
+// sb.append(method.getName());
+// for (Object obj : params) {
+// if (obj == null) {
+// continue;
+// }
+// sb.append(obj.toString());
+// }
+// return sb.toString();
+// }
+// };
+// }
+}</code></pre>
+<p>在RedisConfig这个类上加上@EnableCaching这个注解，这个注解会被Spring发现，并且会创建一个切面（aspect） 并触发Spring缓存注解的切点（pointcut）。据所使用的注解以及缓存的状态，这个切面会从缓存中获取数据，将数据添加到缓存之中或者从缓存中移除某个值。</p>
+<p>cacheManager方法，申明一个缓存管理器（CacheManager）的bean，作用就是@EnableCaching这个切面在新增缓存或者删除缓存的时候会调用这个缓存管理器的方法。keyGenerator方法，可以根据需求自定义缓存key生成策略。</p>
+<p>而redisTemplate方法，则主要是设置Redis模板类，比如键和值的序列化器（从这里可以看出，Redis的键值对必须可序列化）、redis连接工厂等。</p>
+<p>RedisTemplate支持的序列化器主要有如下几种：</p>
+<ul>
+<li>JdkSerializationRedisSerializer：使用Java序列化；</li>
+<li>StringRedisSerializer：序列化String类型的key和value；</li>
+<li>GenericToStringSerializer：使用Spring转换服务进行序列化；</li>
+<li>JacksonJsonRedisSerializer：使用Jackson 1，将对象序列化为JSON；</li>
+<li>Jackson2JsonRedisSerializer：使用Jackson 2，将对象序列化为JSON；</li>
+<li>OxmSerializer：使用Spring O/X映射的编排器和解排器（marshaler和unmarshaler）实现序列化，用于XML序列化；</li>
+</ul>
+<p>注意：<em>RedisTemplate的键和值序列化器，默认情况下都是JdkSerializationRedisSerializer，它们都可以自定义设置序列化器。</em></p>
+<p>推荐将字符串键使用StringRedisSerializer序列化器，因为运维的时候好排查问题，JDK序列化器的也能识别，但是可读性稍差(是因为缓存服务器没有JRE吗？)，见如下效果：</p>
+<p><img src="SpringBoot%E7%BC%93%E5%AD%98%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5.jpg/640" alt="图片">img</p>
+<p>而值序列化器则要复杂的多，很多人推荐使用Jackson2JsonRedisSerializer序列化器，但是实际开发过程中，经常有人碰到反序列化错误，经过排查多数都和Jackson2JsonRedisSerializer这个序列化器有关。</p>
+<h3 id="4、实现接口"><a href="#4、实现接口" class="headerlink" title="4、实现接口"></a>4、实现接口</h3><p>使用RedisTemplate，在Spring Boot中调用Redis接口比直接调用Jedis简单多了。</p>
+<pre><code>@Configuration
+@ComponentScan(basePackages = AppConst.BASE_PACKAGE_NAME)
+@Qualifier("redisCacheService")
+public class RedisCacheProviderImpl implements CacheProviderService {
+
+    @Resource
+    private RedisTemplate&lt;Serializable, Object&gt; redisTemplate;
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    public &lt;T extends Object&gt; T get(String key) {
+        T obj = get(key, null, null, AppConst.CACHE_MINUTE);
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     **/
+    public &lt;T extends Object&gt; T get(String key, Function&lt;String, T&gt; function) {
+        T obj = get(key, function, key, AppConst.CACHE_MINUTE);
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param funcParm function函数的调用参数
+     **/
+    public &lt;T extends Object, M extends Object&gt; T get(String key, Function&lt;M, T&gt; function, M funcParm) {
+        T obj = get(key, function, funcParm, AppConst.CACHE_MINUTE);
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    public &lt;T extends Object&gt; T get(String key, Function&lt;String, T&gt; function, Long expireTime) {
+        T obj = get(key, function, key, expireTime);
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param funcParm function函数的调用参数
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    public &lt;T extends Object, M extends Object&gt; T get(String key, Function&lt;M, T&gt; function, M funcParm, Long expireTime) {
+        T obj = null;
+        if (StringUtils.isEmpty(key) == true) {
+            return obj;
+        }
+
+        expireTime = getExpireTime(expireTime);
+
+        try {
+
+            ValueOperations&lt;Serializable, Object&gt; operations = redisTemplate.opsForValue();
+            obj = (T) operations.get(key);
+            if (function != null &amp;&amp; obj == null) {
+                obj = function.apply(funcParm);
+                if (obj != null) {
+                    set(key, obj, expireTime);//设置缓存信息
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return obj;
+    }
+
+    /**
+     * 设置缓存键值 直接向缓存中插入值，这会直接覆盖掉给定键之前映射的值
+     *
+     * @param key 缓存键 不可为空
+     * @param obj 缓存值 不可为空
+     **/
+    public &lt;T extends Object&gt; void set(String key, T obj) {
+
+        set(key, obj, AppConst.CACHE_MINUTE);
+    }
+
+    /**
+     * 设置缓存键值 直接向缓存中插入值，这会直接覆盖掉给定键之前映射的值
+     *
+     * @param key 缓存键 不可为空
+     * @param obj 缓存值 不可为空
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    public &lt;T extends Object&gt; void set(String key, T obj, Long expireTime) {
+        if (StringUtils.isEmpty(key) == true) {
+            return;
+        }
+
+        if (obj == null) {
+            return;
+        }
+
+        expireTime = getExpireTime(expireTime);
+
+        ValueOperations&lt;Serializable, Object&gt; operations = redisTemplate.opsForValue();
+
+        operations.set(key, obj);
+
+        redisTemplate.expire(key, expireTime, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * 移除缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    public void remove(String key) {
+        if (StringUtils.isEmpty(key) == true) {
+            return;
+        }
+
+        redisTemplate.delete(key);
+    }
+
+    /**
+     * 是否存在缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    public boolean contains(String key) {
+        boolean exists = false;
+        if (StringUtils.isEmpty(key) == true) {
+            return exists;
+        }
+
+        Object obj = get(key);
+
+        if (obj != null) {
+            exists = true;
+        }
+
+        return exists;
+    }
+
+    /**
+     * 获取过期时间 单位：毫秒
+     *
+     * @param expireTime 传人的过期时间 单位毫秒 如小于1分钟，默认为10分钟
+     **/
+    private Long getExpireTime(Long expireTime) {
+        Long result = expireTime;
+        if (expireTime == null || expireTime &lt; AppConst.CACHE_MINUTE / 10) {
+            result = AppConst.CACHE_MINUTE;
+        }
+
+        return result;
+    }
+}</code></pre>
+<p>注意：很多教程里都讲到通过注解的方式（@Cacheable，@CachePut、@CacheEvict和@Caching）实现数据缓存，根据实践，我个人是不推崇这种使用方式的。</p>
+<h2 id="四、缓存“及时”过期问题"><a href="#四、缓存“及时”过期问题" class="headerlink" title="四、缓存“及时”过期问题"></a><strong>四、缓存“及时”过期问题</strong></h2><p>这个也是开发和运维过程中非常经典的问题。</p>
+<p>有些公司写缓存客户端的时候，会给每个团队分别定义一个Area，但是这个只能做到缓存键的分布区分，不能保证缓存“实时”有效的过期。</p>
+<p>多年以前我写过一篇结合实际情况的文章，也就是加上缓存版本，请猛击这里 ，算是提供了一种相对有效的方案，不过高并发站点要慎重，防止发生雪崩效应。</p>
+<p>Redis还有一些其他常见问题，比如：Redis的字符串类型Key和Value都有限制，且都是不能超过512M。还有最大连接数和超时时间设置等问题，本文就不再一一列举了。</p>
+<h2 id="五、二级缓存"><a href="#五、二级缓存" class="headerlink" title="五、二级缓存"></a><strong>五、二级缓存</strong></h2><p>在配置文件中，加上缓存提供者开关：</p>
+<pre><code>##是否启用本地缓存
+spring.power.isuselocalcache=1
+##是否启用Redis缓存
+spring.power.isuserediscache=1</code></pre>
+<p>缓存提供者程序都实现好了，我们会再包装一个调用外观类PowerCacheBuilder，加上缓存版本控制，可以轻松自如地控制和切换缓存，code talks:</p>
+<pre><code>/*
+ * 支持多缓存提供程序多级缓存的缓存帮助类
+ * */
+@Configuration
+@ComponentScan(basePackages = AppConst.BASE_PACKAGE_NAME)
+public class PowerCacheBuilder {
+
+    @Autowired
+    @Qualifier("localCacheService")
+    private CacheProviderService localCacheService;
+
+    @Autowired
+    @Qualifier("redisCacheService")
+    private CacheProviderService redisCacheService;
+
+    private static List&lt;CacheProviderService&gt; _listCacheProvider = Lists.newArrayList();
+
+    private static final Lock providerLock = new ReentrantLock();
+
+    /**
+     * 初始化缓存提供者 默认优先级：先本地缓存，后分布式缓存
+     **/
+    private List&lt;CacheProviderService&gt; getCacheProviders() {
+
+        if (_listCacheProvider.size() &gt; 0) {
+            return _listCacheProvider;
+        }
+
+        //线程安全
+        try {
+            providerLock.tryLock(1000, TimeUnit.MILLISECONDS);
+
+            if (_listCacheProvider.size() &gt; 0) {
+                return _listCacheProvider;
+            }
+
+            String isUseCache = ConfigUtil.getConfigVal(AppField.IS_USE_LOCAL_CACHE);
+
+            CacheProviderService cacheProviderService = null;
+
+            //启用本地缓存
+            if ("1".equalsIgnoreCase(isUseCache)) {
+                _listCacheProvider.add(localCacheService);
+            }
+
+            isUseCache = ConfigUtil.getConfigVal(AppField.IS_USE_REDIS_CACHE);
+
+            //启用Redis缓存
+            if ("1".equalsIgnoreCase(isUseCache)) {
+                _listCacheProvider.add(redisCacheService);
+
+                resetCacheVersion();//设置分布式缓存版本号
+            }
+
+            PowerLogger.info("初始化缓存提供者成功，共有" + _listCacheProvider.size() + "个");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            _listCacheProvider = Lists.newArrayList();
+
+            PowerLogger.error("初始化缓存提供者发生异常：{}", e);
+        } finally {
+            providerLock.unlock();
+        }
+
+        return _listCacheProvider;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    public &lt;T extends Object&gt; T get(String key) {
+        T obj = null;
+
+        //key = generateVerKey(key);//构造带版本的缓存键
+
+        for (CacheProviderService provider : getCacheProviders()) {
+
+            obj = provider.get(key);
+
+            if (obj != null) {
+                return obj;
+            }
+        }
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     **/
+    public &lt;T extends Object&gt; T get(String key, Function&lt;String, T&gt; function) {
+        T obj = null;
+
+        for (CacheProviderService provider : getCacheProviders()) {
+
+            if (obj == null) {
+                obj = provider.get(key, function);
+            } else if (function != null &amp;&amp; obj != null) {//查询并设置其他缓存提供者程序缓存
+                provider.get(key, function);
+            }
+
+            //如果callable函数为空 而缓存对象不为空 及时跳出循环并返回
+            if (function == null &amp;&amp; obj != null) {
+                return obj;
+            }
+
+        }
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param funcParm function函数的调用参数
+     **/
+    public &lt;T extends Object, M extends Object&gt; T get(String key, Function&lt;M, T&gt; function, M funcParm) {
+        T obj = null;
+
+        for (CacheProviderService provider : getCacheProviders()) {
+
+            if (obj == null) {
+                obj = provider.get(key, function, funcParm);
+            } else if (function != null &amp;&amp; obj != null) {//查询并设置其他缓存提供者程序缓存
+                provider.get(key, function, funcParm);
+            }
+
+            //如果callable函数为空 而缓存对象不为空 及时跳出循环并返回
+            if (function == null &amp;&amp; obj != null) {
+                return obj;
+            }
+        }
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    public &lt;T extends Object&gt; T get(String key, Function&lt;String, T&gt; function, long expireTime) {
+        T obj = null;
+
+        for (CacheProviderService provider : getCacheProviders()) {
+
+            if (obj == null) {
+                obj = provider.get(key, function, expireTime);
+            } else if (function != null &amp;&amp; obj != null) {//查询并设置其他缓存提供者程序缓存
+                provider.get(key, function, expireTime);
+            }
+
+            //如果callable函数为空 而缓存对象不为空 及时跳出循环并返回
+            if (function == null &amp;&amp; obj != null) {
+                return obj;
+            }
+        }
+
+        return obj;
+    }
+
+    /**
+     * 查询缓存
+     *
+     * @param key 缓存键 不可为空
+     * @param function 如没有缓存，调用该callable函数返回对象 可为空
+     * @param funcParm function函数的调用参数
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    public &lt;T extends Object, M extends Object&gt; T get(String key, Function&lt;M, T&gt; function, M funcParm, long expireTime) {
+        T obj = null;
+
+        for (CacheProviderService provider : getCacheProviders()) {
+
+            if (obj == null) {
+                obj = provider.get(key, function, funcParm, expireTime);
+            } else if (function != null &amp;&amp; obj != null) {//查询并设置其他缓存提供者程序缓存
+                provider.get(key, function, funcParm, expireTime);
+            }
+
+            //如果callable函数为空 而缓存对象不为空 及时跳出循环并返回
+            if (function == null &amp;&amp; obj != null) {
+                return obj;
+            }
+        }
+
+        return obj;
+    }
+
+    /**
+     * 设置缓存键值 直接向缓存中插入或覆盖值
+     *
+     * @param key 缓存键 不可为空
+     * @param obj 缓存值 不可为空
+     **/
+    public &lt;T extends Object&gt; void set(String key, T obj) {
+
+        //key = generateVerKey(key);//构造带版本的缓存键
+
+        for (CacheProviderService provider : getCacheProviders()) {
+
+            provider.set(key, obj);
+
+        }
+    }
+
+    /**
+     * 设置缓存键值 直接向缓存中插入或覆盖值
+     *
+     * @param key 缓存键 不可为空
+     * @param obj 缓存值 不可为空
+     * @param expireTime 过期时间（单位：毫秒） 可为空
+     **/
+    public &lt;T extends Object&gt; void set(String key, T obj, Long expireTime) {
+
+        //key = generateVerKey(key);//构造带版本的缓存键
+
+        for (CacheProviderService provider : getCacheProviders()) {
+
+            provider.set(key, obj, expireTime);
+
+        }
+    }
+
+    /**
+     * 移除缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    public void remove(String key) {
+
+        //key = generateVerKey(key);//构造带版本的缓存键
+
+        if (StringUtils.isEmpty(key) == true) {
+            return;
+        }
+
+        for (CacheProviderService provider : getCacheProviders()) {
+
+            provider.remove(key);
+
+        }
+    }
+
+    /**
+     * 是否存在缓存
+     *
+     * @param key 缓存键 不可为空
+     **/
+    public boolean contains(String key) {
+        boolean exists = false;
+
+        //key = generateVerKey(key);//构造带版本的缓存键
+
+        if (StringUtils.isEmpty(key) == true) {
+            return exists;
+        }
+
+        Object obj = get(key);
+
+        if (obj != null) {
+            exists = true;
+        }
+
+        return exists;
+    }
+
+    /**
+     * 获取分布式缓存版本号
+     **/
+    public String getCacheVersion() {
+        String version = "";
+        boolean isUseCache = checkUseRedisCache();
+
+        //未启用Redis缓存
+        if (isUseCache == false) {
+            return version;
+        }
+
+        version = redisCacheService.get(AppConst.CACHE_VERSION_KEY);
+
+        return version;
+    }
+
+    /**
+     * 重置分布式缓存版本 如果启用分布式缓存，设置缓存版本
+     **/
+    public String resetCacheVersion() {
+        String version = "";
+        boolean isUseCache = checkUseRedisCache();
+
+        //未启用Redis缓存
+        if (isUseCache == false) {
+            return version;
+        }
+
+        //设置缓存版本
+        version = String.valueOf(Math.abs(UUID.randomUUID().hashCode()));
+        redisCacheService.set(AppConst.CACHE_VERSION_KEY, version);
+
+        return version;
+    }
+
+    /**
+     * 如果启用分布式缓存，获取缓存版本，重置查询的缓存key，可以实现相对实时的缓存过期控制
+     * &lt;p&gt;
+     * 如没有启用分布式缓存，缓存key不做修改，直接返回
+     **/
+    public String generateVerKey(String key) {
+
+        String result = key;
+        if (StringUtils.isEmpty(key) == true) {
+            return result;
+        }
+
+        boolean isUseCache = checkUseRedisCache();
+
+        //没有启用分布式缓存，缓存key不做修改，直接返回
+        if (isUseCache == false) {
+            return result;
+        }
+
+        String version = redisCacheService.get(AppConst.CACHE_VERSION_KEY);
+        if (StringUtils.isEmpty(version) == true) {
+            return result;
+        }
+
+        result = String.format("%s_%s", result, version);
+
+        return result;
+    }
+
+    /**
+     * 验证是否启用分布式缓存
+     **/
+    private boolean checkUseRedisCache() {
+        boolean isUseCache = false;
+        String strIsUseCache = ConfigUtil.getConfigVal(AppField.IS_USE_REDIS_CACHE);
+
+        isUseCache = "1".equalsIgnoreCase(strIsUseCache);
+
+        return isUseCache;
+    }
+}</code></pre>
+<p>单元测试如下：</p>
+<pre><code>@Test
+public void testCacheVerson() throws Exception {
+
+        String version = cacheBuilder.getCacheVersion();
+        System.out.println(String.format("当前缓存版本：%s", version));
+
+        String cacheKey = cacheBuilder.generateVerKey("goods778899");
+
+        GoodsVO goodsVO = new GoodsVO();
+        goodsVO.setGoodsId(UUID.randomUUID().toString());
+        goodsVO.setCreateTime(new Date());
+        goodsVO.setCreateDate(new DateTime(new Date()));
+        goodsVO.setGoodsType(1024);
+        goodsVO.setGoodsCode("123456789");
+        goodsVO.setGoodsName("我的测试商品");
+
+        cacheBuilder.set(cacheKey, goodsVO);
+
+        GoodsVO goodsVO1 = cacheBuilder.get(cacheKey);
+
+        Assert.assertNotNull(goodsVO1);
+
+        version = cacheBuilder.resetCacheVersion();
+        System.out.println(String.format("重置后的缓存版本：%s", version));
+
+
+        cacheKey = cacheBuilder.generateVerKey("goods112233");
+
+        cacheBuilder.set(cacheKey, goodsVO);
+
+        GoodsVO goodsVO2 = cacheBuilder.get(cacheKey);
+
+        Assert.assertNotNull(goodsVO2);
+
+        Assert.assertTrue("两个缓存对象的主键相同", goodsVO1.getGoodsId().equals(goodsVO2.getGoodsId()));
+    }</code></pre>
+<p>一个满足基本功能的多级缓存系统就好了。</p>
+<p>在Spring Boot应用中使用缓存则非常简洁，选择调用上面包装好的缓存接口即可。</p>
+<pre><code>String cacheKey = _cacheBuilder.generateVerKey("com.power.demo.apiservice.impl.getgoodsbyid." + request.getGoodsId());
+
+GoodsVO goodsVO = _cacheBuilder.get(cacheKey, _goodsService::getGoodsByGoodsId, request.getGoodsId());</code></pre>
+<p>到这里Spring Boot业务系统开发中最常用到的ORM，缓存和队列三板斧就介绍完了。</p>
+<p>在开发的过程中你会发现，Java真的是非常非常中规中矩的语言，你需要不断折腾并熟悉常见的开源中间件和工具，开源的轮子实在是太丰富，多尝试几个，实践出真知。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="http://ifeve.com/google-guava/">http://ifeve.com/google-guava/</a> <a target="_blank" rel="noopener" href="http://www.cnblogs.com/luochengqiuse/p/4640932.html">http://www.cnblogs.com/luochengqiuse/p/4640932.html</a></p>
+</blockquote>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2021/04/02/springboot-huan-cun-ying-yong-shi-jian/">https://chenguoo.github.io/2021/04/02/springboot-huan-cun-ying-yong-shi-jian/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/04/02/springboot-huan-cun-ying-yong-shi-jian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="SpringBoot缓存应用实践">
+                        
+                        <span class="card-title">SpringBoot缓存应用实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            缓存是最直接有效提升系统性能的手段之一。个人认为用好用对缓存是优秀程序员的必备基本素质。本文结合实际开发经验，从简单概念原理和代码入手，一步一步搭建一个简单的二级缓存系统。
+一、通用缓存接口1、缓存基础算法
+FIFO（First In Fi
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Cheney
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/04/02/yi-wen-du-dong-dong-tai-dai-li/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="一文读懂 Java 动态代理，那些面试中你容易忽略的细节">
+                        
+                        <span class="card-title">一文读懂 Java 动态代理，那些面试中你容易忽略的细节</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言本来是打算把java代理模式给写一下的，但是整理思路的时候发现这是一个庞大的工程，我需要讲清楚什么是代理模式；它的应用场景有哪些；代理又分为静态代理和动态代理，它们分别是如何实现的，区别又是什么，我还要举例，分析源码，emm。显然，我现
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" class="post-category">
+                                    动态代理
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">
+                        <span class="chip bg-color">动态代理</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"react":{"opacity":0.7}}});</script></body>
+
+</html>
