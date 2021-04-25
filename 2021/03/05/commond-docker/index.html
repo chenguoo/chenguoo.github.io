@@ -422,17 +422,14 @@ docker --help<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 docker images
 ##含中间映像层
 docker images -a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/N34tfh8WYkjUvjiaVT0FHicwlRCLcftribqXF5Nx91VebEkXG6bvJfjwYCr6Piaicia5m8lMtHXEYnBWR6MhibkI7sF8g/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
 <pre><code>##只显示镜像ID
 docker images -q
 ##含中间映像层
 docker images -qa   </code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/N34tfh8WYkjUvjiaVT0FHicwlRCLcftribqy4zpaHkqlRfsztpN65ZEee4KFm3ND8KJOkLmZ0A0y7YUPPILjIbViaQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
 <pre><code>##显示镜像摘要信息(DIGEST列)
 docker images --digests
 ##显示镜像完整信息
 docker images --no-trunc</code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/N34tfh8WYkjUvjiaVT0FHicwlRCLcftribqzryNM2GhlyVWeZ3fXHV3NGyibDOPibSEWDRtLTIPI5bLs3fibFW1T28VA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
 <pre><code>##显示指定镜像的历史创建；参数：-H 镜像大小和日期，默认为true；--no-trunc  显示完整的提交记录；-q  仅列出提交记录ID
 docker history -H redis</code></pre>
 <h3 id="2-2、镜像搜索"><a href="#2-2、镜像搜索" class="headerlink" title="2.2、镜像搜索"></a>2.2、镜像搜索</h3><pre><code>##搜索仓库MySQL镜像
@@ -443,14 +440,12 @@ docker search --filter=stars=600 mysql
 docker search --no-trunc mysql
 ## --automated ：只列出 AUTOMATED=OK 的镜像
 docker search  --automated mysql</code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/N34tfh8WYkjUvjiaVT0FHicwlRCLcftribqyXpGxSQrzLXFjqO5icckNtC8KOw4xcAicibP6Zo4gsKnju0ta9FYnDD7Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
 <h3 id="2-3、镜像下载"><a href="#2-3、镜像下载" class="headerlink" title="2.3、镜像下载"></a>2.3、镜像下载</h3><pre><code>##下载Redis官方最新镜像，相当于：docker pull redis:latest
 docker pull redis
 ##下载仓库所有Redis镜像
 docker pull -a redis
 ##下载私人仓库镜像
 docker pull bitnami/redis</code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/N34tfh8WYkjUvjiaVT0FHicwlRCLcftribqfAzrTZAuGIvxxgsg2EiaDJ5LEf4icDMhflPguKibdJhtgEtUz0O8frWnQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
 <h3 id="2-4、镜像删除"><a href="#2-4、镜像删除" class="headerlink" title="2.4、镜像删除"></a>2.4、镜像删除</h3><pre><code>##单个镜像删除，相当于：docker rmi redis:latest
 docker rmi redis
 ##强制删除(针对基于镜像有运行的容器进程)
@@ -509,15 +504,12 @@ docker ps -q
 docker ps -a
 ##显示运行容器总文件大小
 docker ps -s</code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/N34tfh8WYkjUvjiaVT0FHicwlRCLcftribqz22xJTcmb1NqlppNXBOD51Y3Micbsx3FUd56SX9ODJxaULYnDz3WbXg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/N34tfh8WYkjUvjiaVT0FHicwlRCLcftribqpWWGcOhkRiaYpXicYBbRwzIxpZlmImzmozRNHZG69tWXlUlibJZnQWnlw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
 <pre><code>##显示最近创建容器
 docker ps -l
 ##显示最近创建的3个容器
 docker ps -n 3
 ##不截断输出
 docker ps --no-trunc </code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/N34tfh8WYkjUvjiaVT0FHicwlRCLcftribql5LBbh9xfOD3Baic0fKcwvOacLLqx71OqubsZLQ0M8jdB31RicDfj86g/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
 <pre><code>##获取镜像redis的元信息
 docker inspect redis
 ##获取正在运行的容器redis的 IP

@@ -1,0 +1,1234 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="mybatis自定义注解+拦截器优雅的实现敏感数据的加解密, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>mybatis自定义注解+拦截器优雅的实现敏感数据的加解密 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">mybatis自定义注解+拦截器优雅的实现敏感数据的加解密</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/mybatis/">
+                                <span class="chip bg-color">mybatis</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/mybatis/" class="post-category">
+                                mybatis
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-04-25
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>在实际生产项目中，经常需要对如身份证信息、手机号、真实姓名等的敏感数据进行加密数据库存储，但在业务代码中对敏感信息进行手动加解密则十分不优雅，甚至会存在错加密、漏加密、业务人员需要知道实际的加密规则等的情况。</p>
+<p>本文将介绍使用springboot+mybatis拦截器+自定义注解的形式对敏感数据进行存储前拦截加密的详细过程。</p>
+<h2 id="1、什么是Mybatis-Plugin"><a href="#1、什么是Mybatis-Plugin" class="headerlink" title="1、什么是Mybatis Plugin"></a>1、什么是Mybatis Plugin</h2><p>在mybatis官方文档中，对于Mybatis plugin的的介绍是这样的：</p>
+<p>MyBatis 允许你在已映射语句执行过程中的某一点进行拦截调用。默认情况下，MyBatis 允许使用插件来拦截的方法调用包括：</p>
+<pre><code>//语句执行拦截
+Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
+
+// 参数获取、设置时进行拦截
+ParameterHandler (getParameterObject, setParameters)
+
+// 对返回结果进行拦截
+ResultSetHandler (handleResultSets, handleOutputParameters)
+
+//sql语句拦截
+StatementHandler (prepare, parameterize, batch, update, query)</code></pre>
+<p>简而言之，即在执行sql的整个周期中，我们可以任意切入到某一点对sql的参数、sql执行结果集、sql语句本身等进行切面处理。基于这个特性，我们便可以使用其对我们需要进行加密的数据进行切面统一加密处理了（分页插件 pageHelper 就是这样实现数据库分页查询的）。</p>
+<h2 id="2、实现基于注解的敏感信息加解密拦截器"><a href="#2、实现基于注解的敏感信息加解密拦截器" class="headerlink" title="2、实现基于注解的敏感信息加解密拦截器"></a>2、实现基于注解的敏感信息加解密拦截器</h2><h3 id="2-1-实现思路"><a href="#2-1-实现思路" class="headerlink" title="2.1 实现思路"></a><strong>2.1 实现思路</strong></h3><p>对于数据的加密与解密，应当存在两个拦截器对数据进行拦截操作</p>
+<p>参照官方文档，因此此处我们应当使用ParameterHandler拦截器对入参进行加密</p>
+<p>使用ResultSetHandler拦截器对出参进行解密操作。</p>
+<p><img src="./mybatis%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%A7%A3%E5%AF%86/640.jpg" alt="图片"></p>
+<p>目标需要加密、解密的字段可能需要灵活变更，此时我们定义一个注解，对需要加密的字段进行注解，那么便可以配合拦截器对需要的数据进行加密与解密操作了。</p>
+<p>mybatis的interceptor接口有以下方法需要实现。</p>
+<pre><code>public interface Interceptor {
+
+  //主要参数拦截方法
+  Object intercept(Invocation invocation) throws Throwable;
+
+  //mybatis插件链
+  default Object plugin(Object target) {return Plugin.wrap(target, this);}
+
+  //自定义插件配置文件方法
+  default void setProperties(Properties properties) {}
+
+}</code></pre>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="2-2-定义需要加密解密的敏感信息注解"><a href="#2-2-定义需要加密解密的敏感信息注解" class="headerlink" title="2.2 定义需要加密解密的敏感信息注解"></a><strong>2.2 定义需要加密解密的敏感信息注解</strong></h3><p>定义注解敏感信息类（如实体类POJO\PO）的注解</p>
+<pre><code>/**
+ * 注解敏感信息类的注解
+ */
+@Inherited
+@Target({ ElementType.TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+public @interface SensitiveData {
+}</code></pre>
+<p>定义注解敏感信息类中敏感字段的注解</p>
+<pre><code>/**
+ * 注解敏感信息类中敏感字段的注解
+ */
+@Inherited
+@Target({ ElementType.Field })
+@Retention(RetentionPolicy.RUNTIME)
+public @interface SensitiveField {
+}</code></pre>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h3 id="2-3-定义加密接口及其实现类"><a href="#2-3-定义加密接口及其实现类" class="headerlink" title="2.3 定义加密接口及其实现类"></a><strong>2.3 定义加密接口及其实现类</strong></h3><p>定义加密接口，方便以后拓展加密方法（如AES加密算法拓展支持PBE算法，只需要注入时指定一下便可）</p>
+<pre><code>public interface EncryptUtil {
+
+    /**
+     * 加密
+     *
+     * @param declaredFields paramsObject所声明的字段
+     * @param paramsObject   mapper中paramsType的实例
+     * @return T
+     * @throws IllegalAccessException 字段不可访问异常
+     */
+     &lt;T&gt; T encrypt(Field[] declaredFields, T paramsObject) throws IllegalAccessException;
+}</code></pre>
+<p>EncryptUtil 的AES加密实现类，此处AESUtil为自封装的AES加密工具，需要的小伙伴可以自行封装，本文不提供。</p>
+<pre><code>@Component
+public class AESEncrypt implements EncryptUtil {
+
+    @Autowired
+    AESUtil aesUtil;
+
+    /**
+     * 加密
+     *
+     * @param declaredFields paramsObject所声明的字段
+     * @param paramsObject   mapper中paramsType的实例
+     * @return T
+     * @throws IllegalAccessException 字段不可访问异常
+     */
+    @Override
+    public &lt;T&gt; T encrypt(Field[] declaredFields, T paramsObject) throws IllegalAccessException {
+        for (Field field : declaredFields) {
+            //取出所有被EncryptDecryptField注解的字段
+            SensitiveField sensitiveField = field.getAnnotation(SensitiveField.class);
+            if (!Objects.isNull(sensitiveField)) {
+                field.setAccessible(true);
+                Object object = field.get(paramsObject);
+                //暂时只实现String类型的加密
+                if (object instanceof String) {
+                    String value = (String) object;
+                    //加密  这里我使用自定义的AES加密工具
+                    field.set(paramsObject, aesUtil.encrypt(value));
+                }
+            }
+        }
+        return paramsObject;
+    }
+}</code></pre>
+<h3 id="-2"><a href="#-2" class="headerlink" title=""></a></h3><h3 id="2-4-实现入参加密拦截器"><a href="#2-4-实现入参加密拦截器" class="headerlink" title="2.4 实现入参加密拦截器"></a><strong>2.4 实现入参加密拦截器</strong></h3><p>Myabtis包中的org.apache.ibatis.plugin.Interceptor拦截器接口要求我们实现以下三个方法</p>
+<pre><code>public interface Interceptor {
+
+  //核心拦截逻辑
+  Object intercept(Invocation invocation) throws Throwable;
+
+  //拦截器链
+  default Object plugin(Object target) {return Plugin.wrap(target, this);}
+
+  //自定义配置文件操作
+  default void setProperties(Properties properties) { }
+
+}</code></pre>
+<p>因此，参考官方文档的示例，我们自定义一个入参加密拦截器。</p>
+<p>@Intercepts 注解开启拦截器，@Signature 注解定义拦截器的实际类型。</p>
+<p>@Signature中</p>
+<ul>
+<li>type 属性指定当前拦截器使用StatementHandler 、ResultSetHandler、ParameterHandler，Executor的一种</li>
+<li>method 属性指定使用以上四种类型的具体方法（可进入class内部查看其方法）。</li>
+<li>args 属性指定预编译语句</li>
+</ul>
+<p>此处我们使用了 ParameterHandler.setParamters()方法，拦截mapper.xml中paramsType的实例（即在每个含有paramsType属性mapper语句中，都执行该拦截器，对paramsType的实例进行拦截处理）</p>
+<pre><code>/**
+ * 加密拦截器
+ * 注意@Component注解一定要加上
+ *
+ * @author : tanzj
+ * @date : 2020/1/19.
+ */
+@Slf4j
+@Component
+@Intercepts({
+        @Signature(type = ParameterHandler.class, method = "setParameters", args = PreparedStatement.class),
+})
+public class EncryptInterceptor implements Interceptor {
+
+    private final EncryptDecryptUtil encryptUtil;
+
+    @Autowired
+    public EncryptInterceptor(EncryptDecryptUtil encryptUtil) {
+        this.encryptUtil = encryptUtil;
+    }
+
+    @Override
+
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        //@Signature 指定了 type= parameterHandler 后，这里的 invocation.getTarget() 便是parameterHandler 
+        //若指定ResultSetHandler ，这里则能强转为ResultSetHandler
+        ParameterHandler parameterHandler = (ParameterHandler) invocation.getTarget();
+        // 获取参数对像，即 mapper 中 paramsType 的实例
+        Field parameterField = parameterHandler.getClass().getDeclaredField("parameterObject");
+        parameterField.setAccessible(true);
+        //取出实例
+        Object parameterObject = parameterField.get(parameterHandler);
+        if (parameterObject != null) {
+            Class&lt;?&gt; parameterObjectClass = parameterObject.getClass();
+            //校验该实例的类是否被@SensitiveData所注解
+            SensitiveData sensitiveData = AnnotationUtils.findAnnotation(parameterObjectClass, SensitiveData.class);
+            if (Objects.nonNull(sensitiveData)) {
+                //取出当前当前类所有字段，传入加密方法
+                Field[] declaredFields = parameterObjectClass.getDeclaredFields();
+                encryptUtil.encrypt(declaredFields, parameterObject);
+            }
+        }
+        return invocation.proceed();
+    }
+
+    /**
+     * 切记配置，否则当前拦截器不会加入拦截器链
+     */
+    @Override
+    public Object plugin(Object o) {
+        return Plugin.wrap(o, this);
+    }
+
+    //自定义配置写入，没有自定义配置的可以直接置空此方法
+    @Override
+    public void setProperties(Properties properties) {
+    }
+}</code></pre>
+<p>至此完成自定义加密拦截加密。</p>
+<h3 id="2-5-定义解密接口及其实现类"><a href="#2-5-定义解密接口及其实现类" class="headerlink" title="2.5 定义解密接口及其实现类"></a><strong>2.5 定义解密接口及其实现类</strong></h3><p>解密接口，其中result为mapper.xml中resultType的实例。</p>
+<pre><code>public interface DecryptUtil {
+
+    /**
+     * 解密
+     *
+     * @param result resultType的实例
+     * @return T
+     * @throws IllegalAccessException 字段不可访问异常
+     */
+     &lt;T&gt; T decrypt(T result) throws IllegalAccessException;
+
+}</code></pre>
+<p>解密接口AES工具解密实现类</p>
+<pre><code>public class AESDecrypt implements DecryptUtil {
+
+    @Autowired
+    AESUtil aesUtil;
+
+    /**
+     * 解密
+     *
+     * @param result resultType的实例
+     * @return T
+     * @throws IllegalAccessException 字段不可访问异常
+     */
+    @Override
+    public &lt;T&gt; T decrypt(T result) throws IllegalAccessException {
+        //取出resultType的类
+        Class&lt;?&gt; resultClass = result.getClass();
+        Field[] declaredFields = resultClass.getDeclaredFields();
+        for (Field field : declaredFields) {
+            //取出所有被EncryptDecryptField注解的字段
+            SensitiveField sensitiveField = field.getAnnotation(SensitiveField.class);
+            if (!Objects.isNull(sensitiveField)) {
+                field.setAccessible(true);
+                Object object = field.get(result);
+                //只支持String的解密
+                if (object instanceof String) {
+                    String value = (String) object;
+                    //对注解的字段进行逐一解密
+                    field.set(result, aesUtil.decrypt(value));
+                }
+            }
+        }
+        return result;
+    }
+}</code></pre>
+<h3 id="-3"><a href="#-3" class="headerlink" title=""></a></h3><h3 id="2-6-定义出参解密拦截器"><a href="#2-6-定义出参解密拦截器" class="headerlink" title="2.6 定义出参解密拦截器"></a>2.6 定义出参解密拦截器</h3><pre><code>@Slf4j
+@Component
+@Intercepts({
+        @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})
+})
+public class DecryptInterceptor implements Interceptor {
+
+    @Autowired
+    DecryptUtil aesDecrypt;
+
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        //取出查询的结果
+        Object resultObject = invocation.proceed();
+        if (Objects.isNull(resultObject)) {
+            return null;
+        }
+        //基于selectList
+        if (resultObject instanceof ArrayList) {
+            ArrayList resultList = (ArrayList) resultObject;
+            if (!CollectionUtils.isEmpty(resultList) &amp;&amp; needToDecrypt(resultList.get(0))) {
+                for (Object result : resultList) {
+                    //逐一解密
+                    aesDecrypt.decrypt(result);
+                }
+            }
+        //基于selectOne
+        } else {
+            if (needToDecrypt(resultObject)) {
+                aesDecrypt.decrypt(resultObject);
+            }
+        }
+        return resultObject;
+    }
+
+    private boolean needToDecrypt(Object object) {
+        Class&lt;?&gt; objectClass = object.getClass();
+        SensitiveData sensitiveData = AnnotationUtils.findAnnotation(objectClass, SensitiveData.class);
+        return Objects.nonNull(sensitiveData);
+    }
+
+
+    @Override
+    public Object plugin(Object target) {
+        return Plugin.wrap(target, this);
+    }
+
+    @Override
+    public void setProperties(Properties properties) {
+
+    }
+}</code></pre>
+<p>至此完成解密拦截器的配置工作。</p>
+<h2 id="3、注解实体类中需要加解密的字段"><a href="#3、注解实体类中需要加解密的字段" class="headerlink" title="3、注解实体类中需要加解密的字段"></a>3、注解实体类中需要加解密的字段</h2><p><img src="mybatis%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%A7%A3%E5%AF%86.jpg/641.jpg" alt="图片"></p>
+<p>此时在mapper中，指定paramType=User resultType=User 便可实现脱离业务层，基于mybatis拦截器的加解密操作。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2021/04/25/mybatis-zi-ding-yi-zhu-jie-lan-jie-qi-you-ya-de-shi-xian-min-gan-shu-ju-de-jia-jie-mi/">https://chenguoo.github.io/2021/04/25/mybatis-zi-ding-yi-zhu-jie-lan-jie-qi-you-ya-de-shi-xian-min-gan-shu-ju-de-jia-jie-mi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/mybatis/">
+                                    <span class="chip bg-color">mybatis</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/04/25/dataway/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Dataway">
+                        
+                        <span class="card-title">Dataway</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Dataway介绍
+Dataway 是基于 DataQL 服务聚合能力，为应用提供的一个接口配置工具。使得使用者无需开发任何代码就配置一个满足需求的接口。整个接口配置、测试、冒烟、发布。一站式都通过 Dataway 提供的 UI 界面完成。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/dataway/" class="post-category">
+                                    dataway
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/springboot/">
+                        <span class="chip bg-color">springboot</span>
+                    </a>
+                    
+                    <a href="/tags/dataway/">
+                        <span class="chip bg-color">dataway</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/04/02/qps-tps-bing-fa-yong-hu-shu-tun-tu-liang-de-guan-xi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="QPS、TPS、并发用户数、吞吐量的关系">
+                        
+                        <span class="card-title">QPS、TPS、并发用户数、吞吐量的关系</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            QPSQPS Queries Per Second 是每秒查询率 ,是一台服务器每秒能够相应的查询次数，是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准, 即每秒的响应请求数，也即是最大吞吐能力。
+TPSTPS Transact
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    高并发
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">高并发</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"react":{"opacity":0.7}}});</script></body>
+
+</html>
