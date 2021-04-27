@@ -421,7 +421,7 @@ ApiService apiService;
 //调用代理类中的方法
 apiService.xxx();</code></pre>
 <p>这是<code>retrofit.create</code>方法的源码，很明显的动态代理</p>
-<p><img src="%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86.jpg/640" alt="图片">img</p>
+<p><img src="/2021/04/02/yi-wen-du-dong-dong-tai-dai-li/640" alt="图片"></p>
 <h3 id="动态代理的本质是什么？"><a href="#动态代理的本质是什么？" class="headerlink" title="动态代理的本质是什么？"></a>动态代理的本质是什么？</h3><p>我的理解：</p>
 <ul>
 <li>提供一个代理来控制对象的访问；</li>
@@ -481,7 +481,7 @@ apiService.xxx();</code></pre>
     }
 }</code></pre>
 <p>当调用代理类的<code>exam()</code>方法，程序运行结果如下</p>
-<p><img src="%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86.jpg/640" alt="图片">img</p>
+<p><img src="/2021/04/02/yi-wen-du-dong-dong-tai-dai-li/640" alt="图片">img</p>
 <p>这里有个重点，通过代理类对象jackProxy去调用方法和接口实现类对象jack去调用方法是有明显区别的,通过代理方式去调用，可以在原来方法执行前后做一些其它操作，这就是代理模式的特点</p>
 <h3 id="那些你容易忽略的细节"><a href="#那些你容易忽略的细节" class="headerlink" title="那些你容易忽略的细节"></a>那些你容易忽略的细节</h3><p>首先回顾一下动态代理的实现流程：</p>
 <ul>

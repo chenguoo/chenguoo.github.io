@@ -574,11 +574,11 @@ public class ExampleApplication {
 2020-04-14 13:52:59.721 [main] INFO  net.hasor.core.binder.ApiBinderWrap - mapingTo[37fe4af3e2994acb8deb72d21f02217c] -&gt; bindType ‘class net.hasor.dataway.web.DeleteController’ mappingTo: ‘[/interface-ui/api/delete]’.</code></pre>
 <p>当看到 “dataway api workAt <strong>/api/**” 、 dataway admin workAt **/interface-ui/</strong> 信息时，就可以确定 Dataway 的配置已经生效了。</p>
 <h1 id="第七步：访问接口管理页面进行接口配置"><a href="#第七步：访问接口管理页面进行接口配置" class="headerlink" title="第七步：访问接口管理页面进行接口配置"></a>第七步：访问接口管理页面进行接口配置</h1><p>在浏览器中输入 “<a target="_blank" rel="noopener" href="http://127.0.0.1:8080/interface-ui/%E2%80%9D">http://127.0.0.1:8080/interface-ui/”</a> 就可以看到期待已久的界面了。</p>
-<p><img src="Dataway.jpg/640" alt="图片"></p>
+<p><img src="/2021/04/25/dataway/640.png" alt="图片"></p>
 <h1 id="第八步：新建一个接口"><a href="#第八步：新建一个接口" class="headerlink" title="第八步：新建一个接口"></a>第八步：新建一个接口</h1><p>Dataway 提供了2中语言模式，我们可以使用强大的 DataQL 查询语言，也可以直接使用 SQL 语言（在 Dataway 内部 SQL 语言也会被转换为 DataQL 的形式执行。）</p>
-<p><img src="Dataway.jpg/640" alt="图片"></p>
+<p><img src="/2021/04/25/dataway/641.png" alt="图片"></p>
 <p>首先我们在 SQL 模式下尝试执行一条 select 查询，立刻就可以看到这条 SQL 的查询结果。</p>
-<p><img src="Dataway.jpg/640" alt="图片"></p>
+<p><img src="/2021/04/25/dataway/642-1619491879578.jpg" alt="图片"></p>
 <p>同样的方式我们使用 DataQL 的方式需要这样写：</p>
 <pre><code>var query = @@sql()&lt;%
     select * from interface_info
@@ -587,9 +587,9 @@ return query()</code></pre>
 <p>其中 var query = <strong>@@sql()&lt;% … %&gt;</strong> 是用来定义SQL外部代码块，并将这个定义存入 query 变量名中。&lt;% %&gt; 中间的就是 SQL 语句。</p>
 <p>最后在 DataQL 中调用这个代码块，并返回查询结果。</p>
 <p>当接口写好之后就可以保存发布了，为了测试方便，我选用 GET 方式。</p>
-<p><img src="Dataway.jpg/640" alt="图片"></p>
+<p><img src="/2021/04/25/dataway/643.jpg" alt="图片"></p>
 <p>接口发布之后我们直接请求：<a target="_blank" rel="noopener" href="http://127.0.0.1:8080/api/demos%EF%BC%8C%E5%B0%B1%E7%9C%8B%E5%88%B0%E6%9C%9F%E5%BE%85%E5%B7%B2%E4%B9%85%E7%9A%84%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E5%80%BC%E4%BA%86%E3%80%82">http://127.0.0.1:8080/api/demos，就看到期待已久的接口返回值了。</a></p>
-<p><img src="Dataway.jpg/640" alt="图片"></p>
+<p><img src="/2021/04/25/dataway/644.jpg" alt="图片"></p>
 <h1 id="最后总结"><a href="#最后总结" class="headerlink" title="最后总结"></a>最后总结</h1><p>经过上面的几个步骤我们介绍了如何基于 Spring Boot 项目使用 Dataway 来简单的配置接口。</p>
 <p>Dataway 的方式确实给人耳目一新，一个接口竟然可以如此简单的配置出来无需开发任何一行代码，也不需要做任何 Mapping 实体映射绑定。最后，关注公众号Java技术栈，在后台回复：面试，可以获取我整理的 Java、Spring 系列面试题和答案，非常齐全。</p>
 <p>最后放几个有用的连接：</p>
@@ -709,55 +709,37 @@ return query()</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/25/dataway/">
+                <a href="/2021/04/27/test-open-eidt/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Dataway">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="test open eidt">
                         
-                        <span class="card-title">Dataway</span>
+                        <span class="card-title">test open eidt</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Dataway介绍
-Dataway 是基于 DataQL 服务聚合能力，为应用提供的一个接口配置工具。使得使用者无需开发任何代码就配置一个满足需求的接口。整个接口配置、测试、冒烟、发布。一站式都通过 Dataway 提供的 UI 界面完成。
+                            
+
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-25
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-27
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/dataway/" class="post-category">
-                                    dataway
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Cheney
                             
                         </span>
                     </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/springboot/">
-                        <span class="chip bg-color">springboot</span>
-                    </a>
-                    
-                    <a href="/tags/dataway/">
-                        <span class="chip bg-color">dataway</span>
-                    </a>
-                    
                 </div>
                 
             </div>

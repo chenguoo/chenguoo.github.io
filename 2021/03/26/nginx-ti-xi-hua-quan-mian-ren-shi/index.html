@@ -409,7 +409,7 @@
             <div id="articleContent">
                 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一名前端开发人员，你是不是经常碰到领导让你上服务器去修改 <code>Nginx</code> 配置，然而你会以“我是前端，这个我不会”为理由搪塞过去呢！今天就让我们一起告别这种尴尬，向“真正”的程序员迈进！！！</p>
 <p>如果本文对你有所帮助，请点个👍 👍 👍 吧！</p>
-<h1 id="Nginx-概述"><a href="#Nginx-概述" class="headerlink" title="Nginx 概述"></a>Nginx 概述</h1><p><img src="nginx%E4%BD%93%E7%B3%BB%E5%8C%96%E5%85%A8%E9%9D%A2%E8%AE%A4%E8%AF%86.jpg/ac3508ff464e4e379969a7fbca0e6d32~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"></p>
+<h1 id="Nginx-概述"><a href="#Nginx-概述" class="headerlink" title="Nginx 概述"></a>Nginx 概述</h1><p><img src="/2021/03/26/nginx-ti-xi-hua-quan-mian-ren-shi/ac3508ff464e4e379969a7fbca0e6d32~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"></p>
 <p><code>Nginx</code> 是开源、高性能、高可靠的 <code>Web</code> 和反向代理服务器，而且支持热部署，几乎可以做到 7 * 24 小时不间断运行，即使运行几个月也不需要重新启动，还能在不间断服务的情况下对软件版本进行热更新。性能是 <code>Nginx</code> 最重要的考量，其占用内存少、并发能力强、能支持高达 5w 个并发连接数，最重要的是， <code>Nginx</code> 是免费的并可以商业化，配置使用也比较简单。</p>
 <h1 id="Nginx-特点"><a href="#Nginx-特点" class="headerlink" title="Nginx 特点"></a>Nginx 特点</h1><ul>
 <li>高并发、高性能；</li>
@@ -426,7 +426,7 @@
 <li><code>API</code> 服务， <code>OpenResty</code> ；</li>
 </ol>
 <p>对于前端来说 <code>Node.js</code> 并不陌生， <code>Nginx</code> 和 <code>Node.js</code> 的很多理念类似， <code>HTTP</code> 服务器、事件驱动、异步非阻塞等，且 <code>Nginx</code> 的大部分功能使用 <code>Node.js</code> 也可以实现，但 <code>Nginx</code> 和 <code>Node.js</code> 并不冲突，都有自己擅长的领域。 <code>Nginx</code> 擅长于底层服务器端资源的处理（静态资源处理转发、反向代理，负载均衡等）， <code>Node.js</code> 更擅长上层具体业务逻辑的处理，两者可以完美组合。</p>
-<p>用一张图表示：<br><img src="nginx%E4%BD%93%E7%B3%BB%E5%8C%96%E5%85%A8%E9%9D%A2%E8%AE%A4%E8%AF%86.jpg/070a90dae22c4693858f367bc60934b2~tplv-k3u1fbpfcp-zoom-1.image" alt="未命名文件.png"></p>
+<p>用一张图表示：<br><img src="/2021/03/26/nginx-ti-xi-hua-quan-mian-ren-shi/070a90dae22c4693858f367bc60934b2~tplv-k3u1fbpfcp-zoom-1.image" alt="未命名文件.png"></p>
 <h1 id="Nginx-安装"><a href="#Nginx-安装" class="headerlink" title="Nginx 安装"></a>Nginx 安装</h1><p>本文演示的是 <code>Linux</code> <code>centOS 7.x</code> 的操作系统上安装 <code>Nginx</code> ，至于在其它操作系统上进行安装可以网上自行搜索，都非常简单的。</p>
 <p>使用  <code>yum</code> 安装 <code>Nginx</code> ：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">yum <span class="token function">install</span> nginx -y
@@ -558,7 +558,7 @@ http <span class="token punctuation">{</span>
 <li><code>location</code> 用于配置匹配的 <code>uri</code> ；</li>
 <li><code>upstream</code> 配置后端服务器具体地址，负载均衡配置不可或缺的部分；</li>
 </ul>
-<p>用一张图清晰的展示它的层级结构：<br><img src="nginx%E4%BD%93%E7%B3%BB%E5%8C%96%E5%85%A8%E9%9D%A2%E8%AE%A4%E8%AF%86.jpg/87fffe0360aa4f34adb6258a955aad38~tplv-k3u1fbpfcp-zoom-1.image" alt="未命名文件 (4).png"></p>
+<p>用一张图清晰的展示它的层级结构：<br><img src="/2021/03/26/nginx-ti-xi-hua-quan-mian-ren-shi/87fffe0360aa4f34adb6258a955aad38~tplv-k3u1fbpfcp-zoom-1.image" alt="未命名文件 (4).png"></p>
 <h2 id="配置文件-main-段核心参数"><a href="#配置文件-main-段核心参数" class="headerlink" title="配置文件 main 段核心参数"></a>配置文件 main 段核心参数</h2><h3 id="user"><a href="#user" class="headerlink" title="user"></a>user</h3><p>指定运行 <code>Nginx</code> 的 <code>woker</code> 子进程的属主和属组，其中组可以不指定。</p>
 <pre class="line-numbers language-bash"><code class="language-bash">user USERNAME <span class="token punctuation">[</span>GROUP<span class="token punctuation">]</span>
 
@@ -1541,7 +1541,7 @@ http://news.company.com/dir/other.html 不同源，主机不同
 <p>这样可以完美绕过浏览器的同源策略： <code>fe.server.com</code> 访问 <code>Nginx</code> 的 <code>fe.server.com</code> 属于同源访问，而 <code>Nginx</code> 对服务端转发的请求不会触发浏览器的同源策略。</p>
 <h2 id="配置开启-gzip-压缩"><a href="#配置开启-gzip-压缩" class="headerlink" title="配置开启 gzip 压缩"></a>配置开启 gzip 压缩</h2><p><code>GZIP</code> 是规定的三种标准 <code>HTTP</code> 压缩格式之一。目前绝大多数的网站都在使用 <code>GZIP</code> 传输 <code>HTML</code> 、<code>CSS</code> 、 <code>JavaScript</code> 等资源文件。</p>
 <p>对于文本文件， <code>GZiP</code> 的效果非常明显，开启后传输所需流量大约会降至 <code>1/4~1/3</code> 。</p>
-<p>并不是每个浏览器都支持 <code>gzip</code> 的，如何知道客户端是否支持 <code>gzip</code> 呢，请求头中的 <code>Accept-Encoding</code> 来标识对压缩的支持。<br>![image.png](data:image/svg+xml;utf8,<!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)<br>启用 <code>gzip</code> 同时需要客户端和服务端的支持，如果客户端支持 <code>gzip</code> 的解析，那么只要服务端能够返回 <code>gzip</code> 的文件就可以启用 <code>gzip</code> 了,我们可以通过 <code>Nginx</code> 的配置来让服务端支持 <code>gzip</code> 。下面的 <code>respone</code> 中 <code>content-encoding:gzip</code> ，指服务端开启了 <code>gzip</code> 的压缩方式。<br><img src="nginx%E4%BD%93%E7%B3%BB%E5%8C%96%E5%85%A8%E9%9D%A2%E8%AE%A4%E8%AF%86.jpg/d6c44208107243bab7cf0b15c89a6722~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"><br>在 <code>/etc/nginx/conf.d/</code> 文件夹中新建配置文件 <code>gzip.conf</code> ：</p>
+<p>并不是每个浏览器都支持 <code>gzip</code> 的，如何知道客户端是否支持 <code>gzip</code> 呢，请求头中的 <code>Accept-Encoding</code> 来标识对压缩的支持。<br>![image.png](data:image/svg+xml;utf8,<!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)<br>启用 <code>gzip</code> 同时需要客户端和服务端的支持，如果客户端支持 <code>gzip</code> 的解析，那么只要服务端能够返回 <code>gzip</code> 的文件就可以启用 <code>gzip</code> 了,我们可以通过 <code>Nginx</code> 的配置来让服务端支持 <code>gzip</code> 。下面的 <code>respone</code> 中 <code>content-encoding:gzip</code> ，指服务端开启了 <code>gzip</code> 的压缩方式。<br><img src="/2021/03/26/nginx-ti-xi-hua-quan-mian-ren-shi/d6c44208107243bab7cf0b15c89a6722~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"><br>在 <code>/etc/nginx/conf.d/</code> 文件夹中新建配置文件 <code>gzip.conf</code> ：</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># # 默认off，是否开启gzip</span>
 <span class="token function">gzip</span> on<span class="token punctuation">;</span> 
 <span class="token comment" spellcheck="true"># 要采用 gzip 压缩的 MIME 文件类型，其中 text/html 被系统强制启用；</span>
@@ -1596,7 +1596,7 @@ gzip_http_version 1.1<span class="token punctuation">;</span>
 <li>老的 <code>worker</code> 进程关闭监听句柄，处理完当前连接后关闭进程；</li>
 <li>整个过程 <code>Nginx</code> 始终处于平稳运行中，实现了平滑升级，用户无感知；</li>
 </ol>
-<h2 id="Nginx-模块化管理机制"><a href="#Nginx-模块化管理机制" class="headerlink" title="Nginx 模块化管理机制"></a>Nginx 模块化管理机制</h2><p><code>Nginx</code> 的内部结构是由核心部分和一系列的功能模块所组成。这样划分是为了使得每个模块的功能相对简单，便于开发，同时也便于对系统进行功能扩展。<code>Nginx</code> 的模块是互相独立的,低耦合高内聚。<br><img src="nginx%E4%BD%93%E7%B3%BB%E5%8C%96%E5%85%A8%E9%9D%A2%E8%AE%A4%E8%AF%86.jpg/7c0d0801228d409b8fc202df83a2233d~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"></p>
+<h2 id="Nginx-模块化管理机制"><a href="#Nginx-模块化管理机制" class="headerlink" title="Nginx 模块化管理机制"></a>Nginx 模块化管理机制</h2><p><code>Nginx</code> 的内部结构是由核心部分和一系列的功能模块所组成。这样划分是为了使得每个模块的功能相对简单，便于开发，同时也便于对系统进行功能扩展。<code>Nginx</code> 的模块是互相独立的,低耦合高内聚。<br><img src="/2021/03/26/nginx-ti-xi-hua-quan-mian-ren-shi/7c0d0801228d409b8fc202df83a2233d~tplv-k3u1fbpfcp-zoom-1.image" alt="image.png"></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>相信通过本文的学习，你应该会对 <code>Nginx</code> 有一个更加全面的认识。</p>
 <p>都看到这里了，就点个👍 👍 👍 吧。</p>
 <p>作者：Lion<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6942607113118023710">https://juejin.cn/post/6942607113118023710</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
@@ -1728,11 +1728,23 @@ gzip_http_version 1.1<span class="token punctuation">;</span>
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Cheney
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/cache/" class="post-category">
+                                    cache
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/cache/">
+                        <span class="chip bg-color">cache</span>
+                    </a>
+                    
                 </div>
                 
             </div>

@@ -841,7 +841,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 </ul>
 <p>注意：<em>RedisTemplate的键和值序列化器，默认情况下都是JdkSerializationRedisSerializer，它们都可以自定义设置序列化器。</em></p>
 <p>推荐将字符串键使用StringRedisSerializer序列化器，因为运维的时候好排查问题，JDK序列化器的也能识别，但是可读性稍差(是因为缓存服务器没有JRE吗？)，见如下效果：</p>
-<p><img src="SpringBoot%E7%BC%93%E5%AD%98%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5.jpg/640" alt="图片">img</p>
+<p><img src="/2021/04/02/springboot-huan-cun-ying-yong-shi-jian/640" alt="图片"></p>
 <p>而值序列化器则要复杂的多，很多人推荐使用Jackson2JsonRedisSerializer序列化器，但是实际开发过程中，经常有人碰到反序列化错误，经过排查多数都和Jackson2JsonRedisSerializer这个序列化器有关。</p>
 <h3 id="4、实现接口"><a href="#4、实现接口" class="headerlink" title="4、实现接口"></a>4、实现接口</h3><p>使用RedisTemplate，在Spring Boot中调用Redis接口比直接调用Jedis简单多了。</p>
 <pre><code>@Configuration

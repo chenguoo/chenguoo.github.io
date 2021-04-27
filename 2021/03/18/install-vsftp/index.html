@@ -413,16 +413,16 @@
             <div id="articleContent">
                 <h2 id="1、检查安装vsftpd软件"><a href="#1、检查安装vsftpd软件" class="headerlink" title="1、检查安装vsftpd软件"></a>1、检查安装vsftpd软件</h2><p>rpm -qa |grep vsftpd</p>
 <p>如果安装过会出现vsftpd的版本信息，没有则不会显示（如下图）</p>
-<p><img src="install-vsftp.jpg/bc6a80e3b1fc47f1b38ac84c157c0b1b" alt="你还记得她吗-FTP"></p>
+<p><img src="/2021/03/18/install-vsftp/bc6a80e3b1fc47f1b38ac84c157c0b1b" alt="你还记得她吗-FTP"></p>
 <p>图1未安装</p>
-<p><img src="install-vsftp.jpg/60bd57e4427d4ea1b72de5142e50cd73" alt="你还记得她吗-FTP"></p>
+<p><img src="/2021/03/18/install-vsftp/60bd57e4427d4ea1b72de5142e50cd73" alt="你还记得她吗-FTP"></p>
 <p>图2 已安装</p>
 <h2 id="2、进行安装"><a href="#2、进行安装" class="headerlink" title="2、进行安装"></a>2、进行安装</h2><p>如果没有安装，使用YUM命令安装</p>
 <p>yum install vsftpd -y</p>
-<p><img src="install-vsftp.jpg/cb1a9828b9db4d9d9703deebb7fa0b8d" alt="你还记得她吗-FTP"></p>
+<p><img src="/2021/03/18/install-vsftp/cb1a9828b9db4d9d9703deebb7fa0b8d" alt="你还记得她吗-FTP"></p>
 <p>图3 安装完成</p>
 <p>等运行完成ftp在你的服务器上就安装完成了，就可以开始你的操作了。其默认的安装目录在/etc/vsftpd，会生产ftp的基本文件</p>
-<p><img src="install-vsftp.jpg/f7058ce274274c54865edcefd42f2e77" alt="你还记得她吗-FTP"></p>
+<p><img src="/2021/03/18/install-vsftp/f7058ce274274c54865edcefd42f2e77" alt="你还记得她吗-FTP"></p>
 <p>图4 默认文件</p>
 <h2 id="3、启动服务"><a href="#3、启动服务" class="headerlink" title="3、启动服务"></a>3、启动服务</h2><p>使用vsftpd软件，主要包括如下几个命令：</p>
 <p>查看状态 systemctl status vsftpd</p>
@@ -437,7 +437,7 @@
 <h2 id="4、安装本地测试工具ftp客户端组件"><a href="#4、安装本地测试工具ftp客户端组件" class="headerlink" title="4、安装本地测试工具ftp客户端组件"></a>4、安装本地测试工具ftp客户端组件</h2><p>yum -y install ftp</p>
 <p>安装完成后就可以输入ftp localhost 进行连接,连接成功后会让你输入用户名和密码，在centos7下的ftp是允许匿名登录的用户名是 ftp 密码 随意输入即可。</p>
 <p>在centos8下下载完的ftp是不允许匿名登录的，如果想本地测试就需要修改配置文件了。</p>
-<p><img src="install-vsftp.jpg/fc4d39a285ba400493da68c1e080c438" alt="你还记得她吗-FTP"></p>
+<p><img src="/2021/03/18/install-vsftp/fc4d39a285ba400493da68c1e080c438" alt="你还记得她吗-FTP"></p>
 <p>图5 ftp客户端登陆</p>
 <p>登陆完成后就可以在本地操作了。</p>
 <h2 id="5、配置外网访问"><a href="#5、配置外网访问" class="headerlink" title="5、配置外网访问"></a>5、配置外网访问</h2><p>开启防火墙，配置端口，ftp默认的端口是21</p>
@@ -470,7 +470,7 @@
 <p>SELINUX=enforcing 设置成SELINUX=disabled</p>
 <p>需要重启服务器，再次使用外网连接就可实现数据的上传和下载了</p>
 <h2 id="10、设置开机自启"><a href="#10、设置开机自启" class="headerlink" title="10、设置开机自启"></a>10、设置开机自启</h2><p>chkconfig vsftpd on</p>
-<p><img src="install-vsftp.jpg/74d3ca52788f4e1cbf8ef2da5ed2afdc" alt="你还记得她吗-FTP"></p>
+<p><img src="/2021/03/18/install-vsftp/74d3ca52788f4e1cbf8ef2da5ed2afdc" alt="你还记得她吗-FTP"></p>
 
             </div>
             <hr/>
