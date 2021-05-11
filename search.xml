@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>SpringBoot 开启idea远程调试</title>
+      <link href="2021/05/11/remotedebug/"/>
+      <url>2021/05/11/remotedebug/</url>
+      
+        <content type="html"><![CDATA[<h2 id="服务器上开启远程调试端口"><a href="#服务器上开启远程调试端口" class="headerlink" title="服务器上开启远程调试端口"></a>服务器上开启远程调试端口</h2><pre class="line-numbers language-shell"><code class="language-shell">nohup java -jar demo.jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="idea添加一个Remote"><a href="#idea添加一个Remote" class="headerlink" title="idea添加一个Remote"></a>idea添加一个Remote</h2><p>在开发工具里面新增一个 Remote 配置：</p><p><img src="/2021/05/11/remotedebug/641.png" alt="图片"></p><p>只需要确定 Host、Port 参数即可。</p><ul><li>Host：地址</li></ul><p>localhost：本地启动地址；</p><ul><li>Port：端口</li></ul><p>5005：上面命令行指定的端口；</p><h2 id="3、开始调试"><a href="#3、开始调试" class="headerlink" title="3、开始调试"></a>3、开始调试</h2><p>先启动加了 <code>jvmArguments</code> 参数的 Spring Boot 项目：</p><p><img src="/2021/05/11/remotedebug/642.png" alt="图片"></p><p>程序停在监听端口：5005，再 debug 启动Remote：</p><p><img src="/2021/05/11/remotedebug/643.png" alt="图片"></p><p>再回到项目，开始启动输出日志，然后就可以进行断点调试了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> debug </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> debug </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>logback</title>
       <link href="2021/05/07/logback/"/>
       <url>2021/05/07/logback/</url>
