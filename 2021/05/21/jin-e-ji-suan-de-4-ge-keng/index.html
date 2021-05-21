@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="install rabbitmq, Cheney 学习日志">
+    <meta name="keywords" content="金额计算的4个坑, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>install rabbitmq | Cheney 学习日志</title>
+    <title>金额计算的4个坑 | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">install rabbitmq</h1>
+                    <h1 class="description center-align post-title">金额计算的4个坑</h1>
                 </div>
             </div>
         </div>
@@ -368,17 +368,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/rabbitMQ/">
-                                <span class="chip bg-color">rabbitMQ</span>
-                            </a>
-                        
-                            <a href="/tags/linux-install/">
-                                <span class="chip bg-color">linux - install</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -386,8 +378,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/rabbitMQ/" class="post-category">
-                                rabbitMQ
+                            <a href="/categories/java/" class="post-category">
+                                java
                             </a>
                         
                     </div>
@@ -399,7 +391,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-01-20
+                    2021-05-21
                 </div>
                 
 
@@ -415,113 +407,85 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="已安装rabbitmq-server-3-8-5为例，具体环境："><a href="#已安装rabbitmq-server-3-8-5为例，具体环境：" class="headerlink" title="已安装rabbitmq-server-3.8.5为例，具体环境："></a>已安装rabbitmq-server-3.8.5为例，具体环境：</h2><table>
-<thead>
-<tr>
-<th>环境</th>
-<th>版本</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>OS</td>
-<td>linux7</td>
-</tr>
-<tr>
-<td>rabbitmq</td>
-<td>rabbitmq-server-3.8.5-1.el7.noarch.rpm</td>
-</tr>
-<tr>
-<td>erlang</td>
-<td>erlang-22.3.4.1-1.el7.x86_64.rpm</td>
-</tr>
-<tr>
-<td>socat</td>
-<td>socat-1.7.3.2-2.el7.x86_64.rpm</td>
-</tr>
-</tbody></table>
-<h3 id="安装Erlang"><a href="#安装Erlang" class="headerlink" title="安装Erlang"></a>安装Erlang</h3><p>由于RabbitMQ依赖Erlang， 所以需要先安装Erlang。</p>
-<p>Erlang的安装方式大概有两种：</p>
-<ol>
-<li><p>rpm方式安装Erlang</p>
-<pre class="line-numbers language-shell"><code class="language-shell"> # 添加erlang solutions源
- $ wget https://xxx/erlang-22.3.4.1-1.el7.x86_64.rpm
- $ wget --content-disposition https://packagecloud.io/rabbitmq/erlang/packages/el/7/erlang-23.3.4-1.el7.x86_64.rpm/download.rpm
- $ sudo rpm -Uvh erlang-22.3.4.1-1.el7.x86_64.rpm
- $ sudo yum install erlang<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>从EPEL源安装(<strong><em>\</em>此方式安装的Erlang版本可能不是最新的，有时候不能满足RabbitMQ需要的最低版本**</strong>)</p>
-<pre class="line-numbers language-shell"><code class="language-shell"> # 启动EPEL源
- $ sudo yum install epel-release 
- # 安装erlang
- $ sudo yum install erlang  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ol>
-<h3 id="安装socat"><a href="#安装socat" class="headerlink" title="安装socat"></a>安装socat</h3><p>先下载rpm：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">wget http://www.rpmfind.net/linux/centos/7.9.2009/os/x86_64/Packages/socat-1.7.3.2-2.el7.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>下载完成后安装：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">rpm -ivh  socat-1.7.3.2-2.el7.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="安装RabbitMQ"><a href="#安装RabbitMQ" class="headerlink" title="安装RabbitMQ"></a>安装RabbitMQ</h3><p>先下载rpm：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.5/rabbitmq-server-3.8.5-1.el7.noarch.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>下载完成后安装：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">rpm -ivh rabbitmq-server-3.8.5-1.el7.noarch.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="关于RabbitMQ的一些基本操作"><a href="#关于RabbitMQ的一些基本操作" class="headerlink" title="关于RabbitMQ的一些基本操作"></a>关于RabbitMQ的一些基本操作</h3><pre class="line-numbers language-shell"><code class="language-shell">$ systemctl enable rabbitmq-server  # 添加开机启动RabbitMQ服务
-$ systemctl start rabbitmq-server # 启动服务
-$ systemctl status rabbitmq-server  # 查看服务状态
-$ systemctl stop rabbitmq-server    # 停止服务
-
-# 查看当前所有用户
-$ sudo rabbitmqctl list_users
-
-# 查看默认guest用户的权限
-$ sudo rabbitmqctl list_user_permissions guest
-
-# 由于RabbitMQ默认的账号用户名和密码都是guest。为了安全起见, 先删掉默认用户
-$ sudo rabbitmqctl delete_user guest
-
-# 添加新用户
-$ sudo rabbitmqctl add_user username password
-
-# 设置用户tag
-$ sudo rabbitmqctl set_user_tags username administrator
-
-# 赋予用户默认vhost的全部操作权限
-$ sudo rabbitmqctl set_permissions -p / username ".*" ".*" ".*"
-
-# 查看用户的权限
-$ sudo rabbitmqctl list_user_permissions username<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>更多关于<code>rabbitmqctl</code>的使用，可以参考<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://www.rabbitmq.com/man/rabbitmqctl.1.man.html">帮助手册</a>。</p>
-<h3 id="开启web管理接口"><a href="#开启web管理接口" class="headerlink" title="开启web管理接口"></a>开启web管理接口</h3><p>如果只从命令行操作RabbitMQ，多少有点不方便。幸好RabbitMQ自带了web管理界面，只需要启动插件便可以使用。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ sudo rabbitmq-plugins enable rabbitmq_management<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>然后通过浏览器访问</p>
-<p><a target="_blank" rel="noopener" href="http://localhost:15672/">http://localhost:15672</a></p>
-<p>输入用户名和密码访问web管理界面了。</p>
-<h3 id="配置RabbitMQ"><a href="#配置RabbitMQ" class="headerlink" title="配置RabbitMQ"></a>配置RabbitMQ</h3><p>关于RabbitMQ的配置，可以下载RabbitMQ的<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/stable/docs/rabbitmq.config.example">配置文件模板</a>到<code>/etc/rabbitmq/rabbitmq.config</code>, 然后按照需求更改即可。<br>关于每个配置项的具体作用，可以参考<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://www.rabbitmq.com/configure.html">官方文档</a>。<br>更新配置后，别忘了重启服务哦！</p>
-<h3 id="开启用户远程访问"><a href="#开启用户远程访问" class="headerlink" title="开启用户远程访问"></a>开启用户远程访问</h3><p>默认情况下，RabbitMQ的默认的<code>guest</code>用户只允许本机访问， 如果想让<code>guest</code>用户能够远程访问的话，只需要将配置文件中的<code>loopback_users</code>列表置为空即可，如下：</p>
-<pre><code>{loopback_users, []}</code></pre>
-<p>另外关于新添加的用户，直接就可以从远程访问的，如果想让新添加的用户只能本地访问，可以将用户名添加到上面的列表, 如只允许<code>admin</code>用户本机访问。</p>
-<pre><code>{loopback_users, ["admin"]}</code></pre>
-<p>更新配置后，别忘了重启服务哦！</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ systemctl status rabbitmq-server   # 查看服务状态<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="http://images2015.cnblogs.com/blog/321801/201611/321801-20161123155611737-770552575.png" alt="img"></p>
-<p>这里可以看到log文件的位置，转到文件位置，打开文件：</p>
-<p><img src="http://images2015.cnblogs.com/blog/321801/201611/321801-20161123155722050-140847138.png" alt="img"></p>
-<p>这里显示的是没有找到配置文件，我们可以自己创建这个文件</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ cd /etc/rabbitmq/
-$ vi rabbitmq.config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>编辑内容如下：</p>
-<pre class="line-numbers language-html"><code class="language-html">[{rabbit, [{loopback_users, []}]}].<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这里的意思是开放使用，rabbitmq默认创建的用户guest，密码也是guest，这个用户默认只能是本机访问，localhost或者127.0.0.1，从外部访问需要添加上面的配置。</p>
-<p>保存配置后重启服务：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ systemctl stop rabbitmq-server 
-$ systemctl start rabbitmq-server <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>此时就可以从外部访问了，但此时再看log文件，发现内容还是原来的，还是显示没有找到配置文件，可以手动删除这个文件再重启服务，不过这不影响使用</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ rm rabbit\@mythsky.log 
-$ systemctl stop rabbitmq-server 
-$ systemctl start rabbitmq-server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>注意:记得要开放5672和15672端口</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ firewall-cmd --zone=public --add-port=5672/tcp --permanent
-$ firewall-cmd --zone=public --add-port=15672/tcp --permanent 
-$ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>电商项目开发时肯定少不了金额计算，金额计算时有很多让人坑人的地方，在此记录，以免被坑。</p>
+<h4 id="1、多精度计算问题"><a href="#1、多精度计算问题" class="headerlink" title="1、多精度计算问题"></a>1、多精度计算问题</h4><p>多精度不能直接计算，会存在经度缺失的问题。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span> <span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">double</span> num1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword">double</span> num2 <span class="token operator">=</span> <span class="token number">31.2</span><span class="token punctuation">;</span>
+  <span class="token keyword">double</span> num3 <span class="token operator">=</span> <span class="token number">323.03</span><span class="token punctuation">;</span>
+  System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span> <span class="token punctuation">(</span>num1<span class="token operator">+</span>num2<span class="token operator">+</span>num3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+   * 355.22999999999996
+   */</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如上代码，3 个数值想加之后却得出了一个很长的数值。</p>
+<p>在 java 开发中可以通过 BigDecimal 进行数值类型的计算，详细可到 BigDecimal 工具类。</p>
+<p>数据库也是一样，mysql中有float和double类型，通过sql直接累加数据也会有精度缺失的情况。如果要精确的数值计算，要使用mysql的decimal类型。</p>
+<h4 id="2、包装类型比对"><a href="#2、包装类型比对" class="headerlink" title="2、包装类型比对"></a>2、包装类型比对</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     Integer i1 <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+     Integer i2 <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+     Integer i3 <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
+     Integer i4 <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i1<span class="token operator">==</span>i2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i3<span class="token operator">==</span>i4<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// false</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如上代码很神奇，同样是数值比对100的时候可以通过双等号返回true。200就返回false。</p>
+<p>这是因为Integer的valueOf()方法。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//Integer的valueOf方法</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> IntegerCache<span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> IntegerCache<span class="token punctuation">.</span>high<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> IntegerCache<span class="token punctuation">.</span>cache<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token operator">-</span>IntegerCache<span class="token punctuation">.</span>low<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在[-128,128]之间的数，可以通过双等于比对成功，之外的数值就会返回一个new一个新的Integer，因此会返回false。Double的比较就简单一点，双等于比对全是false。这是因为Double直接是返回了一个新的Double。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//Double的valueOf方法</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> Double <span class="token function">valueOf</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token keyword">throws</span> NumberFormatException <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Double</span><span class="token punctuation">(</span><span class="token function">parseDouble</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在数值比对的时候乱的样子，那我发现他们都有eq方法，通过这个方法比对可以吗？<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247484834&amp;idx=1&amp;sn=ea4af7434a399f6433d3a0ae3aac2d05&amp;chksm=eb538094dc240982f3793e54918b128aa4b683b995ac33dfc5c45579422e24bf5fcef3e4226b&amp;scene=21#wechat_redirect">金融系统中正确的金额计算及存储方式</a>这篇看下。</p>
+<p>可以的，不管是Integer还是Double都存在一个equas方法，通过这个方法即可进行数值比对。但是这个方法不是很完美。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span> <span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  Double i1 <span class="token operator">=</span> <span class="token number">100d</span><span class="token punctuation">;</span>
+  System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i1<span class="token punctuation">.</span><span class="token function">equals</span> <span class="token punctuation">(</span><span class="token string">"100"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token comment" spellcheck="true">//false</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如上所示，因为太多的人都知道字符串类型不能用双等号进行比对，要用eq方法进行比对其value。</p>
+<p>这样会让很多人误以为Integer和Double类型也是如此，而且在编码的时候如上这种写法也没有报错，会认为都是100肯定会返回true。恰巧这种想法是错误的。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">Double</span><span class="token punctuation">)</span>
+           <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token function">doubleToLongBits</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Double<span class="token punctuation">)</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token operator">==</span>
+                  <span class="token function">doubleToLongBits</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Double的eq方法入参是Object类型，因此不管传入什么类型都不会报错。i1.equals (“100”)这种就是双精度和字符进行比对，这两个永远都不可能返回true。正确的写法应该是i1.equals (100d)。</p>
+<p>但是尽管多次提醒，但是还是会有不认真的开发小伙伴错误，因此，可以使用Double.compareTo方法，这个方法和eq方法类似，但是有编译的异常，这样可有效的提醒开发人员。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span> <span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  Double i1 <span class="token operator">=</span> <span class="token number">100d</span><span class="token punctuation">;</span>
+  System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i1<span class="token punctuation">.</span><span class="token function">compareTo</span> <span class="token punctuation">(</span><span class="token number">100d</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//0</span>
+  System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i1<span class="token punctuation">.</span><span class="token function">compareTo</span> <span class="token punctuation">(</span><span class="token number">1d</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//1</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="3、除以0会怎样？"><a href="#3、除以0会怎样？" class="headerlink" title="3、除以0会怎样？"></a>3、除以0会怎样？</h4><p>小学的时候就讲过，进行除法运算时，除以0是没有意义的，开发过程中也是如此， 发现可能存在除以0的场景要特别注意，程序不会抛出异常，竟然会返回一个字符串！虽然这种场景不多，但是还是需要了解一下。</p>
+<p>1除以0的场景：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Double d <span class="token operator">=</span> <span class="token number">1d</span><span class="token punctuation">;</span>
+  <span class="token keyword">double</span> v <span class="token operator">=</span> d <span class="token operator">/</span> <span class="token number">0d</span><span class="token punctuation">;</span>
+  System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//Infinity</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>0除以0的场景：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Double d <span class="token operator">=</span> <span class="token number">0d</span><span class="token punctuation">;</span>
+  <span class="token keyword">double</span> v <span class="token operator">=</span> d <span class="token operator">/</span> <span class="token number">0d</span><span class="token punctuation">;</span>
+  System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//NaN</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="4、float转double"><a href="#4、float转double" class="headerlink" title="4、float转double"></a>4、float转double</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ Float f <span class="token operator">=</span> <span class="token number">12312.12f</span><span class="token punctuation">;</span>
+ System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>f<span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+ System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Double<span class="token punctuation">.</span><span class="token function">parseDouble</span> <span class="token punctuation">(</span>f<span class="token punctuation">.</span><span class="token function">toString</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+ <span class="token comment" spellcheck="true">//12312.1201171875</span>
+ <span class="token comment" spellcheck="true">//12312.12</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Float类中有一个doubleValue方法，返回值是一个double类型，这样会很容易的以为这是float转换double类型。但是转换之后精度缺失了，只能乖乖的换一种方式转换。</p>
 
             </div>
             <hr/>
@@ -547,7 +511,7 @@ $ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2021/01/20/install-rabbitmq/">https://chenguoo.github.io/2021/01/20/install-rabbitmq/</a>
+                    <a href="https://chenguoo.github.io/2021/05/21/jin-e-ji-suan-de-4-ge-keng/">https://chenguoo.github.io/2021/05/21/jin-e-ji-suan-de-4-ge-keng/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -584,15 +548,7 @@ $ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span>
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/rabbitMQ/">
-                                    <span class="chip bg-color">rabbitMQ</span>
-                                </a>
-                            
-                                <a href="/tags/linux-install/">
-                                    <span class="chip bg-color">linux - install</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -632,55 +588,46 @@ $ firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/01/21/install-elasticsearch/">
+                <a href="/2021/05/21/jin-e-ji-suan-de-4-ge-keng/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="install elasticsearch">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="金额计算的4个坑">
                         
-                        <span class="card-title">install elasticsearch</span>
+                        <span class="card-title">金额计算的4个坑</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            elasticsearch 6.8安装https://www.elastic.co/cn/downloads/past-releases#elasticsearch
-选择6.8.8版本
-https://www.elastic.co/guid
+                            前言电商项目开发时肯定少不了金额计算，金额计算时有很多让人坑人的地方，在此记录，以免被坑。
+1、多精度计算问题多精度不能直接计算，会存在经度缺失的问题。
+public static void main (String[] args) {
+ 
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/elasticsearch/" class="post-category">
-                                    elasticsearch
+                            <a href="/categories/java/" class="post-category">
+                                    java
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/elasticsearch/">
-                        <span class="chip bg-color">elasticsearch</span>
-                    </a>
-                    
-                    <a href="/tags/linux-install/">
-                        <span class="chip bg-color">linux - install</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -691,46 +638,33 @@ https://www.elastic.co/guid
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/14/spring-zhong-transactional-zhu-jie-shi-xiao-de-chang-jing/">
+                <a href="/2021/05/14/idea-debug-magic/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Spring 中@Transactional 注解失效的场景">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="起飞，会了这4个 Intellij IDEA 调试魔法，阅读源码都简单了">
                         
-                        <span class="card-title">Spring 中@Transactional 注解失效的场景</span>
+                        <span class="card-title">起飞，会了这4个 Intellij IDEA 调试魔法，阅读源码都简单了</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            引言
-@Transactional注解哪些场景下会失效，一时语塞致使面试失败。所以今天简单的和大家分享一下@Transactional相关的知识。
-@Transactional 注解相信大家并不陌生，平时开发中很常用的一个注解，它能保证方法
+                            前言
+上一篇文章 IntelliJ IDEA 高级调试之Stream Trace 算是 IntelliJ IDEA 高级调试技巧的开胃菜，很多小伙伴被这个小技巧征服。趁热打铁，今天给大家带来几个我日常工作以及阅读源码必备的 IntelliJ
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-14
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/spring/" class="post-category">
-                                    spring
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Cheney
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/transactional/">
-                        <span class="chip bg-color">transactional</span>
-                    </a>
-                    
                 </div>
                 
             </div>
