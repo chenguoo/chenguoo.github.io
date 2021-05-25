@@ -481,10 +481,11 @@ github    https://github.com/*** (push)<span aria-hidden="true" class="line-numb
 <pre class="line-numbers language-shell"><code class="language-shell">$ git pull gitee master
 $ git push gitee master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><p>1.添加关联</p>
-<pre class="line-numbers language-shell"><code class="language-shell">git remote set-url --add origin git@gitee.com:noyi/project-name.git<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">git remote set-url --add origin 仓库地址<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>2.推送</p>
 <pre class="line-numbers language-shell"><code class="language-shell">$ git remote -v
 $ git push origin master:master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>好处，只需要推送一次就可以到两个仓库</p>
 <h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><p>如果配置 <code>config</code> 文件后，未能生效。本地 <code>git</code> 软件的配置存在缓存，可使用以下命令判断秘钥是否生效：</p>
 <p><img src="/2021/05/25/ru-he-yi-tai-ji-qi-tong-shi-shi-yong-duo-ge-git-mi-yao/6639557d416d4db49fbaa7b7e82b120f~tplv-k3u1fbpfcp-watermark.image" alt="QQ截图20210524221347.png"></p>
 <pre class="line-numbers language-shell"><code class="language-shell">$ cd ~/.ssh
