@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>git cherry-pick 简单教程</title>
+      <link href="2021/05/27/git-cherry-pick-jian-dan-jiao-cheng/"/>
+      <url>2021/05/27/git-cherry-pick-jian-dan-jiao-cheng/</url>
+      
+        <content type="html"><![CDATA[<h1 id="git-cherry-pick-简单教程"><a href="#git-cherry-pick-简单教程" class="headerlink" title="git cherry-pick 简单教程"></a>git cherry-pick 简单教程</h1><p><img src="/2021/05/27/git-cherry-pick-jian-dan-jiao-cheng/4ce1759da0804fe086acd617202afbdf" alt="git cherry-pick 简单教程"></p><p>在上一篇文章说以为某些原因，我趁着下班前的功夫简单写了份规范文档，里面就提到使用cherry-pick 这个命令。</p><p>cherry-pick是一个可以提高开发效率的命令。</p><p>cherry-pick可以把其它分支上的commit一个个抽离出来，合并到指定分支上。</p><hr><h1 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h1><p>git cherry-pick命令的作用，就是将指定的提交（commit）应用于其他分支。</p><pre><code>$ git cherry-pick &lt;commitHash&gt;</code></pre><p>上面命令就会将指定的提交commitHash，应用于当前分支。这会在当前分支产生一个新的提交，当然它们的哈希值会不一样。</p><p>举例来说，代码仓库有master和feature两个分支。</p><pre><code>    a - b - c - d   Master         \           e - f - g Feature</code></pre><p>现在将提交f应用到master分支。</p><pre><code># 切换到 master 分支$ git checkout master# Cherry pick 操作$ git cherry-pick f</code></pre><p>上面的操作完成以后，代码库就变成了下面的样子。</p><pre><code>    a - b - c - d - f   Master         \           e - f - g Feature</code></pre><p>从上面可以看到，master分支的末尾增加了一个提交f。</p><p>git cherry-pick命令的参数，不一定是提交的哈希值，分支名也是可以的，表示转移该分支的最新提交。</p><pre><code>$ git cherry-pick feature</code></pre><p>上面代码表示将feature分支的最近一次提交，转移到当前分支。</p><hr><h1 id="二、转移多个提交"><a href="#二、转移多个提交" class="headerlink" title="二、转移多个提交"></a>二、转移多个提交</h1><p>Cherry pick 支持一次转移多个提交。</p><pre><code>$ git cherry-pick &lt;HashA&gt; &lt;HashB&gt;</code></pre><p>上面的命令将 A 和 B 两个提交应用到当前分支。这会在当前分支生成两个对应的新提交。</p><p>如果想要转移一系列的连续提交，可以使用下面的简便语法。</p><pre><code>$ git cherry-pick A..B </code></pre><p>上面的命令可以转移从 A 到 B 的所有提交。它们必须按照正确的顺序放置：提交 A 必须早于提交 B，否则命令将失败，但不会报错。</p><p>注意，使用上面的命令，提交 A 将不会包含在 Cherry pick 中。如果要包含提交 A，可以使用下面的语法。</p><pre><code>$ git cherry-pick A^..B </code></pre><hr><h1 id="三、配置项"><a href="#三、配置项" class="headerlink" title="三、配置项"></a>三、配置项</h1><p>git cherry-pick命令的常用配置项如下。</p><p>（1）-e，–edit</p><p>打开外部编辑器，编辑提交信息。</p><p>（2）-n，–no-commit</p><p>只更新工作区和暂存区，不产生新的提交。</p><p>（3）-x</p><p>在提交信息的末尾追加一行(cherry picked from commit …)，方便以后查到这个提交是如何产生的。</p><p>（4）-s，–signoff</p><p>在提交信息的末尾追加一行操作者的签名，表示是谁进行了这个操作。</p><p>（5）-m parent-number，–mainline parent-number</p><p>如果原始提交是一个合并节点，来自于两个分支的合并，那么 Cherry pick 默认将失败，因为它不知道应该采用哪个分支的代码变动。</p><p>-m配置项告诉 Git，应该采用哪个分支的变动。它的参数parent-number是一个从1开始的整数，代表原始提交的父分支编号。</p><pre><code>$ git cherry-pick -m 1 &lt;commitHash&gt;</code></pre><p>上面命令表示，Cherry pick 采用提交commitHash来自编号1的父分支的变动。</p><p>一般来说，1号父分支是接受变动的分支（the branch being merged into），2号父分支是作为变动来源的分支（the branch being merged from）。</p><hr><h1 id="四、代码冲突"><a href="#四、代码冲突" class="headerlink" title="四、代码冲突"></a>四、代码冲突</h1><p>如果操作过程中发生代码冲突，Cherry pick 会停下来，让用户决定如何继续操作。</p><p>（1）–continue</p><p>用户解决代码冲突后，第一步将修改的文件重新加入暂存区（git add .），第二步使用下面的命令，让 Cherry pick 过程继续执行。</p><pre><code>$ git cherry-pick --continue</code></pre><p>（2）–abort</p><p>发生代码冲突后，放弃合并，回到操作前的样子。</p><p>（3）–quit</p><p>发生代码冲突后，退出 Cherry pick，但是不回到操作前的样子。</p><h1 id="五、转移到另一个代码库"><a href="#五、转移到另一个代码库" class="headerlink" title="五、转移到另一个代码库"></a>五、转移到另一个代码库</h1><p>Cherry pick 也支持转移另一个代码库的提交，方法是先将该库加为远程仓库。</p><pre><code>$ git remote add target git://gitUrl</code></pre><p>上面命令添加了一个远程仓库target。</p><p>然后，将远程代码抓取到本地。</p><pre><code>$ git fetch target</code></pre><p>上面命令将远程代码仓库抓取到本地。</p><p>接着，检查一下要从远程仓库转移的提交，获取它的哈希值。</p><pre><code>$ git log target/master</code></pre><p>最后，使用git cherry-pick命令转移提交。</p><pre><code>$ git cherry-pick &lt;commitHash&gt;</code></pre><p>（完）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Springboot配置大全</title>
       <link href="2021/05/25/springboot-pei-zhi-da-quan/"/>
       <url>2021/05/25/springboot-pei-zhi-da-quan/</url>
