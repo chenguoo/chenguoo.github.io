@@ -1,0 +1,1101 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="install-mysql-offline, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>install-mysql-offline | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">install-mysql-offline</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/mysql/">
+                                <span class="chip bg-color">mysql</span>
+                            </a>
+                        
+                            <a href="/tags/rpm/">
+                                <span class="chip bg-color">rpm</span>
+                            </a>
+                        
+                            <a href="/tags/offline/">
+                                <span class="chip bg-color">offline</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/mysql/" class="post-category">
+                                mysql
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-23
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Centos7下使用mysql离线安装包rpm安装mysql5-7"><a href="#Centos7下使用mysql离线安装包rpm安装mysql5-7" class="headerlink" title="Centos7下使用mysql离线安装包rpm安装mysql5.7"></a>Centos7下使用mysql离线安装包rpm安装mysql5.7</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网上关于如何在Centos 7上安装mysql的教程已有很多，为什么我还要重复写一篇安装mysql的教程呢？主要有以下三个原因。</p>
+<p>原因一：网上大部分的教程是关于yum 方式联网安装。给不能联网或者网速不佳的内网生产环境带来许多不便，本教程采用rpm离线安装的方式安装mysql。</p>
+<p>原因二：网上还有一部分教程比较老旧，对安装配置的讲解不够合理，图片不够细致，新手容易产生畏难心理。</p>
+<p>原因三：yum安装非常普遍，rpm安装较为冷门，为了让rpm不再陌生，我决定把安装时的要点做个笔记和总结，即方便自己也方便同事，更能方便后来的人。</p>
+<h2 id="环境交代："><a href="#环境交代：" class="headerlink" title="环境交代："></a>环境交代：</h2><p>Centos 7.6 + Mysql 5.7 + FinalShell 2.9.8</p>
+<h2 id="步骤准备一：下载离线安装包"><a href="#步骤准备一：下载离线安装包" class="headerlink" title="步骤准备一：下载离线安装包"></a>步骤准备一：下载离线安装包</h2><p>懒的同学点这个下：<a target="_blank" rel="noopener" href="https://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.27-1.el7.x86_64.rpm-bundle.tar">https://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.27-1.el7.x86_64.rpm-bundle.tar</a></p>
+<p>MySQL 5.7 Linux安装包<br>官网下载：<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/">https://dev.mysql.com/downloads/mysql/</a><br>这个页面全是8.0的版本，我们需要点 画圈这个地方，下载5.7老版本。</p>
+<p>注意选择5.7版本，version选all</p>
+<p>用迅雷下载比较快  mysql-5.7.27-1.el7.x86_64.rpm-bundle.tar<br>注意验证MD5:7e0fe8*****</p>
+<p>上传到 /home 目录下</p>
+<h2 id="步骤准备二：解压安装包"><a href="#步骤准备二：解压安装包" class="headerlink" title="步骤准备二：解压安装包"></a>步骤准备二：解压安装包</h2><p>解压刚下回来的tar包，得到rpm包</p>
+<pre class="line-numbers language-shell"><code class="language-shell">tar -xf mysql-5.7.27-1.el7.x86_64.rpm-bundle.tar -C /home/mysql/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>步骤准备三：查询并卸载系统自带的Mariadb</p>
+<pre class="line-numbers language-shell"><code class="language-shell">rpm -qa | grep mariadb
+rpm -e --nodeps 文件名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>步骤准备四：查询并卸载系统老旧版本的Mysql</p>
+<pre class="line-numbers language-shell"><code class="language-shell">rpm -qa | grep mysql
+rpm -e --nodeps 文件名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>正式安装实施</p>
+<h3 id="1-执行Rpm包安装。"><a href="#1-执行Rpm包安装。" class="headerlink" title="1.执行Rpm包安装。"></a>1.执行Rpm包安装。</h3><pre class="line-numbers language-shell"><code class="language-shell">rpm -ivh mysql-community-common-5.7.27-1.el7.x86_64.rpm
+rpm -ivh mysql-community-libs-5.7.27-1.el7.x86_64.rpm
+rpm -ivh mysql-community-devel-5.7.27-1.el7.x86_64.rpm
+rpm -ivh mysql-community-libs-compat-5.7.27-1.el7.x86_64.rpm
+rpm -ivh mysql-community-client-5.7.27-1.el7.x86_64.rpm
+rpm -ivh mysql-community-server-5.7.27-1.el7.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-启动mysql服务"><a href="#2-启动mysql服务" class="headerlink" title="2.启动mysql服务"></a>2.启动mysql服务</h3><p>查看mysql服务是否启动</p>
+<pre class="line-numbers language-shell"><code class="language-shell">service mysqld status<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>启动服务：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl start mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="3-重置root密码"><a href="#3-重置root密码" class="headerlink" title="3.重置root密码"></a>3.重置root密码</h3><p>MySQL5.7会在安装后为root用户生成一个随机密码，而不是像以往版本的空密码。 可以安全模式修改root登录密码或者用随机密码登录修改密码。下面用随机密码方式<br>MySQL为root用户生成的随机密码通过mysqld.log文件可以查找到：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">grep 'temporary password' /var/log/mysqld.log<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="4-修改root用户密码"><a href="#4-修改root用户密码" class="headerlink" title="4.修改root用户密码"></a>4.修改root用户密码</h3><p>(MySQL的密码策略比较复杂,要大小写，过于简单的密码会被拒绝,这里我用了Jstw@123)</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">mysql -u root -p
+mysql> Enter password: （输入刚才查询到的随机密码）
+mysql> SET PASSWORD FOR 'root'@'localhost'= " Jstw@123";
+mysql> exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="5-如果上面的方式不能修改可以使用下面安全模式修改root："><a href="#5-如果上面的方式不能修改可以使用下面安全模式修改root：" class="headerlink" title="5.如果上面的方式不能修改可以使用下面安全模式修改root："></a>5.如果上面的方式不能修改可以使用下面安全模式修改root：</h3><p>关闭服务，修改mysql配置文件:</p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl stop mysqld.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>vi /etc/my.cnf      （本文末尾有解释）</p>
+<p>[mysqld]下面添加skip-grant-tables 保存退出启动服务(如图)。</p>
+<p>添加这行文字  </p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl start mysqld.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>修改root密码。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">mysql -u root  # 刚才添加了skip，这种情况下不需要密码直接回车<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-mysql"><code class="language-mysql">use mysql   # 指定库
+
+update user set authentication_string=password('Jstw@123') where user='root' and host='localhost';
+flush privileges; # 清空权限表缓存
+exit;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">vi /etc/my.cnf #把 skip-grant-tables   # 把这句删除保存退出重启mysql服务，恢复密码登录。
+
+systemctl restart mysqld.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="6-用root自定义密码登录"><a href="#6-用root自定义密码登录" class="headerlink" title="6.用root自定义密码登录"></a>6.用root自定义密码登录</h3><pre class="line-numbers language-shell"><code class="language-shell">mysql -u root –p
+Jstw@123<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="7-至此，mysql已安装完成，并设好root密码，这里设置开机自启动。"><a href="#7-至此，mysql已安装完成，并设好root密码，这里设置开机自启动。" class="headerlink" title="7.至此，mysql已安装完成，并设好root密码，这里设置开机自启动。"></a>7.至此，mysql已安装完成，并设好root密码，这里设置开机自启动。</h3><p>  法一   vi /etc/rc.local       添加service mysqld start<br>  法二   systemctl enable mysqld.service<br>（# 注意systemctl 中规定、服务的配置文件要以.service 为后缀）</p>
+<h3 id="8-下一步开放外部网段访问3306端口。"><a href="#8-下一步开放外部网段访问3306端口。" class="headerlink" title="8.下一步开放外部网段访问3306端口。"></a>8.下一步开放外部网段访问3306端口。</h3><p> mysql&gt;GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root’@’%’ IDENTIFIED BY ‘Jstw@123’ WITH GRANT OPTION;</p>
+<p>mysql&gt;FLUSH PRIVILEGES;</p>
+<p> mysql&gt;exit;</p>
+<h3 id="9-防火墙配置3306端口允许外部访问"><a href="#9-防火墙配置3306端口允许外部访问" class="headerlink" title="9.防火墙配置3306端口允许外部访问"></a>9.防火墙配置3306端口允许外部访问</h3><p>查询防火墙状态 </p>
+<pre class="line-numbers language-shell"><code class="language-shell">systemctl status firewalld.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>开启防火墙mysql 3306端口的外部访问：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">firewall-cmd --zone=public --add-port=3306/tcp –permanent
+firewall-cmd –reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="10-Navicat验证是否正常工作"><a href="#10-Navicat验证是否正常工作" class="headerlink" title="10.Navicat验证是否正常工作"></a>10.Navicat验证是否正常工作</h3><p>希望本文能帮助到你，如果你还有疑问，可以在下方给我留言。</p>
+<p>+-+- +-+- +-+- +-+- +-+- +-+-+- +-+- +-+-   /etc/my.cnf   +-+- +-+- +-+-+- +-+- +-+- +-+- +-+- +-+-</p>
+<pre><code>[client]    # 客户端设置，即客户端默认的连接参数
+port = 3306  # 默认连接端口
+socket = /home/mysql/3306/tmp/mysql.sock  # 用于本地连接的socket套接字，mysqld守护进程生成了这个文件
+
+[mysqld]     # 服务端基本设置
+
+# 基础设置
+
+server-id = 1  # Mysql服务的唯一编号 每个mysql服务Id需唯一
+port = 3306    # MySQL监听端口
+basedir = /usr/local/mysql   # MySQL安装根目录
+datadir = /home/mysql/3306/data  # MySQL数据文件所在位置
+tmpdir  = /home/mysql/3306/tmp   # 临时目录，比如load data infile会用到
+socket = /home/mysql/3306/tmp/mysql.sock  # 为MySQL客户端程序和服务器之间的本地通讯指定一个套接字文件
+pid-file = /home/mysql/3306/log/mysql.pid # pid文件所在目录
+skip_name_resolve = 1         # 只能用IP地址检查客户端的登录，不用主机名
+character-set-server = utf8mb4   # 数据库默认字符集,主流字符集支持一些特殊表情符号（特殊表情符占用4个字节）
+transaction_isolation = READ-COMMITTED # 事务隔离级别，默认为可重复读，MySQL默认可重复读级别
+collation-server = utf8mb4_general_ci  # 数据库字符集对应一些排序等规则，注意要和character-set-server对应
+init_connect='SET NAMES utf8mb4'  # 设置client连接mysql时的字符集,防止乱码
+lower_case_table_names = 1        # 是否对sql语句大小写敏感，1表示不敏感
+max_connections = 400             # 最大连接数
+max_connect_errors = 1000         # 最大错误连接数
+explicit_defaults_for_timestamp = true # TIMESTAMP如果没有显示声明NOT NULL，允许NULL值
+max_allowed_packet = 128M         # SQL数据包发送的大小，如果有BLOB对象建议修改成1G
+interactive_timeout = 1800        # MySQL连接闲置超过一定时间后(单位：秒)将会被强行关闭
+wait_timeout = 1800               # MySQL默认的wait_timeout值为8个小时, interactive_timeout参数需要同时配置才能生效
+tmp_table_size = 16M              # 内部内存临时表的最大值 ，设置成128M；比如大数据量的group by ,order by时可能用到临时表；超过了这个值将写入磁盘，系统IO压力增大
+max_heap_table_size = 128M        # 定义了用户可以创建的内存表(memory table)的大小
+query_cache_size = 0              # 禁用mysql的缓存查询结果集功能；后期根据业务情况测试决定是否开启；大部分情况下关闭下面两项
+query_cache_type = 0
+
+# 用户进程分配到的内存设置，每个session将会分配参数设置的内存大小
+
+read_buffer_size = 2M             # MySQL读入缓冲区大小。对表进行顺序扫描的请求将分配一个读入缓冲区，MySQL会为它分配一段内存缓冲区。
+read_rnd_buffer_size = 8M         # MySQL的随机读缓冲区大小
+sort_buffer_size = 8M             # MySQL执行排序使用的缓冲大小
+binlog_cache_size = 1M            # 一个事务，在没有提交的时候，产生的日志，记录到Cache中；等到事务提交需要提交的时候，则把日志持久化到磁盘。默认binlog_cache_size大小32K
+
+back_log = 130                    # 在MySQL暂时停止响应新请求之前的短时间内多少个请求可以被存在堆栈中；官方建议back_log = 50 + (max_connections / 5),封顶数为900
+
+# 日志设置
+
+log_error = /home/mysql/3306/log/error.log # 数据库错误日志文件
+slow_query_log = 1                # 慢查询sql日志设置
+long_query_time = 1               # 慢查询时间；超过1秒则为慢查询
+slow_query_log_file = /home/mysql/3306/log/slow.log # 慢查询日志文件
+log_queries_not_using_indexes = 1 # 检查未使用到索引的sql
+log_throttle_queries_not_using_indexes = 5   # 用来表示每分钟允许记录到slow log的且未使用索引的SQL语句次数。该值默认为0，表示没有限制
+min_examined_row_limit = 100                 # 检索的行数必须达到此值才可被记为慢查询，查询检查返回少于该参数指定行的SQL不被记录到慢查询日志
+expire_logs_days = 5              # MySQL binlog日志文件保存的过期时间，过期后自动删除
+
+# 主从复制设置
+
+log-bin = mysql-bin               # 开启mysql binlog功能
+binlog_format = ROW               # binlog记录内容的方式，记录被操作的每一行
+binlog_row_image = minimal        # 对于binlog_format = ROW模式时，减少记录日志的内容，只记录受影响的列
+
+# Innodb设置
+
+innodb_open_files = 500           # 限制Innodb能打开的表的数据，如果库里的表特别多的情况，请增加这个。这个值默认是300
+innodb_buffer_pool_size = 64M     # InnoDB使用一个缓冲池来保存索引和原始数据，一般设置物理存储的60% ~ 70%；这里你设置越大,你在存取表里面数据时所需要的磁盘I/O越少
+innodb_log_buffer_size = 2M       # 此参数确定写日志文件所用的内存大小，以M为单位。缓冲区更大能提高性能，但意外的故障将会丢失数据。MySQL开发人员建议设置为1－8M之间
+innodb_flush_method = O_DIRECT    # O_DIRECT减少操作系统级别VFS的缓存和Innodb本身的buffer缓存之间的冲突
+innodb_write_io_threads = 4       # CPU多核处理能力设置，根据读，写比例进行调整
+innodb_read_io_threads = 4
+innodb_lock_wait_timeout = 120    # InnoDB事务在被回滚之前可以等待一个锁定的超时秒数。InnoDB在它自己的锁定表中自动检测事务死锁并且回滚事务。InnoDB用LOCK TABLES语句注意到锁定设置。默认值是50秒
+innodb_log_file_size = 32M        # 此参数确定数据日志文件的大小，更大的设置可以提高性能，但也会增加恢复故障数据库所需的时间</code></pre>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2021/06/23/install-mysql-offline/">https://chenguoo.github.io/2021/06/23/install-mysql-offline/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/mysql/">
+                                    <span class="chip bg-color">mysql</span>
+                                </a>
+                            
+                                <a href="/tags/rpm/">
+                                    <span class="chip bg-color">rpm</span>
+                                </a>
+                            
+                                <a href="/tags/offline/">
+                                    <span class="chip bg-color">offline</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/06/23/nginx-yum-proxy/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="nginx-yum-proxy">
+                        
+                        <span class="card-title">nginx-yum-proxy</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            利用nginx 来实现内网yum源(反向代理)简介在项目部署时，尤其是在政府企业，对于外网简直是奢望，但是对于运维来说，没有外网的话只能自建yum源。我今天来说的是一种简单的自建yum源方法，前提是必须有一台内外网都有的机器，我们一般称为前
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/nginx/" class="post-category">
+                                    nginx
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/nginx/">
+                        <span class="chip bg-color">nginx</span>
+                    </a>
+                    
+                    <a href="/tags/yum/">
+                        <span class="chip bg-color">yum</span>
+                    </a>
+                    
+                    <a href="/tags/proxy/">
+                        <span class="chip bg-color">proxy</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/06/18/sql-you-hua-zui-gan-huo-zong-jie-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="SQL优化最干货总结笔记">
+                        
+                        <span class="card-title">SQL优化最干货总结笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            SQL优化最干货总结笔记前言网上关于SQL优化的教程很多，但是比较杂乱。而且百度字节等大厂的面试难度越来越高，无论从大厂还是到小公司，一直未变的一个重点就是对SQL优化经验的考察。一提到数据库，先“说一说你对SQL优化的见解吧？”。SQL优
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/mysql/" class="post-category">
+                                    mysql
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/sql%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">sql优化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"react":{"opacity":0.7}}});</script></body>
+
+</html>
