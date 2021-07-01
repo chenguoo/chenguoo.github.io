@@ -1,0 +1,1377 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="hibernate-validator最全国际化方案, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>hibernate-validator最全国际化方案 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">hibernate-validator最全国际化方案</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/hibernate/">
+                                <span class="chip bg-color">hibernate</span>
+                            </a>
+                        
+                            <a href="/tags/validator/">
+                                <span class="chip bg-color">validator</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/hibernate/" class="post-category">
+                                hibernate
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-07-01
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="hibernate-validator最全国际化方案"><a href="#hibernate-validator最全国际化方案" class="headerlink" title="hibernate-validator最全国际化方案"></a>hibernate-validator最全国际化方案</h2><p>为了实现hibernate-validator国际化差点要了老命，最近在研究hibernate-validator以及国际化，在墙里墙外找了很多很久，可能是因为版本的更新迭代，找到的资料基本都用不了了。自己折腾了半天，终于琢磨出来了，特此记录。</p>
+<p>对hibernate-validator的具体使用细节本文不再赘述， 环境信息：</p>
+<h2 id="1、原生SpringBoot环境"><a href="#1、原生SpringBoot环境" class="headerlink" title="1、原生SpringBoot环境"></a>1、原生SpringBoot环境</h2><h3 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h3><ul>
+<li>SpringBoot : 2.3.8.RELEASE</li>
+<li>hibernate-validator : 6.1.7.Final</li>
+</ul>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>hibernate-validator主要用于验证前段请求过来的参数是否满足条件</p>
+<p><strong>controller层：</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"valid"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> Person <span class="token function">test</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Valid</span> <span class="token annotation punctuation">@RequestBody</span> Person person<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> person<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>实体类</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span>Integer age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Person{"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", age="</span> <span class="token operator">+</span> age <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从实体类中可以看出主要有两个验证条件</p>
+<ul>
+<li>person.name不能为空</li>
+<li>person.age在2~100之间</li>
+</ul>
+<p>如果在此时用不满足条件的数据直接调用接口会返回404，看不到验证出错信息，这是因为Spring拦截了验证异常，直接返回了404</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/83f8ae70a8b340b48f4fbfc96d9c8934~tplv-k3u1fbpfcp-zoom-1.image" alt="2021-06-18_105418"></p>
+<p>想要不返回404需要自定义异常拦截器，把验证异常自己来处理掉</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RestControllerAdvice</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalExceptionHandler</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@ResponseStatus</span><span class="token punctuation">(</span>HttpStatus<span class="token punctuation">.</span>OK<span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span><span class="token punctuation">{</span>BindException<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">bindExceptionHandler</span><span class="token punctuation">(</span><span class="token keyword">final</span> BindException e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String message <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">getBindingResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAllErrors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>DefaultMessageSourceResolvable<span class="token operator">:</span><span class="token operator">:</span>getDefaultMessage<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span>Collectors<span class="token punctuation">.</span><span class="token function">joining</span><span class="token punctuation">(</span><span class="token string">" ; "</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"{\"errors\":\""</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">"\"}"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token annotation punctuation">@ResponseStatus</span><span class="token punctuation">(</span>HttpStatus<span class="token punctuation">.</span>OK<span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>MethodArgumentNotValidException<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">handler</span><span class="token punctuation">(</span><span class="token keyword">final</span> MethodArgumentNotValidException e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String message <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">getBindingResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAllErrors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>DefaultMessageSourceResolvable<span class="token operator">:</span><span class="token operator">:</span>getDefaultMessage<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span>Collectors<span class="token punctuation">.</span><span class="token function">joining</span><span class="token punctuation">(</span><span class="token string">" ; "</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"{\"errors\":\""</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">"\"}"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@ResponseStatus</span><span class="token punctuation">(</span>HttpStatus<span class="token punctuation">.</span>OK<span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>ConstraintViolationException<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">handler</span><span class="token punctuation">(</span><span class="token keyword">final</span> ConstraintViolationException e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String message <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">getConstraintViolations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>ConstraintViolation<span class="token operator">:</span><span class="token operator">:</span>getMessage<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span>Collectors<span class="token punctuation">.</span><span class="token function">joining</span><span class="token punctuation">(</span><span class="token string">" ; "</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"{\"errors\":\""</span> <span class="token operator">+</span> message <span class="token operator">+</span> <span class="token string">"\"}"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>验证异常就是这三种情况：</p>
+<ul>
+<li>BindException</li>
+<li>MethodArgumentNotValidException</li>
+<li>ConstraintViolationException</li>
+</ul>
+<p>增加全局异常处理后，再次调用接口：</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/dae68b392a994743a5f62bf152e583dc~tplv-k3u1fbpfcp-zoom-1.image" alt="2"></p>
+<p>这种处理后报错信息存在两个问题</p>
+<ul>
+<li>如何国际化，返回英文和中文</li>
+<li>提示信息不明确，能不能自定义</li>
+</ul>
+<h3 id="国际化问题"><a href="#国际化问题" class="headerlink" title="国际化问题"></a>国际化问题</h3><p>Spring提供了i18N解决方式，跟断点也能发现校验失败后也是走的这套流程，核心类为<strong>AcceptHeaderLocaleResolver</strong></p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/702d0f19a6b447aa80092eb762f4cd87~tplv-k3u1fbpfcp-zoom-1.image" alt="3"></p>
+<p>从代码中可以看到语言是通过获取header中的<strong>Accept-Language</strong>切换的，这里也是固定写死的，如果要切换成其他方式或者其他header值，可以通过继承<strong>LocaleChangeInterceptor</strong> 覆盖preHandle方法，装备自定义bean使用</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/fa65658f210b4e8caede7c842e678d78~tplv-k3u1fbpfcp-zoom-1.image" alt="4"></p>
+<h3 id="自定义校验信息"><a href="#自定义校验信息" class="headerlink" title="自定义校验信息"></a>自定义校验信息</h3><p><strong>1、如果不考虑国际化</strong></p>
+<p>这种情况最简单，直接在验证Bean中修改</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"名字不能为空吆"</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+<span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> message <span class="token operator">=</span> <span class="token string">"年龄需要在2~100岁之间"</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/80c08b4711fe4e26a2692c3158d5294f~tplv-k3u1fbpfcp-zoom-1.image" alt="5"></p>
+<p><strong>2、考虑国际化</strong></p>
+<p>这种情况就不能简单的写死message了，需要通过hibernate-valid提供的国际化方式</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/c812fe256dec447f836bd6c7285533df~tplv-k3u1fbpfcp-zoom-1.image" alt="6"></p>
+<p>通过hibernate源码可以看到国际化信息都存在一系列的properties文件中，这就给我提供了覆盖的机会，通过在resource下定义同名的国际化文件</p>
+<p><strong>首先，修改bean的message为el表达式方式</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"{person.name}"</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+<span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> message <span class="token operator">=</span> <span class="token string">"{person.age}"</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>然后，把key定义在自己的国际化文件中：</strong>（一定要注意编码格式）</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/689e8964235540288e3dd18f0bab5e76~tplv-k3u1fbpfcp-zoom-1.image" alt="7"></p>
+<p><strong>调用接口后结果：</strong></p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/5786cf20eb6a451aa327803402c7b494~tplv-k3u1fbpfcp-zoom-1.image" alt="8"></p>
+<p>如果此时需要自定义国际化文件名和位置，则需要增加如下配置类</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MessageConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> ResourceBundleMessageSource <span class="token function">getMessageSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        ResourceBundleMessageSource resourceBundle <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ResourceBundleMessageSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resourceBundle<span class="token punctuation">.</span><span class="token function">setDefaultEncoding</span><span class="token punctuation">(</span>StandardCharsets<span class="token punctuation">.</span>UTF_8<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//指定国际化文件路径</span>
+        resourceBundle<span class="token punctuation">.</span><span class="token function">setBasenames</span><span class="token punctuation">(</span><span class="token string">"i18n/valid"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> resourceBundle<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> Validator <span class="token function">getValidator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        LocalValidatorFactoryBean validator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LocalValidatorFactoryBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        validator<span class="token punctuation">.</span><span class="token function">setValidationMessageSource</span><span class="token punctuation">(</span><span class="token function">getMessageSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> validator<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> MethodValidationPostProcessor <span class="token function">validationPostProcessor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        MethodValidationPostProcessor processor <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MethodValidationPostProcessor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//指定请求验证器</span>
+        processor<span class="token punctuation">.</span><span class="token function">setValidator</span><span class="token punctuation">(</span><span class="token function">getValidator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> processor<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过上述配置就可以达到使用指定国际化文件实现验证消息自定义的效果</p>
+<h2 id="2、DropWizard工程"><a href="#2、DropWizard工程" class="headerlink" title="2、DropWizard工程"></a>2、DropWizard工程</h2><p>DropWizard是一个轻量级的微服务开发框架，本身对hibernate-valid也做了一层封装，但是没有国际化方案</p>
+<p>需要使用hibernate-valid原始国际化方式，通过设置默认语言来实现，</p>
+<p>如果不需要默认方式，可以跳过此章节</p>
+<p><strong>实体类：</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span>Integer age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Person{"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", age="</span> <span class="token operator">+</span> age <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>资源类</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
+<span class="token annotation punctuation">@Path</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestResource</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@POST</span>
+    <span class="token annotation punctuation">@Path</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@Consumes</span><span class="token punctuation">(</span><span class="token punctuation">{</span>APPLICATION_JSON<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@Produces</span><span class="token punctuation">(</span><span class="token punctuation">{</span>APPLICATION_JSON<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span>Person person<span class="token punctuation">,</span> <span class="token annotation punctuation">@Context</span> <span class="token keyword">final</span> HttpServletRequest request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Set<span class="token operator">&lt;</span>ConstraintViolation<span class="token operator">&lt;</span>Person<span class="token operator">>></span> validate <span class="token operator">=</span> <span class="token function">getValidator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>validate<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            StringJoiner message <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringJoiner</span><span class="token punctuation">(</span><span class="token string">";"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>Object aValidate <span class="token operator">:</span> validate<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                message<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ConstraintViolation<span class="token punctuation">)</span> aValidate<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> <span class="token string">"{\"result\":\""</span> <span class="token operator">+</span> message<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"\"}"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token string">"{\"result\":\"ok\"}"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="1、只需要自定义消息体"><a href="#1、只需要自定义消息体" class="headerlink" title="1、只需要自定义消息体"></a>1、只需要自定义消息体</h4><p>这种场景只需要在实体类中修改message即可</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"姓名不能为空"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> message <span class="token operator">=</span> <span class="token string">"年龄需要在2~100之间"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>调用接口会就会返回固定的信息：</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/cebf1cf59cb449bf9b83db91a9654611~tplv-k3u1fbpfcp-zoom-1.image" alt="9"></p>
+<h4 id="2、只需要国际化"><a href="#2、只需要国际化" class="headerlink" title="2、只需要国际化"></a>2、只需要国际化</h4><p>这种场景时使用hibernate-valid自带的国际化消息，可以通过header中<strong>Accept-Language</strong>来控制语言类型。比如en-US，zh-CN</p>
+<p>然后再后端获取header后，设置语言</p>
+<p><strong>修改实体类</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>修改资源类</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@POST</span>
+<span class="token annotation punctuation">@Path</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Consumes</span><span class="token punctuation">(</span><span class="token punctuation">{</span>APPLICATION_JSON<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Produces</span><span class="token punctuation">(</span><span class="token punctuation">{</span>APPLICATION_JSON<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span>Person person<span class="token punctuation">,</span> <span class="token annotation punctuation">@Context</span> <span class="token keyword">final</span> HttpServletRequest request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//获取header中语言</span>
+    String language <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getHeader</span><span class="token punctuation">(</span><span class="token string">"Accept-Language"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Set<span class="token operator">&lt;</span>ConstraintViolation<span class="token operator">&lt;</span>Person<span class="token operator">>></span> validate <span class="token operator">=</span> <span class="token function">getValidator</span><span class="token punctuation">(</span>language<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>validate<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        StringJoiner message <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringJoiner</span><span class="token punctuation">(</span><span class="token string">";"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Object aValidate <span class="token operator">:</span> validate<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            message<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ConstraintViolation<span class="token punctuation">)</span> aValidate<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token string">"{\"result\":\""</span> <span class="token operator">+</span> message<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"\"}"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token string">"{\"result\":\"ok\"}"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">static</span> Validator <span class="token function">getValidator</span><span class="token punctuation">(</span>String language<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 设置语言</span>
+    Locale<span class="token punctuation">.</span><span class="token function">setDefault</span><span class="token punctuation">(</span>language<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"zh"</span><span class="token punctuation">)</span> <span class="token operator">?</span> Locale<span class="token punctuation">.</span>CHINA <span class="token operator">:</span> Locale<span class="token punctuation">.</span>ENGLISH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">byDefaultProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">buildValidatorFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">getValidator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>调用接口效果：</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/d374934000e54f168f40983026e2b5fb~tplv-k3u1fbpfcp-zoom-1.image" alt="11"></p>
+<h4 id="3、需要国际化并自定义消息体"><a href="#3、需要国际化并自定义消息体" class="headerlink" title="3、需要国际化并自定义消息体"></a>3、需要国际化并自定义消息体</h4><p>这种场景需要增加配置类指定国际化文件</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> Validator <span class="token function">getValidator</span><span class="token punctuation">(</span>String language<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Locale<span class="token punctuation">.</span><span class="token function">setDefault</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Locale</span><span class="token punctuation">(</span>language<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"zh"</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">"zh"</span> <span class="token operator">:</span> <span class="token string">"en"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> Validation<span class="token punctuation">.</span><span class="token function">byDefaultProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">//国际化文件配置</span>
+        <span class="token punctuation">.</span><span class="token function">messageInterpolator</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MyResourceBundleMessageInterpolator</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">PlatformResourceBundleLocator</span><span class="token punctuation">(</span><span class="token string">"i18n/valid"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">buildValidatorFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">getValidator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>java中properties配置文件默认的编码为：ISO-8859-1，是不支持中文的，所以会乱码，需要做转码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyResourceBundleMessageInterpolator</span> <span class="token keyword">extends</span> <span class="token class-name">ResourceBundleMessageInterpolator</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token function">MyResourceBundleMessageInterpolator</span><span class="token punctuation">(</span>ResourceBundleLocator userResourceBundleLocator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>userResourceBundleLocator<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">interpolate</span><span class="token punctuation">(</span>String message<span class="token punctuation">,</span> Context context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String result <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">interpolate</span><span class="token punctuation">(</span>message<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span>StandardCharsets<span class="token punctuation">.</span>ISO_8859_1<span class="token punctuation">)</span><span class="token punctuation">,</span>StandardCharsets<span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改实体类message为el表达式类型：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"{person.name}"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> message <span class="token operator">=</span> <span class="token string">"{person.age}"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在resouce下面增加国际化文件</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/f563024606e845f8be1660bcce19c00f~tplv-k3u1fbpfcp-zoom-1.image" alt="12"></p>
+<p>使用<strong>Accept-Language</strong>来控制语言类型，调用接口效果：</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/5981c254f2d64ee79c14df29b600711b~tplv-k3u1fbpfcp-zoom-1.image" alt="13"></p>
+<h2 id="3、SpringBoot工程"><a href="#3、SpringBoot工程" class="headerlink" title="3、SpringBoot工程"></a>3、SpringBoot工程</h2><p>由于Jersey和普通SpringMVC不一样，所以不能传统的方式实现国际化， 如果不了解或者项目中没有使用Jersey，可以跳过此章节</p>
+<p><strong>实体类：</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span>Integer age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Person{"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", age="</span> <span class="token operator">+</span> age <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>资源类</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token annotation punctuation">@Path</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestResource</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> Validator validate<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@POST</span>
+    <span class="token annotation punctuation">@Path</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@Consumes</span><span class="token punctuation">(</span><span class="token punctuation">{</span>APPLICATION_JSON<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@Produces</span><span class="token punctuation">(</span><span class="token punctuation">{</span>APPLICATION_JSON<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span>Person person<span class="token punctuation">,</span> <span class="token annotation punctuation">@Context</span> <span class="token keyword">final</span> HttpServletRequest request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Set<span class="token operator">&lt;</span>ConstraintViolation<span class="token operator">&lt;</span>Person<span class="token operator">>></span> errorResults <span class="token operator">=</span> validate<span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>errorResults<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            StringJoiner message <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringJoiner</span><span class="token punctuation">(</span><span class="token string">";"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>Object result <span class="token operator">:</span> errorResults<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                message<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ConstraintViolation<span class="token punctuation">)</span> result<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> <span class="token string">"{\"result\":\""</span> <span class="token operator">+</span> message<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"\"}"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token string">"{\"result\":\"ok\"}"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="1、只需要自定义消息体-1"><a href="#1、只需要自定义消息体-1" class="headerlink" title="1、只需要自定义消息体"></a>1、只需要自定义消息体</h4><p>这种场景只需要在实体类中修改message即可</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"姓名不能为空"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> message <span class="token operator">=</span> <span class="token string">"年龄需要在2~100之间"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>调用接口会就会返回固定的信息：</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/8b30b94804724741b0fad0a81e504f3d~tplv-k3u1fbpfcp-zoom-1.image" alt="9"></p>
+<h4 id="2、只需要国际化-1"><a href="#2、只需要国际化-1" class="headerlink" title="2、只需要国际化"></a>2、只需要国际化</h4><p>这种场景时使用hibernate-valid自带的国际化消息，使用Spring的i18n国际化规则</p>
+<p>通过header中<strong>Accept-Language</strong>来控制语言类型。比如en-US，zh-CN</p>
+<p><strong>修改实体类</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>调用接口效果：</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/0e99a9f4ab494f08bde7fe29e8a9cece~tplv-k3u1fbpfcp-zoom-1.image" alt="11"></p>
+<h4 id="3、需要国际化并自定义消息体-1"><a href="#3、需要国际化并自定义消息体-1" class="headerlink" title="3、需要国际化并自定义消息体"></a>3、需要国际化并自定义消息体</h4><p>这种场景需要增加配置类指定国际化文件</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MessageConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> MessageSource <span class="token function">getMessageSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        ResourceBundleMessageSource rbms <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ResourceBundleMessageSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rbms<span class="token punctuation">.</span><span class="token function">setDefaultEncoding</span><span class="token punctuation">(</span>StandardCharsets<span class="token punctuation">.</span>UTF_8<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//指定国际化文件路径</span>
+        rbms<span class="token punctuation">.</span><span class="token function">setBasenames</span><span class="token punctuation">(</span><span class="token string">"i18n/valid"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> rbms<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> LocalValidatorFactoryBean <span class="token function">getValidator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        LocalValidatorFactoryBean validator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LocalValidatorFactoryBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        validator<span class="token punctuation">.</span><span class="token function">setValidationMessageSource</span><span class="token punctuation">(</span><span class="token function">getMessageSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> validator<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改实体类message为el表达式类型：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"{person.name}"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Range</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> max <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> message <span class="token operator">=</span> <span class="token string">"{person.age}"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+复制代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在resouce下面增加国际化文件, <strong>一定要注意文件编码格式要与配置中一致</strong></p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/fb8f05111ba64283868a8e964b548a4a~tplv-k3u1fbpfcp-zoom-1.image" alt="12"></p>
+<p>通样通过Spring的国际化方式，使用<strong>Accept-Language</strong>来控制语言类型，调用接口效果：</p>
+<p><img src="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/17904b4add0d4bfebf750835e79b7e97~tplv-k3u1fbpfcp-zoom-1.image" alt="img"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Hibernate-valid国际化相对来说还是比较麻烦，需要深入到源码才能了解如何配置，连官网都没有文档</p>
+<p>作者：你呀不牛<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6979165353481863182">https://juejin.cn/post/6979165353481863182</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/">https://chenguoo.github.io/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/hibernate/">
+                                    <span class="chip bg-color">hibernate</span>
+                                </a>
+                            
+                                <a href="/tags/validator/">
+                                    <span class="chip bg-color">validator</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="hibernate-validator最全国际化方案">
+                        
+                        <span class="card-title">hibernate-validator最全国际化方案</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            hibernate-validator最全国际化方案为了实现hibernate-validator国际化差点要了老命，最近在研究hibernate-validator以及国际化，在墙里墙外找了很多很久，可能是因为版本的更新迭代，找到的资料基
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/hibernate/" class="post-category">
+                                    hibernate
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/hibernate/">
+                        <span class="chip bg-color">hibernate</span>
+                    </a>
+                    
+                    <a href="/tags/validator/">
+                        <span class="chip bg-color">validator</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/06/23/nginx-yum-proxy/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="nginx-yum-proxy">
+                        
+                        <span class="card-title">nginx-yum-proxy</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            利用nginx 来实现内网yum源(反向代理)简介在项目部署时，尤其是在政府企业，对于外网简直是奢望，但是对于运维来说，没有外网的话只能自建yum源。我今天来说的是一种简单的自建yum源方法，前提是必须有一台内外网都有的机器，我们一般称为前
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/nginx/" class="post-category">
+                                    nginx
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/nginx/">
+                        <span class="chip bg-color">nginx</span>
+                    </a>
+                    
+                    <a href="/tags/yum/">
+                        <span class="chip bg-color">yum</span>
+                    </a>
+                    
+                    <a href="/tags/proxy/">
+                        <span class="chip bg-color">proxy</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"react":{"opacity":0.7}}});</script></body>
+
+</html>
