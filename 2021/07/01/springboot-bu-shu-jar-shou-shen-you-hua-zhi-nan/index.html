@@ -1,0 +1,1354 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="SpringBoot部署jar瘦身优化指南, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>SpringBoot部署jar瘦身优化指南 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">SpringBoot部署jar瘦身优化指南</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/springboot/">
+                                <span class="chip bg-color">springboot</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/spring/" class="post-category">
+                                spring
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-07-01
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>本文截取代码片段来自于对应的完整示例源码工程：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/xautlx/package-optimize-demo">https://gitee.com/xautlx/package-optimize-demo</a></li>
+</ul>
+<p>相关代码和配置均实际执行测试过（基于OpenJDK8环境，其余JDK未做验证，如-Djava.ext.dirs=lib等参数和JDK版本有关，注意对应调整），如在验证过程发现有任何问题可Issue反馈以便及时更正，感谢支持！</p>
+<h3 id="概要说明"><a href="#概要说明" class="headerlink" title="概要说明"></a>概要说明</h3><p>随着Spring Boot的流行，大家体验到只需构建输出一个jar文件，然后只需一个java -jar命令就能部署运行应用的爽快。常见一些单体应用随着项目规模的扩展单个jar文件的大小越来越大，动辄两三百MB。如果再引入微服务架构，动辄一二十个微服务，所有模块jar加起来整个系统光部署文件就一两个GB。</p>
+<p>一个系统一旦上线运行，无论新需求迭代还是Bug修复，免不了需要做部署更新，尤其对于一些交付类型项目，首次部署或异地更新， 动不动就需要传输几百MB或几个GB的部署文件，确实是一个让人头疼的问题。</p>
+<p>可以想象一下，线上系统发现一个紧急严重Bug捅到了主管那里，交代马上紧急修复解决，研发同事火速分析排查分分钟搞定提交代码并完成构建打包并交付给运维。过一会领导着急上火来过问问题更新解决了吗？运维只能很尴尬的回答：还没呢，部署包文件比较大，正在上传有点慢…</p>
+<p>一听领导就火了，就改了几行代码，部署更新为啥要上传几百MB的文件呢？难道没有办法优化一下吗？</p>
+<p>遇到这样的情况，建议你往下看，或许能找到你想要的答案。</p>
+<p>本文内容包括：</p>
+<ul>
+<li>如何把一两百MB的单一Spring Boot jar文件，分离为依赖组件lib目录和一个业务jar来进行部署，优化单个jar文件大小到一两百KB。。</li>
+<li>如何把一二十个微服务高度重叠的依赖组件合并到单一lib目录和多个一两百KB的业务jar来进行部署，优化整个项目部署文件大小从一两个GB大小到两三百MB。</li>
+</ul>
+<p>本文内容不包括：</p>
+<ul>
+<li>不包括进行Spring Boot配置文件分离相关，一般简单采用通过指定active profile从外部yaml配置文件覆盖jar文件中配置即可或是采用Nacos等配置服务模式。</li>
+<li>不包括Maven最佳实践用法，列入样例工程中出于演示方便的考虑比如把一些本应放到各个Boot模块特定的配置声明直接放到顶层的parent中定义，请注意按实际情况优化调整使用。</li>
+<li>不包括可执行jar的运行模式支持参考，文中实现方式主要面向java -jar运行模式。</li>
+</ul>
+<h3 id="瘦身打怪升级过程"><a href="#瘦身打怪升级过程" class="headerlink" title="瘦身打怪升级过程"></a>瘦身打怪升级过程</h3><h4 id="Level-0：常规的Fat-Jar构建"><a href="#Level-0：常规的Fat-Jar构建" class="headerlink" title="Level 0：常规的Fat Jar构建"></a>Level 0：常规的Fat Jar构建</h4><p>参考项目目录：package-optimize-level0</p>
+<p>主要配置：</p>
+<pre><code>&lt;build&gt;
+    &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
+    &lt;!--
+    特别注意：
+    项目仅仅是为了演示配置方便，直接在parent的build部分做了插件配置和运行定义。
+    但是实际项目中需要把这些定义只放到spring boot模块项目（可优化使用pluginManagement形式），避免干扰其他util、common等模块项目
+    --&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+<p>配置输出：</p>
+<pre><code>cd package-optimize-level0
+mvn clean install
+
+ls -lh package-optimize-app1/target/package-optimize-app1.jar
+-rw-r--r--  1 lixia  wheel    16M Feb 24 21:06 package-optimize-app1/target/package-optimize-app1.jar
+
+java -jar package-optimize-app1/target/package-optimize-app1.jar</code></pre>
+<p>重点说明：</p>
+<ul>
+<li>（当前演示应用仅依赖了spring-boot-starter-web极少组件，所有构建输出只有十来MB）实际情况单一构建根据项目依赖组件量输出jar一般在几十MB到一两百MB甚至更大。</li>
+<li>假如有十来个微服务需要部署，那就意味着需要传输一两个GB的文件，耗时可想而知。就算是单一更新个别微服务也需要传输一两百MB。</li>
+</ul>
+<h4 id="Level-1：常见的依赖jar分离构建方式"><a href="#Level-1：常见的依赖jar分离构建方式" class="headerlink" title="Level 1：常见的依赖jar分离构建方式"></a>Level 1：常见的依赖jar分离构建方式</h4><p>参考项目目录：package-optimize-level1</p>
+<p>关解决问题：</p>
+<ul>
+<li>降低单个微服务jar的文件大小，以便部署过程秒传文件。</li>
+</ul>
+<p>主要配置：</p>
+<p>重点配置说明请详见如下注释说明：</p>
+<pre><code>&lt;build&gt;
+    &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
+    &lt;!--
+    特别注意：
+    项目仅仅是为了演示配置方便，直接在parent的build部分做了插件配置和运行定义。
+    但是实际项目中需要把这些定义只放到spring boot模块项目（可优化使用pluginManagement形式），避免干扰其他util、common等模块项目
+    --&gt;
+    &lt;plugins&gt;
+        &lt;!-- 拷贝项目所有依赖jar文件到构建lib目录下 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;copy-dependencies&lt;/id&gt;
+                    &lt;phase&gt;package&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;copy-dependencies&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;outputDirectory&gt;${project.build.directory}/lib&lt;/outputDirectory&gt;
+                        &lt;excludeTransitive&gt;false&lt;/excludeTransitive&gt;
+                        &lt;stripVersion&gt;false&lt;/stripVersion&gt;
+                        &lt;silent&gt;true&lt;/silent&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+        &lt;!-- Spring Boot模块jar构建 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;includes&gt;
+                    &lt;!-- 不存在的include引用，相当于排除所有maven依赖jar，没有任何三方jar文件打入输出jar --&gt;
+                    &lt;include&gt;
+                        &lt;groupId&gt;null&lt;/groupId&gt;
+                        &lt;artifactId&gt;null&lt;/artifactId&gt;
+                    &lt;/include&gt;
+                &lt;/includes&gt;
+                &lt;layout&gt;ZIP&lt;/layout&gt;
+            &lt;/configuration&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;repackage&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+<p>配置输出：</p>
+<pre><code>cd package-optimize-level1
+mvn clean install
+
+ls -lh package-optimize-app1/target/package-optimize-app1.jar
+-rw-r--r--  1 lixia  wheel   149K Feb 24 20:56 package-optimize-app1/target/package-optimize-app1.jar
+
+java -jar -Djava.ext.dirs=lib package-optimize-app1/target/package-optimize-app1.jar</code></pre>
+<p>实现效果：</p>
+<ul>
+<li>单一构建根据项目依赖组件量输出jar一般仅有一两百KB，基本可以做到秒传。</li>
+<li>这个是网上可见最常见的优化方案，还值得继续深入：假如有十来个微服务，每个服务一个jar和一个lib目录文件，首次部署也差不多需要传输一两个GB文件。</li>
+</ul>
+<h4 id="Level-2：合并所有模块依赖jar到同一个lib目录"><a href="#Level-2：合并所有模块依赖jar到同一个lib目录" class="headerlink" title="Level 2：合并所有模块依赖jar到同一个lib目录"></a>Level 2：合并所有模块依赖jar到同一个lib目录</h4><p>参考项目目录：package-optimize-level2</p>
+<p>解决问题：</p>
+<ul>
+<li>合并所有模块依赖jar到同一个lib目录，一般由于各模块项目依赖jar重叠程度很高，合并所有服务部署文件总计大小基本也就两三百MB</li>
+<li>但是如果采用-Djava.ext.dirs=lib加载所有jar到每个JVM，一来每个JVM都完整加载了所有jar耗费资源，二来各微服务组件版本不同会出现版本冲突问题</li>
+</ul>
+<p>主要配置：</p>
+<p>重点配置说明请详见如下注释说明：</p>
+<pre><code>&lt;build&gt;
+    &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
+    &lt;!--
+    特别注意：
+    项目仅仅是为了演示配置方便，直接在parent的build部分做了插件配置和运行定义。
+    但是实际项目中需要把这些定义只放到spring boot模块项目（可优化使用pluginManagement形式），避免干扰其他util、common等模块项目
+    --&gt;
+    &lt;plugins&gt;
+        &lt;!-- 基于maven-jar-plugin插件实现把依赖jar定义写入输出jar的META-INFO/MANIFEST文件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;archive&gt;
+                    &lt;manifest&gt;
+                        &lt;addClasspath&gt;true&lt;/addClasspath&gt;
+                        &lt;classpathPrefix&gt;lib/&lt;/classpathPrefix&gt;
+                        &lt;useUniqueVersions&gt;false&lt;/useUniqueVersions&gt;
+                    &lt;/manifest&gt;
+                &lt;/archive&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;!-- 拷贝项目所有依赖jar文件到构建lib目录下 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;copy-dependencies&lt;/id&gt;
+                    &lt;phase&gt;package&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;copy-dependencies&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;!--
+                        各子模块按照实际层级定义各模块对应的属性值，检查所有微服务模块依赖jar文件合并复制到同一个目录
+                        详见各子模块中 boot-jar-output 属性定义
+                        --&gt;
+                        &lt;outputDirectory&gt;${boot-jar-output}/lib&lt;/outputDirectory&gt;
+                        &lt;excludeTransitive&gt;false&lt;/excludeTransitive&gt;
+                        &lt;stripVersion&gt;false&lt;/stripVersion&gt;
+                        &lt;silent&gt;false&lt;/silent&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+        &lt;!-- Spring Boot模块jar构建 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;includes&gt;
+                    &lt;!-- 不存在的include引用，相当于排除所有maven依赖jar，没有任何三方jar文件打入输出jar --&gt;
+                    &lt;include&gt;
+                        &lt;groupId&gt;null&lt;/groupId&gt;
+                        &lt;artifactId&gt;null&lt;/artifactId&gt;
+                    &lt;/include&gt;
+                &lt;/includes&gt;
+                &lt;layout&gt;ZIP&lt;/layout&gt;
+                &lt;!--
+                基于maven-jar-plugin输出微服务jar文件进行二次spring boot重新打包文件的输出目录
+                所有微服务构建输出jar文件统一输出到与lib同一个目录，便于共同引用同一个lib目录
+                详见各子模块中boot-jar-output属性定义
+                --&gt;
+                &lt;!--  --&gt;
+                &lt;outputDirectory&gt;${boot-jar-output}&lt;/outputDirectory&gt;
+            &lt;/configuration&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;repackage&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+<p>所有lib目录文件及各微服务构建jar聚合到devops公共目录。</p>
+<p>微服务jar文件中的META-INFO/MANIFEST文件中会生成根据模块依赖组件列表的Class-Path属性， 从而避免了不同版本jar：</p>
+<pre><code>Class-Path: lib/spring-boot-starter-web-2.4.3.jar lib/spring-boot-starte
+ r-2.4.3.jar lib/spring-boot-2.4.3.jar lib/spring-boot-autoconfigure-2.4
+ .3.jar lib/spring-boot-starter-logging-2.4.3.jar lib/logback-classic-1.
+ 2.3.jar lib/logback-core-1.2.3.jar lib/slf4j-api-1.7.30.jar lib/log4j-t
+ o-slf4j-2.13.3.jar lib/log4j-api-2.13.3.jar lib/jul-to-slf4j-1.7.30.jar
+  lib/jakarta.annotation-api-1.3.5.jar lib/spring-core-5.3.4.jar lib/spr
+ ing-jcl-5.3.4.jar lib/snakeyaml-1.27.jar lib/spring-boot-starter-json-2
+ .4.3.jar lib/jackson-databind-2.11.4.jar lib/jackson-annotations-2.11.4
+ .jar lib/jackson-core-2.11.4.jar lib/jackson-datatype-jdk8-2.11.4.jar l
+ ib/jackson-datatype-jsr310-2.11.4.jar lib/jackson-module-parameter-name
+ s-2.11.4.jar lib/spring-boot-starter-tomcat-2.4.3.jar lib/tomcat-embed-
+ core-9.0.43.jar lib/jakarta.el-3.0.3.jar lib/tomcat-embed-websocket-9.0
+ .43.jar lib/spring-web-5.3.4.jar lib/spring-beans-5.3.4.jar lib/spring-
+ webmvc-5.3.4.jar lib/spring-aop-5.3.4.jar lib/spring-context-5.3.4.jar
+ lib/spring-expression-5.3.4.jar</code></pre>
+<p>配置输出：</p>
+<pre><code>cd package-optimize-level2
+mvn clean install
+
+ls -lh devops/
+total 912
+drwxr-xr-x  34 lixia  wheel   1.1K Feb 24 22:27 lib
+-rw-r--r--   1 lixia  wheel   150K Feb 24 22:31 package-optimize-app1.jar
+-rw-r--r--   1 lixia  wheel   149K Feb 24 22:31 package-optimize-app2.jar
+-rw-r--r--   1 lixia  wheel   149K Feb 24 22:31 package-optimize-app3.jar
+
+java -jar devops/package-optimize-app1.jar</code></pre>
+<p>实现效果：</p>
+<ul>
+<li>启动过程不再需要 -Djava.ext.dirs=lib 参数定义。</li>
+<li>所有微服务jar引用所有项目合并依赖组件的公共目录，部署文件总计大小一般在两三百MB。</li>
+<li>通过定制每个微服务jar文件中的META-INFO/MANIFEST文件中的Class-Path明确指明依赖版本组件类，解决各微服务不同组件版本冲突问题。</li>
+</ul>
+<h4 id="Level-3：支持system引入的非官方的三方依赖组件"><a href="#Level-3：支持system引入的非官方的三方依赖组件" class="headerlink" title="Level 3：支持system引入的非官方的三方依赖组件"></a>Level 3：支持system引入的非官方的三方依赖组件</h4><p>参考项目目录：package-optimize-level3</p>
+<p>解决问题：</p>
+<ul>
+<li>有些非官方三方的诸如sdk jar，一种做法是提交到Maven本地私服中去引用，那和普通依赖jar处理相同；但是在没有maven私服的情况下，常见的简化做法都是直接在项目中放置依赖jar然后在pom中以system scope方式定义。</li>
+<li>对于在pom中是以systemPath方式引入的，maven-jar-plugin组件没有直接参数声明包含指定scope的组件， 如果不做特殊处理META-INFO/MANIFEST中不会出现这些scope定义的组件，导致运行时类找不到。</li>
+</ul>
+<p>主要配置：</p>
+<p>重点配置说明请详见如下注释说明：</p>
+<pre><code>&lt;build&gt;
+    &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
+    &lt;!--
+    特别注意：
+    项目仅仅是为了演示配置方便，直接在parent的build部分做了插件配置和运行定义。
+    但是实际项目中需要把这些定义只放到spring boot模块项目（可优化使用pluginManagement形式），避免干扰其他util、common等模块项目
+    --&gt;
+    &lt;plugins&gt;
+        &lt;!-- 基于maven-jar-plugin插件实现把依赖jar定义写入输出jar的META-INFO/MANIFEST文件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;archive&gt;
+                    &lt;manifest&gt;
+                        &lt;addClasspath&gt;true&lt;/addClasspath&gt;
+                        &lt;classpathPrefix&gt;lib/&lt;/classpathPrefix&gt;
+                        &lt;useUniqueVersions&gt;false&lt;/useUniqueVersions&gt;
+                    &lt;/manifest&gt;
+                    &lt;manifestEntries&gt;
+                        &lt;!--
+                        有些非官方三方的诸如sdk jar在pom中是以systemPath方式引入的，maven-jar-plugin组件没有直接参数声明包含指定scope的组件
+                        通过使用额外定义 Class-Path 值来追加指定依赖组件列表，在子模块按实际情况指定 jar-manifestEntries-classpath 值即可
+                        例如(注意前面个点字符及各空格分隔符)：. lib/xxx-1.0.0.jar lib/yyy-2.0.0.jar
+                        详见各子模块中 boot-jar-output 属性定义示例
+                        --&gt;
+                        &lt;Class-Path&gt;${jar-manifestEntries-classpath}&lt;/Class-Path&gt;
+                    &lt;/manifestEntries&gt;
+                &lt;/archive&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;!-- 拷贝项目所有依赖jar文件到构建lib目录下 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;copy-dependencies&lt;/id&gt;
+                    &lt;phase&gt;package&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;copy-dependencies&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;!--
+                        各子模块按照实际层级定义各模块对应的属性值，检查所有微服务模块依赖jar文件合并复制到同一个目录
+                        详见各子模块中 boot-jar-output 属性定义
+                        --&gt;
+                        &lt;outputDirectory&gt;${boot-jar-output}/lib&lt;/outputDirectory&gt;
+                        &lt;excludeTransitive&gt;false&lt;/excludeTransitive&gt;
+                        &lt;stripVersion&gt;false&lt;/stripVersion&gt;
+                        &lt;silent&gt;false&lt;/silent&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+        &lt;!-- Spring Boot模块jar构建 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;includes&gt;
+                    &lt;!-- 不存在的include引用，相当于排除所有maven依赖jar，没有任何三方jar文件打入输出jar --&gt;
+                    &lt;include&gt;
+                        &lt;groupId&gt;null&lt;/groupId&gt;
+                        &lt;artifactId&gt;null&lt;/artifactId&gt;
+                    &lt;/include&gt;
+                &lt;/includes&gt;
+                &lt;layout&gt;ZIP&lt;/layout&gt;
+                &lt;!--
+                基于maven-jar-plugin输出微服务jar文件进行二次spring boot重新打包文件的输出目录
+                所有微服务构建输出jar文件统一输出到与lib同一个目录，便于共同引用同一个lib目录
+                详见各子模块中boot-jar-output属性定义
+                --&gt;
+                &lt;!--  --&gt;
+                &lt;outputDirectory&gt;${boot-jar-output}&lt;/outputDirectory&gt;
+            &lt;/configuration&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;repackage&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+<p>子模块主要配置：</p>
+<pre><code>    &lt;properties&gt;
+        &lt;!-- 按各模块实际目录层次定义相对数据，使所有服务模块输出资源汇聚到相同目录 --&gt;
+        &lt;boot-jar-output&gt;../devops&lt;/boot-jar-output&gt;
+        &lt;!--
+        有些供应商的sdk jar在pom中是以systemPath方式引入的，maven-jar-plugin组件没有直接参数声明包含指定scope的组件
+        通过使用额外定义 Class-Path 值来追加指定依赖组件列表，按实际情况指定 jar-manifestEntries-classpath 值即可
+        例如(注意前面个点字符及各空格分隔符，lib后面部分是 artifactId-version.jar 格式而不是实际文件名)：. lib/xxx-1.0.0.jar lib/yyy-2.0.0.jar
+        --&gt;
+        &lt;jar-manifestEntries-classpath&gt;. lib/hik-sdk-1.0.0.jar&lt;/jar-manifestEntries-classpath&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;!-- 以相对路径方式定义非官方三方依赖组件 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.hik&lt;/groupId&gt;
+            &lt;artifactId&gt;hik-sdk&lt;/artifactId&gt;
+            &lt;version&gt;1.0.0&lt;/version&gt;
+            &lt;scope&gt;system&lt;/scope&gt;
+            &lt;systemPath&gt;${project.basedir}/lib/hik-sdk-1.0.0.jar&lt;/systemPath&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;</code></pre>
+<p>微服务输出jar文件中的META-INFO/MANIFEST文件中会生成根据模块依赖组件列表的Class-Path属性， 最前面会追加 jar-manifestEntries-classpath 属性定义值：</p>
+<pre><code>Class-Path: . lib/hik-sdk-1.0.0.jar lib/spring-boot-starter-web-2.4.3.ja
+ r lib/spring-boot-starter-2.4.3.jar lib/spring-boot-2.4.3.jar lib/sprin
+ g-boot-autoconfigure-2.4.3.jar lib/spring-boot-starter-logging-2.4.3.ja
+ r lib/logback-classic-1.2.3.jar lib/logback-core-1.2.3.jar lib/slf4j-ap
+ i-1.7.30.jar lib/log4j-to-slf4j-2.13.3.jar lib/log4j-api-2.13.3.jar lib
+ /jul-to-slf4j-1.7.30.jar lib/jakarta.annotation-api-1.3.5.jar lib/sprin
+ g-core-5.3.4.jar lib/spring-jcl-5.3.4.jar lib/snakeyaml-1.27.jar lib/sp
+ ring-boot-starter-json-2.4.3.jar lib/jackson-databind-2.11.4.jar lib/ja
+ ckson-annotations-2.11.4.jar lib/jackson-core-2.11.4.jar lib/jackson-da
+ tatype-jdk8-2.11.4.jar lib/jackson-datatype-jsr310-2.11.4.jar lib/jacks
+ on-module-parameter-names-2.11.4.jar lib/spring-boot-starter-tomcat-2.4
+ .3.jar lib/tomcat-embed-core-9.0.43.jar lib/jakarta.el-3.0.3.jar lib/to
+ mcat-embed-websocket-9.0.43.jar lib/spring-web-5.3.4.jar lib/spring-bea
+ ns-5.3.4.jar lib/spring-webmvc-5.3.4.jar lib/spring-aop-5.3.4.jar lib/s
+ pring-context-5.3.4.jar lib/spring-expression-5.3.4.jar</code></pre>
+<p>配置输出：</p>
+<pre><code>cd package-optimize-level3
+mvn clean install
+
+ls -lh devops/
+total 912
+drwxr-xr-x  36 lixia  wheel   1.1K Feb 24 23:14 lib
+-rw-r--r--@  1 lixia  wheel   150K Feb 24 23:14 package-optimize-app1.jar
+-rw-r--r--   1 lixia  wheel   150K Feb 24 23:14 package-optimize-app2.jar
+-rw-r--r--   1 lixia  wheel   150K Feb 24 23:14 package-optimize-app3.jar
+
+java -jar devops/package-optimize-app1.jar</code></pre>
+<h3 id="最终实现效果"><a href="#最终实现效果" class="headerlink" title="最终实现效果"></a>最终实现效果</h3><ul>
+<li>所有服务的依赖组件合并到一个目录，总计大小在两三百MB，首次部署传输效率明显提速。</li>
+<li>各微服务jar一两百KB大小，日常紧急修复Bug更新个别jar基本就是瞬间秒传。</li>
+<li>各微服务jar中各自定义依赖指定版本组件列表，不会出现组件不同版本加载冲突问题。</li>
+<li>非官方的三方依赖组件也能正常引用处理。</li>
+</ul>
+<h3 id="特别提示"><a href="#特别提示" class="headerlink" title="特别提示"></a>特别提示</h3><p>上述通过部署组件分离处理后，日常更新只需要传输一两百KB的业务jar文件即可。但是如果某个项目的maven依赖 组件做了变更配置，则需要注意把变更的jar文件要同步到公共的lib目录。</p>
+<p>最小化变更jar文件的小技巧：可以把构建部署资源目录提交到GIT库，以后每次版本发布同时commit到GIT库， 通过提交视图可以清晰的识别出lib目录下和业务jar本次版本发布的变更文件清单，包括微服务jar和依赖jar变更文件，以此最小化传输文件。</p>
+<p>作者 | Java基基</p>
+<p>来源 | <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Y5VK7TI1TQBN6O-k5O6hng">https://mp.weixin.qq.com/s/Y5VK7TI1TQBN6O-k5O6hng</a></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2021/07/01/springboot-bu-shu-jar-shou-shen-you-hua-zhi-nan/">https://chenguoo.github.io/2021/07/01/springboot-bu-shu-jar-shou-shen-you-hua-zhi-nan/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/springboot/">
+                                    <span class="chip bg-color">springboot</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/07/01/springboot-bu-shu-jar-shou-shen-you-hua-zhi-nan/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="SpringBoot部署jar瘦身优化指南">
+                        
+                        <span class="card-title">SpringBoot部署jar瘦身优化指南</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文截取代码片段来自于对应的完整示例源码工程：
+
+https://gitee.com/xautlx/package-optimize-demo
+
+相关代码和配置均实际执行测试过（基于OpenJDK8环境，其余JDK未做验证，如-Djava.
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/spring/" class="post-category">
+                                    spring
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/springboot/">
+                        <span class="chip bg-color">springboot</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/07/01/hibernate-validator-zui-quan-guo-ji-hua-fang-an/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="hibernate-validator最全国际化方案">
+                        
+                        <span class="card-title">hibernate-validator最全国际化方案</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            hibernate-validator最全国际化方案为了实现hibernate-validator国际化差点要了老命，最近在研究hibernate-validator以及国际化，在墙里墙外找了很多很久，可能是因为版本的更新迭代，找到的资料基
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/spring/" class="post-category">
+                                    spring
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/validated/">
+                        <span class="chip bg-color">validated</span>
+                    </a>
+                    
+                    <a href="/tags/hibernate/">
+                        <span class="chip bg-color">hibernate</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"react":{"opacity":0.7}}});</script></body>
+
+</html>
