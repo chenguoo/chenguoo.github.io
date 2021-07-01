@@ -13,16 +13,16 @@
       
       <categories>
           
-          <category> hibernate </category>
+          <category> spring </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> hibernate </tag>
+            <tag> validated </tag>
             
-            <tag> validator </tag>
+            <tag> hibernate </tag>
             
         </tags>
       
