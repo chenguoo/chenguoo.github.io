@@ -1,0 +1,2070 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="RSA+AES实现接口验签和参数加密, Cheney 学习日志">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>RSA+AES实现接口验签和参数加密 | Cheney 学习日志</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Cheney 学习日志</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Cheney 学习日志</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">RSA+AES实现接口验签和参数加密</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/springboot/">
+                                <span class="chip bg-color">springboot</span>
+                            </a>
+                        
+                            <a href="/tags/encryption/">
+                                <span class="chip bg-color">encryption</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/springboot/" class="post-category">
+                                springboot
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-07-05
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="RSA非对称加密"><a href="#RSA非对称加密" class="headerlink" title="RSA非对称加密"></a>RSA非对称加密</h1><p>RSA是一种常用的非对称加密算法，加密和加密使用不同的密钥，常用于要求安全性较高的加密场景，比如接口的验签和接口数据的加密与解密。与非对称加密算法对比，其安全性较高，但是加密性能却比较低，不适合高并发场景，一般只加密少量的数据。</p>
+<h1 id="AES对称加密"><a href="#AES对称加密" class="headerlink" title="AES对称加密"></a>AES对称加密</h1><p>AES是一种最常见的对称加密算法（微信小程序加密传输就是用这个加密算法的），加密和解密使用的是相同的密钥。其加密性能好，加密解密速度非常快，内存需求低，适用于经常发送数据的场合。</p>
+<h1 id="RSA-AES实现接口验签和请求参数的加密与解密"><a href="#RSA-AES实现接口验签和请求参数的加密与解密" class="headerlink" title="RSA+AES实现接口验签和请求参数的加密与解密"></a>RSA+AES实现接口验签和请求参数的加密与解密</h1><p>背景：作为程序猿，我们经常需要在我们自己开发的系统上，开发一些接口供第三方调用，那么这个时候，对我们接口的安全性要求就比较高了，尤其是那种需要传输比较私密的信息的时候，其对安全性的要求就更高了。</p>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>调用方：</p>
+<ul>
+<li>使用AES对称加密算法对业务请求参数进行加密后传输</li>
+<li>使用RSA非对称加密算法对AES的密钥进行公钥加密后传输</li>
+<li>使用RSA的私钥对请求参数进行签名</li>
+</ul>
+<p>接收方：</p>
+<ul>
+<li>获取到请求参数后，对参数进行验签和业务参数的解密</li>
+</ul>
+<p><strong>问题：为什么要对AES的密钥进行RSA公钥加密后传输？</strong></p>
+<p>AES是对称加密算法，加密和解密的密钥都是同一个，为了防止被别人恶意获取到该密钥，然后对我们的业务请求参数进行解密，我们需要将AES密钥进行非对称加密后再进行传输。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><pre><code>        &lt;!--RSA依赖--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.bouncycastle&lt;/groupId&gt;
+            &lt;artifactId&gt;bcpkix-jdk15on&lt;/artifactId&gt;
+            &lt;version&gt;1.56&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--Jackson依赖--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+            &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+            &lt;version&gt;2.9.8&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!--Jackson依赖--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.codehaus.jackson&lt;/groupId&gt;
+            &lt;artifactId&gt;jackson-core-asl&lt;/artifactId&gt;
+            &lt;version&gt;1.8.3&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre>
+<p>请求和接收的实体对象</p>
+<pre><code>@Data
+public class JsonRequest {
+    //接口id 可空
+    private String serviceId;
+    //请求唯一id 非空
+    private String requestId;
+    //商户id 非空
+    private String appId;
+    //参数签名 非空
+    private String sign;
+    //对称加密key 非空
+    private String aseKey;
+    //时间戳，精确到毫秒 非空
+    private long timestamp;
+    //请求的业务参数(AES加密后传入) 可空
+    private String body;
+}</code></pre>
+<ul>
+<li>serviceId：服务id（接口id）。接口设计分为两种，一种是所有的调用方针对类似的业务，都调用的是同一接口地址，然后内部系统根据serviceId去判断具体是要调用哪个业务方法；另一种是针对不同的调用方，开发不同的接口，接口地址也是不一样，那么这个时候就可以不要serviceId这个字段。本章是使用第二种方式，所以serviceId可以不要（可空）。</li>
+<li>requestId：请求唯一id。方便查询定位某个请求和防止同个请求多次调用。</li>
+<li>appId：商户id，即我们会给调用方分配一个这样的id，并且将这个id与调用方的信息进行关联，比如“通过appId查询出调用方的加密密钥等”</li>
+<li>aseKey：是AES对称加密的密钥。用于解密业务请求参数。这里要先用RSA公钥对aseKey进行加密后传输。</li>
+<li>timestamp：请求时间戳。可以用该字段，对请求的时间合法性进行校验。（如：过滤掉请求时间不在当前时间的正负10分钟范围内的请求）</li>
+<li>body：请求的业务参数。对请求的业务参数AES加密后再赋值。</li>
+</ul>
+<h2 id="AES工具类"><a href="#AES工具类" class="headerlink" title="AES工具类"></a>AES工具类</h2><pre><code>/**
+ * 
+ * 
+ * @description: AES工具类
+ */
+public class AESUtil {
+
+    /**
+     * 加密
+     * @param content 加密文本
+     * @param key 加密密钥，appSecret的前16位
+     * @param iv 初始化向量，appSecret的后16位
+     * @return
+     * @throws Exception
+     */
+    public static String encrypt(String content, String key, String iv) throws Exception {
+        byte[] raw = key.getBytes();
+        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding"); //"算法/模式/补码方式"
+        IvParameterSpec ivParam = new IvParameterSpec(iv.getBytes()); //使用CBC模式，需要一个向量iv，可增加加密算法的强度
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec, ivParam);
+        byte[] encrypted = cipher.doFinal(content.getBytes());
+
+        return new BASE64Encoder().encode(encrypted);
+    }
+
+    public static String decrypt(String content, String key, String iv) throws Exception {
+        byte[] raw = key.getBytes();
+        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding "); //"算法/模式/补码方式"
+        IvParameterSpec ivParam = new IvParameterSpec(iv.getBytes()); //使用CBC模式，需要一个向量iv，可增加加密算法的强度
+        cipher.init(Cipher.DECRYPT_MODE, skeySpec, ivParam);
+        byte[] encrypted = new BASE64Decoder().decodeBuffer(content); //先用base64解密
+        byte[] original = cipher.doFinal(encrypted);
+        return new String(original);
+    }
+
+    public static void main(String[] args) throws Exception {
+        String encrypt = AESUtil.encrypt("你好啊！！！", "1234567890123456", "1234567890123456");
+        String decrypt = AESUtil.decrypt(encrypt, "1234567890123456", "1234567890123456");
+        System.out.println(decrypt);
+    }</code></pre>
+<h2 id="RSA工具类"><a href="#RSA工具类" class="headerlink" title="RSA工具类"></a>RSA工具类</h2><pre><code>/**
+ * 
+ * 
+ * @description: RSA工具类
+ */
+public class RSAUtil {
+
+    /**
+     * 定义加密方式
+     */
+    private final static String KEY_RSA = "RSA";
+    /**
+     * 定义签名算法
+     */
+    private final static String KEY_RSA_SIGNATURE = "MD5withRSA";
+    /**
+     * 定义公钥算法
+     */
+    private final static String KEY_RSA_PUBLICKEY = "RSAPublicKey";
+    /**
+     * 定义私钥算法
+     */
+    private final static String KEY_RSA_PRIVATEKEY = "RSAPrivateKey";
+
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
+
+    /**
+     * 初始化密钥
+     */
+    public static Map&lt;String, Object&gt; init() {
+        Map&lt;String, Object&gt; map = null;
+        try {
+            KeyPairGenerator generator = KeyPairGenerator.getInstance(KEY_RSA);
+            generator.initialize(2048);
+            KeyPair keyPair = generator.generateKeyPair();
+            // 公钥
+            RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+            // 私钥
+            RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+            // 将密钥封装为map
+            map = new HashMap&lt;&gt;();
+            map.put(KEY_RSA_PUBLICKEY, publicKey);
+            map.put(KEY_RSA_PRIVATEKEY, privateKey);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    /**
+     * 公钥加密
+     *
+     * @param data 待加密数据
+     * @param key  公钥
+     */
+    public static byte[] encryptByPublicKey(String data, String key) {
+        byte[] result = null;
+        try {
+            byte[] bytes = decryptBase64(key);
+            // 取得公钥
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
+            KeyFactory factory = KeyFactory.getInstance(KEY_RSA);
+            PublicKey publicKey = factory.generatePublic(keySpec);
+            // 对数据加密
+            Cipher cipher = Cipher.getInstance("RSA/None/PKCS1Padding", "BC");
+
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            byte[] encode = cipher.doFinal(data.getBytes());
+            // 再进行Base64加密
+            result = Base64.encode(encode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 私钥解密
+     *
+     * @param data 加密数据
+     * @param key  私钥
+     */
+    public static String decryptByPrivateKey(byte[] data, String key) {
+        String result = null;
+        try {
+            // 对私钥解密
+            byte[] bytes = decryptBase64(key);
+            // 取得私钥
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(bytes);
+            KeyFactory factory = KeyFactory.getInstance(KEY_RSA);
+            PrivateKey privateKey = factory.generatePrivate(keySpec);
+            // 对数据解密
+            Cipher cipher = Cipher.getInstance("RSA/None/PKCS1Padding", "BC");
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+            // 先Base64解密
+            byte[] decoded = Base64.decode(data);
+            result = new String(cipher.doFinal(decoded));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    /**
+     * 获取公钥
+     */
+    public static String getPublicKey(Map&lt;String, Object&gt; map) {
+        String str = "";
+        try {
+            Key key = (Key) map.get(KEY_RSA_PUBLICKEY);
+            str = encryptBase64(key.getEncoded());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    /**
+     * 获取私钥
+     */
+    public static String getPrivateKey(Map&lt;String, Object&gt; map) {
+        String str = "";
+        try {
+            Key key = (Key) map.get(KEY_RSA_PRIVATEKEY);
+            str = encryptBase64(key.getEncoded());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    /**
+     * 用私钥对信息生成数字签名
+     *
+     * @param data       加密数据
+     * @param privateKey 私钥
+     */
+    public static String sign(byte[] data, String privateKey) {
+        String str = "";
+        try {
+            // 解密由base64编码的私钥
+            byte[] bytes = decryptBase64(privateKey);
+            // 构造PKCS8EncodedKeySpec对象
+            PKCS8EncodedKeySpec pkcs = new PKCS8EncodedKeySpec(bytes);
+            // 指定的加密算法
+            KeyFactory factory = KeyFactory.getInstance(KEY_RSA);
+            // 取私钥对象
+            PrivateKey key = factory.generatePrivate(pkcs);
+            // 用私钥对信息生成数字签名
+            Signature signature = Signature.getInstance(KEY_RSA_SIGNATURE);
+            signature.initSign(key);
+            signature.update(data);
+            str = encryptBase64(signature.sign());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    /**
+     * 校验数字签名
+     *
+     * @param data      加密数据
+     * @param publicKey 公钥
+     * @param sign      数字签名
+     * @return 校验成功返回true，失败返回false
+     */
+    public static boolean verify(byte[] data, String publicKey, String sign) {
+        boolean flag = false;
+        try {
+            // 解密由base64编码的公钥
+            byte[] bytes = decryptBase64(publicKey);
+            // 构造X509EncodedKeySpec对象
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
+            // 指定的加密算法
+            KeyFactory factory = KeyFactory.getInstance(KEY_RSA);
+            // 取公钥对象
+            PublicKey key = factory.generatePublic(keySpec);
+            // 用公钥验证数字签名
+            Signature signature = Signature.getInstance(KEY_RSA_SIGNATURE);
+            signature.initVerify(key);
+            signature.update(data);
+            flag = signature.verify(decryptBase64(sign));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+
+    /**
+     * BASE64 解密
+     *
+     * @param key 需要解密的字符串
+     * @return 字节数组
+     */
+    public static byte[] decryptBase64(String key) throws Exception {
+        return Base64.decode(key);
+    }
+
+    /**
+     * BASE64 加密
+     *
+     * @param key 需要加密的字节数组
+     * @return 字符串
+     */
+    public static String encryptBase64(byte[] key) throws Exception {
+        return new String(Base64.encode(key));
+    }
+
+    /**
+     * 按照红黑树（Red-Black tree）的 NavigableMap 实现
+     * 按照字母大小排序
+     */
+    public static Map&lt;String, Object&gt; sort(Map&lt;String, Object&gt; map) {
+        if (map == null) {
+            return null;
+        }
+        Map&lt;String, Object&gt; result = new TreeMap&lt;&gt;((Comparator&lt;String&gt;) (o1, o2) -&gt; {
+            return o1.compareTo(o2);
+        });
+        result.putAll(map);
+        return result;
+    }
+
+    /**
+     * 组合参数
+     *
+     * @param map
+     * @return 如：key1Value1Key2Value2....
+     */
+    public static String groupStringParam(Map&lt;String, Object&gt; map) {
+        if (map == null) {
+            return null;
+        }
+        StringBuffer sb = new StringBuffer();
+        for (Map.Entry&lt;String, Object&gt; item : map.entrySet()) {
+            if (item.getValue() != null) {
+                sb.append(item.getKey());
+                if (item.getValue() instanceof List) {
+                    sb.append(JSON.toJSONString(item.getValue()));
+                } else {
+                    sb.append(item.getValue());
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * bean转map
+     * @param obj
+     * @return
+     */
+    public static Map&lt;String, Object&gt; bean2Map(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+        try {
+            BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for (PropertyDescriptor property : propertyDescriptors) {
+                String key = property.getName();
+                // 过滤class属性
+                if (!key.equals("class")) {
+                    // 得到property对应的getter方法
+                    Method getter = property.getReadMethod();
+                    Object value = getter.invoke(obj);
+                    if (StringUtils.isEmpty(value)) {
+                        continue;
+                    }
+                    map.put(key, value);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    /**
+     * 按照红黑树（Red-Black tree）的 NavigableMap 实现
+     * 按照字母大小排序
+     */
+    public static Map&lt;String, Object&gt; sort(Map&lt;String, Object&gt; map) {
+        if (map == null) {
+            return null;
+        }
+        Map&lt;String, Object&gt; result = new TreeMap&lt;&gt;((Comparator&lt;String&gt;) (o1, o2) -&gt; {
+            return o1.compareTo(o2);
+        });
+        result.putAll(map);
+        return result;
+    }
+
+    /**
+     * 组合参数
+     *
+     * @param map
+     * @return 如：key1Value1Key2Value2....
+     */
+    public static String groupStringParam(Map&lt;String, Object&gt; map) {
+        if (map == null) {
+            return null;
+        }
+        StringBuffer sb = new StringBuffer();
+        for (Map.Entry&lt;String, Object&gt; item : map.entrySet()) {
+            if (item.getValue() != null) {
+                sb.append(item.getKey());
+                if (item.getValue() instanceof List) {
+                    sb.append(JSON.toJSONString(item.getValue()));
+                } else {
+                    sb.append(item.getValue());
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * bean转map
+     * @param obj
+     * @return
+     */
+    public static Map&lt;String, Object&gt; bean2Map(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+        try {
+            BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for (PropertyDescriptor property : propertyDescriptors) {
+                String key = property.getName();
+                // 过滤class属性
+                if (!key.equals("class")) {
+                    // 得到property对应的getter方法
+                    Method getter = property.getReadMethod();
+                    Object value = getter.invoke(obj);
+                    if (StringUtils.isEmpty(value)) {
+                        continue;
+                    }
+                    map.put(key, value);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        System.out.println("公钥加密======私钥解密");
+        String str = "Longer程序员";
+        byte[] enStr = RSAUtil.encryptByPublicKey(str, publicKey);
+        String miyaoStr = HexUtils.bytesToHexString(enStr);
+        byte[] bytes = HexUtils.hexStringToBytes(miyaoStr);
+        String decStr = RSAUtil.decryptByPrivateKey(bytes, privateKey);
+        System.out.println("加密前：" + str + "\n\r解密后：" + decStr);
+
+        System.out.println("\n\r");
+        System.out.println("私钥签名======公钥验证");
+        String sign = RSAUtil.sign(str.getBytes(), privateKey);
+        System.out.println("签名：\n\r" + sign);
+        boolean flag = RSAUtil.verify(str.getBytes(), publicKey, sign);
+        System.out.println("验签结果：\n\r" + flag);
+    }</code></pre>
+<h2 id="jackson工具类"><a href="#jackson工具类" class="headerlink" title="jackson工具类"></a>jackson工具类</h2><pre><code>import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.codehaus.jackson.type.TypeReference;
+import org.springframework.util.StringUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * 
+ * 
+ * @description: Jackson转换工具类
+ */
+@Slf4j
+public class JacksonUtil {
+    private static ObjectMapper objectMapper = new ObjectMapper();
+
+    /**
+     * 对象转换成json
+     *
+     * @param obj
+     * @param &lt;T&gt;
+     * @return
+     */
+    public static &lt;T&gt; String beanToJson(T obj) {
+        if (obj == null) {
+            return null;
+        }
+        try {
+            return obj instanceof String ? (String) obj : objectMapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            log.error("beanToJson error", e);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 将JSON字符串根据指定的Class反序列化成Java对象。
+     *
+     * @param json      JSON字符串
+     * @param pojoClass Java对象Class
+     * @return 反序列化生成的Java对象
+     * @throws Exception 如果反序列化过程中发生错误，将抛出异常
+     */
+    public static Object decode(String json, Class&lt;?&gt; pojoClass)
+            throws Exception {
+        try {
+            return objectMapper.readValue(json, pojoClass);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
+     * 将JSON字符串根据指定的Class反序列化成Java对象。
+     *
+     * @param json      JSON字符串
+     * @param reference 类型引用
+     * @return 反序列化生成的Java对象
+     * @throws Exception 如果反序列化过程中发生错误，将抛出异常
+     */
+    public static Object decode(String json, TypeReference&lt;?&gt; reference) throws Exception {
+        try {
+            return objectMapper.readValue(json, reference.getClass());
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
+     * 将Java对象序列化成JSON字符串。
+     *
+     * @param obj 待序列化生成JSON字符串的Java对象
+     * @return JSON字符串
+     * @throws Exception 如果序列化过程中发生错误，将抛出异常
+     */
+    public static String encode(Object obj) throws Exception {
+        try {
+            return objectMapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
+     * 对象转换成格式化的json
+     *
+     * @param obj
+     * @param &lt;T&gt;
+     * @return
+     */
+    public static &lt;T&gt; String beanToJsonPretty(T obj) {
+        if (obj == null) {
+            return null;
+        }
+        try {
+            return obj instanceof String ? (String) obj : objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+        } catch (Exception e) {
+            log.error("beanToJsonPretty error", e);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    /**
+     * 将json转换成对象Class
+     *
+     * @param str
+     * @param clazz
+     * @param &lt;T&gt;
+     * @return
+     */
+    public static &lt;T&gt; T jsonToBean(String str, Class&lt;T&gt; clazz) {
+        if (StringUtils.isEmpty(str) || clazz == null) {
+            return null;
+        }
+        try {
+            return clazz.equals(String.class) ? (T) str : objectMapper.readValue(str, clazz);
+        } catch (Exception e) {
+            log.error("jsonToBean error", e);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 将json转换为对象集合
+     *
+     * @param str
+     * @param clazz
+     * @param &lt;T&gt;
+     * @return
+     */
+    public static &lt;T&gt; List&lt;T&gt; jsonToBeanList(String str, Class&lt;T&gt; clazz) {
+        if (StringUtils.isEmpty(str) || clazz == null) {
+            return null;
+        }
+        JavaType javaType = getCollectionType(ArrayList.class, clazz);
+        try {
+            return objectMapper.readValue(str, javaType);
+        } catch (IOException e) {
+            log.error("jsonToBeanList error", e);
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static JavaType getCollectionType(Class&lt;?&gt; collectionClass, Class&lt;?&gt;... elementClasses) {
+        return objectMapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
+    }
+}</code></pre>
+<h2 id="加密解密验签名流程演示"><a href="#加密解密验签名流程演示" class="headerlink" title="加密解密验签名流程演示"></a>加密解密验签名流程演示</h2><pre><code>/**
+ * 
+ * 
+ * @description: 测试
+ */
+public class RequestTest {
+    public static void main(String[] args) {
+        /****先给调用方分配一组RSA密钥和一个appId****/
+        //初始化RSA密钥
+        Map&lt;String, Object&gt; init = RSAUtil.init();
+        //私钥
+        String privateKey = RSAUtil.getPrivateKey(init);
+        //公钥
+        String publicKey = RSAUtil.getPublicKey(init);
+        //appId，32位的uuid
+        String appId = getUUID32();
+        /****先给调用方分配一组RSA密钥和一个appId****/
+
+        /*****调用方（请求方）*****/
+        //业务参数
+        Map&lt;String,Object&gt;  businessParams = new HashMap&lt;&gt;();
+        businessParams.put("name","Longer");
+        businessParams.put("job","程序猿");
+        businessParams.put("hobby","打篮球");
+
+        JsonRequest jsonRequest = new JsonRequest();
+        jsonRequest.setRequestId(getUUID32());
+        jsonRequest.setAppId(appId);
+        jsonRequest.setTimestamp(System.currentTimeMillis());
+        //使用appId的前16位作为AES密钥，并对密钥进行rsa公钥加密
+        String aseKey = appId.substring(0, 16);
+        byte[] enStr = RSAUtil.encryptByPublicKey(aseKey, publicKey);
+        String aseKeyStr = HexUtils.bytesToHexString(enStr);
+        jsonRequest.setAseKey(aseKeyStr);
+        //请求的业务参数进行加密
+        String body = "";
+        try {
+            body = AESUtil.encrypt(JacksonUtil.beanToJson(businessParams), aseKey, appId.substring(16));
+        } catch (Exception e) {
+            throw new RuntimeException("报文加密异常", e);
+        }
+        jsonRequest.setBody(body);
+        //签名
+        Map&lt;String, Object&gt; paramMap = RSAUtil.bean2Map(jsonRequest);
+        paramMap.remove("sign");
+        // 参数排序
+        Map&lt;String, Object&gt; sortedMap = RSAUtil.sort(paramMap);
+        // 拼接参数：key1Value1key2Value2
+        String urlParams = RSAUtil.groupStringParam(sortedMap);
+        //私钥签名
+        String sign = RSAUtil.sign(HexUtils.hexStringToBytes(urlParams), privateKey);
+        jsonRequest.setSign(sign);
+
+        /*****调用方（请求方）*****/
+
+        /*****接收方（自己的系统）*****/
+        //参数判空（略）
+        //appId校验（略）
+        //本条请求的合法性校验《唯一不重复请求；时间合理》（略）
+        //验签
+        Map&lt;String, Object&gt; paramMap2 = RSAUtil.bean2Map(jsonRequest);
+        paramMap2.remove("sign");
+        //参数排序
+        Map&lt;String, Object&gt; sortedMap2 = RSAUtil.sort(paramMap2);
+        //拼接参数：key1Value1key2Value2
+        String urlParams2 = RSAUtil.groupStringParam(sortedMap2);
+        //签名验证
+        boolean verify = RSAUtil.verify(HexUtils.hexStringToBytes(urlParams2), publicKey, jsonRequest.getSign());
+        if (!verify) {
+            throw new RuntimeException("签名验证失败");
+        }
+        //私钥解密，获取aseKey
+        String aseKey2 = RSAUtil.decryptByPrivateKey(HexUtils.hexStringToBytes(jsonRequest.getAseKey()), privateKey);
+        if (!StringUtils.isEmpty(jsonRequest.getBody())) {
+            // 解密请求报文
+            String requestBody = "";
+            try {
+                requestBody = AESUtil.decrypt(jsonRequest.getBody(), aseKey, jsonRequest.getAppId().substring(16));
+            } catch (Exception e) {
+                throw new RuntimeException("请求参数解密异常");
+            }
+            System.out.println("业务参数解密结果："+requestBody);
+        }
+        /*****接收方（自己的系统）*****/
+    }
+
+    public static String getUUID32() {
+        String uuid = UUID.randomUUID().toString();
+        uuid = uuid.replace("-", "");
+        return uuid;
+    }
+}</code></pre>
+<p>执行结果:</p>
+<pre><code>业务参数解密结果：{"name":"Longer","job":"程序猿","hobby":"打篮球"}</code></pre>
+<p>到此，调用方要做的和接收方做的其实都已经清楚了。</p>
+<p>调用方：</p>
+<ul>
+<li>1.业务参数进行AES对称加密</li>
+<li>2.AES密钥进行RSA非对称加密</li>
+<li>3.使用RSA生成签名</li>
+</ul>
+<p>接收方：</p>
+<ul>
+<li>验证签名</li>
+<li>AES密钥解密</li>
+<li>业务参数解密</li>
+</ul>
+<h1 id="请求参数的统一处理"><a href="#请求参数的统一处理" class="headerlink" title="请求参数的统一处理"></a>请求参数的统一处理</h1><p>上面讲到，我们接受的请求对象是JsonRequst对象，里面除了body成员变量是跟业务相关，其他成员变量（sericeId,appId等）都是与业务不相关的。那么，如果我们在controller层用JsonRequest对象去接收请求参数的话，其实是不那么规范的。<br>那么我们能不能对请求参数进行统一处理，使得传到controller层的参数只是跟业务相关的参数，并且在controller层也无需关注加密解密和验签的东西。</p>
+<h2 id="实现方法："><a href="#实现方法：" class="headerlink" title="实现方法："></a>实现方法：</h2><ul>
+<li>使用过滤器，拦截请求，并对请求参数进行统一处理（加密解密，验签等）</li>
+<li>自定义request对象（新增类继承HttpServletRequestWrapper类），对请求参数进行过滤处理，使得controller只接受业务参数。</li>
+</ul>
+<p>问题：为什么需要自定义request对象？<br>因为获取post请求传递的json对象，需要用request对象流取获取，而一旦我们调用了request.getInputStream()方法后，流将会自动关闭，那么到了我们的controller层就不能再获取到请求参数了。</p>
+<h2 id="自定义request对象"><a href="#自定义request对象" class="headerlink" title="自定义request对象"></a>自定义request对象</h2><pre><code>import javax.servlet.ReadListener;
+import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.*;
+import java.nio.charset.Charset;
+
+/**
+ * @author Longer
+ * @description 获取请求参数并处理
+ * @date 2020/8/23
+ */
+public class RequestWrapper extends HttpServletRequestWrapper {
+    private byte[] body;
+
+    public RequestWrapper(HttpServletRequest request) throws IOException {
+        super(request);
+        String sessionStream = getBodyString(request);
+        body = sessionStream.getBytes(Charset.forName("UTF-8"));
+    }
+
+    public String getBodyString() {
+        return new String(body, Charset.forName("UTF-8"));
+    }
+
+    public void setBodyString(byte[] bodyByte){
+        body = bodyByte;
+    }
+
+    /**
+     * 获取请求Body
+     *
+     * @param request
+     * @return
+     */
+    public String getBodyString(final ServletRequest request) {
+        StringBuilder sb = new StringBuilder();
+        InputStream inputStream = null;
+        BufferedReader reader = null;
+        try {
+            inputStream = cloneInputStream(request.getInputStream());
+            reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Description: 复制输入流&lt;/br&gt;
+     *
+     * @param inputStream
+     * @return&lt;/br&gt;
+     */
+    public InputStream cloneInputStream(ServletInputStream inputStream) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len;
+        try {
+            while ((len = inputStream.read(buffer)) &gt; -1) {
+                byteArrayOutputStream.write(buffer, 0, len);
+            }
+            byteArrayOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        InputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+        return byteArrayInputStream;
+    }
+
+    @Override
+    public BufferedReader getReader() throws IOException {
+        return new BufferedReader(new InputStreamReader(getInputStream()));
+    }
+
+    @Override
+    public ServletInputStream getInputStream() throws IOException {
+
+        final ByteArrayInputStream bais = new ByteArrayInputStream(body);
+        return new ServletInputStream() {
+
+            @Override
+            public int read() throws IOException {
+                return bais.read();
+            }
+
+            @Override
+            public boolean isFinished() {
+                return false;
+            }
+
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setReadListener(ReadListener readListener) {
+
+            }
+        };
+    }
+}</code></pre>
+<h2 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h2><pre><code>/**
+ * @author Longer
+ * @description 获取请求参数并处理。签名校验，报文解密，参数过滤。
+ * @date 2020/8/23
+ */
+@Slf4j
+public class OutRequestFilter extends OncePerRequestFilter {
+
+
+    @SneakyThrows
+    @Override
+    protected void doFilterInternal(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException {
+        RedisUtil redisUtil = SpringUtils.getBean(RedisUtil.class);
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String requestURL = request.getRequestURI();
+        log.info("请求路径：" + requestURL);
+        String method = request.getMethod();
+        if (!"POST".equals(method)) {
+            throw new RuntimeException("暂不支持" + method + "请求方式");
+        }
+        //获取请求参数
+        RequestWrapper requestWrapper = new RequestWrapper(request);
+        String bodyString = requestWrapper.getBodyString();
+        if (StringUtils.isEmpty(bodyString)) {
+            throw new RuntimeException("请求体不能为空");
+        }
+        log.info("请求参数：" + bodyString);
+        JsonRequest jsonRequest = JacksonUtil.jsonToBean(bodyString, JsonRequest.class);
+        //step0 参数合法性校验（非空判断等）
+        parameterValidate(jsonRequest);
+        //step1 判断请求合法性。1.不允许重复请求（通过请求唯一id判断）2.不允许请求时间与当前时间差距过大（正负10分钟）
+        long currentTime = System.currentTimeMillis();
+        long subTime = currentTime - jsonRequest.getTimestamp();
+        long tenMinuteMs = 10 * 60 * 1000;
+        if (subTime &lt; -tenMinuteMs || subTime &gt; tenMinuteMs) {
+            throw new RuntimeException("请求异常，请求时间异常");
+        }
+        String requestUUIDKey = MessageFormat.format(RedisConstant.REQUEST_UUID, jsonRequest.getRequestId());
+        Object requestFlag = redisUtil.get(requestUUIDKey);
+        if (!StringUtils.isEmpty(requestFlag)) {
+            throw new RuntimeException("请求异常，重复的请求");
+        }
+        redisUtil.set(requestUUIDKey, JacksonUtil.beanToJson(jsonRequest), 15 * 60);
+        //step2 参数解密，签名校验，参数过滤和传递
+        Map&lt;String, Object&gt; paramMap = RSAUtil.bean2Map(jsonRequest);
+        paramMap.remove("sign");
+        //根据appkey获取rsa密钥
+        String appIdKey = MessageFormat.format(RedisConstant.REQUEST_APPID, jsonRequest.getAppId());
+        Object ob = redisUtil.get(appIdKey);
+        if (StringUtils.isEmpty(ob)) {
+            throw new RuntimeException("找不到指定的appid");
+        }
+        String jsonString = (String) ob;
+        JSONObject jsonObject = JSONObject.parseObject(jsonString);
+        //rsa公钥
+        String publicKey = jsonObject.getString("publicKey");
+        //rsa私钥
+        String privateKey = jsonObject.getString("privateKey");
+        //参数排序
+        Map&lt;String, Object&gt; sortedMap = RSAUtil.sort(paramMap);
+        //拼接参数：key1Value1key2Value2
+        String urlParams = RSAUtil.groupStringParam(sortedMap);
+        //签名验证
+        boolean verify = RSAUtil.verify(HexUtils.hexStringToBytes(urlParams), publicKey, jsonRequest.getSign());
+        if (!verify) {
+            throw new RuntimeException("签名验证失败");
+        }
+        //私钥解密，获取aseKey
+        String aseKey = RSAUtil.decryptByPrivateKey(HexUtils.hexStringToBytes(jsonRequest.getAseKey()), privateKey);
+        if (!StringUtils.isEmpty(jsonRequest.getBody())) {
+            // 解密请求报文
+            String body = "";
+            try {
+                body = AESUtil.decrypt(jsonRequest.getBody(), aseKey, jsonRequest.getAppId().substring(16));
+            } catch (Exception e) {
+                log.error("请求参数解密异常：",e);
+                throw new RuntimeException("请求参数解密异常");
+            }
+            //报文传递至controller层
+            requestWrapper.setBodyString(body.getBytes(Charset.forName("UTF-8")));
+        }
+        //将request传递下去
+        filterChain.doFilter(requestWrapper, servletResponse);
+    }
+
+    private void parameterValidate(JsonRequest jsonRequest) {
+        if (StringUtils.isEmpty(jsonRequest.getAppId())) {
+            throw new RuntimeException("参数异常，appId不能为空");
+        }
+        if (StringUtils.isEmpty(jsonRequest.getAseKey())) {
+            throw new RuntimeException("参数异常，aseKey不能为空");
+        }
+        if (StringUtils.isEmpty(jsonRequest.getRequestId())) {
+            throw new RuntimeException("参数异常，requestId不能为空");
+        }
+        if (StringUtils.isEmpty(jsonRequest.getSign())) {
+            throw new RuntimeException("参数异常，sign不能为空");
+        }
+        if (jsonRequest.getTimestamp() == 0l) {
+            throw new RuntimeException("参数异常，timestamp不能为空");
+        }
+    }
+
+}</code></pre>
+<h2 id="完整流程演示"><a href="#完整流程演示" class="headerlink" title="完整流程演示"></a>完整流程演示</h2><h3 id="调用方"><a href="#调用方" class="headerlink" title="调用方"></a>调用方</h3><h4 id="HttpClientUtils类"><a href="#HttpClientUtils类" class="headerlink" title="HttpClientUtils类"></a>HttpClientUtils类</h4><pre><code>/**
+ * 
+ * @description:
+ */
+public class HttpClientUtils {
+
+    private static Logger logger = Logger.getLogger(HttpClientUtils.class.getName());
+
+    public static String doPostJson(String url, String json) {
+        // 创建Httpclient对象
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = null;
+        String resultString = "";
+        try {
+            // 创建Http Post请求
+            HttpPost httpPost = new HttpPost(url);
+            // 创建请求内容
+            StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
+            httpPost.setEntity(entity);
+            // 执行http请求
+            response = httpClient.execute(httpPost);
+            resultString = EntityUtils.toString(response.getEntity(), "utf-8");
+        } catch (Exception e) {
+            resultString = e.getMessage();
+            logger.info("http访问失败：" + e);
+
+        } finally {
+            try {
+                response.close();
+            } catch (IOException e) {
+                logger.info("response关闭失败：" + e);
+            }
+        }
+
+        return resultString;
+    }
+
+    /**
+     * post请求,签名和报文加密
+     *
+     * @param url        请求地址
+     * @param json       请求json参数
+     * @param appId      商户id
+     * @param publicKey  rsa公钥
+     * @param privateKey rsa私钥
+     * @return
+     */
+    public static String doPostJsonForSign(String url, String json, String appId, String publicKey, String privateKey) {
+        String aseKey = appId.substring(0, 16);
+        JsonRequest jsonRequest = new JsonRequest();
+        jsonRequest.setRequestId(getUUID32());
+        jsonRequest.setAppId(appId);
+        jsonRequest.setTimestamp(System.currentTimeMillis());
+        //aseKey 加密
+        logger.info("开始aseKey加密....");
+        byte[] enStr = RSAUtil.encryptByPublicKey(aseKey, publicKey);
+        String aseKeyStr = HexUtils.bytesToHexString(enStr);
+        jsonRequest.setAseKey(aseKeyStr);
+        //请求参数进行加密
+        String body = "";
+        try {
+            logger.info("开始请求参数加密....");
+            body = AESUtil.encrypt(json, aseKey, appId.substring(16));
+        } catch (Exception e) {
+            logger.info("报文加密异常：" + e);
+            throw new UncheckedException("报文加密异常", e);
+        }
+        jsonRequest.setBody(body);
+
+        Map&lt;String, Object&gt; paramMap = RSAUtil.bean2Map(jsonRequest);
+        paramMap.remove("sign");
+        // 参数排序
+        Map&lt;String, Object&gt; sortedMap = RSAUtil.sort(paramMap);
+        // 拼接参数：key1Value1key2Value2
+        String urlParams = RSAUtil.groupStringParam(sortedMap);
+        //私钥签名
+        logger.info("开始参数签名....");
+        String sign = RSAUtil.sign(HexUtils.hexStringToBytes(urlParams), privateKey);
+        jsonRequest.setSign(sign);
+        String requestParams = JacksonUtil.beanToJson(jsonRequest);
+        logger.info("发起请求....");
+        String result = doPostJson(url, requestParams);
+        return result;
+    }
+
+    public static String getUUID32() {
+        String uuid = UUID.randomUUID().toString();
+        uuid = uuid.replace("-", "");
+        return uuid;
+    }
+
+}</code></pre>
+<h4 id="需要传递的业务参数对象"><a href="#需要传递的业务参数对象" class="headerlink" title="需要传递的业务参数对象"></a>需要传递的业务参数对象</h4><pre><code>@Data
+public class RequestDto {
+    private String name;
+    private int age;
+    private String hobby;
+}</code></pre>
+<h4 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h4><pre><code> public static void main(String[] args) {
+        //请求地址
+        String url = "http://127.0.0.1:8888/test";
+        RequestDto requestDto = new RequestDto();
+        requestDto.setAge(100);
+        requestDto.setName("Longer");
+        requestDto.setHobby("ball");
+        String json = JacksonUtil.beanToJson(requestDto);
+        //appId
+        String appId = "";
+        //rsa公钥
+        String publicKey = "";
+        //rsa私钥
+        String privateKey = "";
+        HttpClientUtils.doPostJsonForSign(url, json, appId, publicKey, privateKey)
+    }</code></pre>
+<h3 id="接收方"><a href="#接收方" class="headerlink" title="接收方"></a>接收方</h3><h4 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h4><pre><code>@Slf4j
+@RestController
+public class TestController {
+
+    @RequestMapping("test")
+    public String test(RequestDto requestDto){
+        log.info("接收到的请求参数为："+ JacksonUtil.beanToJson(requestDto));
+        return "a";
+    }
+}</code></pre>
+<p>因为我们对参数进行了统一处理，所以我们的controller接收参数的对象是RequestDto对象，而不是JsonRequest对象</p>
+<blockquote>
+<p>原文链接：<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9061da5e25d1">https://www.jianshu.com/p/9061da5e25d1</a></p>
+<p>代码见：</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/noyi/springboot-demo/tree/master/springboot-encrypt-demo">https://gitee.com/noyi/springboot-demo/tree/master/springboot-encrypt-demo</a></p>
+</blockquote>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Cheney</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chenguoo.github.io/2021/07/05/rsa-aes-shi-xian-jie-kou-yan-qian-he-can-shu-jia-mi/">https://chenguoo.github.io/2021/07/05/rsa-aes-shi-xian-jie-kou-yan-qian-he-can-shu-jia-mi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Cheney</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/springboot/">
+                                    <span class="chip bg-color">springboot</span>
+                                </a>
+                            
+                                <a href="/tags/encryption/">
+                                    <span class="chip bg-color">encryption</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/07/05/rsa-aes-shi-xian-jie-kou-yan-qian-he-can-shu-jia-mi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="RSA+AES实现接口验签和参数加密">
+                        
+                        <span class="card-title">RSA+AES实现接口验签和参数加密</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            RSA非对称加密RSA是一种常用的非对称加密算法，加密和加密使用不同的密钥，常用于要求安全性较高的加密场景，比如接口的验签和接口数据的加密与解密。与非对称加密算法对比，其安全性较高，但是加密性能却比较低，不适合高并发场景，一般只加密少量的数
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/springboot/" class="post-category">
+                                    springboot
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/springboot/">
+                        <span class="chip bg-color">springboot</span>
+                    </a>
+                    
+                    <a href="/tags/encryption/">
+                        <span class="chip bg-color">encryption</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/07/02/duan-kou-sao-miao-gong-ju-nmap/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="端口扫描工具NMAP">
+                        
+                        <span class="card-title">端口扫描工具NMAP</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            端口扫描工具 NMAP！前言为了保护计算机不受攻击和各种病毒、木马的侵扰，其实我们可以在网络设备上采取措施，对某些数据包进行阻挡、过滤等，但重要的还是用户需要有一定的意识，采取措施对自己的计算机进行保护安全；
+那么，今天主要想跟大家分享的是
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category">
+                                    linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/nmap/">
+                        <span class="chip bg-color">nmap</span>
+                    </a>
+                    
+                    <a href="/tags/netstat/">
+                        <span class="chip bg-color">netstat</span>
+                    </a>
+                    
+                    <a href="/tags/netcat/">
+                        <span class="chip bg-color">netcat</span>
+                    </a>
+                    
+                    <a href="/tags/lsof/">
+                        <span class="chip bg-color">lsof</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('4'),
+            headingSelector: 'h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Cheney</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chenguoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2270292886@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2270292886" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2270292886" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"react":{"opacity":0.7}}});</script></body>
+
+</html>
