@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>8个有用的git命令</title>
+      <link href="2021/07/09/8-ge-you-yong-de-git-ming-ling/"/>
+      <url>2021/07/09/8-ge-you-yong-de-git-ming-ling/</url>
+      
+        <content type="html"><![CDATA[<h1 id="8-个不常见但很有用的-Git-命令，你知道几个？"><a href="#8-个不常见但很有用的-Git-命令，你知道几个？" class="headerlink" title="8 个不常见但很有用的 Git 命令，你知道几个？"></a>8 个不常见但很有用的 Git 命令，你知道几个？</h1><p><img src="/2021/07/09/8-ge-you-yong-de-git-ming-ling/640" alt="图片"></p><h3 id="1-拉取远程代码并且覆盖本地更改"><a href="#1-拉取远程代码并且覆盖本地更改" class="headerlink" title="1. 拉取远程代码并且覆盖本地更改"></a>1. 拉取远程代码并且覆盖本地更改</h3><pre><code>git fetch origin &amp;&amp; git reset –hard origin/master</code></pre><h3 id="2-列出远程和本地所有分支"><a href="#2-列出远程和本地所有分支" class="headerlink" title="2. 列出远程和本地所有分支"></a>2. 列出远程和本地所有分支</h3><pre><code>git branch -agit branch -r</code></pre><h3 id="3-强制更新远程分支"><a href="#3-强制更新远程分支" class="headerlink" title="3. 强制更新远程分支"></a>3. 强制更新远程分支</h3><pre><code>git push origin master -f</code></pre><h3 id="4-回滚一个-merge"><a href="#4-回滚一个-merge" class="headerlink" title="4. 回滚一个 merge"></a>4. 回滚一个 merge</h3><pre><code>git revert -m 1 xxxx</code></pre><h3 id="5-修改之前的提交记录或者很久前提交的记录"><a href="#5-修改之前的提交记录或者很久前提交的记录" class="headerlink" title="5. 修改之前的提交记录或者很久前提交的记录"></a>5. 修改之前的提交记录或者很久前提交的记录</h3><pre><code>git rebase –interactive ID^</code></pre><p>将需要修改的记录的 pick 改成 edit 执行更改</p><pre><code>git commit –all –amendgit rebase –continue</code></pre><h3 id="6-使用多个远程代码库，并且使用多个不同的-SSH-Key"><a href="#6-使用多个远程代码库，并且使用多个不同的-SSH-Key" class="headerlink" title="6. 使用多个远程代码库，并且使用多个不同的 SSH Key"></a>6. 使用多个远程代码库，并且使用多个不同的 SSH Key</h3><p>修改 <code>~/.ssh/config</code></p><pre><code>Host bitbucket.orgHostName bitbucket.orgPreferredAuthentications publickeyIdentityFile ~/.ssh/id_rsaUser gitHost bitbucket.org-key2HostName bitbucket.orgIdentityFile ~/.ssh/key2_id_rsaUser git</code></pre><p>修改 <code>.git/config</code></p><pre><code>[remote “origin”]url = git@bitbucket.org-key2:XXXX/yyyy.gitfetch = +refs/heads/*:refs/remotes/origin/*</code></pre><h3 id="7-和外部团队协作需要的维护多个远程库，合并其他库的更新的过程"><a href="#7-和外部团队协作需要的维护多个远程库，合并其他库的更新的过程" class="headerlink" title="7. 和外部团队协作需要的维护多个远程库，合并其他库的更新的过程"></a>7. 和外部团队协作需要的维护多个远程库，合并其他库的更新的过程</h3><pre><code>git remote rename origin upstreamgit remote add origin URL_TO_GITHUB_REPOgit push origin mastergit pull upstream master &amp;&amp; git push origin master</code></pre><h3 id="8-撤销-Git-的最后一次提交"><a href="#8-撤销-Git-的最后一次提交" class="headerlink" title="8. 撤销 Git 的最后一次提交"></a>8. 撤销 Git 的最后一次提交</h3><pre><code>git reset –soft HEAD~1</code></pre><p>来源：<a href="https://blog.devopszen.com/8-git-tips-tricks">https://blog.devopszen.com/8-git-tips-tricks</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RSA+AES实现接口验签和参数加密</title>
       <link href="2021/07/05/rsa-aes-shi-xian-jie-kou-yan-qian-he-can-shu-jia-mi/"/>
       <url>2021/07/05/rsa-aes-shi-xian-jie-kou-yan-qian-he-can-shu-jia-mi/</url>
