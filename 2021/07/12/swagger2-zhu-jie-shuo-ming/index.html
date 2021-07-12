@@ -446,19 +446,11 @@ userServiceFacade<span class="token punctuation">.</span><span class="token func
 <p> required：参数是否必须传，默认false</p>
 <p> paramType：参数放在哪个地方，查询参数类型，这里有几种形式：</p>
 <blockquote>
-<p>​    header –&gt; 请求参数的获取：@RequestHeader，参数在request headers 里边提交</p>
-</blockquote>
-<blockquote>
-<p>query –&gt; 请求参数的获取：@RequestParam，直接跟参数，完成自动映射赋值</p>
-</blockquote>
-<blockquote>
-<p>​    path（用于restful接口）–&gt; 请求参数的获取：@PathVariable，以地址的形式提交数据</p>
-</blockquote>
-<blockquote>
-<p>​    body（不常用）–&gt; 以流的形式提交 仅支持POST</p>
-</blockquote>
-<blockquote>
-<p>​    form（不常用）–&gt; 以form表单的形式提交 仅支持POST</p>
+<p>header –&gt; 请求参数的获取：@RequestHeader，参数在request headers 里边提交</p>
+<p>query   –&gt; 请求参数的获取：@RequestParam，直接跟参数，完成自动映射赋值</p>
+<p>path     –&gt; 请求参数的获取：@PathVariable，以地址的形式提交数据</p>
+<p>body    –&gt; 放在请求体。请求参数的获取：@RequestBody(代码中接收注解)</p>
+<p>form    –&gt; 以form表单的形式提交 仅支持POST</p>
 </blockquote>
 <p> dataType：参数类型，默认String，其它值dataType=”Integer”</p>
 <p> defaultValue：参数的默认值</p>
