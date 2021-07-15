@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="swagger2 注解说明, Cheney 学习日志">
+    <meta name="keywords" content="git代码防丢指南, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>swagger2 注解说明 | Cheney 学习日志</title>
+    <title>git代码防丢指南 | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">swagger2 注解说明</h1>
+                    <h1 class="description center-align post-title">git代码防丢指南</h1>
                 </div>
             </div>
         </div>
@@ -370,8 +370,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/swagger2/">
-                                <span class="chip bg-color">swagger2</span>
+                            <a href="/tags/git/">
+                                <span class="chip bg-color">git</span>
                             </a>
                         
                     </div>
@@ -382,8 +382,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/swagger2/" class="post-category">
-                                swagger2
+                            <a href="/categories/git/" class="post-category">
+                                git
                             </a>
                         
                     </div>
@@ -395,7 +395,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-07-12
+                    2021-07-15
                 </div>
                 
 
@@ -411,105 +411,88 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="swagger2-注解说明"><a href="#swagger2-注解说明" class="headerlink" title="swagger2 注解说明"></a>swagger2 注解说明</h1><p>Swagger2的具体使用方法，参见另一篇文章Swagger的使用方法和简单介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44299027/article/details/105773432">https://blog.csdn.net/weixin_44299027/article/details/105773432</a></p>
-<h2 id="Api"><a href="#Api" class="headerlink" title="@Api"></a>@Api</h2><p><strong>用在请求的类上，表示对类的说明</strong></p>
+                <h1 id="git代码防丢指南"><a href="#git代码防丢指南" class="headerlink" title="git代码防丢指南"></a>git代码防丢指南</h1><p>我们在日常使用Git的过程中经常会发生一些意外情况，如果处理不当，则可能会出现代码丢失的假象。本文将针对<code>IDEA</code>&amp;<code>Git</code>日常开发中的一些场景，为你层层拨开迷雾，解析常见的错误及其发生原因，让你从此不再惧怕代码冲突或丢失问题。</p>
 <blockquote>
-<p>tags=”说明该类的作用，可以在UI界面上看到的注解”</p>
-<p>value=”该参数没什么意义，在UI界面上也看到，所以不需要配置”</p>
+<p>为简化问题，本文假设所有团队成员均在同一分支上开发。文中<code>更新操作</code>是指在<code>IDEA</code>中单击菜单<code>VCS</code>-<code>Update Project...</code>。</p>
 </blockquote>
-<h2 id="ApiOperation"><a href="#ApiOperation" class="headerlink" title="@ApiOperation"></a>@ApiOperation</h2><p><strong>用在请求的方法上，说明方法的用途、作用</strong></p>
+<h2 id="1-常见工作流程"><a href="#1-常见工作流程" class="headerlink" title="1. 常见工作流程"></a>1. 常见工作流程</h2><p>通常当你早上到公司打开电脑，首先执行更新操作(单击<code>IDEA</code>菜单<code>VCS</code>-<code>Update Project...</code>)，然后开始愉快地编码。编码完成后通常要执行以下几个操作：</p>
+<ul>
+<li>更新操作</li>
+<li>创建本次提交</li>
+<li>推送远程分支</li>
+</ul>
+<h3 id="1-1-更新操作"><a href="#1-1-更新操作" class="headerlink" title="1.1 更新操作"></a>1.1 更新操作</h3><p>为了保证Git拥有一个简洁的提交历史，在提交之前需要先执行更新操作，即在IDEA中依次单击菜单<code>VCS</code>-<code>Update Project...</code>，或者按下<code>Ctrl+T</code>，弹出如下窗口：</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<p>窗口左侧选择更新类型(Update Type)：</p>
+<ul>
+<li><code>Merge</code>：更新时执行合并操作。等价于执行<code>git fetch &amp;&amp; git merge</code>或者<code>git pull --no-rebase</code>。</li>
+<li><code>Rebase</code>：更新时执行<code>rebase</code>操作。等价于执行<code>git fetch &amp;&amp; git rebase</code>或者<code>git pull --rebase</code>。</li>
+<li><code>Branch Default</code>：在<code>.git/config</code>文件中指定不同分支的更新类型。</li>
+</ul>
+<p>窗口右侧选择在更新前工作目录(Working Directory)的清理方式：</p>
+<ul>
+<li><code>Using Stash</code>：使用<code>git stash</code>储藏本地修改。</li>
+<li><code>Using Shelve</code>：使用IDEA内置的<code>Shelve</code>功能储藏本地修改。</li>
+</ul>
+<p>通常选择<code>Merge</code>和<code>Using Stash</code>即可，单击<code>OK</code>后，IDEA执行步骤如下：</p>
+<ul>
+<li>第1步：使用<code>git stash</code>储藏本地修改</li>
+<li>第2步：执行<code>git fetch &amp;&amp; git merge</code>拉取远程分支并合并</li>
+<li>第3步：执行<code>git stash pop</code>恢复储藏</li>
+</ul>
 <blockquote>
-<p>value=”说明方法的用途、作用”</p>
-<p>notes=”方法的备注说明 </p>
+<p>有些同学可能更习惯先创建本地提交，然后在执行更新操作，这样会导致Git自动生成一个合并提交，导致提交历史不够简洁。</p>
 </blockquote>
-<p>示例如下： </p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Api</span><span class="token punctuation">(</span>tags <span class="token operator">=</span> <span class="token string">"用户管理"</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@RestController</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"/user"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserController</span> <span class="token punctuation">{</span>
-<span class="token annotation punctuation">@Autowired</span>
-<span class="token keyword">private</span> UserServiceFacade userServiceFacade<span class="token punctuation">;</span>
-
-<span class="token annotation punctuation">@ApiOperation</span><span class="token punctuation">(</span><span class="token string">"添加用户"</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"add"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> CommResponse<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">addUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestHeader</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"accessToken"</span><span class="token punctuation">)</span>String accessToken<span class="token punctuation">,</span><span class="token annotation punctuation">@RequestBody</span> UserAddRequest     userAddRequest<span class="token punctuation">,</span>HttpServletRequest request<span class="token punctuation">)</span><span class="token punctuation">{</span>
-userAddRequest<span class="token punctuation">.</span><span class="token function">setAccessToken</span><span class="token punctuation">(</span>accessToken<span class="token punctuation">)</span><span class="token punctuation">;</span>
-userServiceFacade<span class="token punctuation">.</span><span class="token function">addUser</span><span class="token punctuation">(</span>userAddRequest<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">return</span> CommResponse<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="ApiImplicitParams"><a href="#ApiImplicitParams" class="headerlink" title="@ApiImplicitParams"></a>@ApiImplicitParams</h2><p><strong>用在请求的方法上，表示一组参数说明</strong></p>
-<h2 id="ApiImplicitParam"><a href="#ApiImplicitParam" class="headerlink" title="@ApiImplicitParam"></a>@ApiImplicitParam</h2><p><strong>用在@ApiImplicitParam注解中，指定一个请求参数的各个方面</strong></p>
-<blockquote>
-<p> name：参数名</p>
-<p> value：参数的汉字说明、解释</p>
-<p> required：参数是否必须传，默认false</p>
-<p> paramType：参数放在哪个地方，查询参数类型，这里有几种形式：</p>
-<blockquote>
-<p>header –&gt; 请求参数的获取：@RequestHeader，参数在request headers 里边提交</p>
-<p>query   –&gt; 请求参数的获取：@RequestParam，直接跟参数，完成自动映射赋值</p>
-<p>path     –&gt; 请求参数的获取：@PathVariable，以地址的形式提交数据</p>
-<p>body    –&gt; 放在请求体。请求参数的获取：@RequestBody(代码中接收注解)</p>
-<p>form    –&gt; 以form表单的形式提交 仅支持POST</p>
-</blockquote>
-<p> dataType：参数类型，默认String，其它值dataType=”Integer”</p>
-<p> defaultValue：参数的默认值</p>
-</blockquote>
-<p>示例：</p>
-<pre><code>@Api(tags = "用户管理")
-@RestController
-@RequestMapping(value = "/user")
-public class UserController {
-@Autowired
-private UserServiceFacade userServiceFacade;
-
-@ApiOperation("修改密码")
-@ApiImplicitParams({
-@ApiImplicitParam(name = "username",value = "账号" , dataType = "String", paramType = "query"),        
-@ApiImplicitParam(name = "oldPassword",value = "旧密码" , dataType = "String", paramType = "query"),
-@ApiImplicitParam(name = "newPassword",value = "新密码" , dataType = "String", paramType = "query")
-})
-@GetMapping(value = "updatePassword")
-public CommResponse&lt;?&gt; updatePassword(@RequestHeader(name = "accessToken")String accessToken,String username,String oldPassword,String newPassword){
-    userServiceFacade.updatePassword(accessToken,username,oldPassword,newPassword);
-return CommResponse.ok();
-}
-}</code></pre>
-<h2 id="ApiResponses"><a href="#ApiResponses" class="headerlink" title="@ApiResponses"></a>@ApiResponses</h2><p><strong>用在请求的方法上，表示一组响应</strong></p>
-<h2 id="ApiResponse"><a href="#ApiResponse" class="headerlink" title="@ApiResponse"></a>@ApiResponse</h2><p><strong>用在@ApiResponses中，一般用于表达一个错误的响应信息</strong></p>
-<blockquote>
-<p>code：数字，例如400</p>
-<p>message：信息，例如”请求参数没填好”</p>
-<p>response：抛出异常的类</p>
-</blockquote>
-<p>示例如下：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@ApiOperation</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"select1请求"</span><span class="token punctuation">,</span>notes <span class="token operator">=</span> <span class="token string">"多个参数，多种的查询参数类型"</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@ApiResponses</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@ApiResponse</span><span class="token punctuation">(</span>code<span class="token operator">=</span><span class="token number">400</span><span class="token punctuation">,</span>message<span class="token operator">=</span><span class="token string">"请求参数没填好"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token annotation punctuation">@ApiResponse</span><span class="token punctuation">(</span>code<span class="token operator">=</span><span class="token number">404</span><span class="token punctuation">,</span>message<span class="token operator">=</span><span class="token string">"请求路径没有或页面跳转路径不对"</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="ApiModel"><a href="#ApiModel" class="headerlink" title="@ApiModel"></a>@ApiModel</h2><p><strong>用于响应类上，表示一个返回响应数据的信息</strong></p>
-<p>（这种一般用在post创建的时候，使用@RequestBody这样的场景，请求参数无法使用@ApiImplicitParam注解进行描述的时候）</p>
-<h2 id="ApiModelProperty"><a href="#ApiModelProperty" class="headerlink" title="@ApiModelProperty"></a>@ApiModelProperty</h2><p><strong>用在属性上，描述响应类的属性</strong></p>
-<p>示例如下：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> io<span class="token punctuation">.</span>swagger<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>ApiModel<span class="token punctuation">;</span>
-<span class="token keyword">import</span> io<span class="token punctuation">.</span>swagger<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>ApiModelProperty<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>Serializable<span class="token punctuation">;</span>
-
-<span class="token annotation punctuation">@ApiModel</span><span class="token punctuation">(</span>description<span class="token operator">=</span> <span class="token string">"返回响应数据"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RestMessage</span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span><span class="token punctuation">{</span>
-<span class="token annotation punctuation">@ApiModelProperty</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"是否成功"</span><span class="token punctuation">)</span>
-<span class="token keyword">private</span> <span class="token keyword">boolean</span> success<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
-<span class="token annotation punctuation">@ApiModelProperty</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"返回对象"</span><span class="token punctuation">)</span>
-<span class="token keyword">private</span> Object data<span class="token punctuation">;</span>
-<span class="token annotation punctuation">@ApiModelProperty</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"错误编号"</span><span class="token punctuation">)</span>
-<span class="token keyword">private</span> Integer errCode<span class="token punctuation">;</span>
-<span class="token annotation punctuation">@ApiModelProperty</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"错误信息"</span><span class="token punctuation">)</span>
-<span class="token keyword">private</span> String message<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">/* getter/setter */</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="1-2-创建本次提交"><a href="#1-2-创建本次提交" class="headerlink" title="1.2 创建本次提交"></a>1.2 创建本次提交</h3><p>更新完成后，在IDEA中单击菜单<code>VCS</code>-<code>Commit...</code>创建本次提交。</p>
+<h3 id="1-3-推送远程分支"><a href="#1-3-推送远程分支" class="headerlink" title="1.3 推送远程分支"></a>1.3 推送远程分支</h3><p>然后单击<code>VCS</code>-<code>Git</code>-<code>Push...</code>推送至远程分支。</p>
+<h2 id="2-常见问题分析"><a href="#2-常见问题分析" class="headerlink" title="2. 常见问题分析"></a>2. 常见问题分析</h2><p>在上面的3步执行步骤中，第2步和第3步发生意外的风险最高，最常见的两种意外情况是冲突和文件占用，下面我们分别讨论。</p>
+<h3 id="2-1-合并远程分支冲突"><a href="#2-1-合并远程分支冲突" class="headerlink" title="2.1 合并远程分支冲突"></a>2.1 合并远程分支冲突</h3><p>如果在执行更新操作之前，你的本地分支已经创建过提交，并且尚未推送至远程分支，则在第2步执行<code>git merge</code>时很可能会发生冲突。</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<p>此时关闭上面的冲突窗口，<code>Version Control</code>工具窗口显示内容如下：</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<p>窗口右下角原本显示分支名称的位置变成了<code>Merging master</code>，表示本地分支<code>master</code>目前处于正在合并状态。单击左侧红框内<code>Resolve</code>按钮可以再次调出处理冲突窗口。</p>
+<p>基于IDEA的图形界面手动解决冲突后，IDEA会自动将该文件加入暂存区(加入暂存区即表示冲突解决完成)，最后执行一次提交便可以完成冲突处理。另外，免费申请 IDEA 正版 License 教程，可以微信搜索Java技术栈在历史文章中搜索阅读。</p>
+<h3 id="2-2-恢复储藏冲突"><a href="#2-2-恢复储藏冲突" class="headerlink" title="2.2 恢复储藏冲突"></a>2.2 恢复储藏冲突</h3><p>在更新操作的第3步执行<code>git stash pop</code>恢复储藏时，储藏内容可能与刚更新的内容发生冲突。</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<p>恢复储藏时发生的冲突跟上面的合并冲突稍微有些区别，首先是右下角的分支名称没有<code>Merging</code>字样，另外会在右下角额外弹出一个小窗提示恢复储藏失败，并且告诉你不用担心，所有的修改都在<code>stash</code>列表中，并没有丢失。查看<code>stash</code>列表的方式为单击菜单<code>VCS</code>-<code>Git</code>-<code>UnStash Changes...</code>:</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<p>选中列表最上面的条目，然后单击<code>Apply Stash</code>，之前的修改就会重新回到工作目录。我们继续回到冲突问题，手动解决冲突后执行一次提交就可以了。如果在解决冲突过程中发生了误操作，可以右击<code>Default Changelist</code>-<code>Revert...</code>清空当前工作目录内容，重新执行一次<code>Apply Stash</code>，然后重复解决冲突过程。</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<h3 id="2-3-文件占用错误"><a href="#2-3-文件占用错误" class="headerlink" title="2.3 文件占用错误"></a>2.3 文件占用错误</h3><p>在执行第2步<code>git merge</code>时，可能会因为文件被占用导致执行失败。例如项目可能引入了一些jar文件，这些jar文件在本地已经被JVM动态加载了，分享给你，如果有其它人更新了该jar文件并且推送到了远程分支，当你更新时便会遇到上述问题。</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<p>对于这种错误的解决方法很简单，首先解除文件的占用状态，例如终止本地JVM进程，然后再次点击<code>VCS</code>-<code>Update</code>。另外，JVM 系列面试题和答案全部整理好了，微信搜索Java技术栈，在后台发送：面试，可以在线阅读。</p>
+<p>在执行第3步<code>git stash pop</code>时，也会因为文件被占用导致执行失败。例如你更新了某个jar文件，当恢复储藏时可能因为该jar文件被占用导致恢复失败。</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<p>对于这种错误，你需要首先解除文件占用状态，然后手动执行<code>unstash</code>操作。</p>
+<h2 id="3-先提交还是先更新？是个问题！"><a href="#3-先提交还是先更新？是个问题！" class="headerlink" title="3. 先提交还是先更新？是个问题！"></a>3. 先提交还是先更新？是个问题！</h2><h3 id="3-1-先提交后更新导致的问题"><a href="#3-1-先提交后更新导致的问题" class="headerlink" title="3.1 先提交后更新导致的问题"></a>3.1 先提交后更新导致的问题</h3><h4 id="3-1-1-发生冲突时难以处理"><a href="#3-1-1-发生冲突时难以处理" class="headerlink" title="3.1.1 发生冲突时难以处理"></a>3.1.1 发生冲突时难以处理</h4><p>如果先提交，但是在更新时却发生了冲突，这就意味着你刚刚创建的提交其实是有问题的，通常是团队沟通或是分工出了问题，但是不管这么说，别人已经抢先一步<code>push</code>了，你的提交便会被拒之门外。</p>
+<p>即便是手动解决了冲突，这个提交保留在历史中也会成为隐患，如果有其他人<code>reset</code>回这个提交继续工作，则在合并其它分支内容时发生冲突的概率会大大增加，所以最好处理方式是先撤销这个提交(<code>reset --soft HEAD~</code>)，然后更新并解决冲突，最后创建一个新的提交。</p>
+<h4 id="3-1-2-错误的处理冲突方式"><a href="#3-1-2-错误的处理冲突方式" class="headerlink" title="3.1.2 错误的处理冲突方式"></a>3.1.2 错误的处理冲突方式</h4><p>在发生冲突后，有些同学可能会想到下面的处理方式：</p>
+<ul>
+<li>清空当前工作空间</li>
+<li>调整冲突部分的代码</li>
+<li>然后再次执行更新操作</li>
+</ul>
+<p>上面的处理方式很明显是不可行的，因为你调整的代码首选会被IDEA储藏（<code>stash</code>）起来，然后在更新的第2步中仍然会发生冲突，并且发生冲突时，你的修改尚未恢复储藏(unstash)，导致看起来你调整的代码不见了，让人摸不着头脑。</p>
+<h4 id="3-1-3-Rebase会改写提交历史"><a href="#3-1-3-Rebase会改写提交历史" class="headerlink" title="3.1.3 Rebase会改写提交历史"></a>3.1.3 Rebase会改写提交历史</h4><p>如果在IDEA的更新窗口选择更新类型为<code>Rebase</code>，则等价于手动执行<code>git fetch &amp;&amp; git rebase</code>或者<code>git pull --rebase</code>命令。这样的好处是不会生成一个自动合并提交，保持简洁的提交历史。</p>
+<p>但是需要注意的是，<code>Rebase</code>之后，你的本地提交会被改写，虽然提交信息一样，但是<code>commit hash</code>已经改变了，如下图所示：</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<p>在执行完如下的<code>Rebase</code><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247534855&amp;idx=2&amp;sn=c9b956c95ee63704f2362ad382fe412c&amp;chksm=eb50cc31dc274527c7a10d055d8c01cee03e4e3944ea85ef831d7986e28710e9467e44954eb2&amp;scene=21#wechat_redirect">命令后，</a></p>
+<pre><code>$ git checkout dev
+$ git rebase master</code></pre>
+<p>执行结果为：</p>
+<p><img src="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/640" alt="图片"></p>
+<p>请注意，结果中的<code>v4</code>和<code>v5</code>提交已经被改写了。</p>
+<h3 id="3-2-推荐先更新后提交"><a href="#3-2-推荐先更新后提交" class="headerlink" title="3.2 推荐先更新后提交"></a>3.2 推荐先更新后提交</h3><p>如果你事先知道会发生冲突，相信你一定不会选择先提交代码，但是冲突是不可避免的，这就要求我们平时养成良好的开发习惯。与其解决提交后的冲突，不如尽早地解决冲突然后提交，这样不仅可以减少一个无意义的自动合并提交，而且可以在冲突发生时简化处理过程。</p>
+<h3 id="3-3-养成良好习惯"><a href="#3-3-养成良好习惯" class="headerlink" title="3.3 养成良好习惯"></a>3.3 养成良好习惯</h3><p>为了尽量避免冲突发生，建议养成如下开发习惯：</p>
+<ul>
+<li>编码前先更新</li>
+<li>提交前先更新</li>
+<li>提交前检查是否有编译错误</li>
+<li>提交粒度尽可能小，描述尽可能准确</li>
+<li>修改了公共文件，尽早通知其他成员更新</li>
+<li>最后一条，也是最重要的，团队分工要明确</li>
+</ul>
+<p>转自：java技术栈</p>
 
             </div>
             <hr/>
@@ -535,7 +518,7 @@ return CommResponse.ok();
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2021/07/12/swagger2-zhu-jie-shuo-ming/">https://chenguoo.github.io/2021/07/12/swagger2-zhu-jie-shuo-ming/</a>
+                    <a href="https://chenguoo.github.io/2021/07/15/git-dai-ma-fang-diu-zhi-nan/">https://chenguoo.github.io/2021/07/15/git-dai-ma-fang-diu-zhi-nan/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -573,8 +556,8 @@ return CommResponse.ok();
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/swagger2/">
-                                    <span class="chip bg-color">swagger2</span>
+                                <a href="/tags/git/">
+                                    <span class="chip bg-color">git</span>
                                 </a>
                             
                         </div>
@@ -616,9 +599,10 @@ return CommResponse.ok();
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/07/15/git-dai-ma-fang-diu-zhi-nan/">
                     <div class="card-image">
@@ -636,9 +620,9 @@ return CommResponse.ok();
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -651,6 +635,7 @@ return CommResponse.ok();
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -669,38 +654,45 @@ return CommResponse.ok();
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/07/09/8-ge-you-yong-de-git-ming-ling/">
+                <a href="/2021/07/12/swagger2-zhu-jie-shuo-ming/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="8个有用的git命令">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="swagger2 注解说明">
                         
-                        <span class="card-title">8个有用的git命令</span>
+                        <span class="card-title">swagger2 注解说明</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            8 个不常见但很有用的 Git 命令，你知道几个？
-1. 拉取远程代码并且覆盖本地更改git fetch origin &amp;&amp; git reset –hard origin/master
-2. 列出远程和本地所有分支git b
+                            swagger2 注解说明Swagger2的具体使用方法，参见另一篇文章Swagger的使用方法和简单介绍：https://blog.csdn.net/weixin_44299027/article/details/105773432
+@A
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-12
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/git/" class="post-category">
-                                    git
+                            <a href="/categories/swagger2/" class="post-category">
+                                    swagger2
                                 </a>
                             
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/swagger2/">
+                        <span class="chip bg-color">swagger2</span>
+                    </a>
+                    
                 </div>
                 
             </div>
