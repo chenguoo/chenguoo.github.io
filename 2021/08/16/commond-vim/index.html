@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Redis 16 大应用场景, Cheney 学习日志">
+    <meta name="keywords" content="vim commond, Cheney 学习日志">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Redis 16 大应用场景 | Cheney 学习日志</title>
+    <title>vim commond | Cheney 学习日志</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Redis 16 大应用场景</h1>
+                    <h1 class="description center-align post-title">vim commond</h1>
                 </div>
             </div>
         </div>
@@ -370,12 +370,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/cache/">
-                                <span class="chip bg-color">cache</span>
-                            </a>
-                        
-                            <a href="/tags/redis/">
-                                <span class="chip bg-color">redis</span>
+                            <a href="/tags/vim/">
+                                <span class="chip bg-color">vim</span>
                             </a>
                         
                     </div>
@@ -386,8 +382,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/redis/" class="post-category">
-                                redis
+                            <a href="/categories/linux/" class="post-category">
+                                linux
                             </a>
                         
                     </div>
@@ -399,7 +395,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-13
+                    2021-08-16
                 </div>
                 
 
@@ -415,124 +411,59 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1、缓存"><a href="#1、缓存" class="headerlink" title="1、缓存"></a>1、缓存</h2><p>String类型</p>
-<p>例如：热点数据缓存（例如报表、明星出轨），对象缓存、全页缓存、可以提升热点数据的访问数据。</p>
-<h2 id="2、数据共享分布式"><a href="#2、数据共享分布式" class="headerlink" title="2、数据共享分布式"></a>2、数据共享分布式</h2><p>String 类型，因为 Redis 是分布式的独立服务，可以在多个应用之间共享</p>
-<p>例如：分布式Session</p>
-<pre><code>&lt;dependency&gt; 
- &lt;groupId&gt;org.springframework.session&lt;/groupId&gt; 
- &lt;artifactId&gt;spring-session-data-redis&lt;/artifactId&gt; 
-&lt;/dependency&gt;</code></pre>
-<h2 id="3、分布式锁"><a href="#3、分布式锁" class="headerlink" title="3、分布式锁"></a>3、分布式锁</h2><p>String 类型setnx方法，只有不存在时才能添加成功，返回true</p>
-<pre><code>public static boolean getLock(String key) {
-    Long flag = jedis.setnx(key, "1");
-    if (flag == 1) {
-        jedis.expire(key, 10);
-    }
-    return flag == 1;
-}
-
-public static void releaseLock(String key) {
-    jedis.del(key);
-}</code></pre>
-<h2 id="4、全局ID"><a href="#4、全局ID" class="headerlink" title="4、全局ID"></a>4、全局ID</h2><p>int类型，incrby，利用原子性</p>
-<pre><code>incrby userid 1000</code></pre>
-<p>分库分表的场景，一次性拿一段。</p>
-<h2 id="5、计数器"><a href="#5、计数器" class="headerlink" title="5、计数器"></a>5、计数器</h2><p>int类型，incr方法</p>
-<p>例如：文章的阅读量、微博点赞数、允许一定的延迟，先写入Redis再定时同步到数据库</p>
-<h2 id="6、限流"><a href="#6、限流" class="headerlink" title="6、限流"></a>6、限流</h2><p>int类型，incr方法</p>
-<p>以访问者的ip和其他信息作为key，访问一次增加一次计数，超过次数则返回false</p>
-<h2 id="7、位统计"><a href="#7、位统计" class="headerlink" title="7、位统计"></a>7、位统计</h2><p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247539010&amp;idx=2&amp;sn=a6bd9401aa639b8f3bc5afe37208f262&amp;chksm=eb50dc74dc2755627a4245cc1335275b3d29bafaa0d8afb6bfc8584cfe0a2ec81370dc5dde2e&amp;scene=21#wechat_redirect">String类型的bitcount（1.6.6的bitmap数据结构介绍）</a></p>
-<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247539010&amp;idx=2&amp;sn=a6bd9401aa639b8f3bc5afe37208f262&amp;chksm=eb50dc74dc2755627a4245cc1335275b3d29bafaa0d8afb6bfc8584cfe0a2ec81370dc5dde2e&amp;scene=21#wechat_redirect">字符是以8位二进制存储的</a></p>
-<pre><code>set k1 a
-setbit k1 6 1
-setbit k1 7 0
-get k1 
-/* 6 7 代表的a的二进制位的修改
-
-a 对应的ASCII码是97，转换为二进制数据是01100001
-b 对应的ASCII码是98，转换为二进制数据是01100010
-
-因为bit非常节省空间（1 MB=8388608 bit），可以用来做大数据量的统计。
-*/</code></pre>
-<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247539010&amp;idx=2&amp;sn=a6bd9401aa639b8f3bc5afe37208f262&amp;chksm=eb50dc74dc2755627a4245cc1335275b3d29bafaa0d8afb6bfc8584cfe0a2ec81370dc5dde2e&amp;scene=21#wechat_redirect">例如：在线用户统计，留存用户统计</a></p>
-<pre><code>setbit onlineusers 01 
-setbit onlineusers 11 
-setbit onlineusers 20</code></pre>
-<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247539010&amp;idx=2&amp;sn=a6bd9401aa639b8f3bc5afe37208f262&amp;chksm=eb50dc74dc2755627a4245cc1335275b3d29bafaa0d8afb6bfc8584cfe0a2ec81370dc5dde2e&amp;scene=21#wechat_redirect">支持按位与、按位或等等操作</a></p>
-<pre><code>BITOPANDdestkeykey[key...] ，对一个或多个 key 求逻辑并，并将结果保存到 destkey 。       
-BITOPORdestkeykey[key...] ，对一个或多个 key 求逻辑或，并将结果保存到 destkey 。 
-BITOPXORdestkeykey[key...] ，对一个或多个 key 求逻辑异或，并将结果保存到 destkey 。 
-BITOPNOTdestkeykey ，对给定 key 求逻辑非，并将结果保存到 destkey 。</code></pre>
-<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247539010&amp;idx=2&amp;sn=a6bd9401aa639b8f3bc5afe37208f262&amp;chksm=eb50dc74dc2755627a4245cc1335275b3d29bafaa0d8afb6bfc8584cfe0a2ec81370dc5dde2e&amp;scene=21#wechat_redirect">计算出7天都在线的用户</a></p>
-<pre><code>BITOP "AND" "7_days_both_online_users" "day_1_online_users" "day_2_online_users" ...  "day_7_online_users"</code></pre>
-<h2 id="8、购物车"><a href="#8、购物车" class="headerlink" title="8、购物车"></a>8、购物车</h2><p>String 或hash。所有String可以做的hash都可以做</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/TNUwKhV0JpQXM8FF6D7RHrmMZAfKjqNkmO8X1hQe282fBwchIHFufHE6wZb78oujPNoWkbj8mMEdHK6EPS9eew/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
-<pre><code>key：用户id；field：商品id；value：商品数量。
-+1：hincr。-1：hdecr。删除：hdel。全选：hgetall。商品数：hlen。</code></pre>
-<h2 id="9、用户消息时间线timeline"><a href="#9、用户消息时间线timeline" class="headerlink" title="9、用户消息时间线timeline"></a>9、用户消息时间线timeline</h2><p>list，双向链表，直接作为timeline就好了。插入有序</p>
-<h2 id="10、消息队列"><a href="#10、消息队列" class="headerlink" title="10、消息队列"></a>10、消息队列</h2><p>List提供了两个阻塞的弹出操作：blpop/brpop，可以设置超时时间</p>
-<ul>
-<li>blpop：blpop key1 timeout 移除并获取列表的第一个元素，如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</li>
-<li>brpop：brpop key1 timeout 移除并获取列表的最后一个元素，如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</li>
-</ul>
-<p>上面的操作。其实就是java的阻塞队列。学习的东西越多。学习成本越低</p>
-<ul>
-<li>队列：先进先除：rpush blpop，左头右尾，右边进入队列，左边出队列</li>
-<li>栈：先进后出：rpush brpop</li>
-</ul>
-<h2 id="11、抽奖"><a href="#11、抽奖" class="headerlink" title="11、抽奖"></a>11、抽奖</h2><p>自带一个随机获得值</p>
-<pre><code>spop myset</code></pre>
-<h2 id="12、点赞、签到、打卡"><a href="#12、点赞、签到、打卡" class="headerlink" title="12、点赞、签到、打卡"></a>12、点赞、签到、打卡</h2><p><img src="https://mmbiz.qpic.cn/mmbiz_png/TNUwKhV0JpQXM8FF6D7RHrmMZAfKjqNknjdnpjUGWQegFsibz2SlUO6BLKM76CxZ5jRdxDgQmV2vZTgJlrmic53Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
-<p>假如上面的微博ID是t1001，用户ID是u3001</p>
-<p>用 like:t1001 来维护 t1001 这条微博的所有点赞用户</p>
-<ul>
-<li>点赞了这条微博：sadd like:t1001 u3001</li>
-<li>取消点赞：srem like:t1001 u3001</li>
-<li>是否点赞：sismember like:t1001 u3001</li>
-<li>点赞的所有用户：smembers like:t1001</li>
-<li>点赞数：scard like:t1001</li>
-</ul>
-<p>是不是比数据库简单多了。<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247539010&amp;idx=2&amp;sn=a6bd9401aa639b8f3bc5afe37208f262&amp;chksm=eb50dc74dc2755627a4245cc1335275b3d29bafaa0d8afb6bfc8584cfe0a2ec81370dc5dde2e&amp;scene=21#wechat_redirect">Spring Boot 学习笔记，</a>建议看下。</p>
-<h2 id="13、商品标签"><a href="#13、商品标签" class="headerlink" title="13、商品标签"></a>13、商品标签</h2><p><img src="https://mmbiz.qpic.cn/mmbiz_png/TNUwKhV0JpQXM8FF6D7RHrmMZAfKjqNkYUgILjkjjBsyGZYDXJjOwvNoYtGzsgxWpgWicUdfI8sVYJjqyJ6SVRw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
-<p>老规矩，用 tags:i5001 来维护商品所有的标签。另外，Redis 系列面试题和答案全部整理好了，微信搜索Java技术栈，在后台发送：面试，可以在线阅读。</p>
-<ul>
-<li>sadd tags:i5001 画面清晰细腻</li>
-<li>sadd tags:i5001 真彩清晰显示屏</li>
-<li>sadd tags:i5001 流程至极</li>
-</ul>
-<h2 id="14、商品筛选"><a href="#14、商品筛选" class="headerlink" title="14、商品筛选"></a>14、商品筛选</h2><pre><code>// 获取差集
-sdiff set1 set2
-// 获取交集（intersection ）
-sinter set1 set2
-// 获取并集
-sunion set1 set2</code></pre>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/TNUwKhV0JpQXM8FF6D7RHrmMZAfKjqNkr57n7ia5pBd2dWdiaDNxgpMnmuibNiclMnKw16D0aibWw71BMr99UQj0l6g/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
-<p>假如：iPhone11 上市了</p>
-<pre><code>sadd brand:apple iPhone11
-
-sadd brand:ios iPhone11
-
-sad screensize:6.0-6.24 iPhone11
-
-sad screentype:lcd iPhone 11</code></pre>
-<p>赛选商品，苹果的、ios的、屏幕在6.0-6.24之间的，屏幕材质是LCD屏幕</p>
-<pre><code>sinter brand:apple brand:ios screensize:6.0-6.24 screentype:lcd</code></pre>
-<h2 id="15、用户关注、推荐模型"><a href="#15、用户关注、推荐模型" class="headerlink" title="15、用户关注、推荐模型"></a>15、用户关注、推荐模型</h2><p>follow 关注 fans 粉丝</p>
-<p>相互关注：</p>
-<pre><code>sadd 1:follow 2
-sadd 2:fans 1
-sadd 1:fans 2
-sadd 2:follow 1</code></pre>
-<p>我关注的人也关注了他(取交集)：</p>
-<pre><code>sinter 1:follow 2:fans</code></pre>
-<p>可能认识的人：</p>
-<pre><code>用户1可能认识的人(差集)：sdiff 2:follow 1:follow
-用户2可能认识的人：sdiff 1:follow 2:follow</code></pre>
-<h2 id="16、排行榜"><a href="#16、排行榜" class="headerlink" title="16、排行榜"></a>16、排行榜</h2><p>id 为6001 的新闻点击数加1：zincrby hotNews:20190926 1 n6001</p>
-<p>另外，关注公众号Java技术栈，在后台回复：面试，可以获取我整理的 Redis 系列面试题和答案，非常齐全。</p>
-<p>获取今天点击最多的15条：zrevrange hotNews:20190926 0 15 withscores</p>
-<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39938758/article/details/105577370">https://blog.csdn.net/qq_39938758/article/details/105577370</a></p>
+                <h1 id="vi-vim-常用命令集合"><a href="#vi-vim-常用命令集合" class="headerlink" title="vi/vim 常用命令集合"></a>vi/vim 常用命令集合</h1><h2 id="设置tab设置为4个空格"><a href="#设置tab设置为4个空格" class="headerlink" title="设置tab设置为4个空格"></a>设置tab设置为4个空格</h2><pre class="line-numbers language-shell"><code class="language-shell">vim ~/.vimrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>内容如下:</p>
+<pre><code>#设定tab宽度为4个字符
+set tabstop=4
+#修改按 Tab 键的行为，不修改 tab 字符的显示宽度。具体行为跟 tabstop 选项值有关
+set softtabstop=4
+#设定自动缩进为4个字符
+set shiftwidth=4
+#用space替代tab的输入
+set expandtab</code></pre>
+<blockquote>
+<p>说明：</p>
+<p>其中 <code>tabstop</code> 表示一个 tab 显示出来是多少个空格的长度，默认 8。</p>
+<p><code>softtabstop</code> 表示在编辑模式的时候按退格键的时候退回缩进的长度，当使用 <code>expandtab</code> 时特别有用。</p>
+<p><code>shiftwidth</code> 表示每一级缩进的长度，一般设置成跟 <code>softtabstop</code> 一样。</p>
+<p>当设置成 <code>expandtab</code> 时，缩进用空格来表示，<code>noexpandtab</code> 则是用制表符表示一个缩进。</p>
+</blockquote>
+<h2 id="批量缩进"><a href="#批量缩进" class="headerlink" title="批量缩进"></a>批量缩进</h2><h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><p>ESC  进入命令模式</p>
+<p>缩进:</p>
+<pre><code>:2,9&gt;</code></pre>
+<blockquote>
+<p>格式        :行号1,行号2&gt;</p>
+</blockquote>
+<p>缩退:</p>
+<pre><code>:2,9&lt;</code></pre>
+<blockquote>
+<p> 格式        :行号1,行号2&lt;</p>
+</blockquote>
+<h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><ol>
+<li>操作为，esc从编辑模式退到命令模式，将光标移到需要缩进的行的行首，然后按shift+v，可以看到该行已被选中，且左下角提示为“可视”</li>
+<li>按键盘上的上下方向键，如这里按向下的箭头，选中所有需要批量缩进的行</li>
+<li>按shift+&gt;,是向前缩进一个tab值，按shift+&lt;，则是缩回一个tab值，</li>
+</ol>
+<h2 id="vi-vim-添加或删除多行注释"><a href="#vi-vim-添加或删除多行注释" class="headerlink" title="vi/vim 添加或删除多行注释"></a>vi/vim 添加或删除多行注释</h2><ol>
+<li><p>进入vi/vim编辑器，按CTRL+V进入可视化模式（VISUAL BLOCK）</p>
+<p> <a target="_blank" rel="noopener" href="http://jingyan.baidu.com/album/9c69d48f43ed6d13c8024e7b.html?picindex=1"><img src="https://imgsa.baidu.com/exp/w=500/sign=20add91cf403738dde4a0c22831ab073/622762d0f703918f39409b76533d269758eec4fd.jpg" alt="vi/vim如何添加或删除多行注释">
+</a></p>
+</li>
+<li><p>移动光标上移或者下移，选中多行的开头，如下图所示</p>
+<p><a target="_blank" rel="noopener" href="http://jingyan.baidu.com/album/9c69d48f43ed6d13c8024e7b.html?picindex=2"><img src="https://imgsa.baidu.com/exp/w=500/sign=237030407ed98d1076d40c31113eb807/ca1349540923dd545be301d4d309b3de9d8248fd.jpg" alt="vi/vim如何添加或删除多行注释"></a> </p>
+</li>
+<li><p>选择完毕后，按大写的的I键，此时下方会提示进入“insert”模式，输入你要插入的注释符，例如#，</p>
+<p><a target="_blank" rel="noopener" href="http://jingyan.baidu.com/album/9c69d48f43ed6d13c8024e7b.html?picindex=3"><img src="https://imgsa.baidu.com/exp/w=500/sign=ede70e9afffaaf5184e381bfbc5594ed/960a304e251f95caf234340acb177f3e6609524c.jpg" alt="vi/vim如何添加或删除多行注释"></a></p>
+</li>
+</ol>
+<ol start="4">
+<li><p>最后按ESC键，你就会发现多行代码已经被注释了</p>
+<p><a target="_blank" rel="noopener" href="http://jingyan.baidu.com/album/9c69d48f43ed6d13c8024e7b.html?picindex=4"><img src="https://imgsa.baidu.com/exp/w=500/sign=a17e42d4cebf6c81f7372ce88c3fb1d7/d53f8794a4c27d1eefe79d7819d5ad6edcc4384c.jpg" alt="vi/vim如何添加或删除多行注释"></a></p>
+</li>
+</ol>
+<ol start="5">
+<li>删除多行注释的方法，同样 Ctrl+v 进入列选择模式，移到光标把注释符选中，按下d，注释就被删除了。</li>
+</ol>
 
             </div>
             <hr/>
@@ -558,7 +489,7 @@ sadd 2:follow 1</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://chenguoo.github.io/2021/08/13/redis-16-da-ying-yong-chang-jing/">https://chenguoo.github.io/2021/08/13/redis-16-da-ying-yong-chang-jing/</a>
+                    <a href="https://chenguoo.github.io/2021/08/16/commond-vim/">https://chenguoo.github.io/2021/08/16/commond-vim/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -596,12 +527,8 @@ sadd 2:follow 1</code></pre>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/cache/">
-                                    <span class="chip bg-color">cache</span>
-                                </a>
-                            
-                                <a href="/tags/redis/">
-                                    <span class="chip bg-color">redis</span>
+                                <a href="/tags/vim/">
+                                    <span class="chip bg-color">vim</span>
                                 </a>
                             
                         </div>
@@ -643,9 +570,10 @@ sadd 2:follow 1</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/08/16/commond-vim/">
                     <div class="card-image">
@@ -667,9 +595,9 @@ set tabstop=4
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -682,6 +610,7 @@ set tabstop=4
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -700,62 +629,51 @@ set tabstop=4
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/07/20/mysql-yi-ji-shu-ju-fen-ye-de-you-hua/">
+                <a href="/2021/08/13/redis-16-da-ying-yong-chang-jing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="MySQL 亿级数据分页的优化">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Redis 16 大应用场景">
                         
-                        <span class="card-title">MySQL 亿级数据分页的优化</span>
+                        <span class="card-title">Redis 16 大应用场景</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            MySQL 亿级数据分页的优化
-背景
-
-分析
-
-数据模拟
-
-测试
-
-
-测试数据
-执行结果
-
-
-解决方案
-
-
-1、使用索引覆盖+子查询优化
-2、起始位置重定义
-3、降级策略
-
-
-小结
-
-
-
-背景下班后愉快的坐在在回家的地铁上，心里想着周末的生
+                            1、缓存String类型
+例如：热点数据缓存（例如报表、明星出轨），对象缓存、全页缓存、可以提升热点数据的访问数据。
+2、数据共享分布式String 类型，因为 Redis 是分布式的独立服务，可以在多个应用之间共享
+例如：分布式Sessi
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-13
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/mysql/" class="post-category">
-                                    mysql
+                            <a href="/categories/redis/" class="post-category">
+                                    redis
                                 </a>
                             
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/cache/">
+                        <span class="chip bg-color">cache</span>
+                    </a>
+                    
+                    <a href="/tags/redis/">
+                        <span class="chip bg-color">redis</span>
+                    </a>
+                    
                 </div>
                 
             </div>

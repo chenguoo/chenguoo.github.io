@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>vim commond</title>
+      <link href="2021/08/16/commond-vim/"/>
+      <url>2021/08/16/commond-vim/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vi-vim-常用命令集合"><a href="#vi-vim-常用命令集合" class="headerlink" title="vi/vim 常用命令集合"></a>vi/vim 常用命令集合</h1><h2 id="设置tab设置为4个空格"><a href="#设置tab设置为4个空格" class="headerlink" title="设置tab设置为4个空格"></a>设置tab设置为4个空格</h2><pre class="line-numbers language-shell"><code class="language-shell">vim ~/.vimrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>内容如下:</p><pre><code>#设定tab宽度为4个字符set tabstop=4#修改按 Tab 键的行为，不修改 tab 字符的显示宽度。具体行为跟 tabstop 选项值有关set softtabstop=4#设定自动缩进为4个字符set shiftwidth=4#用space替代tab的输入set expandtab</code></pre><blockquote><p>说明：</p><p>其中 <code>tabstop</code> 表示一个 tab 显示出来是多少个空格的长度，默认 8。</p><p><code>softtabstop</code> 表示在编辑模式的时候按退格键的时候退回缩进的长度，当使用 <code>expandtab</code> 时特别有用。</p><p><code>shiftwidth</code> 表示每一级缩进的长度，一般设置成跟 <code>softtabstop</code> 一样。</p><p>当设置成 <code>expandtab</code> 时，缩进用空格来表示，<code>noexpandtab</code> 则是用制表符表示一个缩进。</p></blockquote><h2 id="批量缩进"><a href="#批量缩进" class="headerlink" title="批量缩进"></a>批量缩进</h2><h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><p>ESC  进入命令模式</p><p>缩进:</p><pre><code>:2,9&gt;</code></pre><blockquote><p>格式        :行号1,行号2&gt;</p></blockquote><p>缩退:</p><pre><code>:2,9&lt;</code></pre><blockquote><p> 格式        :行号1,行号2&lt;</p></blockquote><h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><ol><li>操作为，esc从编辑模式退到命令模式，将光标移到需要缩进的行的行首，然后按shift+v，可以看到该行已被选中，且左下角提示为“可视”</li><li>按键盘上的上下方向键，如这里按向下的箭头，选中所有需要批量缩进的行</li><li>按shift+&gt;,是向前缩进一个tab值，按shift+&lt;，则是缩回一个tab值，</li></ol><h2 id="vi-vim-添加或删除多行注释"><a href="#vi-vim-添加或删除多行注释" class="headerlink" title="vi/vim 添加或删除多行注释"></a>vi/vim 添加或删除多行注释</h2><ol><li><p>进入vi/vim编辑器，按CTRL+V进入可视化模式（VISUAL BLOCK）</p><p> <a href="http://jingyan.baidu.com/album/9c69d48f43ed6d13c8024e7b.html?picindex=1"><img src="https://imgsa.baidu.com/exp/w=500/sign=20add91cf403738dde4a0c22831ab073/622762d0f703918f39409b76533d269758eec4fd.jpg" alt="vi/vim如何添加或删除多行注释"></a></p></li><li><p>移动光标上移或者下移，选中多行的开头，如下图所示</p><p><a href="http://jingyan.baidu.com/album/9c69d48f43ed6d13c8024e7b.html?picindex=2"><img src="https://imgsa.baidu.com/exp/w=500/sign=237030407ed98d1076d40c31113eb807/ca1349540923dd545be301d4d309b3de9d8248fd.jpg" alt="vi/vim如何添加或删除多行注释"></a> </p></li><li><p>选择完毕后，按大写的的I键，此时下方会提示进入“insert”模式，输入你要插入的注释符，例如#，</p><p><a href="http://jingyan.baidu.com/album/9c69d48f43ed6d13c8024e7b.html?picindex=3"><img src="https://imgsa.baidu.com/exp/w=500/sign=ede70e9afffaaf5184e381bfbc5594ed/960a304e251f95caf234340acb177f3e6609524c.jpg" alt="vi/vim如何添加或删除多行注释"></a></p></li></ol><ol start="4"><li><p>最后按ESC键，你就会发现多行代码已经被注释了</p><p><a href="http://jingyan.baidu.com/album/9c69d48f43ed6d13c8024e7b.html?picindex=4"><img src="https://imgsa.baidu.com/exp/w=500/sign=a17e42d4cebf6c81f7372ce88c3fb1d7/d53f8794a4c27d1eefe79d7819d5ad6edcc4384c.jpg" alt="vi/vim如何添加或删除多行注释"></a></p></li></ol><ol start="5"><li>删除多行注释的方法，同样 Ctrl+v 进入列选择模式，移到光标把注释符选中，按下d，注释就被删除了。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vim </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Redis 16 大应用场景</title>
       <link href="2021/08/13/redis-16-da-ying-yong-chang-jing/"/>
       <url>2021/08/13/redis-16-da-ying-yong-chang-jing/</url>
