@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>backup</title>
+      <link href="2021/10/22/backup/"/>
+      <url>2021/10/22/backup/</url>
+      
+        <content type="html"><![CDATA[<p> #!/bin/bash<br>#备份路径<br>BACKUP=/home/data/mysql/bak<br>#当前时间<br>DATETIME=$(date +%Y-%m-%d_%H%M%S)<br>echo “===备份开始===”<br>echo “备份文件存放于${BACKUP}/$DATETIME.tar.gz”<br>#数据库地址<br>HOST=localhost<br>#数据库用户名<br>DB_USER=root<br>#数据库密码<br>DB_PW=xxxx<br>#创建备份目录<br>[ ! -d “${BACKUP}/$DATETIME” ] &amp;&amp; mkdir -p “${BACKUP}/$DATETIME”</p><p>#后台系统数据库名称<br>DATABASE=mydb<br>mysqldump -u${DB_USER} -p${DB_PW} –host=$HOST -q -R –databases $DATABASE | gzip &gt; ${BACKUP}/$DATETIME/$DATABASE.sql.gz</p><p>#压缩成tar.gz包<br>cd $BACKUP<br>tar -zcvf $DATETIME.tar.gz $DATETIME<br>#删除备份目录<br>rm -rf ${BACKUP}/$DATETIME</p><p>#删除10天前备份的数据<br>find $BACKUP -mtime +7 -name “*.tar.gz” -exec rm -rf {} ;<br>echo “===备份成功===”</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Git 各种操作命令详细清单</title>
       <link href="2021/10/15/git-ge-chong-cao-zuo-ming-ling-xiang-xi-qing-dan/"/>
       <url>2021/10/15/git-ge-chong-cao-zuo-ming-ling-xiang-xi-qing-dan/</url>
